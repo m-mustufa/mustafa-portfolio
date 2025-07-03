@@ -74,7 +74,7 @@
       <!-- Scroll Arrow -->
       <div id="arrowContainer" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <a href="#services" class="inline-block">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24"
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24"
             stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
@@ -86,66 +86,316 @@
   </section>
 
   <!-- Services Section -->
-  <section class="py-20 px-6 bg-gray-800" id="services">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-semibold mb-12 text-primary">Services</h2>
+  <section class="py-20 px-6 bg-gray-900 bg-gradient-to-tr from-gray-900 via-gray-800 to-gray-900" id="services">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-5xl font-bold mb-12 text-primary tracking-tight">Services</h2>
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 text-left">
-        <div class="bg-gray-700 p-6 rounded shadow">
-          <h3 class="text-xl font-bold mb-2 text-white">Angular MVP Development</h3>
-          <p class="text-gray-300">Scalable Front-End apps using Angular, RxJS, and modular architecture. Perfect for
-            startups.</p>
+
+        <!-- 1. Angular MVP Development (Spin) -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-primary/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary svg-spin" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Angular MVP Development</h3>
+            <p class="text-gray-300">Scalable front-end apps using Angular, RxJS, and modular architecture. Perfect for
+              startups.</p>
+          </div>
         </div>
-        <div class="bg-gray-700 p-6 rounded shadow">
-          <h3 class="text-xl font-bold mb-2 text-white">Figma to Tailwind/Angular</h3>
-          <p class="text-gray-300">I convert your designs into clean, responsive code with full component support.</p>
+
+        <!-- 2. Rotate -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-pink-500/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pink-500 svg-rotate" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-width="2"
+                d="M15.232 5.232l3.536 3.536M9 11l4-4a3 3 0 014.243 4.243l-7.242 7.243a4 4 0 11-5.657-5.657l7.242-7.243A6 6 0 1120 8.414" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Figma to Tailwind/Angular</h3>
+            <p class="text-gray-300">Convert Figma/Adobe XD designs into clean, responsive code with full component
+              support.</p>
+          </div>
         </div>
-        <div class="bg-gray-700 p-6 rounded shadow">
-          <h3 class="text-xl font-bold mb-2 text-white">Shopify & WordPress UI Fixes</h3>
-          <p class="text-gray-300">Custom theme tweaks, layout fixes, speed improvements, and responsive adjustments.
-          </p>
+
+        <!-- 3. Scale -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-green-400/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-500 svg-scale" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <circle cx="8" cy="21" r="1" />
+              <circle cx="19" cy="21" r="1" />
+              <path d="M2 2h2l.4 2M7 13h10l4-8H5.4" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Shopify & WordPress Development</h3>
+            <p class="text-gray-300">Custom theme tweaks, layout fixes, speed improvements, and responsive adjustments.
+            </p>
+          </div>
         </div>
-        <div class="bg-gray-700 p-6 rounded shadow">
-          <h3 class="text-xl font-bold mb-2 text-white">Front-End Debug & Optimization</h3>
-          <p class="text-gray-300">Fix broken UI, layout bugs, unused CSS, and improve performance scores.</p>
+
+        <!-- 4. Fade -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-yellow-400/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-yellow-400 svg-fade" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                d="M22.7 19.3a1 1 0 00-1.4 0l-2.3 2.3-3-3a8.012 8.012 0 01-9.14-1.39A8 8 0 0115 5c.37 0 .72.09 1.06.23l2.25-2.26a1 1 0 111.42 1.42L17.48 6.7A8.012 8.012 0 0120 15.3l2.3 2.3a1 1 0 010 1.4z" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Front-End Debug & Optimization</h3>
+            <p class="text-gray-300">Fix broken UI, layout bugs, remove unused CSS, and improve performance scores.</p>
+          </div>
         </div>
-        <div class="bg-gray-700 p-6 rounded shadow">
-          <h3 class="text-xl font-bold mb-2 text-white">Bubble + Code Hybrid Builds</h3>
-          <p class="text-gray-300">Use Bubble for backend + coded Front-End for performance and flexibility. Best of
-            both
-            worlds.</p>
+
+        <!-- 5. Jump -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-blue-400/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-500 svg-jump" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <polygon points="12 2 2 7 12 12 22 7 12 2" />
+              <polyline points="2 17 12 22 22 17" />
+              <polyline points="2 12 12 17 22 12" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Bubble + Code Hybrid Builds</h3>
+            <p class="text-gray-300">Use Bubble for backend + coded front-end for performance and flexibility. Best of
+              both worlds.</p>
+          </div>
         </div>
-        <div class="bg-gray-700 p-6 rounded shadow">
-          <h3 class="text-xl font-bold mb-2 text-white">AI & SaaS Landing Pages</h3>
-          <p class="text-gray-300">Clean, conversion-focused pages for tools, launches, and AI projects using Tailwind
-            or Angular.</p>
+
+        <!-- 6. Wiggle -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-indigo-400/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-400 svg-wiggle" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <rect width="20" height="14" x="2" y="7" rx="2" />
+              <path d="M12 7V3" />
+              <path d="M8 3h8" />
+              <circle cx="8" cy="14" r="2" />
+              <circle cx="16" cy="14" r="2" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">AI & SaaS Landing Pages</h3>
+            <p class="text-gray-300">Clean, conversion-focused pages for tools, launches, and AI projects using Tailwind
+              or Angular.</p>
+          </div>
         </div>
+
+        <!-- 7. SEO & Core Web Vitals (HeartBeat/Pulse) -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-cyan-400/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-cyan-400 svg-heartbeat" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+              <polyline points="17 6 23 6 23 12" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">SEO & Core Web Vitals</h3>
+            <p class="text-gray-300">Improve SEO scores, fix accessibility, and optimize for Google’s Core Web Vitals.
+            </p>
+          </div>
+        </div>
+
+
+        <!-- 8. Flip -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-fuchsia-400/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-fuchsia-500 svg-flip" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Custom JS Integrations</h3>
+            <p class="text-gray-300">Integrate APIs, analytics, chatbots, and custom scripts for smarter user
+              experiences.</p>
+          </div>
+        </div>
+
+        <!-- 9. Breath (brighten) -->
+        <div
+          class="group bg-white/5 backdrop-blur-md px-2 py-4 rounded-2xl shadow-lg border border-gray-700 flex items-start gap-3 transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <span class="flex-shrink-0 bg-orange-400/10 rounded-full p-2 mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-orange-400 svg-breath" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <rect x="5" y="2" width="14" height="20" rx="2" />
+              <line x1="12" y1="18" x2="12" y2="18" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-lg font-bold text-white mb-1">Mobile-First Responsive UI</h3>
+            <p class="text-gray-300">Pixel-perfect responsive layouts for every device, tested across all browsers.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-4 mt-10">
+        <a href="#contact"
+          class="px-6 py-3 text-xl border border-primary text-primary rounded hover:bg-[#0d5968] hover:text-white">Hire
+          me!</a>
       </div>
     </div>
   </section>
 
-  <!-- Portfolio Section -->
-  <section class="py-20 px-6 bg-gray-900" id="portfolio">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-semibold mb-12 text-primary">Portfolio</h2>
-      <div class="grid gap-8 md:grid-cols-2">
-        <div class="bg-gray-800 p-4 rounded shadow">
-          <img src="https://via.placeholder.com/600x300" alt="Project 1" class="rounded mb-4" />
-          <h3 class="font-bold text-lg text-white mb-1">AI SaaS Landing Page</h3>
-          <p class="text-sm text-gray-400">Tailwind + HTML — Built and delivered in 12 hours.</p>
+  <section class="py-20 px-6 bg-gray-900 bg-gradient-to-tr from-gray-900 via-gray-800 to-gray-900" id="portfolio">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-primary tracking-tight text-center">Related Projects</h2>
+      <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Portfolio Card 1 -->
+        <div
+          class="group relative bg-white/5 p-6 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:scale-105 hover:shadow-[0_0_24px_#00C19D99] hover:border-[#00C19D] overflow-hidden">
+
+          <!-- Floating code icon (animated on hover) -->
+          <span
+            class="portfolio-float-icon absolute z-20 bg-[#00C19D]/80 text-white p-2 rounded-full shadow-lg border-2 border-white flex items-center justify-center">
+            <!-- SVG code brackets -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M16 18l6-6-6-6" />
+              <path d="M8 6l-6 6 6 6" />
+            </svg>
+          </span>
+
+          <img src="assets/demo/autoleap-cartoon-collage.png" alt="AutoLeap SaaS Dashboard"
+            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700 portfolio-img-animate transition">
+
+          <!-- Progress Bar: Pre-Launch -->
+          <!-- <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+            <span class="bg-[#00C19D] h-2 w-16 rounded-full"></span>
+            <span>Pre-Launch</span>
+          </div> -->
+
+          <!-- Tech badges -->
+          <div class="flex flex-wrap gap-2 mb-2">
+            <span class="bg-[#00C19D]/20 text-[#00C19D] text-xs px-2 py-1 rounded">Angular 15</span>
+            <span class="bg-blue-500/20 text-blue-500 text-xs px-2 py-1 rounded">RxJS</span>
+            <span class="bg-purple-500/20 text-purple-500 text-xs px-2 py-1 rounded">NgRx</span>
+            <span class="bg-gray-500/20 text-gray-400 text-xs px-2 py-1 rounded">Bootstrap 4</span>
+            <span class="bg-green-500/20 text-green-500 text-xs px-2 py-1 rounded">PrimeNG</span>
+            <span class="bg-yellow-500/20 text-yellow-500 text-xs px-2 py-1 rounded">Highcharts</span>
+          </div>
+
+          <!-- Impact badge -->
+          <span class="inline-block bg-emerald-400/20 text-emerald-700 text-xs px-2 py-1 rounded mb-2 font-medium">
+            Kanban 2.0 Lead
+          </span>
+
+          <h3 class="text-lg font-bold text-white mb-1">AutoLeap Shop Management</h3>
+          <p class="text-gray-300 text-sm mb-2">
+            Sr. Web Engineer. Built Kanban, appointment, and order modules using Angular 15, RxJS, NgRx, Bootstrap 4,
+            PrimeNG, and Highcharts to deliver robust, scalable features in collaboration with the back-end team. Led
+            the Kanban 2.0 revamp (pre-launch).
+          </p>
+          <a href="https://autoleap.com" target="_blank"
+            class="text-primary text-sm hover:underline font-medium rounded py-1 inline-block">
+            Company Website
+          </a>
         </div>
-        <div class="bg-gray-800 p-4 rounded shadow">
-          <img src="https://via.placeholder.com/600x300" alt="Project 2" class="rounded mb-4" />
-          <h3 class="font-bold text-lg text-white mb-1">Custom Shopify Theme</h3>
-          <p class="text-sm text-gray-400">Liquid + SCSS, optimized for mobile and conversions.</p>
+
+
+        <!-- Portfolio Card 2 -->
+        <div
+          class="bg-white/5 p-6 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <img src="assets/projects/figma-tailwind.png" alt="Figma to Tailwind"
+            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+          <div class="mb-2 flex items-center gap-2">
+            <span class="text-xs px-3 py-1 rounded-full bg-pink-500/20 text-pink-500 font-semibold">Figma to
+              Tailwind</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">Startup Landing Page</h3>
+          <p class="text-gray-300 text-sm mb-2">Converted Figma designs to fully responsive, pixel-perfect Tailwind site
+            for an EdTech startup.</p>
+          <a href="#" class="text-primary text-sm hover:underline font-medium">Case Study</a>
         </div>
+
+        <!-- Portfolio Card 3 -->
+        <div
+          class="bg-white/5 p-6 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <img src="assets/projects/shopify-wordpress.png" alt="Shopify WordPress"
+            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+          <div class="mb-2 flex items-center gap-2">
+            <span
+              class="text-xs px-3 py-1 rounded-full bg-green-400/20 text-green-500 font-semibold">Shopify/WordPress</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">E-commerce Revamp</h3>
+          <p class="text-gray-300 text-sm mb-2">Theme tweaks, performance fixes, and responsive layout for a D2C brand
+            on Shopify & WordPress.</p>
+          <a href="#" class="text-primary text-sm hover:underline font-medium">See Live</a>
+        </div>
+
+        <!-- Portfolio Card 4 -->
+        <div
+          class="bg-white/5 p-6 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <img src="assets/projects/frontend-debug.png" alt="Front-End Debug"
+            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+          <div class="mb-2 flex items-center gap-2">
+            <span class="text-xs px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-500 font-semibold">UI
+              Optimization</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">SaaS Dashboard Rescue</h3>
+          <p class="text-gray-300 text-sm mb-2">Refactored UI, fixed bugs, and boosted Lighthouse scores for a complex
+            analytics platform.</p>
+          <a href="#" class="text-primary text-sm hover:underline font-medium">Read More</a>
+        </div>
+
+        <!-- Portfolio Card 5 -->
+        <div
+          class="bg-white/5 p-6 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <img src="assets/projects/bubble-hybrid.png" alt="Bubble Hybrid"
+            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+          <div class="mb-2 flex items-center gap-2">
+            <span class="text-xs px-3 py-1 rounded-full bg-blue-400/20 text-blue-500 font-semibold">Bubble Hybrid</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">CRM Hybrid Build</h3>
+          <p class="text-gray-300 text-sm mb-2">Bubble for admin, custom Angular front-end for fast public portal and
+            integrations.</p>
+          <a href="#" class="text-primary text-sm hover:underline font-medium">View Case Study</a>
+        </div>
+
+        <!-- Portfolio Card 6 -->
+        <div
+          class="bg-white/5 p-6 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:-translate-y-2 hover:shadow-2xl duration-300">
+          <img src="assets/projects/ai-landing.png" alt="AI SaaS Landing"
+            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+          <div class="mb-2 flex items-center gap-2">
+            <span class="text-xs px-3 py-1 rounded-full bg-indigo-400/20 text-indigo-500 font-semibold">AI Landing
+              Page</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-1">AI Startup Launch</h3>
+          <p class="text-gray-300 text-sm mb-2">High-conversion page for SaaS launch with animation, scroll FX, and
+            seamless lead capture.</p>
+          <a href="#" class="text-primary text-sm hover:underline font-medium">See Demo</a>
+        </div>
+
       </div>
     </div>
   </section>
+
 
   <!-- About Section -->
   <section class="py-20 px-6 bg-gray-800" id="about">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-semibold text-center mb-12 text-primary">Why Work With Me & Kodlers?</h2>
+      <h2 class="text-5xl font-bold mb-12 text-primary tracking-tight">Why Work With Me?</h2>
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-gray-900 p-6 rounded shadow">
           <h3 class="text-xl font-bold mb-2 text-white">Mustafa</h3>
@@ -172,7 +422,7 @@
   <!-- Testimonials Section -->
   <section class="py-20 px-6 bg-gray-900" id="testimonials">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-semibold mb-12 text-primary">Client Testimonials</h2>
+      <h2 class="text-5xl font-bold mb-12 text-primary tracking-tight">Client Testimonials</h2>
       <div class="space-y-6">
         <div class="bg-gray-800 p-6 rounded shadow">
           <p class="italic text-gray-300 mb-2">"Clean, structured Angular code. Delivered before deadline. Would
@@ -191,7 +441,7 @@
   <!-- Contact Section -->
   <section class="py-20 px-6 bg-gray-800" id="contact">
     <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl font-semibold mb-4 text-primary">Let's Work Together</h2>
+      <h2 class="text-5xl font-bold mb-12 text-primary tracking-tight">Let's Work Together</h2>
       <p class="mb-6 text-gray-300">Drop me a quick message or email me at <a href="mailto:hello@kodlers.com"
           class="text-primary underline">hello@kodlers.com</a></p>
       <form class="bg-gray-900 p-6 rounded shadow space-y-4">
@@ -208,7 +458,7 @@
 
   <!-- Footer -->
   <footer class="text-center py-6 text-sm text-gray-500 bg-gray-900">
-    &copy; 2025 Mustafa – Kodlers LLC, UAE
+    &copy; 2025 Mustafa - Kodlers LLC, UAE
   </footer>
 
 </body>

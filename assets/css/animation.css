@@ -50,3 +50,64 @@
         opacity: 1;
     }
 }
+
+/* Paste this in your <style> section or main CSS file */
+@keyframes bounce-in {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.group-hover\:animate-bounce-in:hover svg,
+.group:hover .group-hover\:animate-bounce-in svg {
+    animation: bounce-in 0.5s;
+}
+
+@keyframes heartBeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    20%,
+    60% {
+        transform: scale(1.15);
+    }
+
+    40%,
+    80% {
+        transform: scale(0.92);
+    }
+}
+
+.svg-heartbeat {
+    transition: none;
+}
+
+.group:hover .svg-heartbeat {
+    animation: heartBeat 0.7s 1;
+}
+
+/* Add to your style block */
+.group:hover .portfolio-img-animate {
+    animation: pulse-img 1.2s ease-in-out 1;
+}
+
+@keyframes pulse-img {
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.22) saturate(1.2);
+    }
+}

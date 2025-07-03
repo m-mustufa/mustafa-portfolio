@@ -76,3 +76,127 @@
     background-attachment: fixed;
     background-size: cover;
 }
+
+/* Unique animations for each SVG icon */
+.svg-spin {
+    transition: transform 0.7s cubic-bezier(.4, 2, .6, 1);
+}
+
+.group:hover .svg-spin {
+    transform: rotate(360deg);
+}
+
+
+.group:hover .svg-bounce {
+    transform: translateY(-8px);
+}
+
+.svg-rotate {
+    transition: transform 0.5s cubic-bezier(.4, 2, .6, 1);
+}
+
+.group:hover .svg-rotate {
+    transform: rotate(45deg);
+}
+
+.svg-scale {
+    transition: transform 0.4s cubic-bezier(.4, 2, .6, 1);
+}
+
+.group:hover .svg-scale {
+    transform: scale(1.2);
+}
+
+.svg-fade {
+    transition: opacity 0.4s cubic-bezier(.4, 2, .6, 1);
+}
+
+.group:hover .svg-fade {
+    opacity: 0.6;
+}
+
+.svg-jump {
+    transition: transform 0.5s cubic-bezier(.6, -0.28, .74, .05);
+}
+
+.group:hover .svg-jump {
+    transform: translateY(-14px) scale(1.15);
+}
+
+.svg-wiggle {
+    transition: transform 0.2s;
+}
+
+.group:hover .svg-wiggle {
+    transform: rotate(-12deg);
+}
+
+.svg-drop {
+    transition: transform 0.35s cubic-bezier(.4, 2, .6, 1);
+}
+
+.group:hover .svg-drop {
+    transform: translateY(10px) scale(0.9);
+}
+
+.svg-flip {
+    transition: transform 0.4s;
+}
+
+.group:hover .svg-flip {
+    transform: scaleX(-1);
+}
+
+.svg-breath {
+    transition: filter 0.4s;
+}
+
+.group:hover .svg-breath {
+    filter: brightness(1.7);
+}
+
+#services h3.text-lg {
+    font-size: 1.1rem;
+}
+
+.bg-white\/20 {
+    background-color: rgba(255, 255, 255, 0.20);
+}
+
+.bg-black\/30 {
+    background-color: rgba(0, 0, 0, 0.30);
+}
+
+/* Card glow + floating icon animation */
+.group:hover .portfolio-float-icon {
+  transform: translateY(-8px) scale(1.12) rotate(-8deg);
+  filter: drop-shadow(0 0 12px #00C19D77);
+}
+.portfolio-float-icon {
+  transition: all 0.35s cubic-bezier(.4,2,.6,1);
+  right: 1.5rem;
+  top: 1.5rem;
+}
+
+/* Shimmer effect for the button */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-link {
+  background: linear-gradient(90deg, #00C19D22 25%, #00C19D66 50%, #00C19D22 75%);
+  background-size: 200% 100%;
+  transition: background 0.2s;
+}
+.group:hover .shimmer-link {
+  animation: shimmer 1.2s linear 1;
+}
+
+/* Portfolio image pulse on hover */
+.group:hover .portfolio-img-animate {
+  animation: pulse-img 1.2s ease-in-out 1;
+}
+@keyframes pulse-img {
+  0%, 100% { filter: brightness(1);}
+  50% { filter: brightness(1.22) saturate(1.18);}
+}
