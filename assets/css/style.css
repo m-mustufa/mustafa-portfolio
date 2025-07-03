@@ -1,0 +1,78 @@
+@import url(animation.css);
+
+:root {
+    --color-primary: #106473;
+}
+
+.fixed-height-header {
+    transition: 0.3s ease all;
+}
+
+.fixed-height-header.active .logo-img-class {
+    width: 40px;
+}
+
+.fixed-height-header.active .py-3 {
+    padding-bottom: 6px;
+    padding-top: 6px;
+}
+
+.fixed-height-header.active .speech-bubble {
+    left: 3.5rem;
+}
+
+.logo-img-class {
+    width: 100px;
+    height: auto;
+    transition: 0.3s ease all;
+}
+
+.animate-talk {
+    animation: talk 0.6s ease-in-out infinite;
+}
+
+/* Speech bubble styling */
+.speech-bubble {
+    animation: fadeInOut 4s ease-in-out infinite;
+    transform-origin: left center;
+    transition: 0.3s ease all;
+}
+
+.speech-bubble {
+    width: 74px;
+    left: 6.5rem;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.typewriter-text {
+    display: inline-block;
+    border-right: 2px solid #0e616f;
+    animation: typing 5s steps(40, end) 1s infinite alternate, blink 0.75s step-end infinite;
+    width: 0;
+}
+
+
+#typewriter::after {
+    content: '|';
+    animation: blink 0.8s infinite;
+    font-weight: normal;
+    position: relative;
+    top: -4px;
+}
+
+.kodlers {
+    background: url(../img/kod-logo.png) no-repeat 0 0 / contain;
+    padding: 0px 47px;
+}
+
+.main-text {
+    line-height: 1.9;
+}
+
+.custom-gradiant {
+    background-color: #1F2937;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg %3E%3Ccircle fill='%231F2937' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%23202a39' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%23212c3b' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%23222d3c' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%23232f3e' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%23243040' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+}
