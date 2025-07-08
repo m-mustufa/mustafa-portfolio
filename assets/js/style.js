@@ -50,4 +50,19 @@ window.onload = function () {
       header.classList.remove("bg-gray-900", "shadow-lg", "active");
     }
   });
+
+  new Swiper(".testimonials-swiper", {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    loop: true,
+    autoplay: { delay: 6000, disableOnInteraction: true },
+    breakpoints: {
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 4 },
+    },
+  });
 };
