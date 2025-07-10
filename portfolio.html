@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/logo-2.png" sizes="48x48" />
+    <link rel="icon"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23095e6c"/><text x="50" y="67" font-size="64" fill="white" font-family="Arial, sans-serif" text-anchor="middle" alignment-baseline="middle">M</text></svg>'>
+    <title>Portfolio Gallery | Mustafa - Angular, Shopify, SaaS & UI</title>
+    <meta name="description"
+        content="Explore the portfolio gallery of Muhammad Mustafa – Angular, Shopify, SaaS dashboards, logos, and custom UI/UX projects. Browse top web builds, brands, and creative solutions.">
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Mustafa | Portfolio Gallery - Angular, Shopify, SaaS, UI">
+    <meta property="og:description"
+        content="Browse Muhammad Mustafa’s portfolio gallery – modern Angular apps, Shopify stores, SaaS dashboards, and more.">
+    <meta property="og:image" content="https://mustcode.netlify.app/assets/img/logo-2.png">
+    <meta property="og:url" content="https://mustcode.netlify.app/portfolio.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Portfolio Gallery | Mustafa - Angular, Shopify, SaaS, UI">
+    <meta name="twitter:description" content="Modern web projects and creative builds by Muhammad Mustafa.">
+    <meta name="twitter:image" content="https://mustcode.netlify.app/assets/logo-2.png">
+    <meta name="theme-color" content="#00C19D" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Alpine.js for interactivity -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 fixed-height-header">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2 relative group">
+                <img loading="lazy" src="assets/img/logo-2.png" alt="Logo" class="logo-img-class animate-talk" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <nav class="hidden md:flex gap-8 text-lg font-semibold">
+                <a href="/" class="hover:text-primary transition">Home</a>
+                <a href="#portfolio" class="text-primary">Portfolio</a>
+                <a href="#contact" class="hover:text-primary transition">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Portfolio Section -->
+    <main class="pt-32 pb-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-primary text-center">Portfolio Gallery</h1>
+            <p class="text-center text-gray-300 mb-10 max-w-3xl mx-auto">
+                A curated selection of my top projects—websites, apps, dashboards, branding, and creative builds.<br>
+                <span class="text-primary">Filter by type to explore web, SaaS, logos, and more!</span>
+            </p>
+
+            <!-- Filter Buttons (Alpine.js) -->
+            <div x-data="{ filter: 'All' }">
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <button @click="filter = 'All'"
+                        :class="filter === 'All' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
+                        class="px-5 py-2 rounded-full font-medium shadow transition">
+                        All
+                    </button>
+                    <button @click="filter = 'Web'"
+                        :class="filter === 'Web' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
+                        class="px-5 py-2 rounded-full font-medium shadow transition">
+                        Websites
+                    </button>
+                    <button @click="filter = 'SaaS'"
+                        :class="filter === 'SaaS' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
+                        class="px-5 py-2 rounded-full font-medium shadow transition">
+                        SaaS
+                    </button>
+                    <button @click="filter = 'Logos'"
+                        :class="filter === 'Logos' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
+                        class="px-5 py-2 rounded-full font-medium shadow transition">
+                        Logos
+                    </button>
+                    <button @click="filter = 'UI'"
+                        :class="filter === 'UI' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
+                        class="px-5 py-2 rounded-full font-medium shadow transition">
+                        UI/UX
+                    </button>
+                </div>
+
+                <!-- Portfolio Grid -->
+                <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Example Card 1 -->
+                    <div x-show="filter === 'All' || filter === 'Web' || filter === 'SaaS'"
+                        class="group bg-gray-900/80 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:scale-105 hover:shadow-[0_0_24px_#00C19D99] hover:border-[#00C19D]">
+                        <img src="assets/portfolio/saas-dashboard.png" alt="SaaS Dashboard"
+                            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700 portfolio-img-animate transition">
+                        <h3 class="text-lg font-bold text-white mb-1">AutoLeap SaaS Dashboard</h3>
+                        <p class="text-gray-300 text-sm mb-2">Shop management dashboard built with Angular, RxJS,
+                            PrimeNG. Includes Kanban, analytics, and real-time notifications.</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-primary/20 text-primary text-xs px-2 py-1 rounded">Angular</span>
+                            <span class="bg-blue-400/20 text-blue-500 text-xs px-2 py-1 rounded">SaaS</span>
+                            <span class="bg-fuchsia-400/20 text-fuchsia-500 text-xs px-2 py-1 rounded">UI/UX</span>
+                        </div>
+                        <a href="case-study.html" class="text-primary text-sm hover:underline font-medium">View Case
+                            Study</a>
+                    </div>
+
+                    <!-- Example Card 2 -->
+                    <div x-show="filter === 'All' || filter === 'Web' || filter === 'Logos'"
+                        class="group bg-gray-900/80 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:scale-105 hover:shadow-[0_0_24px_#FFD70099] hover:border-[#FFD700]">
+                        <img src="assets/portfolio/branding-logo.png" alt="Branding Logo"
+                            class="rounded-lg mb-4 aspect-square object-contain bg-gray-800">
+                        <h3 class="text-lg font-bold text-white mb-1">CultureLink Logo</h3>
+                        <p class="text-gray-300 text-sm mb-2">Minimalist logo & branding for AI SaaS. Focused on
+                            connection and culture.</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-yellow-400/20 text-yellow-500 text-xs px-2 py-1 rounded">Logo</span>
+                            <span class="bg-blue-500/20 text-blue-500 text-xs px-2 py-1 rounded">Branding</span>
+                        </div>
+                        <a href="assets/portfolio/branding-logo.png" target="_blank"
+                            class="text-primary text-sm hover:underline font-medium">View Full</a>
+                    </div>
+
+                    <!-- Example Card 3 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group bg-gray-900/80 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:scale-105 hover:shadow-[0_0_24px_#5F7FFF99] hover:border-[#5F7FFF]">
+                        <img src="assets/portfolio/startstorez.png" alt="StartStorez"
+                            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+                        <h3 class="text-lg font-bold text-white mb-1">StartStorez v2 – AI Shopify</h3>
+                        <p class="text-gray-300 text-sm mb-2">Automated Shopify dropshipping store builder. Themes,
+                            styling, and products—all setup in one click.</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-[#00b3a4]/20 text-[#00b3a4] text-xs px-2 py-1 rounded">Shopify</span>
+                            <span class="bg-emerald-400/20 text-emerald-500 text-xs px-2 py-1 rounded">AI</span>
+                            <span class="bg-orange-400/20 text-orange-400 text-xs px-2 py-1 rounded">Automation</span>
+                        </div>
+                        <a href="case-study-startstorez.html"
+                            class="text-primary text-sm hover:underline font-medium">View Case Study</a>
+                    </div>
+
+                    <!-- Example Card 4 -->
+                    <div x-show="filter === 'All' || filter === 'UI'"
+                        class="group bg-gray-900/80 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:scale-105 hover:shadow-[0_0_24px_#A259FF99] hover:border-[#A259FF]">
+                        <img src="assets/portfolio/ai-saas-landing.png" alt="AI SaaS Landing"
+                            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+                        <h3 class="text-lg font-bold text-white mb-1">AI SaaS Landing Page</h3>
+                        <p class="text-gray-300 text-sm mb-2">Animated, conversion-optimized landing page for AI
+                            startup. Built with Tailwind and modern JS.</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-fuchsia-500/20 text-fuchsia-500 text-xs px-2 py-1 rounded">UI/UX</span>
+                            <span class="bg-teal-400/20 text-teal-500 text-xs px-2 py-1 rounded">Tailwind</span>
+                            <span class="bg-blue-400/20 text-blue-500 text-xs px-2 py-1 rounded">Animation</span>
+                        </div>
+                        <a href="https://tailstudio.netlify.app/"
+                            class="text-primary text-sm hover:underline font-medium" target="_blank">Live Demo</a>
+                    </div>
+
+                    <!-- Example Card 5 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group bg-gray-900/80 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:scale-105 hover:shadow-[0_0_24px_#00C19D99] hover:border-[#00C19D]">
+                        <img src="assets/portfolio/wordpress-shopify.png" alt="Shopify WordPress"
+                            class="rounded-lg mb-4 aspect-video object-cover bg-gray-700">
+                        <h3 class="text-lg font-bold text-white mb-1">E-Commerce Revamp</h3>
+                        <p class="text-gray-300 text-sm mb-2">Custom Shopify & WordPress themes for D2C brands and
+                            global startups. Migrations, speed, and integrations.</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-green-400/20 text-green-500 text-xs px-2 py-1 rounded">Shopify</span>
+                            <span class="bg-blue-500/20 text-blue-500 text-xs px-2 py-1 rounded">WordPress</span>
+                            <span class="bg-pink-500/20 text-pink-500 text-xs px-2 py-1 rounded">Theme Dev</span>
+                        </div>
+                        <a href="case-study-ecommerce.html" class="text-primary text-sm hover:underline font-medium">See
+                            Portfolio</a>
+                    </div>
+
+                    <!-- Example Card 6 -->
+                    <div x-show="filter === 'All' || filter === 'Logos'"
+                        class="group bg-gray-900/80 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col transition hover:scale-105 hover:shadow-[0_0_24px_#FFD70099] hover:border-[#FFD700]">
+                        <img src="assets/portfolio/logo-ss.png" alt="StartStorez Logo"
+                            class="rounded-lg mb-4 aspect-square object-contain bg-gray-800">
+                        <h3 class="text-lg font-bold text-white mb-1">StartStorez Logo</h3>
+                        <p class="text-gray-300 text-sm mb-2">Fun, modern branding for an AI-powered dropshipping
+                            startup.</p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="bg-yellow-400/20 text-yellow-500 text-xs px-2 py-1 rounded">Logo</span>
+                            <span class="bg-indigo-500/20 text-indigo-500 text-xs px-2 py-1 rounded">Brand</span>
+                        </div>
+                        <a href="assets/portfolio/logo-ss.png" target="_blank"
+                            class="text-primary text-sm hover:underline font-medium">View Full</a>
+                    </div>
+                </div>
+
+                <!-- No results message (optional) -->
+                <template x-if="
+          !(
+            filter === 'All' ||
+            (filter === 'Web' && document.querySelectorAll('[x-show~=\" Web\"]:not([style*=\"display:
+                    none\"])').length) || (filter==='SaaS' &&
+                    document.querySelectorAll('[x-show~=\"SaaS\"]:not([style*=\"display: none\"])').length) ||
+                    (filter==='Logos' && document.querySelectorAll('[x-show~=\"Logos\"]:not([style*=\"display:
+                    none\"])').length) || (filter==='UI' &&
+                    document.querySelectorAll('[x-show~=\"UI\"]:not([style*=\"display: none\"])').length) ) ">
+          <div class=" text-center text-gray-400 py-16 col-span-full">No projects found for this filter.
+            </div>
+            </template>
+        </div>
+        </div>
+    </main>
+
+    <footer class="py-10 mt-16 border-t border-gray-700/30 text-center text-gray-500 text-sm bg-transparent">
+        &copy; 2025 Muhammad Mustafa. Built with ❤️ and lots of Angular/Tailwind.
+    </footer>
+
+    
+    <script>
+        window.onload = function () {
+            const header = document.querySelector("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 20) {
+                    header.classList.add("bg-gray-900", "shadow-lg", "active");
+                } else {
+                    header.classList.remove("bg-gray-900", "shadow-lg", "active");
+                }
+            });
+        };
+
+    </script>
+</body>
+</html>
