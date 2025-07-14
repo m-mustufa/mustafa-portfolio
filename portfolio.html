@@ -47,7 +47,7 @@
             <nav class="hidden md:flex gap-8 text-lg font-semibold">
                 <a href="/" class="hover:text-primary transition">Home</a>
                 <a href="#portfolio" class="text-primary">Portfolio</a>
-                <a href="#contact" class="hover:text-primary transition">Contact</a>
+                <a href="index.html/#contact" class="hover:text-primary transition">Contact</a>
             </nav>
         </div>
     </header>
@@ -69,25 +69,25 @@
                         class="px-5 py-2 rounded-full font-medium shadow transition">
                         All
                     </button>
-                    <button @click="filter = 'Web'"
-                        :class="filter === 'Web' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
-                        class="px-5 py-2 rounded-full font-medium shadow transition">
-                        Websites
-                    </button>
                     <button @click="filter = 'SaaS'"
                         :class="filter === 'SaaS' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
                         class="px-5 py-2 rounded-full font-medium shadow transition">
                         SaaS
                     </button>
-                    <button @click="filter = 'Logos'"
-                        :class="filter === 'Logos' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
-                        class="px-5 py-2 rounded-full font-medium shadow transition">
-                        Logos
-                    </button>
                     <button @click="filter = 'UI'"
                         :class="filter === 'UI' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
                         class="px-5 py-2 rounded-full font-medium shadow transition">
                         UI/UX
+                    </button>
+                    <button @click="filter = 'Web'"
+                        :class="filter === 'Web' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
+                        class="px-5 py-2 rounded-full font-medium shadow transition">
+                        Websites
+                    </button>
+                    <button @click="filter = 'Logos'"
+                        :class="filter === 'Logos' ? 'bg-primary text-white' : 'bg-gray-800 text-gray-300 hover:bg-primary/80 hover:text-white'"
+                        class="px-5 py-2 rounded-full font-medium shadow transition">
+                        Logos
                     </button>
                 </div>
 
@@ -177,9 +177,9 @@
                     </div>
 
                     <!-- Example Card 5 -->
-                    <div x-show="filter === 'All' || filter === 'Web'"
+                    <div x-show="filter === 'All' || filter === 'UI' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-evo-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-evo-1.jpg" alt="AI Store Screenshot"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -255,6 +255,54 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Example Card 10 -->
+                    <div x-show="filter === 'All' || filter === 'UI'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <img src="assets/img/portfolio/laptop-ts-1.png" alt="AI Store Screenshot"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-primary mb-2">TailStudio</h3>
+                                <a href="https://tailstudio.netlify.app/" target="_blank"
+                                    class="inline-block px-4 py-2 rounded bg-primary text-white font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 11 -->
+                    <div x-show="filter === 'All' || filter === 'SaaS'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <img src="assets/img/portfolio/laptop-al-1.jpg" alt="AI Store Screenshot"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-primary mb-2">AutoLeap</h3>
+                                <a href="https://app.myautoleap.com/" target="_blank"
+                                    class="inline-block px-4 py-2 rounded bg-primary text-white font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 12 -->
+                    <div x-show="filter === 'All' || filter === 'UI' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <img src="assets/img/portfolio/laptop-dp-1.jpg" alt="AI Store Screenshot"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-primary mb-2">DesignerPencil</h3>
+                                <a href="https://www.designerpencil.com/" target="_blank"
+                                    class="inline-block px-4 py-2 rounded bg-primary text-white font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- No results message (optional) -->
@@ -275,7 +323,7 @@
     </main>
 
     <footer class="py-10 mt-16 border-t border-gray-700/30 text-center text-gray-500 text-sm bg-transparent">
-        &copy; 2025 Muhammad Mustafa. Built with ❤️ and lots of Angular/Tailwind.
+        &copy; 2025 Muhammad Mustafa. Built with Angular/Tailwind.
     </footer>
 
 
