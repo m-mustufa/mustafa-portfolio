@@ -10,6 +10,7 @@ window.onload = function () {
       ─────────────────── */
   const phrases = [
     "Scalable Front-Ends for Startups",
+    "No-Code Apps with Bubble.io",
     "Pixel-Perfect UI in Angular",
     "Modern Web Apps with Tailwind",
   ];
