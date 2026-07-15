@@ -8,33 +8,62 @@
     <link rel="icon" type="image/png" href="assets/img/logo-2.png" sizes="48x48" />
     <link rel="icon"
         href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23095e6c"/><text x="50" y="67" font-size="64" fill="white" font-family="Arial, sans-serif" text-anchor="middle" alignment-baseline="middle">M</text></svg>'>
-    <title>Portfolio Gallery | Mustafa - Angular, Shopify, SaaS & UI</title>
+    <title>Portfolio Gallery | Muhammad Mustafa</title>
     <meta name="description"
-        content="Explore the portfolio gallery of Muhammad Mustafa – Angular, Shopify, SaaS dashboards, logos, and custom UI/UX projects. Browse top web builds, brands, and creative solutions.">
-    <meta name="robots" content="index,follow" />
-    <meta property="og:title" content="Mustafa | Portfolio Gallery - Angular, Shopify, SaaS, UI">
+        content="Portfolio of Muhammad Mustafa, a freelance full-stack developer for hire. React, Next.js, Node.js, Supabase, and AI SaaS projects - view real, live work.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://mustcode.netlify.app/portfolio.html">
+    <meta property="og:title" content="Portfolio Gallery | Muhammad Mustafa">
     <meta property="og:description"
-        content="Browse Muhammad Mustafa’s portfolio gallery – modern Angular apps, Shopify stores, SaaS dashboards, and more.">
+        content="Freelance full-stack developer for hire - browse live React, Next.js, Node.js, Supabase, and AI SaaS projects.">
     <meta property="og:image" content="https://mustcode.netlify.app/assets/img/logo-2.png">
     <meta property="og:url" content="https://mustcode.netlify.app/portfolio.html">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Portfolio Gallery | Mustafa - Angular, Shopify, SaaS, UI">
-    <meta name="twitter:description" content="Modern web projects and creative builds by Muhammad Mustafa.">
-    <meta name="twitter:image" content="https://mustcode.netlify.app/assets/logo-2.png">
+    <meta name="twitter:title" content="Portfolio Gallery | Muhammad Mustafa">
+    <meta name="twitter:description" content="Freelance full-stack developer for hire - live React, Next.js, Node.js, Supabase & AI SaaS projects.">
+    <meta name="twitter:image" content="https://mustcode.netlify.app/assets/img/logo-2.png">
     <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="assets/img/logo-2.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- Alpine.js for interactivity -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://mustcode.netlify.app/" },
+            { "@type": "ListItem", "position": 2, "name": "Portfolio Gallery", "item": "https://mustcode.netlify.app/portfolio.html" }
+          ]
+        },
+        {
+          "@type": "CollectionPage",
+          "name": "Portfolio Gallery | Muhammad Mustafa",
+          "url": "https://mustcode.netlify.app/portfolio.html",
+          "isPartOf": { "@id": "https://mustcode.netlify.app/#website" },
+          "about": { "@id": "https://mustcode.netlify.app/#person" }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
     <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 fixed-height-header">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <a href="/" class="flex items-center gap-2 relative group">
-                <img loading="lazy" src="assets/img/logo-2.png" alt="Logo" class="logo-img-class animate-talk" />
+                <img loading="lazy" src="assets/img/logo-2.png" alt="Muhammad Mustafa logo" class="logo-img-class animate-talk" />
             </a>
 
             <!-- Hamburger Button -->
@@ -45,13 +74,13 @@
                 </svg>
             </button>
             <nav class="hidden md:flex gap-8 text-lg font-semibold" style="align-items: center;">
-                <a href="assets/CV-Front-End-Mustafa.pdf" target="_blank" download
+                <a href="assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
                     class="px-5 py-2 border-2 border-primary text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition">
                     Download CV
                 </a>
-                <a href="index.html/#services" class="text-primary">Services</a>
-                <a href="index.html/#portfolio" class="text-primary">Portfolio</a>
-                <a href="index.html/#contact" class="hover:text-primary transition">Contact</a>
+                <a href="/#services" class="text-primary">Services</a>
+                <a href="/#portfolio" class="text-primary">Portfolio</a>
+                <a href="/#contact" class="hover:text-primary transition">Contact</a>
             </nav>
         </div>
     </header>
@@ -96,13 +125,14 @@
                 </div>
 
                 <!-- Portfolio Grid -->
+                <h2 class="sr-only">Featured Projects</h2>
                 <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 
                     <!-- Example Card 1 -->
                     <div
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-xl hover:border-primary hover:ring-2 hover:ring-primary/40">
                         <!-- Screenshot -->
-                        <img src="assets/img/portfolio/laptop-ss-1.png" alt="StartStorez Website"
+                        <img src="assets/img/portfolio/laptop-ss-1.jpg" alt="StartStorez Website"
                             class="w-full h-64 object-cover rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2" />
 
                         <!-- Frosted Overlay -->
@@ -117,40 +147,24 @@
                                         class="bg-blue-400/20 text-blue-500 text-xs px-2 py-1 rounded">Dropshipping</span>
                                     <span class="bg-primary/20 text-primary text-xs px-2 py-1 rounded">AI</span>
                                 </div> -->
-                                <a href="https://startstorez.com/" target="_blank"
+                                <a href="https://startstorez.com/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
                         </div>
                     </div>
 
-
-                    <!-- Example Card 2 -->
-                    <div x-show="filter === 'All' || filter === 'Web'"
-                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-kod-1.png" alt="AI Store Screenshot"
-                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="p-5">
-                                <h3 class="text-xl font-bold text-white mb-2">Kodlers.com</h3>
-                                <a href="https://kodlers.com/" target="_blank"
-                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
-                                    Project</a>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Example Card 3 -->
                     <div x-show="filter === 'All' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-alh-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-alh-1.jpg" alt="BankAlHabib.com corporate website screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">BankAlAabib.com</h3>
-                                <a href="https://www.bankalhabib.com/" target="_blank"
+                                <a href="https://www.bankalhabib.com/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -160,13 +174,13 @@
                     <!-- Example Card 4 -->
                     <div x-show="filter === 'All' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-will-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-will-1.jpg" alt="Willport.com website screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">Willport.com</h3>
-                                <a href="https://willport.com/" target="_blank"
+                                <a href="https://willport.com/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -176,13 +190,13 @@
                     <!-- Example Card 5 -->
                     <div x-show="filter === 'All' || filter === 'UI' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-evo-1.jpg" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-evo-1.jpg" alt="Evocativez.com website screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">Evocativez.com</h3>
-                                <a href="https://www.evocativez.com/" target="_blank"
+                                <a href="https://www.evocativez.com/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -192,13 +206,13 @@
                     <!-- Example Card 6 -->
                     <div x-show="filter === 'All' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-alp-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-alp-1.jpg" alt="AutoLeap.com marketing website screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">AutoLeap.com</h3>
-                                <a href="https://autoleap.com/" target="_blank"
+                                <a href="https://autoleap.com/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -208,13 +222,13 @@
                     <!-- Example Card 7 -->
                     <div x-show="filter === 'All' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-jul-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-jul-1.jpg" alt="July.ac website screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">July.ac</h3>
-                                <a href="https://july.ac/" target="_blank"
+                                <a href="https://july.ac/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -224,13 +238,13 @@
                     <!-- Example Card 8 -->
                     <div x-show="filter === 'All' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-ref-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-ref-1.jpg" alt="Reefined.co website screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">Reefined.co</h3>
-                                <a href="https://reefined.co/" target="_blank"
+                                <a href="https://reefined.co/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -240,13 +254,13 @@
                     <!-- Example Card 9 -->
                     <div x-show="filter === 'All' || filter === 'SaaS'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-bub-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-bub-1.jpg" alt="CultureLinkAI Bubble.io app screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">CultureLinkAI</h3>
-                                <a href="https://culturelinkai-52246.bubbleapps.io/" target="_blank"
+                                <a href="https://culturelinkai-52246.bubbleapps.io/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -256,13 +270,13 @@
                     <!-- Example Card 10 -->
                     <div x-show="filter === 'All' || filter === 'UI'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-ts-1.png" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-ts-1.jpg" alt="TailStudio SaaS landing page screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">TailStudio</h3>
-                                <a href="https://tailstudio.netlify.app/" target="_blank"
+                                <a href="https://tailstudio.netlify.app/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -272,13 +286,13 @@
                     <!-- Example Card 11 -->
                     <div x-show="filter === 'All' || filter === 'SaaS'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/autoleap-integration-custom-web-app-kodlers.jpg" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/autoleap-integration-custom-web-app-kodlers.jpg" alt="AutoLeap custom web app integration screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">AutoLeap</h3>
-                                <a href="https://app.myautoleap.com/" target="_blank"
+                                <a href="https://app.myautoleap.com/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -288,13 +302,178 @@
                     <!-- Example Card 12 -->
                     <div x-show="filter === 'All' || filter === 'UI' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/laptop-dp-1.jpg" alt="AI Store Screenshot"
+                        <img src="assets/img/portfolio/laptop-dp-1.jpg" alt="DesignerPencil website screenshot" loading="lazy"
                             class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
                                 <h3 class="text-xl font-bold text-white mb-2">DesignerPencil</h3>
-                                <a href="https://www.designerpencil.com/" target="_blank"
+                                <a href="https://www.designerpencil.com/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 13 -->
+                    <div x-show="filter === 'All' || filter === 'SaaS'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <img src="assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner.jpg"
+                            alt="CultureAI Dashboard"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">CultureAI</h3>
+                                <a href="https://app.startcultureai.com" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 14 -->
+                    <div x-show="filter === 'All' || filter === 'SaaS'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <img src="assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql.jpg"
+                            alt="BWL League Platform"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">BWL League</h3>
+                                <a href="https://bwlleague.com" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 15 -->
+                    <div x-show="filter === 'All' || filter === 'SaaS'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <img src="assets/img/portfolio/apex-logistics-driver-job-marketplace-react-tanstack-pwa.jpg"
+                            alt="Apex Logistics Driver Platform"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Apex Logistics</h3>
+                                <a href="https://apexlogistics.life" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 16 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
+                        <img src="assets/img/portfolio/nirvanabotanics-skincare-shopify-store-development-theme-customization-portfolio-banner.jpg"
+                            alt="Nirvana Botanics Skincare Shopify Store"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Nirvana Botanics</h3>
+                                <a href="https://www.nirvanabotanics.com/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 17 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
+                        <img src="assets/img/portfolio/petaville_shopify_store_development_upwork_portfolio_cover_seo.jpg"
+                            alt="Petaville Pet Store Shopify Development"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Petaville</h3>
+                                <a href="https://petaville.com/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 18 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
+                        <img src="assets/img/portfolio/revya-luxury-shopify-store-development-portfolio-cover-banner.jpg"
+                            alt="REVYA Luxury Perfume Shopify Store"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">REVYA</h3>
+                                <a href="https://revya-boutique.com/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 19 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#21759B] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">WordPress</span>
+                        <img src="assets/img/portfolio/artikos-b2b-saas-corporate-wordpress-website-development.jpg"
+                            alt="Artikos B2B SaaS Corporate WordPress Website"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Artikos</h3>
+                                <a href="https://artikos.cl/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 20 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#21759B] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">WordPress</span>
+                        <img src="assets/img/portfolio/doccept-document-management-saas-wordpress-website-development.jpg"
+                            alt="Doccept Document Management WordPress Website"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Doccept</h3>
+                                <a href="https://www.doccept.com/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example Card 21 -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#21759B] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">WordPress</span>
+                        <img src="assets/img/portfolio/heritage-school-custom-wordpress-elementor-website-development.jpg"
+                            alt="Heritage School Custom WordPress Development"
+                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Heritage School</h3>
+                                <a href="http://heritageschool.cl/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition">View
                                     Project</a>
                             </div>
@@ -320,7 +499,7 @@
     </main>
 
     <footer class="py-10 mt-16 border-t border-gray-700/30 text-center text-gray-500 text-sm bg-transparent">
-        &copy; 2025 Muhammad Mustafa. Built with Angular/Tailwind.
+        &copy; 2026 Muhammad Mustafa.
     </footer>
 
     <script>

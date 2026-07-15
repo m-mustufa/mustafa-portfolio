@@ -1,0 +1,15 @@
+{
+  "name": "Muhammad Mustafa | Full-Stack SaaS & AI Engineer",
+  "short_name": "M. Mustafa",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#00C19D",
+  "icons": [
+    {
+      "src": "img/logo-2.png",
+      "sizes": "410x500",
+      "type": "image/png"
+    }
+  ]
+}

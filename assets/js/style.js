@@ -9,10 +9,10 @@ window.onload = function () {
          1.  Typewriter logic
       ─────────────────── */
   const phrases = [
-    "Scalable Front-Ends for Startups",
-    "No-Code Apps with Bubble.io",
-    "Pixel-Perfect UI in Angular",
-    "Modern Web Apps with Tailwind",
+    "& Ship Production AI Products",
+    "Multi-Tenant SaaS with React & Node",
+    "Real-Time Apps with Supabase",
+    "LLM Integrations that Actually Ship",
   ];
 
   const el = document.getElementById("typewriter");
