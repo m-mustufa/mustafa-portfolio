@@ -200,3 +200,13 @@
   0%, 100% { filter: brightness(1);}
   50% { filter: brightness(1.22) saturate(1.18);}
 }
+
+@media (min-width: 768px) {
+    .custom-mt-80 {
+        margin-top: 80px;
+    }
+
+    h1.break-words {
+        font-size: 2.8rem;
+    }
+}
