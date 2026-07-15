@@ -41,24 +41,18 @@
   <link rel="manifest" href="assets/site.webmanifest">
 
   <!-- Resource hints -->
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="dns-prefetch" href="https://assets.calendly.com">
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/css/tailwind.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { primary: "#106473" },
-        },
-      },
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="assets/js/style.js"></script>
+  <!-- Swiper CSS is only needed below the fold (testimonials) — load it without blocking render -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  </noscript>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <script src="assets/js/style.js" defer></script>
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -1019,7 +1013,6 @@ across the GCC.</h3>
   <footer class="text-center py-6 text-sm text-gray-500 bg-gray-900">
     &copy; 2026 Muhammad Mustafa.
   </footer>
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 </body>
 
 </html>

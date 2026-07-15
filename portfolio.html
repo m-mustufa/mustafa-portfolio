@@ -29,9 +29,8 @@
     <meta name="theme-color" content="#00C19D" />
     <link rel="apple-touch-icon" href="assets/img/logo-2.png">
     <link rel="manifest" href="assets/site.webmanifest">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/tailwind.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Alpine.js for interactivity -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -503,15 +502,6 @@
         &copy; 2026 Muhammad Mustafa.
     </footer>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { primary: "#106473" },
-                },
-            },
-        };
-    </script>
     <script>
         window.onload = function () {
             const header = document.querySelector("header");
