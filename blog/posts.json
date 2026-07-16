@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "slug": "stripe-per-seat-billing-multi-tenant-saas",
+    "title": "Stripe Per-Seat Billing: What Actually Breaks",
+    "metaDescription": "Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.",
+    "heroImageAlt": "Diagram showing Stripe subscription seats syncing with a multi-tenant database via webhooks",
+    "publishDate": "July 16, 2026",
+    "publishDateIso": "2026-07-16T09:33:02.173Z",
+    "readingTime": 5
+  }
+]

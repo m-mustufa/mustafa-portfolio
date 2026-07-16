@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>Stripe Per-Seat Billing: What Actually Breaks | Muhammad Mustafa</title>
+    <meta name="description" content="Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://mustcode.netlify.app/blog/stripe-per-seat-billing-multi-tenant-saas.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="Stripe Per-Seat Billing: What Actually Breaks">
+    <meta property="og:description" content="Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.">
+    <meta property="og:image" content="https://mustcode.netlify.app/blog/images/stripe-per-seat-billing-multi-tenant-saas.jpg">
+    <meta property="og:url" content="https://mustcode.netlify.app/blog/stripe-per-seat-billing-multi-tenant-saas.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-07-16T09:33:02.173Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Stripe Per-Seat Billing: What Actually Breaks">
+    <meta name="twitter:description" content="Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.">
+    <meta name="twitter:image" content="https://mustcode.netlify.app/blog/images/stripe-per-seat-billing-multi-tenant-saas.jpg">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://mustcode.netlify.app/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://mustcode.netlify.app/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "Stripe Per-Seat Billing: What Actually Breaks", "item": "https://mustcode.netlify.app/blog/stripe-per-seat-billing-multi-tenant-saas.html" }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Stripe Per-Seat Billing: What Actually Breaks",
+          "description": "Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.",
+          "image": "https://mustcode.netlify.app/blog/images/stripe-per-seat-billing-multi-tenant-saas.jpg",
+          "datePublished": "2026-07-16T09:33:02.173Z",
+          "author": { "@id": "https://mustcode.netlify.app/#person" },
+          "publisher": { "@id": "https://mustcode.netlify.app/#person" },
+          "mainEntityOfPage": "https://mustcode.netlify.app/blog/stripe-per-seat-billing-multi-tenant-saas.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 fixed-height-header bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2 relative group">
+                <img loading="lazy" src="../assets/img/logo-2.png" alt="Muhammad Mustafa logo" width="40" height="49"
+                    class="logo-img-class animate-talk" />
+            </a>
+            <nav class="hidden md:flex gap-8 text-lg font-semibold items-center">
+                <a href="/#services" class="text-gray-300 hover:text-primary transition">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Portfolio</a>
+                <a href="/blog/index.html" class="text-primary">Blog</a>
+                <a href="/#contact"
+                    class="px-4 py-2 bg-white text-primary rounded hover:bg-[#0d5968] hover:text-white transition">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-40 pb-20 px-6">
+        <article class="max-w-3xl mx-auto">
+            <p class="text-primary text-sm font-semibold mb-3">July 16, 2026 · 5 min read</p>
+            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">Stripe Per-Seat Billing: What Actually Breaks</h1>
+
+            <img src="images/stripe-per-seat-billing-multi-tenant-saas.jpg" alt="Diagram showing Stripe subscription seats syncing with a multi-tenant database via webhooks" width="1200" height="675" loading="eager"
+                class="w-full aspect-video object-cover rounded-2xl border border-gray-700 mb-10" />
+
+            <div class="prose prose-invert prose-lg max-w-none
+                prose-headings:text-white prose-headings:font-bold
+                prose-p:text-gray-300 prose-a:text-primary prose-strong:text-white
+                prose-li:text-gray-300 prose-code:text-primary">
+                <p>Per-seat billing sounds simple until you actually build it. You charge per active user, Stripe handles the math, done — except the seat count in Stripe and the seat count in your database are two separate sources of truth the moment a webhook is late, a request fails halfway, or someone changes their plan from the Stripe customer portal instead of your app. I ran into all three building CultureAI's billing, and most of the pain wasn't Stripe's API — it was assuming the two systems would always agree.</p><p>This is what I'd tell myself before starting, if I could.</p><h2>The four pieces you actually need</h2><p>A working per-seat billing setup for a multi-tenant SaaS comes down to four components, and skipping any one of them is where teams get hurt:</p><ul><li><strong>Checkout</strong> — where a new org starts a subscription and picks (or gets defaulted to) a seat count</li><li><strong>Customer Portal</strong> — Stripe's hosted page for self-service plan/seat changes, so you're not building your own billing UI from scratch</li><li><strong>Webhooks</strong> — the only reliable way to know a subscription actually changed</li><li><strong>Your database</strong> — the thing your app actually checks before letting a new member in</li></ul><p>The mistake I made early on was treating the first two as the source of truth and the webhook as an afterthought. It's backwards. Stripe's own guidance is blunt about this: webhooks are truth, not client-side success callbacks. If your checkout redirect says "success" but the webhook hasn't landed yet, your database doesn't actually know that yet — and if you let the user in based on the redirect alone, you'll eventually have orgs with active access and no matching subscription.</p><h2>Where seat counts actually get out of sync</h2><p>The scenario that broke things for us wasn't a failed payment — it was totally legitimate seat changes happening in a place we weren't watching. A team admin can go into the Stripe customer portal and change quantity directly, completely bypassing your app's "invite a teammate" flow. If your database only updates seat count when someone hits your own invite endpoint, that admin-initiated change silently drifts your internal count away from what Stripe actually has on file.</p><p>The fix is to stop thinking of "add a seat" as an action your app performs, and start thinking of it as a state your webhook handler reconciles. Every seat-relevant webhook event should overwrite your stored seat count with whatever Stripe says it is now — not increment or decrement based on what you think happened.</p><pre><code>// Simplified: reconcile, don't increment
+app.post('/webhooks/stripe', async (req, res) => {
+  const event = stripe.webhooks.constructEvent(
+    req.body, req.headers['stripe-signature'], webhookSecret
+  );
+
+  if (event.type === 'customer.subscription.updated') {
+    const sub = event.data.object;
+    const orgId = sub.metadata.orgId; // set this at checkout time
+    const seatCount = sub.items.data[0].quantity;
+
+    // Overwrite, don't adjust — Stripe's number always wins
+    await db.organizations.update(orgId, { seatCount, status: sub.status });
+  }
+
+  res.json({ received: true }); // respond fast, process idempotently
+});</code></pre><p>Two details in that handler matter more than they look. First, storing your internal <code>orgId</code> in the subscription's metadata at checkout time is what makes the webhook payload self-contained — you don't have to do a separate lookup by Stripe customer ID under load. Second, returning a 2xx quickly and doing any slow work asynchronously matters, because Stripe will retry an event that times out, and now you're handling the same seat change twice.</p><h2>The invalid state nobody designs for upfront</h2><p>The other place this bites: what happens when someone tries to reduce seats below the number of people actually using the product? If an org has 8 active members and someone drops the subscription to 5 seats from the Stripe portal, you now have an org that's over its own limit. Stripe doesn't know or care about your "active members" concept — that check has to live in your app.</p><p>The practical answer is to treat your stored member count as a floor. Before letting a seat reduction take effect, or immediately after a webhook reports one, check it against actual active members and handle the gap explicitly — either block the downgrade in your UI before it reaches Stripe, or (if it already happened) flag the org and prompt an admin to remove members rather than silently locking people out.</p><h2>What I'd do differently</h2><p>If I were starting CultureAI's billing today, I'd build the reconciliation webhook handler before I built the checkout flow, not after. It's tempting to build the part users see first — pick a plan, enter a card, done — and treat webhook handling as plumbing to fill in later. But the checkout flow only runs once per org. The webhook handler runs for the entire lifetime of every subscription, including all the messy edge cases: failed renewals, mid-cycle plan changes, seat changes from three different places, cancellations that still have days left on the current period. That code carries more of the actual product than the checkout page does.</p><p>The other change: log every webhook payload before you process it, even in production, even though it feels excessive. The one time a customer disputes their seat count, having the raw event Stripe actually sent — not your interpretation of it — is the difference between a five-minute investigation and a guessing game.</p><p>Per-seat billing is one of the more approachable Stripe integrations to start, and one of the easier ones to get subtly wrong once real teams start using the self-service portal instead of your app's UI. Build the reconciliation logic like Stripe's number is always right, because it is.</p>
+            </div>
+
+            <div class="mt-16 pt-8 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-gray-400 text-sm">Written by Muhammad Mustafa — Full-Stack SaaS Engineer</p>
+                <a href="/#contact"
+                    class="px-5 py-2 bg-primary text-white rounded hover:bg-[#0d5968] transition text-sm font-semibold">Get
+                    in touch</a>
+            </div>
+        </article>
+    </main>
+
+    <footer class="text-center py-6 text-sm text-gray-400 bg-gray-900">
+        &copy; 2026 Muhammad Mustafa.
+    </footer>
+</body>
+
+</html>
