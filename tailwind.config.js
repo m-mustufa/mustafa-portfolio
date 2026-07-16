@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./*.html"],
+  content: ["./*.html", "./blog/*.html"],
   theme: {
     extend: {
       colors: { primary: "#106473" },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
