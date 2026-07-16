@@ -201,6 +201,14 @@
   50% { filter: brightness(1.22) saturate(1.18);}
 }
 
+.swiper-slide p {
+    min-height: 170px;
+}
+
+.swiper-slide + div {
+    overflow: hidden;
+}
+
 @media (min-width: 768px) {
     .custom-mt-80 {
         margin-top: 80px;
