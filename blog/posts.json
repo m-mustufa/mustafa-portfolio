@@ -1,5 +1,14 @@
 [
   {
+    "slug": "supabase-rls-multi-role-apps",
+    "title": "Supabase RLS for Multi-Role Apps: What I Learned",
+    "metaDescription": "A practical guide to Supabase RLS for multi-role apps, covering team isolation, role permissions, policy design, testing, and common security mistakes.",
+    "heroImageAlt": "Diagram showing Supabase Row Level Security separating admin, coach, and team access",
+    "publishDate": "July 17, 2026",
+    "publishDateIso": "2026-07-17T12:26:58.775Z",
+    "readingTime": 5
+  },
+  {
     "slug": "stripe-per-seat-billing-multi-tenant-saas",
     "title": "Stripe Per-Seat Billing: What Actually Breaks",
     "metaDescription": "Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.",
