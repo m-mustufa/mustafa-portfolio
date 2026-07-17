@@ -98,7 +98,18 @@
             </p>
 
             <!-- POSTS_START -->
-            <p class="text-center text-gray-400 py-16">New posts are on the way — check back soon.</p>
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html"
+                class="group block bg-white/5 rounded-2xl border border-gray-700 overflow-hidden transition hover:-translate-y-1 hover:border-primary">
+                <img src="/blog/images/stripe-per-seat-billing-multi-tenant-saas.jpg" alt="Diagram showing Stripe subscription seats syncing with a multi-tenant database via webhooks"
+                  width="1200" height="675" loading="lazy" class="w-full aspect-video object-cover" />
+                <div class="p-5">
+                  <p class="text-primary text-xs font-semibold mb-2">July 16, 2026 · 5 min read</p>
+                  <h2 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition">Stripe Per-Seat Billing: What Actually Breaks</h2>
+                  <p class="text-gray-400 text-sm">Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.</p>
+                </div>
+              </a>
+            </div>
             <!-- POSTS_END -->
         </div>
     </main>
