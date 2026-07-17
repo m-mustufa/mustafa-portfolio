@@ -76,8 +76,8 @@ execFileSync(
   "node",
   [
     path.join(ROOT, "scripts", "notify.js"),
-    "--subject", `New blog draft ready: ${args.title}`,
-    "--message", `A new blog draft is ready for review.\n\nTitle: ${args.title}\n\nPreview: ${previewUrl}\n\nBranch: ${branch}\n\nReply to Claude with "publish" to merge it live, or tell me what to change.`,
+    "--subject", `Blog draft: ${args.title}`,
+    "--message", `New blog post drafted and ready to look over.\n\nTitle: ${args.title}\n\nRead it here: ${previewUrl}\n\nBranch name (for reference): ${branch}\n\nOpen the Claude session and let me know if it's good to publish or needs changes.`,
   ],
   { stdio: "inherit" }
 );

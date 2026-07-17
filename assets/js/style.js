@@ -38,7 +38,7 @@ window.onload = function () {
     }
     setTimeout(type, delay);
   }
-  type();
+  if (el) type(); // only on pages with the hero typewriter (index.html)
 
   /* ──────────────────
          2.  Sticky-header logic
@@ -52,18 +52,21 @@ window.onload = function () {
     }
   });
 
-  new Swiper(".testimonials-swiper", {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    loop: true,
-    autoplay: { delay: 6000, disableOnInteraction: true },
-    breakpoints: {
-      768: { slidesPerView: 2 },
-      1024: { slidesPerView: 4 },
-    },
-  });
+  // Swiper library is only loaded on index.html — guard so other pages don't throw
+  if (typeof Swiper !== "undefined" && document.querySelector(".testimonials-swiper")) {
+    new Swiper(".testimonials-swiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      loop: true,
+      autoplay: { delay: 6000, disableOnInteraction: true },
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 4 },
+      },
+    });
+  }
 };

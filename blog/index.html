@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="/assets/css/style.css">
 
+     <script src="/assets/js/style.js" defer></script>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -65,12 +67,24 @@
                 <img loading="lazy" src="/assets/img/logo-2.png" alt="Muhammad Mustafa logo" width="40" height="49"
                     class="logo-img-class animate-talk" />
             </a>
-            <nav class="hidden md:flex gap-8 text-lg font-semibold items-center">
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-8 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold z-40 transition">
                 <a href="/#services" class="text-gray-300 hover:text-primary transition">Services</a>
                 <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Portfolio</a>
                 <a href="/blog/index.html" class="text-primary">Blog</a>
                 <a href="/#contact"
-                    class="px-4 py-2 bg-white text-primary rounded hover:bg-[#0d5968] hover:text-white transition">Contact</a>
+                    class="px-4 py-2 bg-white text-primary rounded hover:bg-[#0d5968] hover:text-white transition text-center">Contact</a>
             </nav>
         </div>
     </header>
