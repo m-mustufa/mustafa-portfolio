@@ -3,7 +3,7 @@
     "slug": "supabase-rls-multi-role-apps",
     "title": "Supabase RLS for Multi-Role Apps: What I Learned",
     "metaDescription": "A practical guide to Supabase RLS for multi-role apps, covering team isolation, role permissions, policy design, testing, and common security mistakes.",
-    "heroImageAlt": "ExtJS and AngularJS enterprise dashboard migrating to a modern Angular interface",
+    "heroImageAlt": "Supabase Row Level Security diagram separating admin, coach, and team database access",
     "publishDate": "July 17, 2026",
     "publishDateIso": "2026-07-17T12:26:58.775Z",
     "readingTime": 5
