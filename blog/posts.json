@@ -1,5 +1,14 @@
 [
   {
+    "slug": "offline-first-react-pwa-tanstack-query",
+    "title": "Offline-First React PWA with TanStack Query: A Practical Guide",
+    "metaDescription": "Build an offline-first React PWA with TanStack Query, IndexedDB, service workers, mutation queues, conflict handling, and reliable reconnect sync.",
+    "heroImageAlt": "Offline-first React PWA architecture showing TanStack Query, IndexedDB, a service worker, and a cloud API",
+    "publishDate": "July 21, 2026",
+    "publishDateIso": "2026-07-21T17:13:25.465Z",
+    "readingTime": 9
+  },
+  {
     "slug": "extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization",
     "title": "Angular Migration: ExtJS and AngularJS to Angular 19",
     "metaDescription": "A practical Angular migration guide for modernizing ExtJS and AngularJS enterprise dashboards through safe version upgrades from Angular 8 to Angular 19.",
