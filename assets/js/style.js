@@ -17,28 +17,25 @@ window.onload = function () {
 
   const el = document.getElementById("typewriter");
   let phraseIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
 
-  function type() {
-    const text = phrases[phraseIndex];
-    el.textContent = isDeleting
-      ? text.substring(0, charIndex--)
-      : text.substring(0, charIndex++);
-
-    let delay = isDeleting ? 100 : 70;
-
-    if (!isDeleting && charIndex === text.length + 1) {
-      isDeleting = true; // start erasing
-      delay = 4000; // hold before erase
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false; // start next phrase
+  function rotatePhrase() {
+    el.classList.add("hero-phrase-exit");
+    window.setTimeout(() => {
       phraseIndex = (phraseIndex + 1) % phrases.length;
-      delay = 1000; // pause before typing
-    }
-    setTimeout(type, delay);
+      el.textContent = phrases[phraseIndex];
+      el.classList.remove("hero-phrase-exit");
+      el.classList.add("hero-phrase-enter");
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          el.classList.remove("hero-phrase-enter");
+        });
+      });
+    }, 250);
   }
-  if (el) type(); // only on pages with the hero typewriter (index.html)
+
+  if (el && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.setInterval(rotatePhrase, 2800);
+  }
 
   /* ──────────────────
          2.  Sticky-header logic
