@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Static portfolio site — Tailwind is compiled to a static CSS file, no other build step.",
   "scripts": {
-    "build:css": "tailwindcss -i ./assets/css/tailwind-src.css -o ./assets/css/tailwind.css --minify",
+    "build:css": "tailwindcss -i ./assets/css/tailwind-src.css -o ./assets/css/tailwind.css --minify && node scripts/inline-home-css.js",
     "watch:css": "tailwindcss -i ./assets/css/tailwind-src.css -o ./assets/css/tailwind.css --watch"
   },
   "devDependencies": {

@@ -53,20 +53,50 @@ window.onload = function () {
   });
 
   // Swiper library is only loaded on index.html — guard so other pages don't throw
-  if (typeof Swiper !== "undefined" && document.querySelector(".testimonials-swiper")) {
-    new Swiper(".testimonials-swiper", {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      loop: true,
-      autoplay: { delay: 6000, disableOnInteraction: true },
-      breakpoints: {
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 4 },
-      },
-    });
+  const testimonials = document.querySelector(".testimonials-swiper");
+  if (testimonials) {
+    let swiperRequested = false;
+
+    const loadSwiper = () => {
+      if (swiperRequested) return;
+      swiperRequested = true;
+
+      const stylesheet = document.createElement("link");
+      stylesheet.rel = "stylesheet";
+      stylesheet.href = "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+      document.head.appendChild(stylesheet);
+
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+      script.onload = () => {
+        new Swiper(".testimonials-swiper", {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          loop: true,
+          autoplay: { delay: 6000, disableOnInteraction: true },
+          breakpoints: {
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 4 },
+          },
+        });
+      };
+      document.head.appendChild(script);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect();
+          loadSwiper();
+        }
+      }, { rootMargin: "400px 0px" });
+      observer.observe(testimonials);
+    } else {
+      loadSwiper();
+    }
   }
 };

@@ -1,4 +1,46 @@
-@import url(animation.css);
+@keyframes talk {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.95); }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    10%, 90% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes typing {
+    0% { width: 0; }
+    60%, 100% { width: 100%; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@keyframes bounce-in {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.group-hover\:animate-bounce-in:hover svg,
+.group:hover .group-hover\:animate-bounce-in svg {
+    animation: bounce-in 0.5s;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    20%, 60% { transform: scale(1.15); }
+    40%, 80% { transform: scale(0.92); }
+}
+
+.svg-heartbeat {
+    transition: none;
+}
+
+.group:hover .svg-heartbeat {
+    animation: heartBeat 0.7s 1;
+}
 
 :root {
     --color-primary: #106473;
@@ -216,5 +258,12 @@
 
     h1.break-words {
         font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 767px) {
+    #typewriter {
+        display: block;
+        min-height: 3.75em;
     }
 }
