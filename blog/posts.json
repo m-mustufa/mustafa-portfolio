@@ -1,5 +1,14 @@
 [
   {
+    "slug": "nextjs-security-checklist-2026",
+    "title": "Next.js Security Checklist After the July 2026 Release",
+    "metaDescription": "Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.",
+    "heroImageAlt": "Next.js security checklist showing dependency patching, Server Action authorization, CSP headers, and production verification",
+    "publishDate": "July 24, 2026",
+    "publishDateIso": "2026-07-24T16:28:43.719Z",
+    "readingTime": 8
+  },
+  {
     "slug": "offline-first-react-pwa-tanstack-query",
     "title": "Offline-First React PWA with TanStack Query: A Practical Guide",
     "metaDescription": "Build an offline-first React PWA with TanStack Query, IndexedDB, service workers, mutation queues, conflict handling, and reliable reconnect sync.",
