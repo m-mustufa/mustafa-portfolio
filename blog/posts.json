@@ -1,5 +1,14 @@
 [
   {
+    "slug": "uae-einvoicing-saas-integration",
+    "title": "UAE E-Invoicing Integration Guide for SaaS in 2026",
+    "metaDescription": "Prepare SaaS and ERP systems for UAE e-invoicing in Dubai, Abu Dhabi and Sharjah using Peppol PINT-AE, ASP integration, validation and audit logs.",
+    "heroImageAlt": "UAE e-invoicing integration architecture connecting a SaaS platform, accredited service providers, Peppol and the Federal Tax Authority",
+    "publishDate": "August 1, 2026",
+    "publishDateIso": "2026-08-01T10:25:05.412Z",
+    "readingTime": 9
+  },
+  {
     "slug": "nextjs-security-checklist-2026",
     "title": "Next.js Security Checklist After the July 2026 Release",
     "metaDescription": "Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.",
