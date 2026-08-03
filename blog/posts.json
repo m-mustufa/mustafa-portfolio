@@ -1,5 +1,14 @@
 [
   {
+    "slug": "uae-pass-nextjs-nodejs-integration",
+    "title": "UAE PASS Integration with Next.js and Node.js SaaS Apps",
+    "metaDescription": "Build a secure UAE PASS integration for Next.js and Node.js SaaS apps, covering OAuth 2.0, account linking, corporate users, testing and launch.",
+    "heroImageAlt": "UAE PASS integration architecture connecting a Next.js application and Node.js API to secure UAE digital identity services",
+    "publishDate": "August 3, 2026",
+    "publishDateIso": "2026-08-03T16:59:28.167Z",
+    "readingTime": 10
+  },
+  {
     "slug": "uae-einvoicing-saas-integration",
     "title": "UAE E-Invoicing Integration Guide for SaaS in 2026",
     "metaDescription": "Prepare SaaS and ERP systems for UAE e-invoicing in Dubai, Abu Dhabi and Sharjah using Peppol PINT-AE, ASP integration, validation and audit logs.",
