@@ -1,5 +1,14 @@
 [
   {
+    "slug": "arabic-ai-chatbot-abu-dhabi",
+    "title": "Arabic AI Chatbot Development for Abu Dhabi Businesses",
+    "metaDescription": "Build a secure Arabic AI chatbot for Abu Dhabi businesses using bilingual RAG, WhatsApp integration, human handoff, privacy controls and testing.",
+    "heroImageAlt": "Arabic and English AI chatbot architecture for an Abu Dhabi business using RAG, WhatsApp, CRM integration and human support",
+    "publishDate": "August 8, 2026",
+    "publishDateIso": "2026-08-08T00:16:28.820Z",
+    "readingTime": 10
+  },
+  {
     "slug": "uae-pass-nextjs-nodejs-integration",
     "title": "UAE PASS Integration with Next.js and Node.js SaaS Apps",
     "metaDescription": "Build a secure UAE PASS integration for Next.js and Node.js SaaS apps, covering OAuth 2.0, account linking, corporate users, testing and launch.",
