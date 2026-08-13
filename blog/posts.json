@@ -1,5 +1,14 @@
 [
   {
+    "slug": "uae-pdpl-compliance-saas",
+    "title": "UAE PDPL Compliance Checklist for SaaS Applications",
+    "metaDescription": "A practical UAE PDPL compliance checklist for SaaS applications covering consent, privacy by design, user rights, vendors, security and data transfers.",
+    "heroImageAlt": "UAE PDPL compliance architecture for a SaaS application showing consent, encrypted data, access controls, user rights and audit logs",
+    "publishDate": "August 14, 2026",
+    "publishDateIso": "2026-08-13T19:39:02.504Z",
+    "readingTime": 10
+  },
+  {
     "slug": "arabic-ai-chatbot-abu-dhabi",
     "title": "Arabic AI Chatbot Development for Abu Dhabi Businesses",
     "metaDescription": "Build a secure Arabic AI chatbot for Abu Dhabi businesses using bilingual RAG, WhatsApp integration, human handoff, privacy controls and testing.",
