@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
 
     <!-- SEO Meta -->
-    <title>Supabase RLS for Multi-Role Apps: What I Learned | Muhammad Mustafa</title>
+    <title>Supabase RLS for Multi-Role Apps: What I Learned</title>
     <meta name="description" content="A practical guide to Supabase RLS for multi-role apps, covering team isolation, role permissions, policy design, testing, and common security mistakes.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="Muhammad Mustafa">
@@ -17,24 +17,31 @@
     <!-- Open Graph / Social Meta -->
     <meta property="og:title" content="Supabase RLS for Multi-Role Apps: What I Learned">
     <meta property="og:description" content="A practical guide to Supabase RLS for multi-role apps, covering team isolation, role permissions, policy design, testing, and common security mistakes.">
-    <meta property="og:image" content="https://mustcode.netlify.app/assets/img/mustafa-full-stack-saas-engineer-angular-nodejs.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1731">
-    <meta property="og:image:height" content="909">
-    <meta property="og:image:alt" content="Muhammad Mustafa, Full-Stack SaaS Engineer specializing in Angular and Node.js">
+    <meta property="og:image" content="https://mustcode.netlify.app/blog/images/supabase-rls-multi-role-apps.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Supabase Row Level Security diagram separating admin, coach, and team database access">
     <meta property="og:url" content="https://mustcode.netlify.app/blog/supabase-rls-multi-role-apps.html">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Muhammad Mustafa">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-07-17T12:26:58.775Z">
+    <meta property="article:modified_time" content="2026-07-17T12:26:58.775Z">
     <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="Security & Compliance">
+    <meta property="article:tag" content="Supabase RLS">
+    <meta property="article:tag" content="PostgreSQL">
+    <meta property="article:tag" content="Multi-Tenant SaaS">
+    <meta property="article:tag" content="Access Control">
+    <meta property="article:tag" content="Security">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Supabase RLS for Multi-Role Apps: What I Learned">
     <meta name="twitter:description" content="A practical guide to Supabase RLS for multi-role apps, covering team isolation, role permissions, policy design, testing, and common security mistakes.">
-    <meta name="twitter:image" content="https://mustcode.netlify.app/assets/img/mustafa-full-stack-saas-engineer-angular-nodejs.png">
-    <meta name="twitter:image:alt" content="Muhammad Mustafa, Full-Stack SaaS Engineer specializing in Angular and Node.js">
+    <meta name="twitter:image" content="https://mustcode.netlify.app/blog/images/supabase-rls-multi-role-apps.jpg">
+    <meta name="twitter:image:alt" content="Supabase Row Level Security diagram separating admin, coach, and team database access">
 
     <meta name="theme-color" content="#00C19D" />
     <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
@@ -63,6 +70,9 @@
           "description": "A practical guide to Supabase RLS for multi-role apps, covering team isolation, role permissions, policy design, testing, and common security mistakes.",
           "image": "https://mustcode.netlify.app/blog/images/supabase-rls-multi-role-apps.jpg",
           "datePublished": "2026-07-17T12:26:58.775Z",
+          "dateModified": "2026-07-17T12:26:58.775Z",
+          "articleSection": "Security & Compliance",
+          "keywords": ["Supabase RLS","PostgreSQL","Multi-Tenant SaaS","Access Control","Security"],
           "author": { "@id": "https://mustcode.netlify.app/#person" },
           "publisher": { "@id": "https://mustcode.netlify.app/#person" },
           "mainEntityOfPage": "https://mustcode.netlify.app/blog/supabase-rls-multi-role-apps.html"
@@ -103,17 +113,37 @@
 
     <main class="pt-40 pb-20 px-6">
         <article class="max-w-3xl mx-auto">
-            <p class="text-primary text-sm font-semibold mb-3">July 17, 2026 · 5 min read</p>
+            <p class="text-primary text-sm font-semibold mb-3">Published <time datetime="2026-07-17T12:26:58.775Z">July 17, 2026</time> · 5 min read</p>
             <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">Supabase RLS for Multi-Role Apps: What I Learned</h1>
+            <div class="flex flex-wrap gap-2 mb-6" aria-label="Article topics">
+                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Security &amp; Compliance</span>
+                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Supabase RLS</span>
+                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">PostgreSQL</span>
+                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Multi-Tenant SaaS</span>
+                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Access Control</span>
+                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Security</span>
+            </div>
 
             <img src="images/supabase-rls-multi-role-apps.jpg" alt="Supabase Row Level Security diagram separating admin, coach, and team database access" width="1200" height="675" loading="eager"
                 class="w-full aspect-video object-cover rounded-2xl border border-gray-700 mb-10" />
+
+            <nav class="mb-10 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="table-of-contents">
+                <h2 id="table-of-contents" class="text-xl font-bold text-white mb-4">Table of contents</h2>
+                <ol class="space-y-2 list-decimal list-inside text-gray-300">
+                    <li><a href="#why-supabase-rls-belongs-in-the-database" class="text-primary hover:text-white transition">Why Supabase RLS belongs in the database</a></li>
+                    <li><a href="#start-with-relationships-not-role-names" class="text-primary hover:text-white transition">Start with relationships, not role names</a></li>
+                    <li><a href="#write-a-policy-for-each-action" class="text-primary hover:text-white transition">Write a policy for each action</a></li>
+                    <li><a href="#the-mistakes-i-actively-check-for" class="text-primary hover:text-white transition">The mistakes I actively check for</a></li>
+                    <li><a href="#the-practical-takeaway" class="text-primary hover:text-white transition">The practical takeaway</a></li>
+                </ol>
+            </nav>
 
             <div class="prose prose-invert prose-lg max-w-none
                 prose-headings:text-white prose-headings:font-bold
                 prose-p:text-gray-300 prose-a:text-primary prose-strong:text-white
                 prose-li:text-gray-300 prose-code:text-primary">
-                <p>Supabase Row Level Security is the part of a multi-role app that decides which database rows each user can read or change. In BWL League, the platform serves coaches, teams, and admins. Those users share the same application, but they should not share the same level of access. I learned that hiding an admin button in React is useful for the interface, but it is not security. The real boundary has to exist in the database.</p><p>This article explains how I think about Supabase RLS for a multi-role app: start with ownership, separate actions, keep privileged access off the client, and test policies as carefully as application code.</p><h2>Why Supabase RLS belongs in the database</h2><p>A frontend role check only changes what a user sees. A curious user can still inspect network requests or call an API endpoint directly. Row Level Security, usually shortened to RLS, adds the authorization rule inside PostgreSQL. Every database request is filtered through that rule.</p><p>Supabase describes a policy as something similar to an automatic <code>WHERE</code> clause. If a coach may only read rows for their own team, the database applies that condition even when the client asks for every row. That gives the app a second and more reliable security boundary.</p><p>This matters because Supabase applications can query the database directly from the browser. The public client key identifies the project; it is not supposed to grant unlimited access. The user's session and the RLS policies decide what the request can actually do. Supabase recommends enabling RLS on every table in an exposed schema such as <code>public</code>.</p><h2>Start with relationships, not role names</h2><p>It is tempting to begin with statements such as “admins can do everything” and “coaches can edit scores.” Those statements are incomplete until the data model explains which league, team, or match the user belongs to.</p><p>For a league platform, I prefer to make membership explicit. A membership row can connect a user to an organisation or team and store the role they hold there. Policies can then answer two separate questions:</p><ul><li><strong>Scope:</strong> Does this row belong to the user's league or team?</li><li><strong>Permission:</strong> Does the user's role allow this action?</li></ul><p>Keeping those questions separate makes policies easier to review. A coach might be allowed to update a match, but only when that match belongs to their team. An admin might manage the whole league, but not a different league that happens to use the same database.</p><p>Here is a simplified example for reading matches. The exact table names will vary, but the important part is the relationship check rather than trusting a role sent by the browser:</p><pre><code>alter table public.matches enable row level security;
+                <!-- ARTICLE_CONTENT_START -->
+                <p>Supabase Row Level Security is the part of a multi-role app that decides which database rows each user can read or change. In BWL League, the platform serves coaches, teams, and admins. Those users share the same application, but they should not share the same level of access. I learned that hiding an admin button in React is useful for the interface, but it is not security. The real boundary has to exist in the database.</p><p>This article explains how I think about Supabase RLS for a multi-role app: start with ownership, separate actions, keep privileged access off the client, and test policies as carefully as application code.</p><h2 class="scroll-mt-28" id="why-supabase-rls-belongs-in-the-database">Why Supabase RLS belongs in the database</h2><p>A frontend role check only changes what a user sees. A curious user can still inspect network requests or call an API endpoint directly. Row Level Security, usually shortened to RLS, adds the authorization rule inside PostgreSQL. Every database request is filtered through that rule.</p><p>Supabase describes a policy as something similar to an automatic <code>WHERE</code> clause. If a coach may only read rows for their own team, the database applies that condition even when the client asks for every row. That gives the app a second and more reliable security boundary.</p><p>This matters because Supabase applications can query the database directly from the browser. The public client key identifies the project; it is not supposed to grant unlimited access. The user's session and the RLS policies decide what the request can actually do. Supabase recommends enabling RLS on every table in an exposed schema such as <code>public</code>.</p><h2 class="scroll-mt-28" id="start-with-relationships-not-role-names">Start with relationships, not role names</h2><p>It is tempting to begin with statements such as “admins can do everything” and “coaches can edit scores.” Those statements are incomplete until the data model explains which league, team, or match the user belongs to.</p><p>For a league platform, I prefer to make membership explicit. A membership row can connect a user to an organisation or team and store the role they hold there. Policies can then answer two separate questions:</p><ul><li><strong>Scope:</strong> Does this row belong to the user's league or team?</li><li><strong>Permission:</strong> Does the user's role allow this action?</li></ul><p>Keeping those questions separate makes policies easier to review. A coach might be allowed to update a match, but only when that match belongs to their team. An admin might manage the whole league, but not a different league that happens to use the same database.</p><p>Here is a simplified example for reading matches. The exact table names will vary, but the important part is the relationship check rather than trusting a role sent by the browser:</p><pre><code>alter table public.matches enable row level security;
 
 create policy "members can view league matches"
 on public.matches
@@ -126,15 +156,42 @@ using (
     where m.user_id = (select auth.uid())
       and m.league_id = matches.league_id
   )
-);</code></pre><p>The database gets the user ID from the authenticated session with <code>auth.uid()</code>. The client does not get to choose another user ID and claim their access.</p><h2>Write a policy for each action</h2><p>Reading, inserting, updating, and deleting are different permissions. I avoid one broad policy when the product rules are different for each operation.</p><h3>Use USING for rows that already exist</h3><p>A <code>USING</code> expression decides which existing rows are visible for operations such as <code>SELECT</code>, <code>UPDATE</code>, and <code>DELETE</code>. If the expression is false, PostgreSQL behaves as if that row is outside the user's allowed dataset.</p><h3>Use WITH CHECK for the resulting data</h3><p>A <code>WITH CHECK</code> expression validates a row being inserted or the result of an update. This prevents a valid user from changing an allowed row so that it moves into another team's scope.</p><p>For updates, I normally want both checks: one to confirm that the user may touch the existing row and another to confirm that the new values remain valid. Supabase also notes that an update needs a corresponding <code>SELECT</code> policy. Missing that read policy can make a reasonable-looking update policy fail in confusing ways.</p><p>Delete access deserves its own careful decision. A user who can edit a score does not automatically need permission to delete the match. Smaller permissions reduce both security risk and accidental damage.</p><h2>The mistakes I actively check for</h2><h3>Leaving one exposed table without RLS</h3><p>A strong policy on the main table does not protect a related table that has no policy. I treat every exposed table, view, and storage bucket as a separate review item. Views need special attention because their execution permissions can bypass the underlying table policies unless they are configured correctly. On supported PostgreSQL versions, a <code>security_invoker</code> view can respect the caller's permissions.</p><h3>Putting the service key in frontend code</h3><p>The Supabase service role is intentionally powerful and bypasses RLS. It belongs only in trusted server-side code or controlled automation. Shipping it in a browser bundle removes the protection the policies were meant to provide.</p><h3>Testing only the successful role</h3><p>A policy is not proven because an admin can complete an action. I test the negative cases too: a coach from another team, a signed-in user with no membership, an anonymous request, and a user attempting to change the ownership field during an update.</p><p>I also test each database operation independently. A passing <code>SELECT</code> test says nothing about <code>INSERT</code> or <code>DELETE</code>. For important rules, I want a small access matrix that lists roles against actions and expected results. It turns vague authorization requirements into checks the team can repeat after a schema change.</p><h2>The practical takeaway</h2><p>Supabase RLS works best when it is treated as part of the product model, not as a final security switch. Define who owns each row, connect users to that scope, give every operation the smallest permission it needs, and make denied-access tests part of development.</p><p>That approach has been a natural fit for BWL League, where coaches, teams, and admins use the same live platform with different responsibilities. You can see the project in <a href="/#portfolio">my portfolio</a>. For the exact PostgreSQL syntax and current platform guidance, I also recommend the official <a href="https://supabase.com/docs/guides/database/postgres/row-level-security" target="_blank" rel="noopener noreferrer">Supabase RLS documentation</a> and its <a href="https://supabase.com/docs/guides/api/custom-claims-and-role-based-access-control-rbac" target="_blank" rel="noopener noreferrer">role-based access control guide</a>.</p><p>If you are building a multi-role SaaS and want help designing the data model and access rules before they become difficult to change, <a href="/#contact">contact me</a>.</p>
+);</code></pre><p>The database gets the user ID from the authenticated session with <code>auth.uid()</code>. The client does not get to choose another user ID and claim their access.</p><h2 class="scroll-mt-28" id="write-a-policy-for-each-action">Write a policy for each action</h2><p>Reading, inserting, updating, and deleting are different permissions. I avoid one broad policy when the product rules are different for each operation.</p><h3>Use USING for rows that already exist</h3><p>A <code>USING</code> expression decides which existing rows are visible for operations such as <code>SELECT</code>, <code>UPDATE</code>, and <code>DELETE</code>. If the expression is false, PostgreSQL behaves as if that row is outside the user's allowed dataset.</p><h3>Use WITH CHECK for the resulting data</h3><p>A <code>WITH CHECK</code> expression validates a row being inserted or the result of an update. This prevents a valid user from changing an allowed row so that it moves into another team's scope.</p><p>For updates, I normally want both checks: one to confirm that the user may touch the existing row and another to confirm that the new values remain valid. Supabase also notes that an update needs a corresponding <code>SELECT</code> policy. Missing that read policy can make a reasonable-looking update policy fail in confusing ways.</p><p>Delete access deserves its own careful decision. A user who can edit a score does not automatically need permission to delete the match. Smaller permissions reduce both security risk and accidental damage.</p><h2 class="scroll-mt-28" id="the-mistakes-i-actively-check-for">The mistakes I actively check for</h2><h3>Leaving one exposed table without RLS</h3><p>A strong policy on the main table does not protect a related table that has no policy. I treat every exposed table, view, and storage bucket as a separate review item. Views need special attention because their execution permissions can bypass the underlying table policies unless they are configured correctly. On supported PostgreSQL versions, a <code>security_invoker</code> view can respect the caller's permissions.</p><h3>Putting the service key in frontend code</h3><p>The Supabase service role is intentionally powerful and bypasses RLS. It belongs only in trusted server-side code or controlled automation. Shipping it in a browser bundle removes the protection the policies were meant to provide.</p><h3>Testing only the successful role</h3><p>A policy is not proven because an admin can complete an action. I test the negative cases too: a coach from another team, a signed-in user with no membership, an anonymous request, and a user attempting to change the ownership field during an update.</p><p>I also test each database operation independently. A passing <code>SELECT</code> test says nothing about <code>INSERT</code> or <code>DELETE</code>. For important rules, I want a small access matrix that lists roles against actions and expected results. It turns vague authorization requirements into checks the team can repeat after a schema change.</p><h2 class="scroll-mt-28" id="the-practical-takeaway">The practical takeaway</h2><p>Supabase RLS works best when it is treated as part of the product model, not as a final security switch. Define who owns each row, connect users to that scope, give every operation the smallest permission it needs, and make denied-access tests part of development.</p><p>That approach has been a natural fit for BWL League, where coaches, teams, and admins use the same live platform with different responsibilities. You can see the project in <a href="/#portfolio">my portfolio</a>. For the exact PostgreSQL syntax and current platform guidance, I also recommend the official <a href="https://supabase.com/docs/guides/database/postgres/row-level-security" target="_blank" rel="noopener noreferrer">Supabase RLS documentation</a> and its <a href="https://supabase.com/docs/guides/api/custom-claims-and-role-based-access-control-rbac" target="_blank" rel="noopener noreferrer">role-based access control guide</a>.</p><p>If you are building a multi-role SaaS and want help designing the data model and access rules before they become difficult to change, <a href="/#contact">contact me</a>.</p>
+                <!-- ARTICLE_CONTENT_END -->
             </div>
 
-            <div class="mt-16 pt-8 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-gray-400 text-sm">Written by Muhammad Mustafa — Full-Stack SaaS Engineer</p>
-                <a href="/#contact"
-                    class="px-5 py-2 bg-primary text-white rounded hover:bg-[#0d5968] transition text-sm font-semibold">Get
-                    in touch</a>
-            </div>
+            <section class="mt-14 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="about-author">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                    <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88"
+                        loading="lazy" class="w-[72px] h-[88px] object-contain flex-none" />
+                    <div>
+                        <h2 id="about-author" class="text-xl font-bold text-white mb-2">About Muhammad Mustafa</h2>
+                        <p class="text-gray-300 text-sm leading-relaxed">Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</p>
+                        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                            <a href="/" class="text-primary hover:text-white transition">View portfolio</a>
+                            <a href="/#contact" class="text-primary hover:text-white transition">Discuss a project</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-14" aria-labelledby="related-articles">
+                <h2 id="related-articles" class="text-2xl font-bold text-white mb-5">Related articles</h2>
+                <div class="grid gap-4 sm:grid-cols-3">
+                                        <a href="/blog/uae-pdpl-compliance-saas.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
+                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
+                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">UAE PDPL Compliance Checklist for SaaS Applications</h3>
+                    </a>
+                    <a href="/blog/nextjs-security-checklist-2026.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
+                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
+                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Next.js Security Checklist After the July 2026 Release</h3>
+                    </a>
+                    <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
+                        <p class="text-primary text-xs font-semibold mb-2">SaaS Engineering</p>
+                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Stripe Per-Seat Billing: What Actually Breaks</h3>
+                    </a>
+                </div>
+            </section>
         </article>
     </main>
 

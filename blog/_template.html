@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
 
     <!-- SEO Meta -->
-    <title>{{TITLE}} | Muhammad Mustafa</title>
+    <title>{{TITLE}}</title>
     <meta name="description" content="{{META_DESCRIPTION}}">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="Muhammad Mustafa">
@@ -17,24 +17,27 @@
     <!-- Open Graph / Social Meta -->
     <meta property="og:title" content="{{TITLE}}">
     <meta property="og:description" content="{{META_DESCRIPTION}}">
-    <meta property="og:image" content="https://mustcode.netlify.app/assets/img/mustafa-full-stack-saas-engineer-angular-nodejs.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1731">
-    <meta property="og:image:height" content="909">
-    <meta property="og:image:alt" content="Muhammad Mustafa, Full-Stack SaaS Engineer specializing in Angular and Node.js">
+    <meta property="og:image" content="https://mustcode.netlify.app/blog/images/{{SLUG}}.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="{{HERO_IMAGE_ALT}}">
     <meta property="og:url" content="https://mustcode.netlify.app/blog/{{SLUG}}.html">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Muhammad Mustafa">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="{{PUBLISH_DATE_ISO}}">
+    <meta property="article:modified_time" content="{{MODIFIED_DATE_ISO}}">
     <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="{{CATEGORY}}">
+    {{ARTICLE_TAG_META}}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{TITLE}}">
     <meta name="twitter:description" content="{{META_DESCRIPTION}}">
-    <meta name="twitter:image" content="https://mustcode.netlify.app/assets/img/mustafa-full-stack-saas-engineer-angular-nodejs.png">
-    <meta name="twitter:image:alt" content="Muhammad Mustafa, Full-Stack SaaS Engineer specializing in Angular and Node.js">
+    <meta name="twitter:image" content="https://mustcode.netlify.app/blog/images/{{SLUG}}.jpg">
+    <meta name="twitter:image:alt" content="{{HERO_IMAGE_ALT}}">
 
     <meta name="theme-color" content="#00C19D" />
     <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
@@ -63,6 +66,9 @@
           "description": "{{META_DESCRIPTION}}",
           "image": "https://mustcode.netlify.app/blog/images/{{SLUG}}.jpg",
           "datePublished": "{{PUBLISH_DATE_ISO}}",
+          "dateModified": "{{MODIFIED_DATE_ISO}}",
+          "articleSection": "{{CATEGORY}}",
+          "keywords": {{SCHEMA_KEYWORDS}},
           "author": { "@id": "https://mustcode.netlify.app/#person" },
           "publisher": { "@id": "https://mustcode.netlify.app/#person" },
           "mainEntityOfPage": "https://mustcode.netlify.app/blog/{{SLUG}}.html"
@@ -103,25 +109,45 @@
 
     <main class="pt-40 pb-20 px-6">
         <article class="max-w-3xl mx-auto">
-            <p class="text-primary text-sm font-semibold mb-3">{{PUBLISH_DATE}} · {{READING_TIME}} min read</p>
+            <p class="text-primary text-sm font-semibold mb-3">Published <time datetime="{{PUBLISH_DATE_ISO}}">{{PUBLISH_DATE}}</time>{{UPDATED_DATE_HTML}} · {{READING_TIME}} min read</p>
             <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">{{TITLE}}</h1>
+            {{TAGS_HTML}}
 
             <img src="images/{{SLUG}}.jpg" alt="{{HERO_IMAGE_ALT}}" width="1200" height="675" loading="eager"
                 class="w-full aspect-video object-cover rounded-2xl border border-gray-700 mb-10" />
+
+            {{TOC_HTML}}
 
             <div class="prose prose-invert prose-lg max-w-none
                 prose-headings:text-white prose-headings:font-bold
                 prose-p:text-gray-300 prose-a:text-primary prose-strong:text-white
                 prose-li:text-gray-300 prose-code:text-primary">
+                <!-- ARTICLE_CONTENT_START -->
                 {{CONTENT_HTML}}
+                <!-- ARTICLE_CONTENT_END -->
             </div>
 
-            <div class="mt-16 pt-8 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-gray-400 text-sm">Written by Muhammad Mustafa — Full-Stack SaaS Engineer</p>
-                <a href="/#contact"
-                    class="px-5 py-2 bg-primary text-white rounded hover:bg-[#0d5968] transition text-sm font-semibold">Get
-                    in touch</a>
-            </div>
+            <section class="mt-14 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="about-author">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                    <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88"
+                        loading="lazy" class="w-[72px] h-[88px] object-contain flex-none" />
+                    <div>
+                        <h2 id="about-author" class="text-xl font-bold text-white mb-2">About Muhammad Mustafa</h2>
+                        <p class="text-gray-300 text-sm leading-relaxed">Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</p>
+                        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                            <a href="/" class="text-primary hover:text-white transition">View portfolio</a>
+                            <a href="/#contact" class="text-primary hover:text-white transition">Discuss a project</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mt-14" aria-labelledby="related-articles">
+                <h2 id="related-articles" class="text-2xl font-bold text-white mb-5">Related articles</h2>
+                <div class="grid gap-4 sm:grid-cols-3">
+                    {{RELATED_POSTS_HTML}}
+                </div>
+            </section>
         </article>
     </main>
 

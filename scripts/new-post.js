@@ -15,6 +15,9 @@
  *   "metaDescription": "150-160 char SEO description",
  *   "heroImageAlt": "descriptive alt text for the hero image",
  *   "imagePrompt": "prompt used for OpenAI image generation (or ignored by the fallback)",
+ *   "category": "Security & Compliance",
+ *   "tags": ["UAE PDPL", "SaaS Compliance"],
+ *   "relatedSlugs": ["optional-curated-related-post-slug"],
  *   "contentHtml": "<p>...</p><h2>...</h2>..."   // already-written post body as HTML
  * }
  */
@@ -22,6 +25,7 @@
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
+const { renderPostPage } = require("./blog-seo");
 
 const ROOT = path.join(__dirname, "..");
 const POSTS_JSON = path.join(ROOT, "blog", "posts.json");
@@ -163,18 +167,28 @@ const now = new Date();
 const publishDate = formatDate(now);
 const publishDateIso = now.toISOString();
 const readingTime = estimateReadingTime(post.contentHtml);
+const newPost = {
+  slug,
+  title: post.title,
+  metaDescription: post.metaDescription,
+  heroImageAlt: post.heroImageAlt || post.title,
+  publishDate,
+  publishDateIso,
+  readingTime,
+  category: post.category || "SaaS Engineering",
+  tags: Array.isArray(post.tags) ? post.tags : [],
+  relatedSlugs: Array.isArray(post.relatedSlugs) ? post.relatedSlugs : [],
+};
+const posts = [newPost, ...loadPosts()];
 
 // 1. Render the post page from the template
 const template = fs.readFileSync(path.join(ROOT, "blog", "_template.html"), "utf8");
-const rendered = template
-  .replaceAll("{{TITLE}}", post.title)
-  .replaceAll("{{META_DESCRIPTION}}", post.metaDescription)
-  .replaceAll("{{SLUG}}", slug)
-  .replaceAll("{{PUBLISH_DATE_ISO}}", publishDateIso)
-  .replaceAll("{{PUBLISH_DATE}}", publishDate)
-  .replaceAll("{{READING_TIME}}", String(readingTime))
-  .replaceAll("{{HERO_IMAGE_ALT}}", post.heroImageAlt || post.title)
-  .replaceAll("{{CONTENT_HTML}}", post.contentHtml);
+const rendered = renderPostPage({
+  template,
+  post: newPost,
+  contentHtml: post.contentHtml,
+  posts,
+});
 
 fs.writeFileSync(postPath, rendered);
 console.log(`Wrote blog/${slug}.html`);
@@ -192,16 +206,6 @@ execFileSync(
 );
 
 // 3. Update the manifest (single source of truth), newest first
-const posts = loadPosts();
-posts.unshift({
-  slug,
-  title: post.title,
-  metaDescription: post.metaDescription,
-  heroImageAlt: post.heroImageAlt || post.title,
-  publishDate,
-  publishDateIso,
-  readingTime,
-});
 savePosts(posts);
 console.log("Updated blog/posts.json");
 
@@ -209,5 +213,8 @@ console.log("Updated blog/posts.json");
 regenerateBlogIndex(posts);
 regenerateHomeSection(posts);
 regenerateSitemap(posts);
+
+// Related links depend on the complete manifest, so refresh every generated post.
+execFileSync("node", [path.join(ROOT, "scripts", "refresh-blog-seo.js")], { stdio: "inherit" });
 
 console.log(`\nDone. Draft ready at blog/${slug}.html — remember to run "npm run build:css" if you added any new Tailwind classes, then review before pushing.`);

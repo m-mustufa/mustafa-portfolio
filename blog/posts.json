@@ -6,7 +6,10 @@
     "heroImageAlt": "Dubai AI Seal readiness architecture for an AI SaaS company showing product evidence, responsible AI controls, data governance, security and audit records",
     "publishDate": "September 2, 2026",
     "publishDateIso": "2026-09-01T22:59:48.651Z",
-    "readingTime": 10
+    "readingTime": 10,
+    "category": "AI & Automation",
+    "tags": ["Dubai AI Seal", "AI SaaS", "Responsible AI", "AI Governance", "Dubai"],
+    "relatedSlugs": ["arabic-ai-chatbot-abu-dhabi", "uae-pdpl-compliance-saas", "nextjs-security-checklist-2026"]
   },
   {
     "slug": "adhics-v2-healthcare-saas-abu-dhabi",
@@ -15,7 +18,10 @@
     "heroImageAlt": "ADHICS V2 healthcare SaaS security architecture protecting Abu Dhabi patient data with access controls, encryption, audit logs and incident response",
     "publishDate": "August 22, 2026",
     "publishDateIso": "2026-08-22T16:53:23.960Z",
-    "readingTime": 10
+    "readingTime": 10,
+    "category": "Security & Compliance",
+    "tags": ["ADHICS V2", "Healthcare SaaS", "Cybersecurity", "Patient Data", "Abu Dhabi"],
+    "relatedSlugs": ["uae-pdpl-compliance-saas", "nextjs-security-checklist-2026", "supabase-rls-multi-role-apps"]
   },
   {
     "slug": "uae-pdpl-compliance-saas",
@@ -24,7 +30,10 @@
     "heroImageAlt": "UAE PDPL compliance architecture for a SaaS application showing consent, encrypted data, access controls, user rights and audit logs",
     "publishDate": "August 14, 2026",
     "publishDateIso": "2026-08-13T19:39:02.504Z",
-    "readingTime": 10
+    "readingTime": 10,
+    "category": "Security & Compliance",
+    "tags": ["UAE PDPL", "Data Protection", "SaaS Compliance", "Privacy", "UAE"],
+    "relatedSlugs": ["supabase-rls-multi-role-apps", "adhics-v2-healthcare-saas-abu-dhabi", "uae-pass-nextjs-nodejs-integration"]
   },
   {
     "slug": "arabic-ai-chatbot-abu-dhabi",
@@ -33,7 +42,10 @@
     "heroImageAlt": "Arabic and English AI chatbot architecture for an Abu Dhabi business using RAG, WhatsApp, CRM integration and human support",
     "publishDate": "August 8, 2026",
     "publishDateIso": "2026-08-08T00:16:28.820Z",
-    "readingTime": 10
+    "readingTime": 10,
+    "category": "AI & Automation",
+    "tags": ["Arabic AI", "AI Chatbot", "RAG", "WhatsApp", "Abu Dhabi"],
+    "relatedSlugs": ["dubai-ai-seal-ai-saas-guide", "uae-pdpl-compliance-saas", "uae-pass-nextjs-nodejs-integration"]
   },
   {
     "slug": "uae-pass-nextjs-nodejs-integration",
@@ -42,7 +54,10 @@
     "heroImageAlt": "UAE PASS integration architecture connecting a Next.js application and Node.js API to secure UAE digital identity services",
     "publishDate": "August 3, 2026",
     "publishDateIso": "2026-08-03T16:59:28.167Z",
-    "readingTime": 10
+    "readingTime": 10,
+    "category": "UAE Integrations",
+    "tags": ["UAE PASS", "Next.js", "Node.js", "OAuth 2.0", "Digital Identity"],
+    "relatedSlugs": ["nextjs-security-checklist-2026", "uae-pdpl-compliance-saas", "supabase-rls-multi-role-apps"]
   },
   {
     "slug": "uae-einvoicing-saas-integration",
@@ -51,7 +66,10 @@
     "heroImageAlt": "UAE e-invoicing integration architecture connecting a SaaS platform, accredited service providers, Peppol and the Federal Tax Authority",
     "publishDate": "August 1, 2026",
     "publishDateIso": "2026-08-01T10:25:05.412Z",
-    "readingTime": 9
+    "readingTime": 9,
+    "category": "UAE Integrations",
+    "tags": ["UAE E-Invoicing", "Peppol", "SaaS Integration", "ERP", "FTA"],
+    "relatedSlugs": ["uae-pass-nextjs-nodejs-integration", "uae-pdpl-compliance-saas", "stripe-per-seat-billing-multi-tenant-saas"]
   },
   {
     "slug": "nextjs-security-checklist-2026",
@@ -60,7 +78,10 @@
     "heroImageAlt": "Next.js security checklist showing dependency patching, Server Action authorization, CSP headers, and production verification",
     "publishDate": "July 24, 2026",
     "publishDateIso": "2026-07-24T16:28:43.719Z",
-    "readingTime": 8
+    "readingTime": 8,
+    "category": "Security & Compliance",
+    "tags": ["Next.js Security", "Server Actions", "CSP", "Web Security", "Production"],
+    "relatedSlugs": ["supabase-rls-multi-role-apps", "uae-pass-nextjs-nodejs-integration", "offline-first-react-pwa-tanstack-query"]
   },
   {
     "slug": "offline-first-react-pwa-tanstack-query",
@@ -69,7 +90,10 @@
     "heroImageAlt": "Offline-first React PWA architecture showing TanStack Query, IndexedDB, a service worker, and a cloud API",
     "publishDate": "July 21, 2026",
     "publishDateIso": "2026-07-21T17:13:25.465Z",
-    "readingTime": 9
+    "readingTime": 9,
+    "category": "Web Engineering",
+    "tags": ["React PWA", "TanStack Query", "Offline First", "IndexedDB", "Service Worker"],
+    "relatedSlugs": ["nextjs-security-checklist-2026", "supabase-rls-multi-role-apps", "extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization"]
   },
   {
     "slug": "extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization",
@@ -78,7 +102,10 @@
     "heroImageAlt": "ExtJS and AngularJS enterprise dashboard migrating to a modern Angular 19 interface",
     "publishDate": "July 17, 2026",
     "publishDateIso": "2026-07-17T12:46:45.965Z",
-    "readingTime": 6
+    "readingTime": 6,
+    "category": "Web Engineering",
+    "tags": ["Angular Migration", "AngularJS", "ExtJS", "Enterprise Dashboard", "Modernization"],
+    "relatedSlugs": ["nextjs-security-checklist-2026", "offline-first-react-pwa-tanstack-query", "supabase-rls-multi-role-apps"]
   },
   {
     "slug": "supabase-rls-multi-role-apps",
@@ -87,7 +114,10 @@
     "heroImageAlt": "Supabase Row Level Security diagram separating admin, coach, and team database access",
     "publishDate": "July 17, 2026",
     "publishDateIso": "2026-07-17T12:26:58.775Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "category": "Security & Compliance",
+    "tags": ["Supabase RLS", "PostgreSQL", "Multi-Tenant SaaS", "Access Control", "Security"],
+    "relatedSlugs": ["uae-pdpl-compliance-saas", "nextjs-security-checklist-2026", "stripe-per-seat-billing-multi-tenant-saas"]
   },
   {
     "slug": "stripe-per-seat-billing-multi-tenant-saas",
@@ -96,6 +126,9 @@
     "heroImageAlt": "Diagram showing Stripe subscription seats syncing with a multi-tenant database via webhooks",
     "publishDate": "July 16, 2026",
     "publishDateIso": "2026-07-16T09:33:02.173Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "category": "SaaS Engineering",
+    "tags": ["Stripe Billing", "Per-Seat Billing", "Multi-Tenant SaaS", "Webhooks", "Subscriptions"],
+    "relatedSlugs": ["supabase-rls-multi-role-apps", "uae-einvoicing-saas-integration", "nextjs-security-checklist-2026"]
   }
 ]
