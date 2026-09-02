@@ -8,9 +8,15 @@
   </url>
   <url>
     <loc>https://mustcode.netlify.app/portfolio.html</loc>
-    <lastmod>2026-07-15</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mustcode.netlify.app/full-stack-developer-uae.html</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mustcode.netlify.app/blog/dubai-ai-seal-ai-saas-guide.html</loc>

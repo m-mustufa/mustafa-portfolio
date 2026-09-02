@@ -9,7 +9,8 @@
     "readingTime": 10,
     "category": "AI & Automation",
     "tags": ["Dubai AI Seal", "AI SaaS", "Responsible AI", "AI Governance", "Dubai"],
-    "relatedSlugs": ["arabic-ai-chatbot-abu-dhabi", "uae-pdpl-compliance-saas", "nextjs-security-checklist-2026"]
+    "relatedSlugs": ["arabic-ai-chatbot-abu-dhabi", "uae-pdpl-compliance-saas", "nextjs-security-checklist-2026"],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
     "slug": "adhics-v2-healthcare-saas-abu-dhabi",
@@ -21,7 +22,8 @@
     "readingTime": 10,
     "category": "Security & Compliance",
     "tags": ["ADHICS V2", "Healthcare SaaS", "Cybersecurity", "Patient Data", "Abu Dhabi"],
-    "relatedSlugs": ["uae-pdpl-compliance-saas", "nextjs-security-checklist-2026", "supabase-rls-multi-role-apps"]
+    "relatedSlugs": ["uae-pdpl-compliance-saas", "nextjs-security-checklist-2026", "supabase-rls-multi-role-apps"],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
     "slug": "uae-pdpl-compliance-saas",
@@ -33,7 +35,8 @@
     "readingTime": 10,
     "category": "Security & Compliance",
     "tags": ["UAE PDPL", "Data Protection", "SaaS Compliance", "Privacy", "UAE"],
-    "relatedSlugs": ["supabase-rls-multi-role-apps", "adhics-v2-healthcare-saas-abu-dhabi", "uae-pass-nextjs-nodejs-integration"]
+    "relatedSlugs": ["supabase-rls-multi-role-apps", "adhics-v2-healthcare-saas-abu-dhabi", "uae-pass-nextjs-nodejs-integration"],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
     "slug": "arabic-ai-chatbot-abu-dhabi",
@@ -45,7 +48,8 @@
     "readingTime": 10,
     "category": "AI & Automation",
     "tags": ["Arabic AI", "AI Chatbot", "RAG", "WhatsApp", "Abu Dhabi"],
-    "relatedSlugs": ["dubai-ai-seal-ai-saas-guide", "uae-pdpl-compliance-saas", "uae-pass-nextjs-nodejs-integration"]
+    "relatedSlugs": ["dubai-ai-seal-ai-saas-guide", "uae-pdpl-compliance-saas", "uae-pass-nextjs-nodejs-integration"],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
     "slug": "uae-pass-nextjs-nodejs-integration",
@@ -57,7 +61,8 @@
     "readingTime": 10,
     "category": "UAE Integrations",
     "tags": ["UAE PASS", "Next.js", "Node.js", "OAuth 2.0", "Digital Identity"],
-    "relatedSlugs": ["nextjs-security-checklist-2026", "uae-pdpl-compliance-saas", "supabase-rls-multi-role-apps"]
+    "relatedSlugs": ["nextjs-security-checklist-2026", "uae-pdpl-compliance-saas", "supabase-rls-multi-role-apps"],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
     "slug": "uae-einvoicing-saas-integration",
@@ -69,7 +74,8 @@
     "readingTime": 9,
     "category": "UAE Integrations",
     "tags": ["UAE E-Invoicing", "Peppol", "SaaS Integration", "ERP", "FTA"],
-    "relatedSlugs": ["uae-pass-nextjs-nodejs-integration", "uae-pdpl-compliance-saas", "stripe-per-seat-billing-multi-tenant-saas"]
+    "relatedSlugs": ["uae-pass-nextjs-nodejs-integration", "uae-pdpl-compliance-saas", "stripe-per-seat-billing-multi-tenant-saas"],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
     "slug": "nextjs-security-checklist-2026",

@@ -38,6 +38,14 @@ for (const post of posts) {
   ];
   for (const [passed, message] of checks) if (!passed) errors.push(`${relativePath}: ${message}`);
 
+  if (post.serviceLandingPage) {
+    if (!html.includes(`href="${post.serviceLandingPage}"`)) {
+      errors.push(`${relativePath}: service landing page link is missing`);
+    }
+    const servicePath = path.join(ROOT, post.serviceLandingPage.replace(/^\//, ""));
+    if (!fs.existsSync(servicePath)) errors.push(`${relativePath}: service landing page does not exist`);
+  }
+
   for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     try {
       const data = JSON.parse(match[1]);

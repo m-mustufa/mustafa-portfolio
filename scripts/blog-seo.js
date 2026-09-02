@@ -122,6 +122,14 @@ function buildRelatedPostsHtml(relatedPosts) {
                     </a>`).join("\n");
 }
 
+function buildServiceCta(post) {
+  if (!post.serviceLandingPage) return "";
+  return `<aside class="mt-12 rounded-2xl border border-primary/40 bg-primary/10 p-6" aria-labelledby="uae-development-help">
+                <h2 id="uae-development-help" class="text-xl font-bold text-white mb-2">Building a SaaS or AI product for the UAE?</h2>
+                <p class="text-gray-300">See how I approach <a href="${escapeHtml(post.serviceLandingPage)}" class="text-primary font-semibold hover:text-white transition">full-stack SaaS and AI development for UAE businesses</a>, from architecture and integrations to launch support.</p>
+            </aside>\n`;
+}
+
 function formatIsoDate(isoDate) {
   return new Date(isoDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
@@ -153,6 +161,7 @@ function renderPostPage({ template, post, contentHtml, posts }) {
     "{{TAGS_HTML}}": buildVisibleTags(category, tags),
     "{{TOC_HTML}}": tocHtml,
     "{{CONTENT_HTML}}": enhancedContent,
+    "{{SERVICE_CTA_HTML}}": buildServiceCta(post),
     "{{RELATED_POSTS_HTML}}": buildRelatedPostsHtml(relatedPosts),
   };
 

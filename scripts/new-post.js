@@ -18,6 +18,7 @@
  *   "category": "Security & Compliance",
  *   "tags": ["UAE PDPL", "SaaS Compliance"],
  *   "relatedSlugs": ["optional-curated-related-post-slug"],
+ *   "serviceLandingPage": "/full-stack-developer-uae.html",
  *   "contentHtml": "<p>...</p><h2>...</h2>..."   // already-written post body as HTML
  * }
  */
@@ -178,6 +179,7 @@ const newPost = {
   category: post.category || "SaaS Engineering",
   tags: Array.isArray(post.tags) ? post.tags : [],
   relatedSlugs: Array.isArray(post.relatedSlugs) ? post.relatedSlugs : [],
+  serviceLandingPage: post.serviceLandingPage || "",
 };
 const posts = [newPost, ...loadPosts()];
 
