@@ -1,0 +1,2 @@
+# Preserve paths and SEO signals when visitors use the old Netlify hostname.
+https://mustcode.netlify.app/* https://aisaaswithmustafa.com/:splat 301!

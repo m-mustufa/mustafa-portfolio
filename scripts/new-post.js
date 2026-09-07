@@ -31,6 +31,7 @@ const { renderPostPage } = require("./blog-seo");
 const ROOT = path.join(__dirname, "..");
 const POSTS_JSON = path.join(ROOT, "blog", "posts.json");
 const HOME_MAX_POSTS = 3;
+const SITE_URL = "https://aisaaswithmustafa.com";
 
 function parseArgs(argv) {
   const args = {};
@@ -129,17 +130,24 @@ function regenerateSitemap(posts) {
   const sitemapPath = path.join(ROOT, "sitemap.xml");
   let sitemap = fs.readFileSync(sitemapPath, "utf8");
   // Strip any existing blog entries, then re-add all from the manifest (idempotent, avoids duplicates)
-  sitemap = sitemap.replace(/\s*<url>\s*<loc>https:\/\/mustcode\.netlify\.app\/blog\/[\s\S]*?<\/url>/g, "");
-  const entries = posts
-    .map(
+  sitemap = sitemap.replace(/\s*<url>\s*<loc>https:\/\/aisaaswithmustafa\.com\/blog\/[\s\S]*?<\/url>/g, "");
+  const blogIndexLastModified = posts[0]?.publishDateIso.slice(0, 10) || new Date().toISOString().slice(0, 10);
+  const entries = [
+    `  <url>
+    <loc>${SITE_URL}/blog/index.html</loc>
+    <lastmod>${blogIndexLastModified}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`,
+    ...posts.map(
       (post) => `  <url>
-    <loc>https://mustcode.netlify.app/blog/${post.slug}.html</loc>
+    <loc>${SITE_URL}/blog/${post.slug}.html</loc>
     <lastmod>${post.publishDateIso.slice(0, 10)}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>`
-    )
-    .join("\n");
+    ),
+  ].join("\n");
   sitemap = sitemap.replace("</urlset>", (entries ? entries + "\n" : "") + "</urlset>");
   fs.writeFileSync(sitemapPath, sitemap);
   console.log("Updated sitemap.xml");

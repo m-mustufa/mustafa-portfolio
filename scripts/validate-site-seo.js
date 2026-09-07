@@ -4,12 +4,13 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.join(__dirname, "..");
+const SITE_URL = "https://aisaaswithmustafa.com";
 const errors = [];
 const pages = [
-  { file: "index.html", canonical: "https://mustcode.netlify.app/" },
+  { file: "index.html", canonical: `${SITE_URL}/` },
   {
     file: "full-stack-developer-uae.html",
-    canonical: "https://mustcode.netlify.app/full-stack-developer-uae.html",
+    canonical: `${SITE_URL}/full-stack-developer-uae.html`,
     primaryPhrase: "full-stack",
   },
 ];
@@ -92,8 +93,29 @@ if (!homeHtml.includes('href="/full-stack-developer-uae.html"')) {
 }
 
 const sitemap = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
-if (!sitemap.includes("https://mustcode.netlify.app/full-stack-developer-uae.html")) {
+if (!sitemap.includes(`${SITE_URL}/full-stack-developer-uae.html`)) {
   errors.push("sitemap.xml: UAE service landing page is missing");
+}
+if (!sitemap.includes(`${SITE_URL}/blog/index.html`)) {
+  errors.push("sitemap.xml: blog index is missing");
+}
+
+const legacyHostnameFiles = [
+  "index.html",
+  "portfolio.html",
+  "profile.html",
+  "thanks.html",
+  "full-stack-developer-uae.html",
+  "blog/index.html",
+  "blog/_template.html",
+  "robots.txt",
+  "sitemap.xml",
+];
+for (const file of legacyHostnameFiles) {
+  const contents = fs.readFileSync(path.join(ROOT, file), "utf8");
+  if (contents.includes("mustcode.netlify.app")) {
+    errors.push(`${file}: contains the legacy production hostname`);
+  }
 }
 
 if (errors.length) {

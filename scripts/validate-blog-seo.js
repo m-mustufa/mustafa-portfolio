@@ -5,6 +5,7 @@ const path = require("path");
 
 const ROOT = path.join(__dirname, "..");
 const BLOG_DIR = path.join(ROOT, "blog");
+const SITE_URL = "https://aisaaswithmustafa.com";
 const posts = JSON.parse(fs.readFileSync(path.join(BLOG_DIR, "posts.json"), "utf8"));
 const errors = [];
 
@@ -21,9 +22,10 @@ for (const post of posts) {
   }
 
   const html = fs.readFileSync(postPath, "utf8");
-  const expectedImage = `https://mustcode.netlify.app/blog/images/${post.slug}.jpg`;
+  const expectedImage = `${SITE_URL}/blog/images/${post.slug}.jpg`;
   const checks = [
     [!/{{[A-Z0-9_]+}}/.test(html), "contains an unreplaced template placeholder"],
+    [!html.includes("mustcode.netlify.app"), "contains the legacy production hostname"],
     [countMatches(html, /<title>/gi) === 1, "must contain exactly one title"],
     [countMatches(html, /<h1[\s>]/gi) === 1, "must contain exactly one h1"],
     [countMatches(html, /<main[\s>]/gi) === 1, "must contain exactly one main landmark"],

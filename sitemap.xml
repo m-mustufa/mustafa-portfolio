@@ -1,85 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mustcode.netlify.app/</loc>
-    <lastmod>2026-07-15</lastmod>
+    <loc>https://aisaaswithmustafa.com/</loc>
+    <lastmod>2026-09-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/portfolio.html</loc>
+    <loc>https://aisaaswithmustafa.com/portfolio.html</loc>
     <lastmod>2026-09-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/full-stack-developer-uae.html</loc>
+    <loc>https://aisaaswithmustafa.com/full-stack-developer-uae.html</loc>
     <lastmod>2026-09-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/dubai-ai-seal-ai-saas-guide.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/index.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aisaaswithmustafa.com/blog/dubai-ai-seal-ai-saas-guide.html</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/adhics-v2-healthcare-saas-abu-dhabi.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/adhics-v2-healthcare-saas-abu-dhabi.html</loc>
     <lastmod>2026-08-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/uae-pdpl-compliance-saas.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/uae-pdpl-compliance-saas.html</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/arabic-ai-chatbot-abu-dhabi.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/arabic-ai-chatbot-abu-dhabi.html</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/uae-pass-nextjs-nodejs-integration.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/uae-pass-nextjs-nodejs-integration.html</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/uae-einvoicing-saas-integration.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/uae-einvoicing-saas-integration.html</loc>
     <lastmod>2026-08-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/nextjs-security-checklist-2026.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/nextjs-security-checklist-2026.html</loc>
     <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/offline-first-react-pwa-tanstack-query.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/offline-first-react-pwa-tanstack-query.html</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization.html</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/supabase-rls-multi-role-apps.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/supabase-rls-multi-role-apps.html</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mustcode.netlify.app/blog/stripe-per-seat-billing-multi-tenant-saas.html</loc>
+    <loc>https://aisaaswithmustafa.com/blog/stripe-per-seat-billing-multi-tenant-saas.html</loc>
     <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
