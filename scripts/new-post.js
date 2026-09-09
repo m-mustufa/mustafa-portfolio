@@ -78,13 +78,17 @@ function escapeHtml(str) {
 function blogCard(post) {
   return `
               <a href="/blog/${post.slug}.html"
-                class="group block bg-white/5 rounded-2xl border border-gray-700 overflow-hidden transition hover:-translate-y-1 hover:border-primary">
-                <img src="/blog/images/${post.slug}.jpg" alt="${escapeHtml(post.heroImageAlt)}"
-                  width="1200" height="675" loading="lazy" class="w-full aspect-video object-cover" />
-                <div class="p-5">
-                  <p class="text-primary text-xs font-semibold mb-2">${post.publishDate} · ${post.readingTime} min read</p>
-                  <h2 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition">${escapeHtml(post.title)}</h2>
-                  <p class="text-gray-400 text-sm">${escapeHtml(post.metaDescription)}</p>
+                class="blog-index-card group">
+                <div class="blog-index-image">
+                  <img src="/blog/images/${post.slug}.jpg" alt="${escapeHtml(post.heroImageAlt)}"
+                    width="1200" height="675" loading="lazy" />
+                  <span>${escapeHtml(post.category || "Engineering Notes")}</span>
+                </div>
+                <div class="blog-index-content">
+                  <p class="blog-index-meta">${post.publishDate}<span aria-hidden="true">·</span>${post.readingTime} min read</p>
+                  <h2>${escapeHtml(post.title)}</h2>
+                  <p class="blog-index-excerpt">${escapeHtml(post.metaDescription)}</p>
+                  <span class="blog-index-link">Read article <span aria-hidden="true">&rarr;</span></span>
                 </div>
               </a>`;
 }
@@ -107,7 +111,7 @@ function regenerateBlogIndex(posts) {
   const indexPath = path.join(ROOT, "blog", "index.html");
   let html = fs.readFileSync(indexPath, "utf8");
   const inner = posts.length
-    ? `<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">${posts.map(blogCard).join("")}\n            </div>`
+    ? `<div class="blog-index-grid">${posts.map(blogCard).join("")}\n            </div>`
     : `<p class="text-center text-gray-400 py-16">New posts are on the way — check back soon.</p>`;
   html = html.replace(/<!-- POSTS_START -->[\s\S]*?<!-- POSTS_END -->/, `<!-- POSTS_START -->\n            ${inner}\n            <!-- POSTS_END -->`);
   fs.writeFileSync(indexPath, html);
