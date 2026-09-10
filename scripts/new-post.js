@@ -13,6 +13,7 @@
  *   "title": "Post Title",
  *   "slug": "optional-custom-slug",       // derived from title if omitted
  *   "metaDescription": "150-160 char SEO description",
+ *   "heroImageFile": "optional-descriptive-image-filename.jpg",
  *   "heroImageAlt": "descriptive alt text for the hero image",
  *   "imagePrompt": "prompt used for OpenAI image generation (or ignored by the fallback)",
  *   "category": "Security & Compliance",
@@ -75,12 +76,16 @@ function escapeHtml(str) {
   return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+function heroImageFile(post) {
+  return post.heroImageFile || `${post.slug}.jpg`;
+}
+
 function blogCard(post) {
   return `
               <a href="/blog/${post.slug}.html"
                 class="blog-index-card group">
                 <div class="blog-index-image">
-                  <img src="/blog/images/${post.slug}.jpg" alt="${escapeHtml(post.heroImageAlt)}"
+                  <img src="/blog/images/${heroImageFile(post)}" alt="${escapeHtml(post.heroImageAlt)}"
                     width="1200" height="675" loading="lazy" />
                   <span>${escapeHtml(post.category || "Engineering Notes")}</span>
                 </div>
@@ -97,7 +102,7 @@ function homeCard(post) {
   return `
         <a href="/blog/${post.slug}.html"
           class="group block bg-white/5 rounded-2xl border border-gray-700 overflow-hidden transition hover:-translate-y-1 hover:border-primary">
-          <img src="/blog/images/${post.slug}.jpg" alt="${escapeHtml(post.heroImageAlt)}"
+          <img src="/blog/images/${heroImageFile(post)}" alt="${escapeHtml(post.heroImageAlt)}"
             width="1200" height="675" loading="lazy" class="w-full aspect-video object-cover" />
           <div class="p-5">
             <p class="text-primary text-xs font-semibold mb-2">${post.publishDate} · ${post.readingTime} min read</p>
@@ -184,6 +189,7 @@ const newPost = {
   slug,
   title: post.title,
   metaDescription: post.metaDescription,
+  heroImageFile: post.heroImageFile || `${slug}.jpg`,
   heroImageAlt: post.heroImageAlt || post.title,
   publishDate,
   publishDateIso,
@@ -213,6 +219,7 @@ execFileSync(
   [
     path.join(ROOT, "scripts", "generate-image.js"),
     "--slug", slug,
+    "--file", heroImageFile(newPost),
     "--title", post.title,
     "--prompt", post.imagePrompt || `A clean, modern, abstract tech illustration representing: ${post.title}`,
   ],

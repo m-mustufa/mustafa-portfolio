@@ -154,6 +154,7 @@ function renderPostPage({ template, post, contentHtml, posts }) {
     "{{PUBLISH_DATE}}": post.publishDate,
     "{{UPDATED_DATE_HTML}}": updatedDateHtml,
     "{{READING_TIME}}": String(post.readingTime),
+    "{{HERO_IMAGE_FILENAME}}": post.heroImageFile || `${post.slug}.jpg`,
     "{{HERO_IMAGE_ALT}}": post.heroImageAlt || post.title,
     "{{CATEGORY}}": category,
     "{{ARTICLE_TAG_META}}": buildTagMeta(tags),
