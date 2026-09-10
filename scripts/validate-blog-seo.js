@@ -36,7 +36,7 @@ for (const post of posts) {
     [html.includes(`name="twitter:image" content="${expectedImage}"`), "Twitter image is not the post hero"],
     [html.includes('property="article:modified_time"'), "article modified time is missing"],
     [countMatches(html, /property="article:tag"/g) >= 1, "article tags are missing"],
-    [countMatches(html, /class="group rounded-xl border border-gray-700 bg-white\/5 p-4/g) === 3, "must contain exactly three related article cards"],
+    [countMatches(html, /class="article-related-card"/g) === 3, "must contain exactly three related article cards"],
   ];
   for (const [passed, message] of checks) if (!passed) errors.push(`${relativePath}: ${message}`);
 
@@ -60,7 +60,7 @@ for (const post of posts) {
   }
 
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]));
-  const toc = html.match(/<nav class="mb-10[\s\S]*?<\/nav>/)?.[0] || "";
+  const toc = html.match(/<nav[^>]*aria-labelledby="table-of-contents"[\s\S]*?<\/nav>/)?.[0] || "";
   for (const match of toc.matchAll(/href="#([^"]+)"/g)) {
     if (!ids.has(match[1])) errors.push(`${relativePath}: TOC target #${match[1]} is missing`);
   }

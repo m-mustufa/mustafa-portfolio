@@ -59,10 +59,11 @@ function addHeadingIdsAndBuildToc(contentHtml) {
   });
 
   const tocHtml = headings.length >= 2
-    ? `<nav class="mb-10 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="table-of-contents">
-                <h2 id="table-of-contents" class="text-xl font-bold text-white mb-4">Table of contents</h2>
-                <ol class="space-y-2 list-decimal list-inside text-gray-300">
-${headings.map(({ id, text }) => `                    <li><a href="#${escapeHtml(id)}" class="text-primary hover:text-white transition">${escapeHtml(text)}</a></li>`).join("\n")}
+    ? `<nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+${headings.map(({ id, text }) => `                    <li><a href="#${escapeHtml(id)}">${escapeHtml(text)}</a></li>`).join("\n")}
                 </ol>
             </nav>`
     : "";
@@ -110,23 +111,28 @@ function buildTagMeta(tags) {
 function buildVisibleTags(category, tags) {
   const chips = [category, ...tags].filter(Boolean);
   if (!chips.length) return "";
-  return `<div class="flex flex-wrap gap-2 mb-6" aria-label="Article topics">
-${chips.map((tag) => `                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">${escapeHtml(tag)}</span>`).join("\n")}
+  return `<div class="article-topics" aria-label="Article topics">
+${chips.map((tag) => `                <span>${escapeHtml(tag)}</span>`).join("\n")}
             </div>`;
 }
 
 function buildRelatedPostsHtml(relatedPosts) {
-  return relatedPosts.map((post) => `                    <a href="/blog/${escapeHtml(post.slug)}.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">${escapeHtml(post.category || "SaaS Engineering")}</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">${escapeHtml(post.title)}</h3>
+  return relatedPosts.map((post) => `                    <a href="/blog/${escapeHtml(post.slug)}.html" class="article-related-card">
+                        <p>${escapeHtml(post.category || "SaaS Engineering")}</p>
+                        <h3>${escapeHtml(post.title)}</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>`).join("\n");
 }
 
 function buildServiceCta(post) {
   if (!post.serviceLandingPage) return "";
-  return `<aside class="mt-12 rounded-2xl border border-primary/40 bg-primary/10 p-6" aria-labelledby="uae-development-help">
-                <h2 id="uae-development-help" class="text-xl font-bold text-white mb-2">Building a SaaS or AI product for the UAE?</h2>
-                <p class="text-gray-300">See how I approach <a href="${escapeHtml(post.serviceLandingPage)}" class="text-primary font-semibold hover:text-white transition">full-stack SaaS and AI development for UAE businesses</a>, from architecture and integrations to launch support.</p>
+  return `<aside class="article-service-cta" aria-labelledby="uae-development-help">
+                <div>
+                    <p>Available across the UAE</p>
+                    <h2 id="uae-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="${escapeHtml(post.serviceLandingPage)}">Explore UAE services <span aria-hidden="true">&rarr;</span></a>
             </aside>\n`;
 }
 

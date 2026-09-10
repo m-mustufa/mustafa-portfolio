@@ -78,12 +78,12 @@
     </script>
 </head>
 
-<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
-    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 fixed-height-header bg-gray-900">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2 relative group">
-                <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa logo" width="40" height="49"
-                    class="logo-img-class animate-talk" />
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
             </a>
 
             <!-- Hamburger Button -->
@@ -97,62 +97,99 @@
 
             <nav id="mainNav"
                 class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
-                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-8 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold z-40 transition">
-                <a href="/#services" class="text-gray-300 hover:text-primary transition">Services</a>
-                <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Portfolio</a>
-                <a href="/blog/index.html" class="text-primary">Blog</a>
-                <a href="/#contact"
-                    class="px-4 py-2 bg-white text-primary rounded hover:bg-[#0d5968] hover:text-white transition text-center">Contact</a>
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
             </nav>
         </div>
     </header>
 
-    <main class="pt-40 pb-20 px-6">
-        <article class="max-w-3xl mx-auto">
-            <p class="text-primary text-sm font-semibold mb-3">Published <time datetime="{{PUBLISH_DATE_ISO}}">{{PUBLISH_DATE}}</time>{{UPDATED_DATE_HTML}} · {{READING_TIME}} min read</p>
-            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">{{TITLE}}</h1>
-            {{TAGS_HTML}}
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>{{CATEGORY}}</p>
+                        <h1 id="article-title">{{TITLE}}</h1>
+                        <p class="article-summary">{{META_DESCRIPTION}}</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="{{PUBLISH_DATE_ISO}}">{{PUBLISH_DATE}}</time>{{UPDATED_DATE_HTML}} <i aria-hidden="true"></i> {{READING_TIME}} min read</span>
+                            </div>
+                        </div>
+                        {{TAGS_HTML}}
+                    </div>
 
-            <img src="images/{{HERO_IMAGE_FILENAME}}" alt="{{HERO_IMAGE_ALT}}" width="1200" height="675" loading="eager"
-                class="w-full aspect-video object-cover rounded-2xl border border-gray-700 mb-10" />
+                    <figure class="article-hero-visual">
+                        <img src="images/{{HERO_IMAGE_FILENAME}}" alt="{{HERO_IMAGE_ALT}}" width="1200" height="675" loading="eager" />
+                        <figcaption>{{CATEGORY}} <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
 
-            {{TOC_HTML}}
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    {{TOC_HTML}}
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
 
-            <div class="prose prose-invert prose-lg max-w-none
-                prose-headings:text-white prose-headings:font-bold
-                prose-p:text-gray-300 prose-a:text-primary prose-strong:text-white
-                prose-li:text-gray-300 prose-code:text-primary">
-                <!-- ARTICLE_CONTENT_START -->
-                {{CONTENT_HTML}}
-                <!-- ARTICLE_CONTENT_END -->
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        {{CONTENT_HTML}}
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+{{SERVICE_CTA_HTML}}
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88" loading="lazy" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <div class="article-author-links">
+                                <a href="/">View portfolio</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
 
-{{SERVICE_CTA_HTML}}            <section class="mt-14 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="about-author">
-                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-                    <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88"
-                        loading="lazy" class="w-[72px] h-[88px] object-contain flex-none" />
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
                     <div>
-                        <h2 id="about-author" class="text-xl font-bold text-white mb-2">About Muhammad Mustafa</h2>
-                        <p class="text-gray-300 text-sm leading-relaxed">Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</p>
-                        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-                            <a href="/" class="text-primary hover:text-white transition">View portfolio</a>
-                            <a href="/#contact" class="text-primary hover:text-white transition">Discuss a project</a>
-                        </div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
                     </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
                 </div>
-            </section>
-
-            <section class="mt-14" aria-labelledby="related-articles">
-                <h2 id="related-articles" class="text-2xl font-bold text-white mb-5">Related articles</h2>
-                <div class="grid gap-4 sm:grid-cols-3">
+                <div class="article-related-grid">
                     {{RELATED_POSTS_HTML}}
                 </div>
             </section>
         </article>
     </main>
 
-    <footer class="text-center py-6 text-sm text-gray-400 bg-gray-900">
-        &copy; 2026 Muhammad Mustafa.
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
     </footer>
 </body>
 

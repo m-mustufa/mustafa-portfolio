@@ -82,12 +82,12 @@
     </script>
 </head>
 
-<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
-    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 fixed-height-header bg-gray-900">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2 relative group">
-                <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa logo" width="40" height="49"
-                    class="logo-img-class animate-talk" />
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
             </a>
 
             <!-- Hamburger Button -->
@@ -101,48 +101,77 @@
 
             <nav id="mainNav"
                 class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
-                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-8 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold z-40 transition">
-                <a href="/#services" class="text-gray-300 hover:text-primary transition">Services</a>
-                <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Portfolio</a>
-                <a href="/blog/index.html" class="text-primary">Blog</a>
-                <a href="/#contact"
-                    class="px-4 py-2 bg-white text-primary rounded hover:bg-[#0d5968] hover:text-white transition text-center">Contact</a>
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
             </nav>
         </div>
     </header>
 
-    <main class="pt-40 pb-20 px-6">
-        <article class="max-w-3xl mx-auto">
-            <p class="text-primary text-sm font-semibold mb-3">Published <time datetime="2026-07-16T09:33:02.173Z">July 16, 2026</time> · 5 min read</p>
-            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">Stripe Per-Seat Billing: What Actually Breaks</h1>
-            <div class="flex flex-wrap gap-2 mb-6" aria-label="Article topics">
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">SaaS Engineering</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Stripe Billing</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Per-Seat Billing</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Multi-Tenant SaaS</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Webhooks</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Subscriptions</span>
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>SaaS Engineering</p>
+                        <h1 id="article-title">Stripe Per-Seat Billing: What Actually Breaks</h1>
+                        <p class="article-summary">Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-07-16T09:33:02.173Z">July 16, 2026</time> <i aria-hidden="true"></i> 5 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>SaaS Engineering</span>
+                <span>Stripe Billing</span>
+                <span>Per-Seat Billing</span>
+                <span>Multi-Tenant SaaS</span>
+                <span>Webhooks</span>
+                <span>Subscriptions</span>
             </div>
+                    </div>
 
-            <img src="images/stripe-per-seat-billing-multi-tenant-saas.jpg" alt="Diagram showing Stripe subscription seats syncing with a multi-tenant database via webhooks" width="1200" height="675" loading="eager"
-                class="w-full aspect-video object-cover rounded-2xl border border-gray-700 mb-10" />
+                    <figure class="article-hero-visual">
+                        <img src="images/stripe-per-seat-billing-multi-tenant-saas.jpg" alt="Diagram showing Stripe subscription seats syncing with a multi-tenant database via webhooks" width="1200" height="675" loading="eager" />
+                        <figcaption>SaaS Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
 
-            <nav class="mb-10 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="table-of-contents">
-                <h2 id="table-of-contents" class="text-xl font-bold text-white mb-4">Table of contents</h2>
-                <ol class="space-y-2 list-decimal list-inside text-gray-300">
-                    <li><a href="#the-four-pieces-you-actually-need" class="text-primary hover:text-white transition">The four pieces you actually need</a></li>
-                    <li><a href="#where-seat-counts-actually-get-out-of-sync" class="text-primary hover:text-white transition">Where seat counts actually get out of sync</a></li>
-                    <li><a href="#the-invalid-state-nobody-designs-for-upfront" class="text-primary hover:text-white transition">The invalid state nobody designs for upfront</a></li>
-                    <li><a href="#what-i-d-do-differently" class="text-primary hover:text-white transition">What I&#039;d do differently</a></li>
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#the-four-pieces-you-actually-need">The four pieces you actually need</a></li>
+                    <li><a href="#where-seat-counts-actually-get-out-of-sync">Where seat counts actually get out of sync</a></li>
+                    <li><a href="#the-invalid-state-nobody-designs-for-upfront">The invalid state nobody designs for upfront</a></li>
+                    <li><a href="#what-i-d-do-differently">What I&#039;d do differently</a></li>
                 </ol>
             </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
 
-            <div class="prose prose-invert prose-lg max-w-none
-                prose-headings:text-white prose-headings:font-bold
-                prose-p:text-gray-300 prose-a:text-primary prose-strong:text-white
-                prose-li:text-gray-300 prose-code:text-primary">
-                <!-- ARTICLE_CONTENT_START -->
-                <p>Per-seat billing sounds simple until you actually build it. You charge per active user, Stripe handles the math, done — except the seat count in Stripe and the seat count in your database are two separate sources of truth the moment a webhook is late, a request fails halfway, or someone changes their plan from the Stripe customer portal instead of your app. I ran into all three building CultureAI's billing, and most of the pain wasn't Stripe's API — it was assuming the two systems would always agree.</p><p>This is what I'd tell myself before starting, if I could.</p><h2 class="scroll-mt-28" id="the-four-pieces-you-actually-need">The four pieces you actually need</h2><p>A working per-seat billing setup for a multi-tenant SaaS comes down to four components, and skipping any one of them is where teams get hurt:</p><ul><li><strong>Checkout</strong> — where a new org starts a subscription and picks (or gets defaulted to) a seat count</li><li><strong>Customer Portal</strong> — Stripe's hosted page for self-service plan/seat changes, so you're not building your own billing UI from scratch</li><li><strong>Webhooks</strong> — the only reliable way to know a subscription actually changed</li><li><strong>Your database</strong> — the thing your app actually checks before letting a new member in</li></ul><p>The mistake I made early on was treating the first two as the source of truth and the webhook as an afterthought. It's backwards. Stripe's own guidance is blunt about this: webhooks are truth, not client-side success callbacks. If your checkout redirect says "success" but the webhook hasn't landed yet, your database doesn't actually know that yet — and if you let the user in based on the redirect alone, you'll eventually have orgs with active access and no matching subscription.</p><h2 class="scroll-mt-28" id="where-seat-counts-actually-get-out-of-sync">Where seat counts actually get out of sync</h2><p>The scenario that broke things for us wasn't a failed payment — it was totally legitimate seat changes happening in a place we weren't watching. A team admin can go into the Stripe customer portal and change quantity directly, completely bypassing your app's "invite a teammate" flow. If your database only updates seat count when someone hits your own invite endpoint, that admin-initiated change silently drifts your internal count away from what Stripe actually has on file.</p><p>The fix is to stop thinking of "add a seat" as an action your app performs, and start thinking of it as a state your webhook handler reconciles. Every seat-relevant webhook event should overwrite your stored seat count with whatever Stripe says it is now — not increment or decrement based on what you think happened.</p><pre><code>// Simplified: reconcile, don't increment
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>Per-seat billing sounds simple until you actually build it. You charge per active user, Stripe handles the math, done — except the seat count in Stripe and the seat count in your database are two separate sources of truth the moment a webhook is late, a request fails halfway, or someone changes their plan from the Stripe customer portal instead of your app. I ran into all three building CultureAI's billing, and most of the pain wasn't Stripe's API — it was assuming the two systems would always agree.</p><p>This is what I'd tell myself before starting, if I could.</p><h2 class="scroll-mt-28" id="the-four-pieces-you-actually-need">The four pieces you actually need</h2><p>A working per-seat billing setup for a multi-tenant SaaS comes down to four components, and skipping any one of them is where teams get hurt:</p><ul><li><strong>Checkout</strong> — where a new org starts a subscription and picks (or gets defaulted to) a seat count</li><li><strong>Customer Portal</strong> — Stripe's hosted page for self-service plan/seat changes, so you're not building your own billing UI from scratch</li><li><strong>Webhooks</strong> — the only reliable way to know a subscription actually changed</li><li><strong>Your database</strong> — the thing your app actually checks before letting a new member in</li></ul><p>The mistake I made early on was treating the first two as the source of truth and the webhook as an afterthought. It's backwards. Stripe's own guidance is blunt about this: webhooks are truth, not client-side success callbacks. If your checkout redirect says "success" but the webhook hasn't landed yet, your database doesn't actually know that yet — and if you let the user in based on the redirect alone, you'll eventually have orgs with active access and no matching subscription.</p><h2 class="scroll-mt-28" id="where-seat-counts-actually-get-out-of-sync">Where seat counts actually get out of sync</h2><p>The scenario that broke things for us wasn't a failed payment — it was totally legitimate seat changes happening in a place we weren't watching. A team admin can go into the Stripe customer portal and change quantity directly, completely bypassing your app's "invite a teammate" flow. If your database only updates seat count when someone hits your own invite endpoint, that admin-initiated change silently drifts your internal count away from what Stripe actually has on file.</p><p>The fix is to stop thinking of "add a seat" as an action your app performs, and start thinking of it as a state your webhook handler reconciles. Every seat-relevant webhook event should overwrite your stored seat count with whatever Stripe says it is now — not increment or decrement based on what you think happened.</p><pre><code>// Simplified: reconcile, don't increment
 app.post('/webhooks/stripe', async (req, res) => {
   const event = stripe.webhooks.constructEvent(
     req.body, req.headers['stripe-signature'], webhookSecret
@@ -159,46 +188,58 @@ app.post('/webhooks/stripe', async (req, res) => {
 
   res.json({ received: true }); // respond fast, process idempotently
 });</code></pre><p>Two details in that handler matter more than they look. First, storing your internal <code>orgId</code> in the subscription's metadata at checkout time is what makes the webhook payload self-contained — you don't have to do a separate lookup by Stripe customer ID under load. Second, returning a 2xx quickly and doing any slow work asynchronously matters, because Stripe will retry an event that times out, and now you're handling the same seat change twice.</p><h2 class="scroll-mt-28" id="the-invalid-state-nobody-designs-for-upfront">The invalid state nobody designs for upfront</h2><p>The other place this bites: what happens when someone tries to reduce seats below the number of people actually using the product? If an org has 8 active members and someone drops the subscription to 5 seats from the Stripe portal, you now have an org that's over its own limit. Stripe doesn't know or care about your "active members" concept — that check has to live in your app.</p><p>The practical answer is to treat your stored member count as a floor. Before letting a seat reduction take effect, or immediately after a webhook reports one, check it against actual active members and handle the gap explicitly — either block the downgrade in your UI before it reaches Stripe, or (if it already happened) flag the org and prompt an admin to remove members rather than silently locking people out.</p><h2 class="scroll-mt-28" id="what-i-d-do-differently">What I'd do differently</h2><p>If I were starting CultureAI's billing today, I'd build the reconciliation webhook handler before I built the checkout flow, not after. It's tempting to build the part users see first — pick a plan, enter a card, done — and treat webhook handling as plumbing to fill in later. But the checkout flow only runs once per org. The webhook handler runs for the entire lifetime of every subscription, including all the messy edge cases: failed renewals, mid-cycle plan changes, seat changes from three different places, cancellations that still have days left on the current period. That code carries more of the actual product than the checkout page does.</p><p>The other change: log every webhook payload before you process it, even in production, even though it feels excessive. The one time a customer disputes their seat count, having the raw event Stripe actually sent — not your interpretation of it — is the difference between a five-minute investigation and a guessing game.</p><p>Per-seat billing is one of the more approachable Stripe integrations to start, and one of the easier ones to get subtly wrong once real teams start using the self-service portal instead of your app's UI. Build the reconciliation logic like Stripe's number is always right, because it is.</p>
-                <!-- ARTICLE_CONTENT_END -->
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88" loading="lazy" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <div class="article-author-links">
+                                <a href="/">View portfolio</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
 
-            <section class="mt-14 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="about-author">
-                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-                    <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88"
-                        loading="lazy" class="w-[72px] h-[88px] object-contain flex-none" />
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
                     <div>
-                        <h2 id="about-author" class="text-xl font-bold text-white mb-2">About Muhammad Mustafa</h2>
-                        <p class="text-gray-300 text-sm leading-relaxed">Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</p>
-                        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-                            <a href="/" class="text-primary hover:text-white transition">View portfolio</a>
-                            <a href="/#contact" class="text-primary hover:text-white transition">Discuss a project</a>
-                        </div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
                     </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
                 </div>
-            </section>
-
-            <section class="mt-14" aria-labelledby="related-articles">
-                <h2 id="related-articles" class="text-2xl font-bold text-white mb-5">Related articles</h2>
-                <div class="grid gap-4 sm:grid-cols-3">
-                                        <a href="/blog/supabase-rls-multi-role-apps.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Supabase RLS for Multi-Role Apps: What I Learned</h3>
+                <div class="article-related-grid">
+                                        <a href="/blog/supabase-rls-multi-role-apps.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Supabase RLS for Multi-Role Apps: What I Learned</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
-                    <a href="/blog/uae-einvoicing-saas-integration.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">UAE Integrations</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">UAE E-Invoicing Integration Guide for SaaS in 2026</h3>
+                    <a href="/blog/uae-einvoicing-saas-integration.html" class="article-related-card">
+                        <p>UAE Integrations</p>
+                        <h3>UAE E-Invoicing Integration Guide for SaaS in 2026</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
-                    <a href="/blog/nextjs-security-checklist-2026.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Next.js Security Checklist After the July 2026 Release</h3>
+                    <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Next.js Security Checklist After the July 2026 Release</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
                 </div>
             </section>
         </article>
     </main>
 
-    <footer class="text-center py-6 text-sm text-gray-400 bg-gray-900">
-        &copy; 2026 Muhammad Mustafa.
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
     </footer>
 </body>
 

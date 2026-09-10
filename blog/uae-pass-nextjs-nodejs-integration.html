@@ -82,12 +82,12 @@
     </script>
 </head>
 
-<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
-    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 fixed-height-header bg-gray-900">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2 relative group">
-                <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa logo" width="40" height="49"
-                    class="logo-img-class animate-talk" />
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
             </a>
 
             <!-- Hamburger Button -->
@@ -101,52 +101,81 @@
 
             <nav id="mainNav"
                 class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
-                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-8 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold z-40 transition">
-                <a href="/#services" class="text-gray-300 hover:text-primary transition">Services</a>
-                <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Portfolio</a>
-                <a href="/blog/index.html" class="text-primary">Blog</a>
-                <a href="/#contact"
-                    class="px-4 py-2 bg-white text-primary rounded hover:bg-[#0d5968] hover:text-white transition text-center">Contact</a>
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
             </nav>
         </div>
     </header>
 
-    <main class="pt-40 pb-20 px-6">
-        <article class="max-w-3xl mx-auto">
-            <p class="text-primary text-sm font-semibold mb-3">Published <time datetime="2026-08-03T16:59:28.167Z">August 3, 2026</time> · 10 min read</p>
-            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">UAE PASS Integration with Next.js and Node.js SaaS Apps</h1>
-            <div class="flex flex-wrap gap-2 mb-6" aria-label="Article topics">
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">UAE Integrations</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">UAE PASS</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Next.js</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Node.js</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">OAuth 2.0</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Digital Identity</span>
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>UAE Integrations</p>
+                        <h1 id="article-title">UAE PASS Integration with Next.js and Node.js SaaS Apps</h1>
+                        <p class="article-summary">Build a secure UAE PASS integration for Next.js and Node.js SaaS apps, covering OAuth 2.0, account linking, corporate users, testing and launch.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-08-03T16:59:28.167Z">August 3, 2026</time> <i aria-hidden="true"></i> 10 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>UAE Integrations</span>
+                <span>UAE PASS</span>
+                <span>Next.js</span>
+                <span>Node.js</span>
+                <span>OAuth 2.0</span>
+                <span>Digital Identity</span>
             </div>
+                    </div>
 
-            <img src="images/uae-pass-nextjs-nodejs-integration.jpg" alt="UAE PASS integration architecture connecting a Next.js application and Node.js API to secure UAE digital identity services" width="1200" height="675" loading="eager"
-                class="w-full aspect-video object-cover rounded-2xl border border-gray-700 mb-10" />
+                    <figure class="article-hero-visual">
+                        <img src="images/uae-pass-nextjs-nodejs-integration.jpg" alt="UAE PASS integration architecture connecting a Next.js application and Node.js API to secure UAE digital identity services" width="1200" height="675" loading="eager" />
+                        <figcaption>UAE Integrations <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
 
-            <nav class="mb-10 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="table-of-contents">
-                <h2 id="table-of-contents" class="text-xl font-bold text-white mb-4">Table of contents</h2>
-                <ol class="space-y-2 list-decimal list-inside text-gray-300">
-                    <li><a href="#what-uae-pass-integration-means-for-a-uae-saas-application" class="text-primary hover:text-white transition">What UAE PASS integration means for a UAE SaaS application</a></li>
-                    <li><a href="#official-uae-pass-onboarding-staging-and-production" class="text-primary hover:text-white transition">Official UAE PASS onboarding, staging and production</a></li>
-                    <li><a href="#secure-uae-pass-oauth-2-0-flow-in-next-js-and-node-js" class="text-primary hover:text-white transition">Secure UAE PASS OAuth 2.0 flow in Next.js and Node.js</a></li>
-                    <li><a href="#account-linking-for-individuals-companies-and-multiple-tenants" class="text-primary hover:text-white transition">Account linking for individuals, companies and multiple tenants</a></li>
-                    <li><a href="#production-security-testing-and-uae-pass-assessment" class="text-primary hover:text-white transition">Production security, testing and UAE PASS assessment</a></li>
-                    <li><a href="#optional-uae-pass-digital-signatures" class="text-primary hover:text-white transition">Optional UAE PASS digital signatures</a></li>
-                    <li><a href="#uae-pass-integration-checklist-for-a-saas-team" class="text-primary hover:text-white transition">UAE PASS integration checklist for a SaaS team</a></li>
-                    <li><a href="#practical-takeaway" class="text-primary hover:text-white transition">Practical takeaway</a></li>
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#what-uae-pass-integration-means-for-a-uae-saas-application">What UAE PASS integration means for a UAE SaaS application</a></li>
+                    <li><a href="#official-uae-pass-onboarding-staging-and-production">Official UAE PASS onboarding, staging and production</a></li>
+                    <li><a href="#secure-uae-pass-oauth-2-0-flow-in-next-js-and-node-js">Secure UAE PASS OAuth 2.0 flow in Next.js and Node.js</a></li>
+                    <li><a href="#account-linking-for-individuals-companies-and-multiple-tenants">Account linking for individuals, companies and multiple tenants</a></li>
+                    <li><a href="#production-security-testing-and-uae-pass-assessment">Production security, testing and UAE PASS assessment</a></li>
+                    <li><a href="#optional-uae-pass-digital-signatures">Optional UAE PASS digital signatures</a></li>
+                    <li><a href="#uae-pass-integration-checklist-for-a-saas-team">UAE PASS integration checklist for a SaaS team</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
                 </ol>
             </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
 
-            <div class="prose prose-invert prose-lg max-w-none
-                prose-headings:text-white prose-headings:font-bold
-                prose-p:text-gray-300 prose-a:text-primary prose-strong:text-white
-                prose-li:text-gray-300 prose-code:text-primary">
-                <!-- ARTICLE_CONTENT_START -->
-                <p><strong>UAE PASS integration</strong> can give a Next.js or Node.js application a trusted sign-in flow for customers across Dubai, Abu Dhabi, Sharjah and the wider UAE. It is more than another social-login button. UAE PASS is the national digital identity platform, and its developer documentation covers authentication, verified identity data, digital signatures and other government-backed services.</p><p>For a SaaS team, the difficult part is not drawing the button. The real work is secure OAuth handling, matching an identity to the correct local account, protecting tenant boundaries, supporting corporate users and passing the UAE PASS assessment before production.</p><p>I have built authentication, role permissions and multi-tenant workflows in production SaaS products. I have not presented UAE PASS as a past client implementation. Instead, this guide applies those real engineering lessons to the official UAE PASS requirements and shows how I would structure a production integration.</p><p>This article covers the web authentication flow, a practical Next.js and Node.js architecture, safe account linking, testing, deployment and optional digital signing. Endpoint details and approval requirements can change, so confirm them in the current <a href="https://docs.uaepass.ae/overview" target="_blank" rel="noopener noreferrer">official UAE PASS documentation</a> before shipping.</p><h2 class="scroll-mt-28" id="what-uae-pass-integration-means-for-a-uae-saas-application">What UAE PASS integration means for a UAE SaaS application</h2><p>UAE PASS lets an approved service provider redirect a user to UAE PASS for authentication and receive identity information after consent. The web flow follows OAuth 2.0 concepts: the application requests authorization, receives a short-lived authorization code at a registered callback URL, exchanges that code for an access token and then calls the user-information endpoint.</p><h3>UAE PASS should not replace your authorization model</h3><p>A successful UAE PASS callback should never automatically make someone a company administrator. Your database remains responsible for organisations, memberships, roles and permissions. The identity returned by UAE PASS should be mapped to a local user, while access to a tenant should come from an invitation, an approved corporate relationship or another explicit business rule.</p><h3>Keep UAE PASS and local login independent</h3><p>The official standard implementation guidance says UAE PASS login and the service provider's existing login should work independently. That supports a gradual rollout and gives approved users another route when a particular business process still needs local credentials.</p><p>Do not silently merge accounts because two profile names look similar. Link an existing verified local account only through a unique, trusted attribute and store the UAE PASS UUID as the stable external identifier. If there is no safe match, ask the user to authenticate the existing account or complete an approved linking process.</p><h2 class="scroll-mt-28" id="official-uae-pass-onboarding-staging-and-production">Official UAE PASS onboarding, staging and production</h2><p>A production integration starts with organisational onboarding, not an API key copied from a public dashboard. The service provider submits its use case, receives approval and staging credentials, builds the integration, tests it and goes through an assessment before production access. UAE PASS publishes developer toolkits, demonstrations and onboarding material on its <a href="https://uaepass.ae/developers" target="_blank" rel="noopener noreferrer">developer portal</a>.</p><p>Prepare a short, exact use-case description before development. Explain who signs in, what the application does with the identity, which attributes are required, whether accounts are linked, and whether the flow includes personal or corporate services. A vague request creates questions later because reviewers need to understand the complete user journey.</p><h3>Register callback URLs carefully</h3><p>The callback, also called the redirect URI, is where UAE PASS returns the browser after the user approves or rejects authentication. Staging and production use different URLs and credentials. Treat every registered URI as an exact allow-listed value.</p><p>For example, staging might return to <code>https://staging.example.ae/api/auth/uaepass/callback</code>, while production returns to <code>https://example.ae/api/auth/uaepass/callback</code>. Do not accept a redirect destination supplied freely by the browser. An open redirect can turn a trusted login flow into a phishing route.</p><p>Credentials are tied to the approved channel and use case. The UAE PASS guidance warns against reusing credentials between web and mobile implementations. Keep each environment's client ID and secret in a managed secret store, never in browser JavaScript, source control or a public environment file.</p><h3>Design for English and Arabic</h3><p>The authorization request supports locale selection, including English and Arabic. The login button, consent explanation, error messages and return journey should stay understandable in the selected language. For UAE users, Arabic support is part of a complete product experience rather than an SEO phrase added to a page.</p><h2 class="scroll-mt-28" id="secure-uae-pass-oauth-2-0-flow-in-next-js-and-node-js">Secure UAE PASS OAuth 2.0 flow in Next.js and Node.js</h2><p>I would keep the OAuth exchange on the server. Next.js can render the login interface and expose server-side route handlers, while a dedicated Node.js API can own the integration in a larger system. In both cases, the browser should only carry the authorization request, a temporary code and secure session cookies. It should never receive the client secret.</p><h3>1. Start login and protect the request with state</h3><p>When the user chooses UAE PASS, generate a cryptographically random <code>state</code> value. Store it in an encrypted, HTTP-only, secure, same-site cookie or in a short-lived server session. Add the same value to the authorization request.</p><p>The official guide recommends <code>state</code> to protect against cross-site request forgery. On the callback, compare the returned value with the stored value using a safe equality check and reject missing, expired or mismatched requests. Delete the state after one use.</p><pre><code>import crypto from 'node:crypto'
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p><strong>UAE PASS integration</strong> can give a Next.js or Node.js application a trusted sign-in flow for customers across Dubai, Abu Dhabi, Sharjah and the wider UAE. It is more than another social-login button. UAE PASS is the national digital identity platform, and its developer documentation covers authentication, verified identity data, digital signatures and other government-backed services.</p><p>For a SaaS team, the difficult part is not drawing the button. The real work is secure OAuth handling, matching an identity to the correct local account, protecting tenant boundaries, supporting corporate users and passing the UAE PASS assessment before production.</p><p>I have built authentication, role permissions and multi-tenant workflows in production SaaS products. I have not presented UAE PASS as a past client implementation. Instead, this guide applies those real engineering lessons to the official UAE PASS requirements and shows how I would structure a production integration.</p><p>This article covers the web authentication flow, a practical Next.js and Node.js architecture, safe account linking, testing, deployment and optional digital signing. Endpoint details and approval requirements can change, so confirm them in the current <a href="https://docs.uaepass.ae/overview" target="_blank" rel="noopener noreferrer">official UAE PASS documentation</a> before shipping.</p><h2 class="scroll-mt-28" id="what-uae-pass-integration-means-for-a-uae-saas-application">What UAE PASS integration means for a UAE SaaS application</h2><p>UAE PASS lets an approved service provider redirect a user to UAE PASS for authentication and receive identity information after consent. The web flow follows OAuth 2.0 concepts: the application requests authorization, receives a short-lived authorization code at a registered callback URL, exchanges that code for an access token and then calls the user-information endpoint.</p><h3>UAE PASS should not replace your authorization model</h3><p>A successful UAE PASS callback should never automatically make someone a company administrator. Your database remains responsible for organisations, memberships, roles and permissions. The identity returned by UAE PASS should be mapped to a local user, while access to a tenant should come from an invitation, an approved corporate relationship or another explicit business rule.</p><h3>Keep UAE PASS and local login independent</h3><p>The official standard implementation guidance says UAE PASS login and the service provider's existing login should work independently. That supports a gradual rollout and gives approved users another route when a particular business process still needs local credentials.</p><p>Do not silently merge accounts because two profile names look similar. Link an existing verified local account only through a unique, trusted attribute and store the UAE PASS UUID as the stable external identifier. If there is no safe match, ask the user to authenticate the existing account or complete an approved linking process.</p><h2 class="scroll-mt-28" id="official-uae-pass-onboarding-staging-and-production">Official UAE PASS onboarding, staging and production</h2><p>A production integration starts with organisational onboarding, not an API key copied from a public dashboard. The service provider submits its use case, receives approval and staging credentials, builds the integration, tests it and goes through an assessment before production access. UAE PASS publishes developer toolkits, demonstrations and onboarding material on its <a href="https://uaepass.ae/developers" target="_blank" rel="noopener noreferrer">developer portal</a>.</p><p>Prepare a short, exact use-case description before development. Explain who signs in, what the application does with the identity, which attributes are required, whether accounts are linked, and whether the flow includes personal or corporate services. A vague request creates questions later because reviewers need to understand the complete user journey.</p><h3>Register callback URLs carefully</h3><p>The callback, also called the redirect URI, is where UAE PASS returns the browser after the user approves or rejects authentication. Staging and production use different URLs and credentials. Treat every registered URI as an exact allow-listed value.</p><p>For example, staging might return to <code>https://staging.example.ae/api/auth/uaepass/callback</code>, while production returns to <code>https://example.ae/api/auth/uaepass/callback</code>. Do not accept a redirect destination supplied freely by the browser. An open redirect can turn a trusted login flow into a phishing route.</p><p>Credentials are tied to the approved channel and use case. The UAE PASS guidance warns against reusing credentials between web and mobile implementations. Keep each environment's client ID and secret in a managed secret store, never in browser JavaScript, source control or a public environment file.</p><h3>Design for English and Arabic</h3><p>The authorization request supports locale selection, including English and Arabic. The login button, consent explanation, error messages and return journey should stay understandable in the selected language. For UAE users, Arabic support is part of a complete product experience rather than an SEO phrase added to a page.</p><h2 class="scroll-mt-28" id="secure-uae-pass-oauth-2-0-flow-in-next-js-and-node-js">Secure UAE PASS OAuth 2.0 flow in Next.js and Node.js</h2><p>I would keep the OAuth exchange on the server. Next.js can render the login interface and expose server-side route handlers, while a dedicated Node.js API can own the integration in a larger system. In both cases, the browser should only carry the authorization request, a temporary code and secure session cookies. It should never receive the client secret.</p><h3>1. Start login and protect the request with state</h3><p>When the user chooses UAE PASS, generate a cryptographically random <code>state</code> value. Store it in an encrypted, HTTP-only, secure, same-site cookie or in a short-lived server session. Add the same value to the authorization request.</p><p>The official guide recommends <code>state</code> to protect against cross-site request forgery. On the callback, compare the returned value with the stored value using a safe equality check and reject missing, expired or mismatched requests. Delete the state after one use.</p><pre><code>import crypto from 'node:crypto'
 
 export async function startUaePassLogin(request, response) {
   const state = crypto.randomBytes(32).toString('base64url')
@@ -162,50 +191,66 @@ export async function startUaePassLogin(request, response) {
 
   response.redirect(authorizeUrl.toString())
 }</code></pre><p>This is an architectural example, not a copy-paste substitute for the latest UAE PASS contract. Use the scope, URLs, authentication method and parameters assigned to the approved application.</p><h3>2. Exchange the authorization code on the server</h3><p>The callback receives a temporary code. Before exchanging it, validate <code>state</code>, reject unexpected query parameters and handle the user's denial cleanly. Send the code to the official token endpoint from the backend using the registered redirect URI and assigned client credentials.</p><h3>3. Retrieve identity data and create a local session</h3><p>Use the access token with the official user-information endpoint. Validate the response before touching the database. Required fields should be present, types should be correct and the account's verification level must satisfy the approved use case.</p><p>Look up the stored UAE PASS UUID. If it already maps to a user, create a local application session. If it does not, follow the approved registration or account-linking flow. Do not use the access token as your application's long-lived session. Issue your own short-lived, secure session cookie and apply the same session rotation and logout rules used by the rest of the product.</p><p>The <a href="https://docs.uaepass.ae/feature-guides/authentication/web-application/endpoints" target="_blank" rel="noopener noreferrer">official endpoint reference</a> separates authorization, token, user-information and logout operations. Keeping those responsibilities separate in code makes security reviews and testing easier.</p><h2 class="scroll-mt-28" id="account-linking-for-individuals-companies-and-multiple-tenants">Account linking for individuals, companies and multiple tenants</h2><p>Account linking is where many identity integrations become risky. Email addresses can change, names can be transliterated differently and phone numbers may have formatting differences. The UAE PASS UUID is the external identity key intended for a durable mapping.</p><p>A simple data model could include <code>users</code>, <code>external_identities</code>, <code>organisations</code> and <code>memberships</code>. The external identity record stores the provider name and UUID. Memberships connect the local user to a tenant and role. Add a unique database constraint on the provider and UUID so two local users cannot claim the same UAE PASS identity.</p><h3>Never trust tenant information from the browser</h3><p>If a login starts from a company-specific page, the browser may send a tenant slug. Treat it only as a requested context. After authentication, confirm on the server that the mapped user has an active membership for that tenant. Otherwise show a safe selection screen or deny access.</p><h3>Corporate UAE PASS accounts need explicit rules</h3><p>Corporate profiles introduce another layer because a person can act in relation to an organisation. The official corporate-account guidance describes verification and mapping considerations. Your product should decide whether it trusts only verified corporate relationships, what happens when a relationship changes and how often the status must be refreshed.</p><p>Do not link a verified local company account to an unverified external profile. Store enough information to explain why access was granted, but avoid copying identity attributes that the application does not need. Access should be reviewable and revocable by authorised company administrators.</p><h2 class="scroll-mt-28" id="production-security-testing-and-uae-pass-assessment">Production security, testing and UAE PASS assessment</h2><p>A good login demo is not evidence that the integration is production-ready. Test the full journey: new registration, existing-account linking, returning login, denial, expired state, reused callback, invalid code, token timeout, missing profile fields, disabled local membership, Arabic locale, logout and account recovery.</p><p>Add rate limits to login-start and callback routes. Use HTTPS everywhere, secure HTTP-only cookies, strict redirect validation and a content security policy. Monitor unusual callback failures and repeated state mismatches. Avoid putting personal identity data into analytics events, error trackers or URLs.</p><h3>Build an auditable identity trail</h3><p>For sensitive changes, record who performed the action, which tenant was active, when it happened and the result. Do not store tokens in audit logs. If support staff can change identity links, require stronger permissions and record the old and new mapping.</p><p>Review data retention with the organisation's legal and privacy advisers. Collect only attributes required for the approved use case. UAE PASS verification does not remove the application's responsibility to protect personal data.</p><h3>Prepare evidence for go-live</h3><p>The assessment phase checks the implemented use case before production. Keep an environment checklist, screenshots or recordings of the approved journey, test cases, callback URLs, error handling and security controls. Resolve staging shortcuts before review: shared test credentials, verbose token logs and bypassed permission checks have no place in production.</p><p>Use feature flags to enable UAE PASS per tenant or customer group. Start with a controlled audience, watch login success and failure categories, then expand. Keep the existing login path available where the approved product design requires it.</p><h2 class="scroll-mt-28" id="optional-uae-pass-digital-signatures">Optional UAE PASS digital signatures</h2><p>Authentication can be the first phase, with digital signatures added only when the business process needs signed documents. UAE PASS documents different signing assurance levels and provides flows for signing documents after authentication.</p><p>Its hash-signing option lets an organisation send a document hash rather than the complete PDF outside its premises. UAE PASS signs the hash, and the organisation embeds the result back into the document. The <a href="https://docs.uaepass.ae/feature-guides/signature-integration-guide/hash-signing/introduction" target="_blank" rel="noopener noreferrer">official hash-signing guide</a> explains the high-level process.</p><p>Signing should remain separate from login in the application architecture. Authentication establishes the user session; a signing request has its own document ID, consent journey, status, expiry and audit evidence. Never assume that a logged-in user automatically approves a document.</p><h2 class="scroll-mt-28" id="uae-pass-integration-checklist-for-a-saas-team">UAE PASS integration checklist for a SaaS team</h2><ul><li>Define the exact personal or corporate use case.</li><li>Apply for onboarding and obtain staging credentials.</li><li>Register exact staging and production callback URLs.</li><li>Keep web, mobile and production credentials separate.</li><li>Run the OAuth code exchange only on the server.</li><li>Generate, store and validate a one-time <code>state</code> value.</li><li>Store the UAE PASS UUID as the external identity key.</li><li>Keep local tenant memberships and permissions separate.</li><li>Support English and Arabic authentication journeys.</li><li>Test denials, expired requests, retries and disabled users.</li><li>Protect logs, tokens and returned personal information.</li><li>Complete the UAE PASS assessment before production launch.</li></ul><h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2><p>A secure UAE PASS integration is an identity and authorization project, not a login-button task. The strongest design keeps secrets on the server, validates every OAuth request, maps the UAE PASS UUID safely, enforces tenant permissions locally and gives corporate access its own explicit rules.</p><p>For a Next.js or Node.js SaaS product serving Dubai, Abu Dhabi, Sharjah or customers throughout the UAE, the result can be a simpler and more trusted onboarding journey. The implementation still needs disciplined security, privacy review, staging evidence and official production approval.</p><p>If you are planning a UAE SaaS platform, customer portal or secure Node.js integration, <a href="/#contact">contact me to discuss the architecture</a>.</p>
-                <!-- ARTICLE_CONTENT_END -->
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="uae-development-help">
+                <div>
+                    <p>Available across the UAE</p>
+                    <h2 id="uae-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/full-stack-developer-uae.html">Explore UAE services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88" loading="lazy" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <div class="article-author-links">
+                                <a href="/">View portfolio</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
 
-<aside class="mt-12 rounded-2xl border border-primary/40 bg-primary/10 p-6" aria-labelledby="uae-development-help">
-                <h2 id="uae-development-help" class="text-xl font-bold text-white mb-2">Building a SaaS or AI product for the UAE?</h2>
-                <p class="text-gray-300">See how I approach <a href="/full-stack-developer-uae.html" class="text-primary font-semibold hover:text-white transition">full-stack SaaS and AI development for UAE businesses</a>, from architecture and integrations to launch support.</p>
-            </aside>
-            <section class="mt-14 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="about-author">
-                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-                    <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88"
-                        loading="lazy" class="w-[72px] h-[88px] object-contain flex-none" />
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
                     <div>
-                        <h2 id="about-author" class="text-xl font-bold text-white mb-2">About Muhammad Mustafa</h2>
-                        <p class="text-gray-300 text-sm leading-relaxed">Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</p>
-                        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-                            <a href="/" class="text-primary hover:text-white transition">View portfolio</a>
-                            <a href="/#contact" class="text-primary hover:text-white transition">Discuss a project</a>
-                        </div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
                     </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
                 </div>
-            </section>
-
-            <section class="mt-14" aria-labelledby="related-articles">
-                <h2 id="related-articles" class="text-2xl font-bold text-white mb-5">Related articles</h2>
-                <div class="grid gap-4 sm:grid-cols-3">
-                                        <a href="/blog/nextjs-security-checklist-2026.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Next.js Security Checklist After the July 2026 Release</h3>
+                <div class="article-related-grid">
+                                        <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Next.js Security Checklist After the July 2026 Release</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
-                    <a href="/blog/uae-pdpl-compliance-saas.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">UAE PDPL Compliance Checklist for SaaS Applications</h3>
+                    <a href="/blog/uae-pdpl-compliance-saas.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>UAE PDPL Compliance Checklist for SaaS Applications</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
-                    <a href="/blog/supabase-rls-multi-role-apps.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Supabase RLS for Multi-Role Apps: What I Learned</h3>
+                    <a href="/blog/supabase-rls-multi-role-apps.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Supabase RLS for Multi-Role Apps: What I Learned</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
                 </div>
             </section>
         </article>
     </main>
 
-    <footer class="text-center py-6 text-sm text-gray-400 bg-gray-900">
-        &copy; 2026 Muhammad Mustafa.
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
     </footer>
 </body>
 

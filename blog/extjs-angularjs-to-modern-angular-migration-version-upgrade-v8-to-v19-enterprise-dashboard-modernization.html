@@ -82,12 +82,12 @@
     </script>
 </head>
 
-<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white">
-    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 fixed-height-header bg-gray-900">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2 relative group">
-                <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa logo" width="40" height="49"
-                    class="logo-img-class animate-talk" />
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
             </a>
 
             <!-- Hamburger Button -->
@@ -101,97 +101,138 @@
 
             <nav id="mainNav"
                 class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
-                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-8 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold z-40 transition">
-                <a href="/#services" class="text-gray-300 hover:text-primary transition">Services</a>
-                <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Portfolio</a>
-                <a href="/blog/index.html" class="text-primary">Blog</a>
-                <a href="/#contact"
-                    class="px-4 py-2 bg-white text-primary rounded hover:bg-[#0d5968] hover:text-white transition text-center">Contact</a>
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
             </nav>
         </div>
     </header>
 
-    <main class="pt-40 pb-20 px-6">
-        <article class="max-w-3xl mx-auto">
-            <p class="text-primary text-sm font-semibold mb-3">Published <time datetime="2026-07-17T12:46:45.965Z">July 17, 2026</time> · 6 min read</p>
-            <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">Angular Migration: ExtJS and AngularJS to Angular 19</h1>
-            <div class="flex flex-wrap gap-2 mb-6" aria-label="Article topics">
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Web Engineering</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Angular Migration</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">AngularJS</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">ExtJS</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Enterprise Dashboard</span>
-                <span class="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Modernization</span>
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>Web Engineering</p>
+                        <h1 id="article-title">Angular Migration: ExtJS and AngularJS to Angular 19</h1>
+                        <p class="article-summary">A practical Angular migration guide for modernizing ExtJS and AngularJS enterprise dashboards through safe version upgrades from Angular 8 to Angular 19.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-07-17T12:46:45.965Z">July 17, 2026</time> <i aria-hidden="true"></i> 6 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>Web Engineering</span>
+                <span>Angular Migration</span>
+                <span>AngularJS</span>
+                <span>ExtJS</span>
+                <span>Enterprise Dashboard</span>
+                <span>Modernization</span>
             </div>
+                    </div>
 
-            <img src="images/extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization.jpg" alt="ExtJS and AngularJS enterprise dashboard migrating to a modern Angular 19 interface" width="1200" height="675" loading="eager"
-                class="w-full aspect-video object-cover rounded-2xl border border-gray-700 mb-10" />
+                    <figure class="article-hero-visual">
+                        <img src="images/extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization.jpg" alt="ExtJS and AngularJS enterprise dashboard migrating to a modern Angular 19 interface" width="1200" height="675" loading="eager" />
+                        <figcaption>Web Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
 
-            <nav class="mb-10 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="table-of-contents">
-                <h2 id="table-of-contents" class="text-xl font-bold text-white mb-4">Table of contents</h2>
-                <ol class="space-y-2 list-decimal list-inside text-gray-300">
-                    <li><a href="#why-an-angular-migration-needs-a-staged-plan" class="text-primary hover:text-white transition">Why an Angular migration needs a staged plan</a></li>
-                    <li><a href="#audit-the-legacy-dashboard-before-changing-frameworks" class="text-primary hover:text-white transition">Audit the legacy dashboard before changing frameworks</a></li>
-                    <li><a href="#separate-framework-migration-from-product-redesign" class="text-primary hover:text-white transition">Separate framework migration from product redesign</a></li>
-                    <li><a href="#upgrade-angular-one-major-version-at-a-time" class="text-primary hover:text-white transition">Upgrade Angular one major version at a time</a></li>
-                    <li><a href="#modernize-architecture-after-the-application-is-stable" class="text-primary hover:text-white transition">Modernize architecture after the application is stable</a></li>
-                    <li><a href="#how-i-reduce-migration-risk" class="text-primary hover:text-white transition">How I reduce migration risk</a></li>
-                    <li><a href="#the-takeaway-for-enterprise-dashboard-modernization" class="text-primary hover:text-white transition">The takeaway for enterprise dashboard modernization</a></li>
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#why-an-angular-migration-needs-a-staged-plan">Why an Angular migration needs a staged plan</a></li>
+                    <li><a href="#audit-the-legacy-dashboard-before-changing-frameworks">Audit the legacy dashboard before changing frameworks</a></li>
+                    <li><a href="#separate-framework-migration-from-product-redesign">Separate framework migration from product redesign</a></li>
+                    <li><a href="#upgrade-angular-one-major-version-at-a-time">Upgrade Angular one major version at a time</a></li>
+                    <li><a href="#modernize-architecture-after-the-application-is-stable">Modernize architecture after the application is stable</a></li>
+                    <li><a href="#how-i-reduce-migration-risk">How I reduce migration risk</a></li>
+                    <li><a href="#the-takeaway-for-enterprise-dashboard-modernization">The takeaway for enterprise dashboard modernization</a></li>
                 </ol>
             </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
 
-            <div class="prose prose-invert prose-lg max-w-none
-                prose-headings:text-white prose-headings:font-bold
-                prose-p:text-gray-300 prose-a:text-primary prose-strong:text-white
-                prose-li:text-gray-300 prose-code:text-primary">
-                <!-- ARTICLE_CONTENT_START -->
-                <p>An Angular migration is rarely just a framework update. When an enterprise dashboard has years of ExtJS, AngularJS, older Angular modules, custom components, and business-critical workflows, the real job is to modernize it without stopping product development. I have worked on large production Angular applications across versions 8 to 19 and led a live SaaS dashboard upgrade from Angular 10 to 15 and then 17. The biggest lesson is simple: treat modernization as a sequence of controlled releases, not one heroic rewrite.</p><p>This guide covers how I approach an ExtJS or AngularJS migration to modern Angular, how to plan major Angular version upgrades, and where enterprise dashboard modernization usually becomes risky.</p><h2 class="scroll-mt-28" id="why-an-angular-migration-needs-a-staged-plan">Why an Angular migration needs a staged plan</h2><p>A full rewrite looks clean on a roadmap because it promises a fresh architecture with no legacy compromises. In practice, it creates two products: the old application that still needs fixes and the new application that is not ready yet. Requirements continue changing while the rewrite is underway, so the replacement can already be behind by launch.</p><p>For an enterprise Angular migration, I prefer a staged approach. Keep the current dashboard running, identify clear feature boundaries, and move one workflow at a time. A repair order screen, reporting area, inventory workflow, or customer module is a better migration unit than “the whole frontend.” Each release should leave the application usable and the codebase easier to change.</p><p>The same rule applies to Angular version upgrades. Angular's official update guidance says major versions must be upgraded one at a time. A project moving from Angular 8 to Angular 19 should not skip directly between those endpoints. Each major step runs its own migrations, exposes its own dependency conflicts, and gives the team a smaller set of failures to diagnose.</p><h2 class="scroll-mt-28" id="audit-the-legacy-dashboard-before-changing-frameworks">Audit the legacy dashboard before changing frameworks</h2><p>Before writing new Angular code, I map what the existing ExtJS or AngularJS application actually does. Screens are only the visible layer. The difficult parts are often hidden in shared state, permissions, validation, keyboard behavior, exports, background refreshes, and assumptions inside API clients.</p><p>My migration inventory normally includes:</p><ul><li><strong>Routes and workflows:</strong> which screens users enter and how they move between them</li><li><strong>Data contracts:</strong> request formats, response shapes, pagination, filtering, and error handling</li><li><strong>Authorization:</strong> which roles can view or change each action</li><li><strong>Shared UI:</strong> grids, forms, dialogs, date controls, notifications, and navigation</li><li><strong>State:</strong> what is local to a component and what must survive route changes</li><li><strong>Operational behavior:</strong> analytics, logging, feature flags, downloads, printing, and browser support</li></ul><p>This audit prevents a common failure: reproducing the page layout while losing small behaviors that real users depend on. A modern dashboard is not successful because it looks better. It is successful when users can complete the same work safely, then gain measurable improvements from the new architecture.</p><h2 class="scroll-mt-28" id="separate-framework-migration-from-product-redesign">Separate framework migration from product redesign</h2><p>ExtJS and AngularJS applications often look old, so teams naturally want to redesign the interface during the migration. I separate those decisions whenever possible. Changing the framework, component behavior, visual system, and backend contract in one release makes regressions difficult to isolate.</p><p>A safer sequence is to establish the modern Angular shell first: routing, authentication, layout, API services, error handling, and the shared design system. Then migrate a feature with functional parity. Once the new feature is stable, improve its interaction design with real feedback.</p><p>That does not mean copying weak legacy code into Angular. It means preserving business behavior while replacing the implementation. For example, an ExtJS grid with server-side filters can become a modern Angular table, but the API contract and permission rules should remain stable during the first cut unless there is a strong reason to change them.</p><h2 class="scroll-mt-28" id="upgrade-angular-one-major-version-at-a-time">Upgrade Angular one major version at a time</h2><p>For an Angular version upgrade, I start from a clean branch with a passing production build and a known test baseline. Then I update Angular core and the CLI together, because their major versions are aligned in supported Angular releases.</p><pre><code># Example: move one major version at a time
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>An Angular migration is rarely just a framework update. When an enterprise dashboard has years of ExtJS, AngularJS, older Angular modules, custom components, and business-critical workflows, the real job is to modernize it without stopping product development. I have worked on large production Angular applications across versions 8 to 19 and led a live SaaS dashboard upgrade from Angular 10 to 15 and then 17. The biggest lesson is simple: treat modernization as a sequence of controlled releases, not one heroic rewrite.</p><p>This guide covers how I approach an ExtJS or AngularJS migration to modern Angular, how to plan major Angular version upgrades, and where enterprise dashboard modernization usually becomes risky.</p><h2 class="scroll-mt-28" id="why-an-angular-migration-needs-a-staged-plan">Why an Angular migration needs a staged plan</h2><p>A full rewrite looks clean on a roadmap because it promises a fresh architecture with no legacy compromises. In practice, it creates two products: the old application that still needs fixes and the new application that is not ready yet. Requirements continue changing while the rewrite is underway, so the replacement can already be behind by launch.</p><p>For an enterprise Angular migration, I prefer a staged approach. Keep the current dashboard running, identify clear feature boundaries, and move one workflow at a time. A repair order screen, reporting area, inventory workflow, or customer module is a better migration unit than “the whole frontend.” Each release should leave the application usable and the codebase easier to change.</p><p>The same rule applies to Angular version upgrades. Angular's official update guidance says major versions must be upgraded one at a time. A project moving from Angular 8 to Angular 19 should not skip directly between those endpoints. Each major step runs its own migrations, exposes its own dependency conflicts, and gives the team a smaller set of failures to diagnose.</p><h2 class="scroll-mt-28" id="audit-the-legacy-dashboard-before-changing-frameworks">Audit the legacy dashboard before changing frameworks</h2><p>Before writing new Angular code, I map what the existing ExtJS or AngularJS application actually does. Screens are only the visible layer. The difficult parts are often hidden in shared state, permissions, validation, keyboard behavior, exports, background refreshes, and assumptions inside API clients.</p><p>My migration inventory normally includes:</p><ul><li><strong>Routes and workflows:</strong> which screens users enter and how they move between them</li><li><strong>Data contracts:</strong> request formats, response shapes, pagination, filtering, and error handling</li><li><strong>Authorization:</strong> which roles can view or change each action</li><li><strong>Shared UI:</strong> grids, forms, dialogs, date controls, notifications, and navigation</li><li><strong>State:</strong> what is local to a component and what must survive route changes</li><li><strong>Operational behavior:</strong> analytics, logging, feature flags, downloads, printing, and browser support</li></ul><p>This audit prevents a common failure: reproducing the page layout while losing small behaviors that real users depend on. A modern dashboard is not successful because it looks better. It is successful when users can complete the same work safely, then gain measurable improvements from the new architecture.</p><h2 class="scroll-mt-28" id="separate-framework-migration-from-product-redesign">Separate framework migration from product redesign</h2><p>ExtJS and AngularJS applications often look old, so teams naturally want to redesign the interface during the migration. I separate those decisions whenever possible. Changing the framework, component behavior, visual system, and backend contract in one release makes regressions difficult to isolate.</p><p>A safer sequence is to establish the modern Angular shell first: routing, authentication, layout, API services, error handling, and the shared design system. Then migrate a feature with functional parity. Once the new feature is stable, improve its interaction design with real feedback.</p><p>That does not mean copying weak legacy code into Angular. It means preserving business behavior while replacing the implementation. For example, an ExtJS grid with server-side filters can become a modern Angular table, but the API contract and permission rules should remain stable during the first cut unless there is a strong reason to change them.</p><h2 class="scroll-mt-28" id="upgrade-angular-one-major-version-at-a-time">Upgrade Angular one major version at a time</h2><p>For an Angular version upgrade, I start from a clean branch with a passing production build and a known test baseline. Then I update Angular core and the CLI together, because their major versions are aligned in supported Angular releases.</p><pre><code># Example: move one major version at a time
 ng update @angular/cli@^18 @angular/core@^18
 npm test
 ng build --configuration production
 
 # Commit the stable result before the next major
 ng update @angular/cli@^19 @angular/core@^19</code></pre><p>The commands are the easy part. The work is in the dependency matrix around them: Angular Material, NgRx, RxJS, TypeScript, test tooling, custom builders, lint rules, and third-party UI libraries. I check their supported versions before each step rather than letting the package manager choose a combination that merely installs.</p><p>I also commit after every stable major upgrade. If version 16 is working and version 17 exposes a builder problem, that clean checkpoint is valuable. It keeps the investigation focused and makes rollback straightforward.</p><h2 class="scroll-mt-28" id="modernize-architecture-after-the-application-is-stable">Modernize architecture after the application is stable</h2><p>Reaching Angular 19 does not require converting every module or service to the newest style on the same day. Version migration and architecture modernization are related, but they have different risk profiles.</p><p>After the framework upgrade is stable, I evaluate standalone components, newer template control flow, improved dependency injection patterns, and signals where they simplify existing state. I do not replace working RxJS streams just to use a newer feature. RxJS remains useful for asynchronous event flows, cancellation, and composed server requests. Signals are useful for fine-grained local state and derived UI values. The right choice depends on the workflow.</p><p>The build system deserves its own migration step as well. Angular's current build system uses newer tooling such as esbuild and Vite-based development serving. Official guidance notes that the older webpack <code>browser</code> builder is deprecated, while the <code>application</code> builder is the preferred modern option. Custom webpack behavior, stylesheet imports, output paths, server-side rendering, and CommonJS assumptions can all require manual attention, so I validate the deployment pipeline after the build migration rather than assuming a successful local build is enough.</p><h2 class="scroll-mt-28" id="how-i-reduce-migration-risk">How I reduce migration risk</h2><h3>Protect business-critical workflows</h3><p>I put the most important user journeys into a regression checklist before touching the framework. For a SaaS dashboard, that can include creating and updating records, role-based actions, totals, search, filters, exports, and payment-related flows. Automated tests help, but focused manual verification by people who know the workflow catches assumptions that old tests may not describe.</p><h3>Measure before and after</h3><p>Modernization should have a reason beyond reaching a newer version number. I capture build time, main bundle size, slow routes, browser errors, and key interaction performance before the migration. That gives the team evidence when a new builder, lazy route, or component refactor improves the product—and catches a “modern” change that makes it worse.</p><h3>Release behind controlled boundaries</h3><p>When old and new screens must coexist, stable routing and API boundaries make gradual rollout possible. Feature flags or role-based rollout can limit the first release to internal users before wider adoption. The goal is to make every migration step reversible until production evidence says it is safe.</p><h2 class="scroll-mt-28" id="the-takeaway-for-enterprise-dashboard-modernization">The takeaway for enterprise dashboard modernization</h2><p>The safest ExtJS or AngularJS to Angular migration is not the fastest rewrite. It is the migration that keeps business workflows working while reducing legacy risk in visible, testable stages. Audit first, migrate by feature, upgrade Angular one major at a time, and modernize architecture only after each framework step is stable.</p><p>You can see my <a href="/#portfolio">Angular enterprise dashboard and SaaS modernization work in my portfolio</a>. For exact commands and version-specific requirements, use the official <a href="https://angular.dev/update-guide" target="_blank" rel="noopener noreferrer">Angular Update Guide</a>, <a href="https://angular.dev/cli/update" target="_blank" rel="noopener noreferrer"><code>ng update</code> reference</a>, and <a href="https://angular.dev/tools/cli/build-system-migration" target="_blank" rel="noopener noreferrer">build-system migration guide</a>.</p><p>If you need to modernize an ExtJS, AngularJS, or older Angular application without putting a live product at risk, <a href="/#contact">contact me</a>.</p>
-                <!-- ARTICLE_CONTENT_END -->
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88" loading="lazy" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <div class="article-author-links">
+                                <a href="/">View portfolio</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
 
-            <section class="mt-14 rounded-2xl border border-gray-700 bg-white/5 p-6" aria-labelledby="about-author">
-                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-                    <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88"
-                        loading="lazy" class="w-[72px] h-[88px] object-contain flex-none" />
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
                     <div>
-                        <h2 id="about-author" class="text-xl font-bold text-white mb-2">About Muhammad Mustafa</h2>
-                        <p class="text-gray-300 text-sm leading-relaxed">Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</p>
-                        <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-                            <a href="/" class="text-primary hover:text-white transition">View portfolio</a>
-                            <a href="/#contact" class="text-primary hover:text-white transition">Discuss a project</a>
-                        </div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
                     </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
                 </div>
-            </section>
-
-            <section class="mt-14" aria-labelledby="related-articles">
-                <h2 id="related-articles" class="text-2xl font-bold text-white mb-5">Related articles</h2>
-                <div class="grid gap-4 sm:grid-cols-3">
-                                        <a href="/blog/nextjs-security-checklist-2026.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Next.js Security Checklist After the July 2026 Release</h3>
+                <div class="article-related-grid">
+                                        <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Next.js Security Checklist After the July 2026 Release</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
-                    <a href="/blog/offline-first-react-pwa-tanstack-query.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Web Engineering</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Offline-First React PWA with TanStack Query: A Practical Guide</h3>
+                    <a href="/blog/offline-first-react-pwa-tanstack-query.html" class="article-related-card">
+                        <p>Web Engineering</p>
+                        <h3>Offline-First React PWA with TanStack Query: A Practical Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
-                    <a href="/blog/supabase-rls-multi-role-apps.html" class="group rounded-xl border border-gray-700 bg-white/5 p-4 transition hover:border-primary hover:-translate-y-1">
-                        <p class="text-primary text-xs font-semibold mb-2">Security &amp; Compliance</p>
-                        <h3 class="font-bold text-white leading-snug group-hover:text-primary transition">Supabase RLS for Multi-Role Apps: What I Learned</h3>
+                    <a href="/blog/supabase-rls-multi-role-apps.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Supabase RLS for Multi-Role Apps: What I Learned</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
                 </div>
             </section>
         </article>
     </main>
 
-    <footer class="text-center py-6 text-sm text-gray-400 bg-gray-900">
-        &copy; 2026 Muhammad Mustafa.
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
     </footer>
 </body>
 

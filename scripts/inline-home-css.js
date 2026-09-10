@@ -11,9 +11,12 @@ const startMarker = "/* HOME_INLINE_CSS_START */";
 const endMarker = "/* HOME_INLINE_CSS_END */";
 
 const home = fs.readFileSync(homePath, "utf8");
+const customCss = fs.readFileSync(customPath, "utf8")
+  .replace(/\/\* BLOG_ARTICLE_CSS_START \*\/[\s\S]*?\/\* BLOG_ARTICLE_CSS_END \*\//, "")
+  .trim();
 const css = [
   fs.readFileSync(tailwindPath, "utf8").trim(),
-  fs.readFileSync(customPath, "utf8").trim(),
+  customCss,
 ].join("\n");
 
 const pattern = new RegExp(
