@@ -22,7 +22,7 @@ for (const post of posts) {
   }
 
   const html = fs.readFileSync(postPath, "utf8");
-  const expectedImage = `${SITE_URL}/blog/images/${post.slug}.jpg`;
+  const expectedImage = `${SITE_URL}/blog/images/${post.heroImageFile || `${post.slug}.jpg`}`;
   const checks = [
     [!/{{[A-Z0-9_]+}}/.test(html), "contains an unreplaced template placeholder"],
     [!html.includes("mustcode.netlify.app"), "contains the legacy production hostname"],

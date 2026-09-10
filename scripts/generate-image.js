@@ -8,9 +8,9 @@
  * or if the API call fails for any reason.
  *
  * Usage:
- *   node scripts/generate-image.js --slug my-post-slug --title "Post Title" --prompt "a description for the AI image"
+ *   node scripts/generate-image.js --slug my-post-slug --file optional-seo-image-name.jpg --title "Post Title" --prompt "a description for the AI image"
  *
- * Output: blog/images/<slug>.jpg (1200x675)
+ * Output: blog/images/<file or slug>.jpg (1200x675)
  */
 
 const fs = require("fs");
@@ -33,15 +33,21 @@ const args = parseArgs(process.argv.slice(2));
 const slug = args.slug;
 const title = args.title || slug;
 const prompt = args.prompt || `A clean, modern, abstract tech illustration representing: ${title}`;
+const imageFile = args.file || `${slug}.jpg`;
 
 if (!slug) {
   console.error("Usage: node scripts/generate-image.js --slug <slug> --title <title> [--prompt <prompt>]");
   process.exit(1);
 }
 
+if (path.basename(imageFile) !== imageFile || !/^[a-z0-9][a-z0-9-]*\.jpg$/.test(imageFile)) {
+  console.error("--file must be a lowercase, hyphenated .jpg filename without a directory path");
+  process.exit(1);
+}
+
 const outDir = path.join(__dirname, "..", "blog", "images");
 fs.mkdirSync(outDir, { recursive: true });
-const outPath = path.join(outDir, `${slug}.jpg`);
+const outPath = path.join(outDir, imageFile);
 
 async function tryOpenAI() {
   const key = process.env.OPENAI_API_KEY;
