@@ -9,10 +9,10 @@ export default function HomePage() {
         <div className="shell hero-grid">
           <div>
             <p className="eyebrow">Production software, clearly packaged</p>
-            <h1>Choose the SaaS or AI outcome you need.</h1>
+            <h1>Hire one senior engineer for your SaaS or AI product.</h1>
             <p className="hero-copy">
-              Focused engineering services for founders and product teams—from a
-              defined milestone to a complete production launch.
+              Start with one focused service and choose the delivery level that
+              matches your product—from a defined milestone to a complete launch.
             </p>
             <div className="button-row">
               <Link className="button" href="/services/">Explore services</Link>
@@ -35,13 +35,13 @@ export default function HomePage() {
         <div className="shell">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Popular services</p>
-              <h2>Start with a clear delivery path.</h2>
+              <p className="eyebrow">Flagship service</p>
+              <h2>One offer to review and improve first.</h2>
             </div>
             <Link className="text-link" href="/services/">View all services →</Link>
           </div>
           <div className="service-grid service-grid-three">
-            {services.slice(0, 3).map((service) => (
+            {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
           </div>

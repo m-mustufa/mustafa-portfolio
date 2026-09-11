@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GigGallery } from "@/components/GigGallery";
+import { GigPackagePanel } from "@/components/GigPackagePanel";
 import { getService, services } from "@/data/services";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+const siteUrl = "https://aisaaswithmustafa.com";
 
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
@@ -29,10 +34,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `/services/${service.slug}/`,
       images: [
         {
-          url: "/assets/img/mustafa-full-stack-saas-engineer-angular-nodejs.jpg",
+          url: "/assets/img/mustafa-saas-ai-development-gig-cover.jpg",
           width: 1200,
           height: 630,
-          alt: "Muhammad Mustafa, full-stack SaaS and AI engineer",
+          alt: "Full-stack SaaS and AI development portfolio by Muhammad Mustafa",
         },
       ],
     },
@@ -45,130 +50,229 @@ export default async function ServicePage({ params }: PageProps) {
 
   if (!service) notFound();
 
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.title,
-    description: service.description,
-    url: `https://aisaaswithmustafa.com/services/${service.slug}/`,
-    areaServed: ["United Arab Emirates", "Malaysia", "Saudi Arabia", "Remote"],
-    provider: {
-      "@type": "Person",
-      "@id": "https://aisaaswithmustafa.com/#person",
-      name: "Muhammad Mustafa",
-      jobTitle: "Full-Stack SaaS and AI Engineer",
-      url: "https://aisaaswithmustafa.com/",
-    },
-    serviceType: service.shortTitle,
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: service.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
+  const serviceUrl = `${siteUrl}/services/${service.slug}/`;
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: service.shortTitle,
+      description: service.description,
+      url: serviceUrl,
+      areaServed: ["United Arab Emirates", "Malaysia", "Saudi Arabia", "Remote"],
+      provider: {
+        "@type": "Person",
+        "@id": `${siteUrl}/#person`,
+        name: "Muhammad Mustafa",
+        jobTitle: "Full-Stack SaaS and AI Engineer",
+        url: `${siteUrl}/`,
       },
-    })),
-  };
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "SaaS and AI development packages",
+        itemListElement: service.packages.map((item) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: `${item.name} - ${item.fit}`,
+            description: item.summary,
+          },
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services/` },
+        { "@type": "ListItem", position: 3, name: service.shortTitle, item: serviceUrl },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: service.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+    },
+  ];
+
+  const comparisonRows = [
+    { label: "Best for", values: service.packages.map((item) => item.fit) },
+    { label: "Delivery", values: service.packages.map((item) => item.delivery) },
+    { label: "Feedback", values: service.packages.map((item) => item.revisions) },
+    { label: "Planning", values: ["Included", "Included", "Included"] },
+    { label: "Front-end development", values: ["Focused feature", "Included", "Included"] },
+    { label: "Backend and database", values: ["As scoped", "Included", "Included"] },
+    { label: "Auth, billing or AI", values: ["As scoped", "One workflow", "Multiple workflows"] },
+    { label: "Deployment support", values: ["Handover", "Included", "Included"] },
+  ];
 
   return (
-    <main>
+    <main className="gig-page">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c") }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
       />
 
-      <section className="page-hero service-hero">
-        <div className="shell">
-          <Link className="back-link" href="/services/">← All services</Link>
-          <p className="eyebrow">{service.eyebrow}</p>
-          <h1>{service.title}</h1>
-          <p className="hero-copy">{service.description}</p>
-          <div className="button-row">
-            <a className="button" href="https://aisaaswithmustafa.com/#contact">Discuss this service</a>
-            <a className="button button-ghost" href="https://aisaaswithmustafa.com/portfolio.html">View related work</a>
-          </div>
-        </div>
-      </section>
+      <div className="gig-shell">
+        <nav className="breadcrumbs" aria-label="Breadcrumb">
+          <Link href="/">Home</Link><span aria-hidden="true">/</span>
+          <Link href="/services/">Services</Link><span aria-hidden="true">/</span>
+          <span aria-current="page">SaaS &amp; AI Development</span>
+        </nav>
 
-      <section className="section section-tight">
-        <div className="shell outcome-grid">
-          <div>
-            <p className="eyebrow">Best fit</p>
-            <h2>Who this service is for</h2>
-            <p>{service.audience}</p>
-          </div>
-          <div>
-            <p className="eyebrow">Expected outcomes</p>
-            <ul className="check-list">
-              {service.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}
-            </ul>
-          </div>
-        </div>
-      </section>
+        <div className="gig-layout">
+          <div className="gig-main-column">
+            <section className="gig-intro" aria-labelledby="gig-title">
+              <p className="gig-category">{service.eyebrow}</p>
+              <h1 id="gig-title">{service.title}</h1>
+              <div className="seller-row">
+                <Image
+                  alt="Muhammad Mustafa, full-stack SaaS and AI engineer"
+                  className="seller-photo"
+                  height={52}
+                  priority
+                  src="/assets/img/muhammad-mustafa-avatar.webp"
+                  width={52}
+                />
+                <div>
+                  <strong>Muhammad Mustafa</strong>
+                  <p>Senior full-stack engineer <span aria-hidden="true">•</span> 10+ years&apos; experience</p>
+                </div>
+              </div>
+            </section>
 
-      <section className="section package-section">
-        <div className="shell">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Choose a starting point</p>
-              <h2>Three delivery levels. One clear scope.</h2>
+            <GigGallery
+              images={[
+                {
+                  src: "/assets/img/mustafa-saas-ai-development-gig-cover.jpg",
+                  alt: "Full-stack SaaS and AI development projects including CultureAI, Apex Logistics and BWL League",
+                  label: "Service overview",
+                },
+                ...service.portfolio.map((item) => ({
+                  src: item.image,
+                  alt: item.alt,
+                  label: item.title,
+                })),
+              ]}
+            />
+
+            <div className="gig-mobile-order">
+              <GigPackagePanel instance="mobile" packages={service.packages} />
             </div>
-            <p>Pricing is quoted after scope review—no invented fixed prices.</p>
-          </div>
-          <div className="package-grid">
-            {service.packages.map((item, index) => (
-              <article className={`package-card${index === 1 ? " package-featured" : ""}`} key={item.name}>
-                {index === 1 && <span className="package-badge">Most common</span>}
-                <p className="eyebrow">{item.fit}</p>
-                <h3>{item.name}</h3>
-                <p>{item.summary}</p>
-                <ul className="check-list compact-list">
-                  {item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}
-                </ul>
-                <a className="button button-block" href="https://aisaaswithmustafa.com/#contact">
-                  Request {item.name.toLowerCase()} scope
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      <section className="section">
-        <div className="shell faq-layout">
-          <div>
-            <p className="eyebrow">Questions before starting</p>
-            <h2>Clear answers, before a call.</h2>
-          </div>
-          <div className="faq-list">
-            {service.faqs.map((faq) => (
-              <details key={faq.question}>
-                <summary>{faq.question}</summary>
-                <p>{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+            <section className="gig-summary" aria-labelledby="summary-title">
+              <div className="summary-heading">
+                <span aria-hidden="true">✦</span>
+                <h2 id="summary-title">Service summary</h2>
+              </div>
+              <ul>
+                <li>Direct delivery by one senior engineer from architecture through launch.</li>
+                <li>Production SaaS, AI, React, Next.js, Node.js and integration experience.</li>
+                <li>Clear milestones, practical trade-offs and maintainable handover.</li>
+                <li>Available for UAE businesses and remote product teams.</li>
+              </ul>
+            </section>
 
-      <section className="section section-tight">
-        <div className="shell cta-panel">
-          <div>
-            <p className="eyebrow">Ready to scope it?</p>
-            <h2>Tell me what you are building.</h2>
+            <section className="gig-section client-proof" aria-labelledby="proof-title">
+              <div className="gig-section-heading">
+                <h2 id="proof-title">What clients value</h2>
+                <a href="https://aisaaswithmustafa.com/#testimonials">See more feedback</a>
+              </div>
+              <blockquote>
+                <div className="review-topline">
+                  <Image alt="adennis60 client profile" height={42} src="/assets/img/adennis60.webp" width={42} />
+                  <div><strong>adennis60</strong><span>United Kingdom</span></div>
+                  <span className="review-stars" aria-label="Five star review">★★★★★</span>
+                </div>
+                <p>“Stripe integration is done! Thanks, Mustafa, for your work. I will definitely work with you again.”</p>
+              </blockquote>
+            </section>
+
+            <section className="gig-section prose-section" aria-labelledby="about-title">
+              <h2 id="about-title">About this service</h2>
+              <p>{service.description}</p>
+              <p>{service.audience}</p>
+              <h3>What you can hire me to build</h3>
+              <ul className="plain-list">
+                {service.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}
+              </ul>
+              <h3>Technology and delivery experience</h3>
+              <p>
+                I work across the product stack, including React and Next.js interfaces,
+                Node.js APIs, PostgreSQL and Supabase data, authentication, Stripe billing,
+                AI model integrations and production deployment.
+              </p>
+              <div className="expertise-grid">
+                <div><span>Application type</span><strong>SaaS, AI and web products</strong></div>
+                <div><span>Engagement</span><strong>Milestone or end to end</strong></div>
+                <div><span>Primary stack</span><strong>React, Next.js and Node.js</strong></div>
+              </div>
+            </section>
+
+            <section className="gig-section" aria-labelledby="portfolio-title">
+              <h2 id="portfolio-title">Selected production work</h2>
+              <div className="gig-portfolio-grid">
+                {service.portfolio.map((item) => (
+                  <a href="https://aisaaswithmustafa.com/portfolio.html" key={item.title}>
+                    <Image alt={item.alt} height={338} loading="lazy" src={item.image} width={600} />
+                    <span>{item.title}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+
+            <section className="gig-section" aria-labelledby="compare-title">
+              <h2 id="compare-title">Compare packages</h2>
+              <div className="comparison-wrap">
+                <table className="comparison-table">
+                  <thead>
+                    <tr><th>Package</th>{service.packages.map((item) => <th key={item.name}><strong>{item.name}</strong><span>Custom quote</span></th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {comparisonRows.map((row) => (
+                      <tr key={row.label}>
+                        <th>{row.label}</th>
+                        {row.values.map((value, index) => <td key={`${row.label}-${service.packages[index].name}`}>{value}</td>)}
+                      </tr>
+                    ))}
+                    <tr className="comparison-actions">
+                      <th>Next step</th>
+                      {service.packages.map((item) => (
+                        <td key={item.name}><a href="https://aisaaswithmustafa.com/#contact">Select</a></td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section className="gig-section" aria-labelledby="faq-title">
+              <h2 id="faq-title">Frequently asked questions</h2>
+              <div className="gig-faq-list">
+                {service.faqs.map((faq) => (
+                  <details key={faq.question}>
+                    <summary>{faq.question}</summary>
+                    <p>{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+
+            <section className="gig-section related-tags" aria-labelledby="tags-title">
+              <h2 id="tags-title">Related expertise</h2>
+              <ul>{service.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+            </section>
           </div>
-          <a className="button" href="https://aisaaswithmustafa.com/#contact">Start a conversation</a>
+
+          <div className="gig-sidebar">
+            <GigPackagePanel instance="desktop" packages={service.packages} />
+          </div>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

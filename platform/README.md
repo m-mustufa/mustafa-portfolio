@@ -13,8 +13,8 @@ npm run dev
 
 ## First milestone
 
-- Statically rendered `/services/` catalogue
-- Statically rendered `/services/[slug]/` commercial pages
+- One statically rendered flagship service at `/services/[slug]/`
+- Fiverr-inspired gallery, package selector, proof, comparison and FAQ sections
 - Basic, Standard and Premium package presentation without invented pricing
 - Per-page metadata, canonical URLs, structured data, sitemap and robots output
 - Admin workflow foundation at `/admin/services/`
