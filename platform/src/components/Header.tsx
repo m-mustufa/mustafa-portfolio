@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 export function Header() {
   return (
@@ -11,23 +12,26 @@ export function Header() {
             <small>Full-Stack SaaS & AI Engineer</small>
           </span>
         </Link>
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          <Link href="/services/">Services</Link>
-          <a href="https://aisaaswithmustafa.com/portfolio.html">Work</a>
-          <a href="https://aisaaswithmustafa.com/blog/index.html">Blog</a>
-          <a className="button button-small" href="https://aisaaswithmustafa.com/#contact">
-            Start a project
-          </a>
-        </nav>
-        <details className="mobile-nav">
-          <summary>Menu</summary>
-          <nav aria-label="Mobile navigation">
+        <div className="header-actions">
+          <nav className="desktop-nav" aria-label="Primary navigation">
             <Link href="/services/">Services</Link>
             <a href="https://aisaaswithmustafa.com/portfolio.html">Work</a>
             <a href="https://aisaaswithmustafa.com/blog/index.html">Blog</a>
-            <a href="https://aisaaswithmustafa.com/#contact">Start a project</a>
+            <a className="button button-small" href="https://aisaaswithmustafa.com/#contact">
+              Start a project
+            </a>
           </nav>
-        </details>
+          <ThemeSwitcher />
+          <details className="mobile-nav">
+            <summary>Menu</summary>
+            <nav aria-label="Mobile navigation">
+              <Link href="/services/">Services</Link>
+              <a href="https://aisaaswithmustafa.com/portfolio.html">Work</a>
+              <a href="https://aisaaswithmustafa.com/blog/index.html">Blog</a>
+              <a href="https://aisaaswithmustafa.com/#contact">Start a project</a>
+            </nav>
+          </details>
+        </div>
       </div>
     </header>
   );

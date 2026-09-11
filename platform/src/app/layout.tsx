@@ -3,6 +3,16 @@ import { Header } from "@/components/Header";
 import "./globals.css";
 
 const siteUrl = "https://aisaaswithmustafa.com";
+const themeBootScript = `
+  try {
+    const choice = localStorage.getItem("mustafa-theme") || "system";
+    const resolved = choice === "system"
+      ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+      : choice;
+    document.documentElement.dataset.theme = resolved;
+    document.documentElement.dataset.themeChoice = choice;
+  } catch (_) {}
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -34,7 +44,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeBootScript }} /></head>
       <body>
         <Header />
         {children}
