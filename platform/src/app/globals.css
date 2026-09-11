@@ -540,6 +540,16 @@ footer { margin-top: 40px; border-top: 1px solid rgba(76, 230, 223, 0.12); }
   object-fit: contain;
 }
 
+.gallery-open {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
 .gallery-arrow {
   position: absolute;
   top: 50%;
@@ -596,6 +606,76 @@ footer { margin-top: 40px; border-top: 1px solid rgba(76, 230, 223, 0.12); }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.gallery-lightbox {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 56px 72px;
+  background: rgba(4, 11, 17, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.gallery-lightbox figure {
+  display: grid;
+  max-width: min(1400px, 92vw);
+  max-height: 88vh;
+  justify-items: center;
+  margin: 0;
+}
+
+.gallery-lightbox figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh;
+  border-radius: 6px;
+  object-fit: contain;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+.gallery-lightbox figcaption {
+  margin-top: 12px;
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.lightbox-close,
+.lightbox-arrow {
+  position: fixed;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.lightbox-close {
+  top: 22px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  font-size: 1.65rem;
+}
+
+.lightbox-arrow {
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 2rem;
+  transform: translateY(-50%);
+}
+
+.lightbox-arrow-left { left: 20px; }
+.lightbox-arrow-right { right: 20px; }
+.lightbox-close:hover,
+.lightbox-arrow:hover { background: rgba(255, 255, 255, 0.2); }
 
 .gig-sidebar {
   position: sticky;
@@ -881,6 +961,16 @@ footer { margin-top: 40px; border-top: 1px solid rgba(76, 230, 223, 0.12); }
   .gig-portfolio-grid img { height: auto; aspect-ratio: 16 / 9; }
   .review-topline { align-items: flex-start; flex-wrap: wrap; }
   .review-stars { flex-basis: 100%; padding-left: 53px; }
+  .gallery-lightbox { padding: 70px 14px; }
+  .lightbox-arrow {
+    top: auto;
+    bottom: 18px;
+    width: 44px;
+    height: 44px;
+    transform: none;
+  }
+  .lightbox-arrow-left { left: calc(50% - 54px); }
+  .lightbox-arrow-right { right: calc(50% - 54px); }
 }
 
 :root[data-theme="dark"] .gig-page {
