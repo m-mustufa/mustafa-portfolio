@@ -7,7 +7,7 @@ export default function HomePage() {
     <main>
       <section className="hero">
         <div className="shell hero-grid">
-          <div>
+          <div className="hero-intro">
             <p className="eyebrow">Production software, clearly packaged</p>
             <h1>Hire one senior engineer for your SaaS or AI product.</h1>
             <p className="hero-copy">
@@ -27,6 +27,24 @@ export default function HomePage() {
             <span>Full-stack product engineering</span>
             <strong>UAE + remote</strong>
             <span>Available for focused and end-to-end delivery</span>
+            <div className="delivery-flow">
+              <p className="delivery-flow-label">Delivery path</p>
+              <ol
+                className="delivery-flow-track"
+                aria-label="Delivery process: discovery, architecture, build, and launch"
+              >
+                <li><span className="delivery-stage-dot" aria-hidden="true" /><span>Discovery</span></li>
+                <li><span className="delivery-stage-dot" aria-hidden="true" /><span>Architecture</span></li>
+                <li><span className="delivery-stage-dot" aria-hidden="true" /><span>Build</span></li>
+                <li><span className="delivery-stage-dot" aria-hidden="true" /><span>Launch</span></li>
+              </ol>
+              <div className="delivery-stage-copy" aria-hidden="true">
+                <span>Clarify the product, users and commercial goal.</span>
+                <span>Map the system, data and integrations.</span>
+                <span>Deliver working milestones with visible progress.</span>
+                <span>Release, measure and support the live product.</span>
+              </div>
+            </div>
           </aside>
         </div>
       </section>
