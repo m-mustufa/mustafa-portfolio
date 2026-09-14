@@ -161,7 +161,7 @@ export default async function ServicePage({ params }: PageProps) {
             />
 
             <div className="gig-mobile-order">
-              <GigPackagePanel instance="mobile" packages={service.packages} />
+              <GigPackagePanel instance="mobile" packages={service.packages} serviceSlug={service.slug} />
             </div>
 
             <section className="gig-summary" aria-labelledby="summary-title">
@@ -242,7 +242,11 @@ export default async function ServicePage({ params }: PageProps) {
                     <tr className="comparison-actions">
                       <th>Next step</th>
                       {service.packages.map((item) => (
-                        <td key={item.name}><a href="https://aisaaswithmustafa.com/#contact">Select</a></td>
+                        <td key={item.name}>
+                          <Link href={`/start-project/?service=${encodeURIComponent(service.slug)}&package=${encodeURIComponent(item.name)}`}>
+                            Select
+                          </Link>
+                        </td>
                       ))}
                     </tr>
                   </tbody>
@@ -269,7 +273,7 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
 
           <div className="gig-sidebar">
-            <GigPackagePanel instance="desktop" packages={service.packages} />
+            <GigPackagePanel instance="desktop" packages={service.packages} serviceSlug={service.slug} />
           </div>
         </div>
       </div>

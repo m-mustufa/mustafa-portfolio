@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Header } from "@/components/Header";
 import "./globals.css";
 
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html data-scroll-behavior="smooth" lang="en" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: themeBootScript }} /></head>
       <body>
         <Header />
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <footer>
           <div className="shell footer-inner">
             <p>© 2026 Muhammad Mustafa.</p>
-            <a href="https://aisaaswithmustafa.com/#contact">Discuss your project</a>
+            <Link href="/start-project/">Discuss your project</Link>
           </div>
         </footer>
       </body>

@@ -17,9 +17,9 @@ export function Header() {
             <Link href="/services/">Services</Link>
             <a href="https://aisaaswithmustafa.com/portfolio.html">Work</a>
             <a href="https://aisaaswithmustafa.com/blog/index.html">Blog</a>
-            <a className="button button-small" href="https://aisaaswithmustafa.com/#contact">
+            <Link className="button button-small" href="/start-project/">
               Start a project
-            </a>
+            </Link>
           </nav>
           <ThemeSwitcher />
           <details className="mobile-nav">
@@ -28,7 +28,7 @@ export function Header() {
               <Link href="/services/">Services</Link>
               <a href="https://aisaaswithmustafa.com/portfolio.html">Work</a>
               <a href="https://aisaaswithmustafa.com/blog/index.html">Blog</a>
-              <a href="https://aisaaswithmustafa.com/#contact">Start a project</a>
+              <Link href="/start-project/">Start a project</Link>
             </nav>
           </details>
         </div>

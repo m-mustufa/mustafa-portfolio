@@ -1,17 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { ServicePackage } from "@/data/services";
 
 export function GigPackagePanel({
   packages,
   instance,
+  serviceSlug,
 }: {
   packages: ServicePackage[];
   instance: "desktop" | "mobile";
+  serviceSlug: string;
 }) {
   const [activePackage, setActivePackage] = useState(1);
   const selected = packages[activePackage];
+  const requestHref = `/start-project/?service=${encodeURIComponent(serviceSlug)}&package=${encodeURIComponent(selected.name)}`;
 
   return (
     <aside className="gig-order-card" aria-label="Choose a service package">
@@ -53,9 +57,9 @@ export function GigPackagePanel({
         <ul className="gig-check-list">
           {selected.included.map((item) => <li key={item}>{item}</li>)}
         </ul>
-        <a className="gig-primary-button" href="https://aisaaswithmustafa.com/#contact">
+        <Link className="gig-primary-button" href={requestHref}>
           Continue <span aria-hidden="true">→</span>
-        </a>
+        </Link>
         <a className="gig-secondary-button" href="mailto:mustufa50@gmail.com?subject=SaaS%20or%20AI%20development%20project">
           Contact me
         </a>
