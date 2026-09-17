@@ -74,49 +74,25 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", updateSceneScroll, { passive: true });
   }
 
-  const showcaseCards = scene ? Array.from(scene.querySelectorAll("[data-project-slot]")) : [];
+  const heroProject = scene?.querySelector("[data-hero-project]");
 
-  if (showcaseCards.length === 3) {
+  if (heroProject) {
     const showcaseProjects = [
-      {
-        name: "JobHunter",
-        description: "AI application agent",
-        status: "Live",
-        href: "https://jobhunter-lemon.vercel.app/",
-        external: true,
-        avif: "assets/img/portfolio/jobhunter-abu-dhabi-ai-job-application-agent-600w.avif",
-        image: "assets/img/portfolio/jobhunter-abu-dhabi-ai-job-application-agent-600w.jpg",
-        alt: "JobHunter AI job application agent showing Abu Dhabi vacancies and CV tailoring",
-        ariaLabel: "View the live JobHunter AI application agent",
-      },
       {
         name: "CultureAI",
         description: "AI employee engagement SaaS",
         status: "Live SaaS",
         href: "https://app.startcultureai.com/",
-        external: true,
         avif: "assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner-600w.avif",
         image: "assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner-600w.jpg",
         alt: "CultureAI employee engagement SaaS dashboard and survey analytics",
         ariaLabel: "View the live CultureAI SaaS platform",
       },
       {
-        name: "Apex Logistics",
-        description: "GCC logistics PWA",
-        status: "Live PWA",
-        href: "https://apexlogistics.life/",
-        external: true,
-        avif: "assets/img/portfolio/apex-logistics-driver-job-marketplace-react-tanstack-pwa-600w.avif",
-        image: "assets/img/portfolio/apex-logistics-driver-job-marketplace-react-tanstack-pwa-600w.jpg",
-        alt: "Apex Logistics GCC freight quotation platform",
-        ariaLabel: "View the live Apex Logistics platform",
-      },
-      {
         name: "BWL League",
         description: "Realtime sports platform",
         status: "Live Platform",
         href: "https://bwlleague.com/",
-        external: true,
         avif: "assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql-600w.avif",
         image: "assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql-600w.jpg",
         alt: "BWL League sports platform dashboard and Android application",
@@ -127,79 +103,106 @@ document.addEventListener("DOMContentLoaded", () => {
         description: "Automotive SaaS platform",
         status: "Production SaaS",
         href: "https://autoleap.com/",
-        external: true,
         avif: "assets/img/portfolio/autoleap-dashboard-saas-600w.avif",
         image: "assets/img/portfolio/autoleap-dashboard-saas-600w.jpg",
         alt: "AutoLeap automotive repair SaaS dashboard showing sales, reviews and business performance",
         ariaLabel: "View AutoLeap's automotive repair SaaS platform",
       },
       {
-        name: "Leathers by MR",
-        description: "Mobile Shopify storefront",
-        status: "Shopify",
-        href: "#portfolio",
-        external: false,
-        avif: "assets/img/portfolio/leathers-by-mr-shopify-storefront-600w.avif",
-        image: "assets/img/portfolio/leathers-by-mr-shopify-storefront-600w.jpg",
-        alt: "Leathers by MR mobile Shopify storefront for handmade leather products",
-        ariaLabel: "View more web development projects",
+        name: "Apex Logistics",
+        description: "GCC logistics PWA",
+        status: "Live PWA",
+        href: "https://apexlogistics.life/",
+        avif: "assets/img/portfolio/apex-logistics-driver-job-marketplace-react-tanstack-pwa-600w.avif",
+        image: "assets/img/portfolio/apex-logistics-driver-job-marketplace-react-tanstack-pwa-600w.jpg",
+        alt: "Apex Logistics GCC freight quotation platform",
+        ariaLabel: "View the live Apex Logistics platform",
+      },
+      {
+        name: "JobHunter",
+        description: "AI job application agent",
+        status: "Live AI App",
+        href: "https://jobhunter-lemon.vercel.app/",
+        avif: "assets/img/portfolio/jobhunter-abu-dhabi-ai-job-application-agent-600w.avif",
+        image: "assets/img/portfolio/jobhunter-abu-dhabi-ai-job-application-agent-600w.jpg",
+        alt: "JobHunter AI job application agent showing Abu Dhabi vacancies and CV tailoring",
+        ariaLabel: "View the live JobHunter AI application agent",
       },
     ];
+    const source = heroProject.querySelector("[data-hero-project-source]");
+    const image = heroProject.querySelector("[data-hero-project-image]");
+    const windowName = heroProject.querySelector("[data-hero-project-window]");
+    const windowStatus = heroProject.querySelector("[data-hero-project-status]");
+    const projectName = heroProject.querySelector("[data-hero-project-name]");
+    const projectDescription = heroProject.querySelector("[data-hero-project-description]");
+    const projectCount = heroProject.querySelector("[data-hero-project-count]");
+    const progress = scene.querySelector("[data-hero-project-progress]");
+    const triggers = Array.from(scene.querySelectorAll("[data-hero-project-trigger]"));
+    const intervalDuration = 5600;
+    let activeProject = 0;
+    let projectTimer = 0;
+    let changeTimer = 0;
 
-    showcaseProjects.forEach((project) => {
+    showcaseProjects.slice(1).forEach((project) => {
       const preload = new Image();
       preload.src = project.image;
     });
 
-    const updateShowcaseCard = (card, project) => {
-      const source = card.querySelector("source");
-      const image = card.querySelector("img");
-      const windowName = card.querySelector(".project-window-bar strong");
-      const windowStatus = card.querySelector(".project-window-status");
-      const labelName = card.querySelector(".project-showcase-label strong");
-      const labelDescription = card.querySelector(".project-showcase-label small");
-
-      card.href = project.href;
-      card.setAttribute("aria-label", project.ariaLabel);
-      if (project.external) {
-        card.target = "_blank";
-        card.rel = "noopener noreferrer";
-      } else {
-        card.removeAttribute("target");
-        card.removeAttribute("rel");
-      }
-
-      if (source) source.srcset = project.avif;
-      if (image) {
-        image.src = project.image;
-        image.alt = project.alt;
-      }
-      if (windowName) windowName.textContent = project.name;
-      if (windowStatus) windowStatus.textContent = project.status;
-      if (labelName) labelName.textContent = project.name;
-      if (labelDescription) labelDescription.textContent = project.description;
+    const restartProgress = () => {
+      if (!progress || reducedMotion) return;
+      progress.classList.remove("is-running");
+      void progress.offsetWidth;
+      progress.classList.add("is-running");
     };
 
-    if (!reducedMotion) {
-      let projectOffset = 0;
-      const hoverCapable = window.matchMedia("(hover: hover)").matches;
+    const renderProject = (index, animate = true) => {
+      const project = showcaseProjects[index];
+      const update = () => {
+        heroProject.href = project.href;
+        heroProject.target = "_blank";
+        heroProject.rel = "noopener noreferrer";
+        heroProject.setAttribute("aria-label", project.ariaLabel);
+        if (source) source.srcset = project.avif;
+        if (image) { image.src = project.image; image.alt = project.alt; }
+        if (windowName) windowName.textContent = project.name;
+        if (windowStatus) windowStatus.textContent = project.status;
+        if (projectName) projectName.textContent = project.name;
+        if (projectDescription) projectDescription.textContent = project.description;
+        if (projectCount) projectCount.textContent = `${String(index + 1).padStart(2, "0")} / ${String(showcaseProjects.length).padStart(2, "0")}`;
+        triggers.forEach((trigger, triggerIndex) => trigger.setAttribute("aria-selected", String(triggerIndex === index)));
+        heroProject.classList.remove("is-changing");
+        restartProgress();
+      };
 
-      window.setInterval(() => {
-        const isInteracting = (hoverCapable && scene.matches(":hover")) || scene.contains(document.activeElement);
-        if (isInteracting) return;
+      window.clearTimeout(changeTimer);
+      if (animate && !reducedMotion) {
+        heroProject.classList.add("is-changing");
+        changeTimer = window.setTimeout(update, 300);
+      } else {
+        update();
+      }
+    };
 
-        projectOffset = (projectOffset + 1) % showcaseProjects.length;
-        showcaseCards.forEach((card, slotIndex) => {
-          window.setTimeout(() => {
-            card.classList.add("is-swapping");
-            window.setTimeout(() => {
-              updateShowcaseCard(card, showcaseProjects[(projectOffset + slotIndex) % showcaseProjects.length]);
-              card.classList.remove("is-swapping");
-            }, 320);
-          }, slotIndex * 90);
-        });
-      }, 5200);
-    }
+    const scheduleProject = () => {
+      window.clearInterval(projectTimer);
+      if (reducedMotion) return;
+      projectTimer = window.setInterval(() => {
+        if (scene.matches(":hover") || scene.contains(document.activeElement)) return;
+        activeProject = (activeProject + 1) % showcaseProjects.length;
+        renderProject(activeProject);
+      }, intervalDuration);
+    };
+
+    triggers.forEach((trigger, index) => {
+      trigger.addEventListener("click", () => {
+        activeProject = index;
+        renderProject(activeProject);
+        scheduleProject();
+      });
+    });
+
+    restartProgress();
+    scheduleProject();
   }
 
   const canvas = document.getElementById("heroParticles");
@@ -284,21 +287,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const capabilities = document.querySelector(".capabilities-section");
 
   if (capabilities) {
-    const capabilityItems = Array.from(capabilities.querySelectorAll("[data-capability-card], .uae-capability-cta"));
-
-    if ("IntersectionObserver" in window && !reducedMotion) {
-      capabilities.classList.add("motion-ready");
-      const capabilityObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      }, { threshold: 0.16, rootMargin: "0px 0px -6%" });
-
-      capabilityItems.forEach((item) => capabilityObserver.observe(item));
-    }
-
     const canTrackPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (canTrackPointer && !reducedMotion) {
       capabilities.querySelectorAll("[data-capability-card]").forEach((card) => {
