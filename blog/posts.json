@@ -1,5 +1,29 @@
 [
   {
+    "slug": "stripe-fraud-prevention-ai-saas",
+    "title": "Stripe Fraud Prevention for AI SaaS: Practical Guide",
+    "metaDescription": "A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.",
+    "heroImageFile": "stripe-fraud-prevention-ai-saas-radar-security-checklist.jpg",
+    "heroImageAlt": "Stripe fraud prevention architecture for an AI SaaS platform showing account checks, Radar payment screening, verified webhooks and usage controls",
+    "publishDate": "September 19, 2026",
+    "publishDateIso": "2026-09-19T17:14:59.806Z",
+    "readingTime": 9,
+    "category": "Payments & Billing",
+    "tags": [
+      "Stripe Radar",
+      "AI SaaS Fraud",
+      "Payment Security",
+      "Subscription Billing",
+      "SaaS Development"
+    ],
+    "relatedSlugs": [
+      "stripe-per-seat-billing-multi-tenant-saas",
+      "openai-agents-api-saas-production-guide",
+      "nextjs-security-checklist-2026"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "openai-agents-api-saas-production-guide",
     "title": "OpenAI Agents API for SaaS: Production Readiness Guide",
     "metaDescription": "A practical OpenAI Agents API guide for SaaS teams covering architecture, tool permissions, human approval, tracing, testing, cost and production rollout.",

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>Stripe Fraud Prevention for AI SaaS: Practical Guide</title>
+    <meta name="description" content="A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/stripe-fraud-prevention-ai-saas.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="Stripe Fraud Prevention for AI SaaS: Practical Guide">
+    <meta property="og:description" content="A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/stripe-fraud-prevention-ai-saas-radar-security-checklist.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Stripe fraud prevention architecture for an AI SaaS platform showing account checks, Radar payment screening, verified webhooks and usage controls">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/stripe-fraud-prevention-ai-saas.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-09-19T17:14:59.806Z">
+    <meta property="article:modified_time" content="2026-09-19T17:14:59.806Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="Payments & Billing">
+    <meta property="article:tag" content="Stripe Radar">
+    <meta property="article:tag" content="AI SaaS Fraud">
+    <meta property="article:tag" content="Payment Security">
+    <meta property="article:tag" content="Subscription Billing">
+    <meta property="article:tag" content="SaaS Development">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Stripe Fraud Prevention for AI SaaS: Practical Guide">
+    <meta name="twitter:description" content="A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/stripe-fraud-prevention-ai-saas-radar-security-checklist.jpg">
+    <meta name="twitter:image:alt" content="Stripe fraud prevention architecture for an AI SaaS platform showing account checks, Radar payment screening, verified webhooks and usage controls">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/style.js" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "Stripe Fraud Prevention for AI SaaS: Practical Guide", "item": "https://aisaaswithmustafa.com/blog/stripe-fraud-prevention-ai-saas.html" }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Stripe Fraud Prevention for AI SaaS: Practical Guide",
+          "description": "A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.",
+          "image": "https://aisaaswithmustafa.com/blog/images/stripe-fraud-prevention-ai-saas-radar-security-checklist.jpg",
+          "datePublished": "2026-09-19T17:14:59.806Z",
+          "dateModified": "2026-09-19T17:14:59.806Z",
+          "articleSection": "Payments & Billing",
+          "keywords": ["Stripe Radar","AI SaaS Fraud","Payment Security","Subscription Billing","SaaS Development"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/stripe-fraud-prevention-ai-saas.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>Payments & Billing</p>
+                        <h1 id="article-title">Stripe Fraud Prevention for AI SaaS: Practical Guide</h1>
+                        <p class="article-summary">A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-09-19T17:14:59.806Z">September 19, 2026</time> <i aria-hidden="true"></i> 9 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>Payments &amp; Billing</span>
+                <span>Stripe Radar</span>
+                <span>AI SaaS Fraud</span>
+                <span>Payment Security</span>
+                <span>Subscription Billing</span>
+                <span>SaaS Development</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/stripe-fraud-prevention-ai-saas-radar-security-checklist.jpg" alt="Stripe fraud prevention architecture for an AI SaaS platform showing account checks, Radar payment screening, verified webhooks and usage controls" width="1200" height="675" loading="eager" />
+                        <figcaption>Payments & Billing <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#why-stripe-fraud-prevention-for-ai-saas-is-different">Why Stripe fraud prevention for AI SaaS is different</a></li>
+                    <li><a href="#build-protection-across-the-complete-customer-journey">Build protection across the complete customer journey</a></li>
+                    <li><a href="#activate-ai-usage-from-verified-stripe-events">Activate AI usage from verified Stripe events</a></li>
+                    <li><a href="#connect-payment-risk-to-product-usage-controls">Connect payment risk to product usage controls</a></li>
+                    <li><a href="#configure-radar-from-evidence-not-guesswork">Configure Radar from evidence, not guesswork</a></li>
+                    <li><a href="#test-the-failure-paths-before-launch">Test the failure paths before launch</a></li>
+                    <li><a href="#a-practical-ai-saas-fraud-checklist">A practical AI SaaS fraud checklist</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>Stripe fraud prevention for AI SaaS now needs to cover much more than a suspicious card payment. An AI product can lose money before a charge is disputed: one person can create many trial accounts, a stolen card can buy expensive model usage, or a shared account can generate far more compute cost than its subscription was designed to support.</p>
+<p>Stripe published new data on September 15, 2026 showing why this deserves attention. AI startups on Stripe faced up to 4.3 times the attempted transaction fraud rate of startups overall in Q3 2025. Stripe also reported a 40% increase in attempted multi-account abuse across AI subscription companies between January and June 2026. These are Stripe network figures, not a prediction for every product, but they show that payment security and product usage controls must be designed together.</p>
+<p>This guide explains the architecture I would use for a self-serve AI SaaS product. It covers account checks, Stripe Radar, 3D Secure, verified webhooks, subscription entitlements, usage limits, monitoring and testing. The goal is not to block every unusual customer. It is to make abuse expensive while keeping checkout simple for legitimate users.</p>
+<h2 class="scroll-mt-28" id="why-stripe-fraud-prevention-for-ai-saas-is-different">Why Stripe fraud prevention for AI SaaS is different</h2>
+<p>Traditional payment fraud usually focuses on whether a transaction is genuine. AI SaaS adds another valuable asset: immediate access to compute, model calls, generated media, data enrichment or automated workflows. That access can be consumed or resold before the real cardholder notices the charge.</p>
+<p>The customer lifecycle therefore contains several separate risks:</p>
+<ul>
+<li><strong>Card testing:</strong> automated attempts use your payment form to discover which stolen card details still work.</li>
+<li><strong>Transaction fraud:</strong> a stolen payment method purchases a subscription or prepaid credits.</li>
+<li><strong>Multi-account abuse:</strong> one actor repeatedly creates accounts to collect free trials, credits or promotional limits.</li>
+<li><strong>Account sharing:</strong> many people or locations use one paid account beyond the intended plan.</li>
+<li><strong>Usage abuse:</strong> a valid payment buys access, but automation consumes resources at a rate that destroys the unit economics.</li>
+</ul>
+<p>Stripe's <a href="https://stripe.com/blog/what-stripe-data-shows-about-fraud-at-ai-startups" target="_blank" rel="noopener noreferrer">analysis of fraud at AI startups</a> describes the same shift from payment-only fraud toward customer-level abuse. Radar can evaluate payment risk, and Stripe is expanding account-abuse signals, but the SaaS application still owns identity, entitlements and resource consumption.</p>
+<h2 class="scroll-mt-28" id="build-protection-across-the-complete-customer-journey">Build protection across the complete customer journey</h2>
+<p>I would not place one fraud check at checkout and consider the problem solved. A stronger design creates several small controls from registration through ongoing usage. Each layer has a narrow job, which makes false positives easier to understand and the system easier to adjust.</p>
+<h3>1. Control automated sign-ups before billing</h3>
+<p>Rate-limit registration and verification endpoints by a combination of account, network and device signals. Verify the email address before granting valuable credits. If a trial includes costly AI generation, start with a modest allowance and increase it after the user completes meaningful setup or adds a valid payment method.</p>
+<p>Do not depend on an IP address alone. Shared offices, mobile networks and VPNs can make good customers appear related, while attackers can rotate addresses. Use several signals and keep a manual review path for valuable accounts that are unusual but legitimate.</p>
+<h3>2. Use a Stripe-hosted or recommended payment integration</h3>
+<p>Stripe explains that its recommended integrations provide the signals and automated protections used to identify card testing. Stripe Checkout or the Payment Element is usually a safer starting point than a custom form that sends limited payment context. Collect the normal customer and billing information required for the transaction, but do not collect unrelated personal data merely because it might be useful later.</p>
+<p>Create one PaymentIntent for one checkout attempt or business session. Attach your internal account identifier as non-sensitive metadata so payment events can be reconciled with the correct tenant. Never place API keys, access tokens or confidential customer data in Stripe metadata.</p>
+<h3>3. Let risk determine additional authentication</h3>
+<p>3D Secure can move a risky card payment through issuer authentication, but forcing a challenge on every customer adds friction. Stripe recommends allowing its authentication and risk systems to request 3D Secure automatically in most cases. Custom Radar rules can request it for specific risk patterns when the data supports that decision.</p>
+<p>The important product detail is to support every PaymentIntent state. A payment can require customer action, remain processing, fail or succeed. The frontend must explain the next step, while the backend waits for verified Stripe events before granting durable access.</p>
+<h2 class="scroll-mt-28" id="activate-ai-usage-from-verified-stripe-events">Activate AI usage from verified Stripe events</h2>
+<p>In subscription work, I treat Stripe as the source of financial events and the application database as the source of product entitlements. The success page is useful feedback for the customer, but it is not proof that a subscription should be activated. A user can close the browser, reload the page or call a route directly.</p>
+<p>A webhook handler should verify the Stripe signature using the raw request body, record the event ID, and process each event idempotently. For recurring subscriptions, events such as a paid invoice, payment failure, subscription update and subscription deletion should move the account through explicit entitlement states.</p>
+<pre><code class="language-ts">const event = stripe.webhooks.constructEvent(
+  rawBody,
+  request.headers.get('stripe-signature')!,
+  process.env.STRIPE_WEBHOOK_SECRET!
+);
+
+await db.transaction(async (tx) =&gt; {
+  const processed = await tx.stripeEvent.findUnique({
+    where: { stripeEventId: event.id }
+  });
+  if (processed) return;
+
+  if (event.type === 'invoice.paid') {
+    const invoice = event.data.object;
+    await activateEntitlement(tx, invoice.customer, invoice.id);
+  }
+
+  if (event.type === 'invoice.payment_failed') {
+    const invoice = event.data.object;
+    await markEntitlementPastDue(tx, invoice.customer);
+  }
+
+  await tx.stripeEvent.create({
+    data: { stripeEventId: event.id, eventType: event.type }
+  });
+});</code></pre>
+<p>The exact event set depends on whether the product uses subscriptions, usage-based billing, prepaid credits or one-time purchases. The invariant is the same: verify the event, prevent duplicate processing and make entitlement changes auditable.</p>
+<p>This is especially important when a product has seat-based billing. A plan may be paid while the permitted seat count, organisation and roles are still application concerns. I cover that separation in my <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html">Stripe per-seat billing guide</a>.</p>
+<h2 class="scroll-mt-28" id="connect-payment-risk-to-product-usage-controls">Connect payment risk to product usage controls</h2>
+<p>A successful charge should not create unlimited trust. AI usage needs limits that match the plan and the cost model. Track requests, tokens, generated assets or other expensive units at the organisation level as well as the individual user level. Enforce limits on the server, not only by disabling a button in the browser.</p>
+<p>For a new or high-risk account, useful controls can include:</p>
+<ul>
+<li>a lower initial generation or API limit;</li>
+<li>a gradual release of prepaid credits instead of the entire balance at once;</li>
+<li>concurrency limits for expensive jobs;</li>
+<li>verification before exporting large datasets or inviting many users;</li>
+<li>a review step before unusually large credit purchases; and</li>
+<li>clear suspension and appeal states instead of silently deleting the account.</li>
+</ul>
+<p>These controls should be explainable. Store a reason code when the system limits an account, but avoid exposing detailed detection logic that would help an attacker tune around it. Customer support needs enough context to resolve a false positive without seeing full card data.</p>
+<h2 class="scroll-mt-28" id="configure-radar-from-evidence-not-guesswork">Configure Radar from evidence, not guesswork</h2>
+<p>Radar already evaluates payments using Stripe's network signals. Custom rules are most useful when they include knowledge specific to the product, such as a high-value credit purchase from a brand-new account. They are less useful when they duplicate broad assumptions that block entire countries, email providers or customer groups without measured evidence.</p>
+<p>Start with the default protection, then review Radar outcomes, disputes, declines and customer complaints. Use review rules where uncertainty is acceptable and block rules where the evidence is strong. Measure both fraud caught and legitimate conversion lost. A rule that stops fraud but rejects valuable customers can still be expensive.</p>
+<p>Stripe's <a href="https://docs.stripe.com/radar/analytics" target="_blank" rel="noopener noreferrer">Radar analytics</a> can show fraud and intervention trends. I would compare those payment metrics with application signals such as trial creation, model cost, credit usage, failed logins and account suspensions. The combined view answers the question that payment data alone cannot: which behaviour is profitable, which is merely unusual and which is abusive?</p>
+<h2 class="scroll-mt-28" id="test-the-failure-paths-before-launch">Test the failure paths before launch</h2>
+<p>Stripe provides test cards for high-risk payments, blocked payments, disputes and 3D Secure flows. Use them in a Stripe sandbox to verify the customer experience and the backend state transitions. Stripe specifically warns against using the sandbox for load testing, so traffic and rate-limit tests should use your own mocked payment boundary.</p>
+<p>A practical test plan should cover:</p>
+<ol>
+<li>a legitimate payment that succeeds immediately;</li>
+<li>a payment that requires 3D Secure authentication;</li>
+<li>a payment blocked by Radar;</li>
+<li>a webhook delivered more than once;</li>
+<li>events arriving in an unexpected order;</li>
+<li>a paid subscription followed by payment failure;</li>
+<li>rapid trial registrations from related signals;</li>
+<li>usage that reaches the plan limit; and</li>
+<li>a manual review that approves or rejects an account.</li>
+</ol>
+<p>Monitor webhook failures and retry them safely. Alert on sudden changes in payment failures, 402 responses, tiny authorization attempts, sign-up volume and compute usage. Review the alert thresholds after real traffic arrives; launch settings are hypotheses, not permanent truth.</p>
+<h2 class="scroll-mt-28" id="a-practical-ai-saas-fraud-checklist">A practical AI SaaS fraud checklist</h2>
+<ul>
+<li>Use Stripe Checkout or Payment Element unless a custom flow has a clear requirement.</li>
+<li>Protect registration, login, trial and payment endpoints with layered rate limits.</li>
+<li>Verify email before granting expensive trial benefits.</li>
+<li>Keep Stripe secret keys and webhook secrets only on the server.</li>
+<li>Verify webhook signatures against the raw body.</li>
+<li>Store Stripe event IDs and process events idempotently.</li>
+<li>Grant entitlements from verified backend events, not redirect pages.</li>
+<li>Allow risk-based 3D Secure instead of challenging every customer by default.</li>
+<li>Enforce plan and usage limits at the tenant boundary.</li>
+<li>Track fraud, conversion, disputes, model cost and account abuse together.</li>
+<li>Provide support staff with reason codes and a controlled appeal path.</li>
+<li>Test blocked payments, authentication, duplicate events and failed renewals.</li>
+</ul>
+<h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2>
+<p>Stripe fraud prevention for AI SaaS is an application architecture problem as much as a payments problem. Radar can screen transactions and surface network-level risk, but your product must control sign-ups, trials, entitlements, seats and expensive AI usage.</p>
+<p>The safest approach is layered: reduce automated account creation, use a recommended Stripe integration, let risk trigger authentication, activate access through verified idempotent webhooks, and apply server-side usage limits after payment. Then measure the effect on both fraud and good customers.</p>
+<p>If you are building subscription billing, prepaid AI credits or a multi-tenant SaaS product, I can help design the Stripe integration and entitlement model so payment state, product access and operational evidence stay consistent. <a href="/#contact">Tell me what you are building</a>, and I will help map the smallest secure production path.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="uae-development-help">
+                <div>
+                    <p>Available across the UAE</p>
+                    <h2 id="uae-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/full-stack-developer-uae.html">Explore UAE services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88" loading="lazy" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <div class="article-author-links">
+                                <a href="/">View portfolio</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html" class="article-related-card">
+                        <p>SaaS Engineering</p>
+                        <h3>Stripe Per-Seat Billing: What Actually Breaks</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/openai-agents-api-saas-production-guide.html" class="article-related-card">
+                        <p>AI &amp; Automation</p>
+                        <h3>OpenAI Agents API for SaaS: Production Readiness Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Next.js Security Checklist After the July 2026 Release</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>
