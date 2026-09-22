@@ -1,5 +1,29 @@
 [
   {
+    "slug": "ai-job-application-agent-human-review",
+    "title": "Build an AI Job Application Agent That Stays Honest",
+    "metaDescription": "Build an AI job application agent that finds roles, scores fit, tailors CVs truthfully, protects personal data and keeps applications human-approved.",
+    "heroImageFile": "ai-job-application-agent-jobhunter-human-review.jpg",
+    "heroImageAlt": "JobHunter AI job application agent dashboard showing job discovery, CV tailoring, fit scoring and human approval",
+    "publishDate": "September 22, 2026",
+    "publishDateIso": "2026-09-22T14:59:47.944Z",
+    "readingTime": 9,
+    "category": "AI & Automation",
+    "tags": [
+      "AI Job Application Agent",
+      "CV Tailoring",
+      "AI Agents",
+      "Next.js",
+      "Human in the Loop"
+    ],
+    "relatedSlugs": [
+      "openai-agents-api-saas-production-guide",
+      "hire-full-stack-developer-uae-guide",
+      "nextjs-security-checklist-2026"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "stripe-fraud-prevention-ai-saas",
     "title": "Stripe Fraud Prevention for AI SaaS: Practical Guide",
     "metaDescription": "A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.",
