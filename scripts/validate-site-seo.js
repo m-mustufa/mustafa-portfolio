@@ -7,7 +7,7 @@ const ROOT = path.join(__dirname, "..");
 const SITE_URL = "https://aisaaswithmustafa.com";
 const errors = [];
 const pages = [
-  { file: "index.html", canonical: `${SITE_URL}/` },
+  { file: "index.html", canonical: `${SITE_URL}/`, primaryPhrase: "full-stack" },
   {
     file: "full-stack-developer-uae.html",
     canonical: `${SITE_URL}/full-stack-developer-uae.html`,
@@ -90,6 +90,9 @@ if (!/"@type":\s*"Service"/.test(landingHtml) || !/"@type":\s*"FAQPage"/.test(la
 const homeHtml = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 if (!homeHtml.includes('href="/full-stack-developer-uae.html"')) {
   errors.push("index.html: UAE service landing page is not internally linked");
+}
+if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
+  errors.push("index.html: ProfilePage structured data is missing");
 }
 
 const sitemap = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
