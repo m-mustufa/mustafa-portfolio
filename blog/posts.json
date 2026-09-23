@@ -1,5 +1,29 @@
 [
   {
+    "slug": "stripe-webhooks-nextjs-saas-idempotency",
+    "title": "Reliable Stripe Webhooks in Next.js SaaS: Practical Guide",
+    "metaDescription": "Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.",
+    "heroImageFile": "stripe-webhooks-nextjs-saas-idempotency-guide.jpg",
+    "heroImageAlt": "Stripe webhook architecture for a Next.js SaaS showing signature verification, event storage, processing queue and subscription access updates",
+    "publishDate": "September 23, 2026",
+    "publishDateIso": "2026-09-23T16:10:07.185Z",
+    "readingTime": 9,
+    "category": "Payments & Billing",
+    "tags": [
+      "Stripe Webhooks",
+      "Next.js",
+      "SaaS Billing",
+      "Idempotency",
+      "Subscription Management"
+    ],
+    "relatedSlugs": [
+      "stripe-per-seat-billing-multi-tenant-saas",
+      "stripe-fraud-prevention-ai-saas",
+      "nextjs-security-checklist-2026"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "ai-job-application-agent-human-review",
     "title": "Build an AI Job Application Agent That Stays Honest",
     "metaDescription": "Build an AI job application agent that finds roles, scores fit, tailors CVs truthfully, protects personal data and keeps applications human-approved.",

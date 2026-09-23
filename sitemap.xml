@@ -20,9 +20,15 @@
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/index.html</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aisaaswithmustafa.com/blog/stripe-webhooks-nextjs-saas-idempotency.html</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/ai-job-application-agent-human-review.html</loc>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>Reliable Stripe Webhooks in Next.js SaaS: Practical Guide</title>
+    <meta name="description" content="Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/stripe-webhooks-nextjs-saas-idempotency.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="Reliable Stripe Webhooks in Next.js SaaS: Practical Guide">
+    <meta property="og:description" content="Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/stripe-webhooks-nextjs-saas-idempotency-guide.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Stripe webhook architecture for a Next.js SaaS showing signature verification, event storage, processing queue and subscription access updates">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/stripe-webhooks-nextjs-saas-idempotency.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-09-23T16:10:07.185Z">
+    <meta property="article:modified_time" content="2026-09-23T16:10:07.185Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="Payments & Billing">
+    <meta property="article:tag" content="Stripe Webhooks">
+    <meta property="article:tag" content="Next.js">
+    <meta property="article:tag" content="SaaS Billing">
+    <meta property="article:tag" content="Idempotency">
+    <meta property="article:tag" content="Subscription Management">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Reliable Stripe Webhooks in Next.js SaaS: Practical Guide">
+    <meta name="twitter:description" content="Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/stripe-webhooks-nextjs-saas-idempotency-guide.jpg">
+    <meta name="twitter:image:alt" content="Stripe webhook architecture for a Next.js SaaS showing signature verification, event storage, processing queue and subscription access updates">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/style.js" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "Reliable Stripe Webhooks in Next.js SaaS: Practical Guide", "item": "https://aisaaswithmustafa.com/blog/stripe-webhooks-nextjs-saas-idempotency.html" }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Reliable Stripe Webhooks in Next.js SaaS: Practical Guide",
+          "description": "Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.",
+          "image": "https://aisaaswithmustafa.com/blog/images/stripe-webhooks-nextjs-saas-idempotency-guide.jpg",
+          "datePublished": "2026-09-23T16:10:07.185Z",
+          "dateModified": "2026-09-23T16:10:07.185Z",
+          "articleSection": "Payments & Billing",
+          "keywords": ["Stripe Webhooks","Next.js","SaaS Billing","Idempotency","Subscription Management"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/stripe-webhooks-nextjs-saas-idempotency.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>Payments & Billing</p>
+                        <h1 id="article-title">Reliable Stripe Webhooks in Next.js SaaS: Practical Guide</h1>
+                        <p class="article-summary">Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-09-23T16:10:07.185Z">September 23, 2026</time> <i aria-hidden="true"></i> 9 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>Payments &amp; Billing</span>
+                <span>Stripe Webhooks</span>
+                <span>Next.js</span>
+                <span>SaaS Billing</span>
+                <span>Idempotency</span>
+                <span>Subscription Management</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/stripe-webhooks-nextjs-saas-idempotency-guide.jpg" alt="Stripe webhook architecture for a Next.js SaaS showing signature verification, event storage, processing queue and subscription access updates" width="1200" height="675" loading="eager" />
+                        <figcaption>Payments & Billing <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#why-reliable-stripe-webhooks-in-next-js-need-more-than-one-route">Why reliable Stripe webhooks in Next.js need more than one route</a></li>
+                    <li><a href="#verify-the-raw-request-body-in-a-next-js-route-handler">Verify the raw request body in a Next.js Route Handler</a></li>
+                    <li><a href="#return-quickly-then-process-through-a-durable-queue">Return quickly, then process through a durable queue</a></li>
+                    <li><a href="#make-subscription-processing-idempotent-and-order-independent">Make subscription processing idempotent and order-independent</a></li>
+                    <li><a href="#choose-a-small-event-set-with-explicit-actions">Choose a small event set with explicit actions</a></li>
+                    <li><a href="#build-recovery-and-reconciliation-before-an-incident">Build recovery and reconciliation before an incident</a></li>
+                    <li><a href="#test-duplicates-disorder-and-downtime">Test duplicates, disorder and downtime</a></li>
+                    <li><a href="#reliable-stripe-webhook-checklist">Reliable Stripe webhook checklist</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>Reliable Stripe webhooks in Next.js are the difference between a checkout that looks successful and a billing system that stays correct after retries, timeouts and subscription changes. The happy path is easy: receive an event, update a row and return a response. Production is harder because the same event can arrive more than once, related events can arrive out of order, and a slow endpoint can trigger more delivery attempts.</p>
+<p>In my SaaS billing work, I treat a webhook as an untrusted delivery message, not as a command that should immediately run every side effect. The handler must verify where the message came from, store it once, acknowledge it quickly and let a separate processor change product access safely.</p>
+<p>This guide shows that design in a Next.js App Router project. It covers raw-body signature verification, idempotency, queues, subscription state, recovery and testing. The goal is not simply to stop webhook errors. It is to make billing behavior explainable when real failure conditions appear.</p>
+<h2 class="scroll-mt-28" id="why-reliable-stripe-webhooks-in-next-js-need-more-than-one-route">Why reliable Stripe webhooks in Next.js need more than one route</h2>
+<p><a href="https://docs.stripe.com/webhooks" target="_blank" rel="noopener noreferrer">Stripe documents several delivery behaviors</a> that every production integration must expect. Live webhook deliveries can be retried for up to three days with exponential backoff. Stripe does not guarantee that events arrive in the order they were created, and an endpoint can occasionally receive the same event more than once.</p>
+<p>Those rules have direct product consequences. If an <code>invoice.paid</code> event is processed twice, a credit balance could be increased twice. If <code>customer.subscription.updated</code> arrives after a newer cancellation state, careless code could restore access. If the endpoint waits for an email provider or a slow database report, Stripe may see a timeout even though part of the work completed.</p>
+<p>A reliable design separates four responsibilities:</p>
+<ol>
+<li><strong>Authenticate delivery:</strong> verify the Stripe signature against the untouched request body.</li>
+<li><strong>Accept once:</strong> store a durable event record behind a unique constraint.</li>
+<li><strong>Process safely:</strong> run repeatable business logic outside the request path.</li>
+<li><strong>Reconcile state:</strong> recover from missing, delayed or unexpected events using Stripe's API as the financial source.</li>
+</ol>
+<p>This separation looks like extra work when the product has ten customers. It becomes much cheaper than debugging mismatched access, seats or invoices when the product grows.</p>
+<h2 class="scroll-mt-28" id="verify-the-raw-request-body-in-a-next-js-route-handler">Verify the raw request body in a Next.js Route Handler</h2>
+<p>Stripe signature verification requires the raw request body. Parsing the body as JSON first changes the input used to calculate the signature and causes verification to fail. The <a href="https://nextjs.org/docs/app/api-reference/file-conventions/route" target="_blank" rel="noopener noreferrer">current Next.js App Router</a> supports reading a Route Handler request as text without extra body-parser configuration.</p>
+<p>The route should also use the webhook signing secret for the exact endpoint and environment. A Stripe CLI secret, sandbox endpoint secret and live endpoint secret are different values. Keep the secret server-side and return a clear <code>400</code> response when verification fails without leaking sensitive details.</p>
+<pre><code class="language-ts">// app/api/stripe/webhook/route.ts
+import Stripe from 'stripe';
+import { db } from '@/lib/db';
+
+export const runtime = 'nodejs';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function POST(request: Request) {
+  const signature = request.headers.get('stripe-signature');
+  if (!signature) return new Response('Missing signature', { status: 400 });
+
+  const rawBody = await request.text();
+  let event: Stripe.Event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      rawBody,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch {
+    return new Response('Invalid webhook signature', { status: 400 });
+  }
+
+  await db.stripeEvent.create({
+    data: {
+      stripeEventId: event.id,
+      eventType: event.type,
+      payload: event as unknown as object,
+      status: 'pending'
+    }
+  }).catch((error) =&gt; {
+    if (!isUniqueConstraint(error)) throw error;
+  });
+
+  return new Response('accepted', { status: 200 });
+}</code></pre>
+<p>The important database rule is a unique index on <code>stripeEventId</code>. Two server instances can receive the same delivery at almost the same time, so an application-level query followed by an insert is not enough. The database must decide which insert wins.</p>
+<p>Stripe also notes that, in some cases, two separate Event objects can describe the same underlying object and event type. For side effects that must happen only once per business object, add a second business idempotency key such as <code>invoice.paid:in_123</code>. The event ID protects delivery processing; the business key protects the action.</p>
+<h2 class="scroll-mt-28" id="return-quickly-then-process-through-a-durable-queue">Return quickly, then process through a durable queue</h2>
+<p><a href="https://docs.stripe.com/webhooks#quickly-return-a-2xx-response" target="_blank" rel="noopener noreferrer">Stripe recommends returning a successful <code>2xx</code> response</a> before complex logic can time out. That does not mean starting an untracked promise after the response. Serverless runtimes can stop work once the request finishes. The safe pattern is to commit the event to durable storage or a queue before acknowledging it.</p>
+<p>For a smaller SaaS, a database-backed inbox can be enough. A worker selects pending rows, marks one as processing, applies the change in a transaction and then records success. A scheduled job can retry failed rows with bounded backoff. Larger systems can publish the verified event to a managed queue, but the core contract stays the same.</p>
+<p>I keep webhook receipt and business processing separate because they fail for different reasons. Signature errors are delivery problems. A missing tenant mapping is an application data problem. A temporary database outage is an infrastructure problem. Separate statuses and timestamps make those failures visible instead of reducing everything to a generic <code>500</code>.</p>
+<p>Useful event-inbox fields include:</p>
+<ul>
+<li>Stripe event ID and event type;</li>
+<li>the related Stripe object ID and customer ID;</li>
+<li>received, processing and completed timestamps;</li>
+<li>attempt count and the latest safe error summary;</li>
+<li>the API version associated with the event; and</li>
+<li>a correlation ID for application logs.</li>
+</ul>
+<p>Store only what the team needs and protect the payload like other billing data. Do not copy secrets or unnecessary customer details into logs.</p>
+<h2 class="scroll-mt-28" id="make-subscription-processing-idempotent-and-order-independent">Make subscription processing idempotent and order-independent</h2>
+<p>Idempotency means processing the same message again produces the same final state instead of repeating a side effect. A processed-events table helps, but each handler should also express the desired state rather than blindly toggling it.</p>
+<p>For example, <code>invoice.paid</code> can record the invoice as paid and provision access when the associated subscription is active. <code>invoice.payment_failed</code> can mark the billing account as requiring attention and start a customer notification workflow. <code>customer.subscription.deleted</code> can end access according to the product's cancellation policy.</p>
+<p>Do not assume those events arrive in a neat sequence. When the local record is missing or the incoming snapshot is not enough to make a safe decision, retrieve the current subscription or invoice from Stripe. Update the tenant with a guarded database transaction, and reject stale transitions when the local record already represents a newer authoritative state.</p>
+<p>This is also why I do not grant durable access from the checkout success page. The browser redirect is customer feedback, not financial proof. The user can close the tab, refresh it or call the URL without completing payment. Verified backend events should drive durable entitlements.</p>
+<p>For multi-tenant products, keep financial state separate from product permissions. Stripe can say which customer and subscription are paid, while the application decides which organisation, seats and roles receive access. My <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html">Stripe per-seat billing guide</a> covers that boundary in more detail.</p>
+<h2 class="scroll-mt-28" id="choose-a-small-event-set-with-explicit-actions">Choose a small event set with explicit actions</h2>
+<p>Listening to every Stripe event creates noise and increases the number of payloads the system must store and understand. Stripe recommends subscribing only to events the integration requires. Start with an event-to-action table and make every entry reviewable.</p>
+<ul>
+<li><strong><code>checkout.session.completed</code>:</strong> connect a completed Checkout flow to the internal account when that matches the chosen integration.</li>
+<li><strong><code>invoice.paid</code>:</strong> record successful payment and provision or extend access when the subscription state permits it.</li>
+<li><strong><code>invoice.payment_failed</code>:</strong> record the failure, notify the customer and follow the configured recovery policy.</li>
+<li><strong><code>customer.subscription.updated</code>:</strong> synchronize plan, quantity, cancellation timing and status.</li>
+<li><strong><code>customer.subscription.deleted</code>:</strong> remove or schedule removal of paid access according to the product policy.</li>
+</ul>
+<p>The exact list depends on whether the product uses subscriptions, one-time payments, prepaid credits or usage-based billing. Avoid copying an event list without connecting each event to a clear state transition.</p>
+<p>Payment security continues beyond the webhook route. Rate limits, entitlement checks and usage controls protect the value unlocked after payment. I explain that wider lifecycle in the <a href="/blog/stripe-fraud-prevention-ai-saas.html">Stripe fraud prevention for AI SaaS guide</a>.</p>
+<h2 class="scroll-mt-28" id="build-recovery-and-reconciliation-before-an-incident">Build recovery and reconciliation before an incident</h2>
+<p>A queue can retry application failures, but it cannot prove that every expected event reached the system. Add a reconciliation job that compares recent Stripe subscriptions and invoices with local billing records. The job should report differences and repair only cases where the rule is safe and deterministic.</p>
+<p>Operational alerts should cover more than endpoint uptime. Track signature failures, non-<code>2xx</code> responses, delivery latency, pending inbox age, retry counts, dead-lettered events and mismatches found by reconciliation. An alert saying “webhook failed” is less useful than one showing the event ID, type, tenant mapping and safe error category.</p>
+<p><a href="https://docs.stripe.com/webhooks#manual-retries" target="_blank" rel="noopener noreferrer">Stripe's Dashboard and CLI can manually resend events</a> for limited periods. A manual resend does not replace idempotency because automatic retries may still happen. The runbook should tell an operator how to inspect the event, confirm whether the business action already happened, replay it safely and record the result.</p>
+<h2 class="scroll-mt-28" id="test-duplicates-disorder-and-downtime">Test duplicates, disorder and downtime</h2>
+<p>A webhook test is incomplete if it sends one successful event to a local route. Use the Stripe CLI and a sandbox to exercise the delivery boundary, then add application tests for the state machine.</p>
+<p>I would include these cases before launch:</p>
+<ol>
+<li>a valid signed event is stored and acknowledged;</li>
+<li>a missing or invalid signature returns <code>400</code> without storing the payload;</li>
+<li>the same event ID is delivered twice and the business action runs once;</li>
+<li>two different event IDs for the same invoice do not repeat the invoice action;</li>
+<li>subscription events arrive in an unexpected order;</li>
+<li>the database is unavailable before the event is stored, causing a retryable failure;</li>
+<li>business processing fails after receipt and is retried by the worker;</li>
+<li>a canceled or unpaid subscription removes access according to policy; and</li>
+<li>reconciliation detects and reports a deliberately created mismatch.</li>
+</ol>
+<p>Keep the webhook route narrow enough that these tests remain understandable. The broader application should still follow a complete <a href="/blog/nextjs-security-checklist-2026.html">Next.js security checklist</a>, including secret management, authorization and safe logging.</p>
+<h2 class="scroll-mt-28" id="reliable-stripe-webhook-checklist">Reliable Stripe webhook checklist</h2>
+<ul>
+<li>Read the untouched body with <code>request.text()</code> before parsing anything.</li>
+<li>Verify the <code>stripe-signature</code> with the correct endpoint secret.</li>
+<li>Store each Stripe event behind a database unique constraint.</li>
+<li>Use a business idempotency key for one-time invoice or entitlement actions.</li>
+<li>Acknowledge only after durable storage or queue publication succeeds.</li>
+<li>Process events asynchronously and track every attempt.</li>
+<li>Do not depend on event delivery order.</li>
+<li>Retrieve the current Stripe object when the incoming event is insufficient.</li>
+<li>Grant access from verified backend state, not the success-page redirect.</li>
+<li>Subscribe only to event types tied to explicit business actions.</li>
+<li>Monitor stuck events and reconcile Stripe against the application database.</li>
+<li>Test duplicates, disorder, downtime and replay before production.</li>
+</ul>
+<h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2>
+<p>Reliable Stripe webhooks in Next.js are not built by adding more code to one POST handler. They come from a small delivery boundary and a durable processing system: verify the raw request, store the event once, return quickly, process idempotently and reconcile the result.</p>
+<p>That structure protects both revenue and customer trust. A retry does not create duplicate credit, an out-of-order event does not silently restore the wrong plan, and an operator can see exactly where a billing change stopped.</p>
+<p>If you are building Stripe subscriptions, seat-based billing or paid AI features, I can help design the webhook and entitlement flow around your actual product rules. <a href="/#contact">Tell me about your SaaS project</a>, and I will help map a reliable production path.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="uae-development-help">
+                <div>
+                    <p>Available across the UAE</p>
+                    <h2 id="uae-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/full-stack-developer-uae.html">Explore UAE services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88" loading="lazy" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <div class="article-author-links">
+                                <a href="/">View portfolio</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html" class="article-related-card">
+                        <p>SaaS Engineering</p>
+                        <h3>Stripe Per-Seat Billing: What Actually Breaks</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/stripe-fraud-prevention-ai-saas.html" class="article-related-card">
+                        <p>Payments &amp; Billing</p>
+                        <h3>Stripe Fraud Prevention for AI SaaS: Practical Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Next.js Security Checklist After the July 2026 Release</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>
