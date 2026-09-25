@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>UAE Open Finance API Integration: Practical SaaS Guide</title>
+    <meta name="description" content="Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/uae-open-finance-api-integration.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="UAE Open Finance API Integration: Practical SaaS Guide">
+    <meta property="og:description" content="Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/uae-open-finance-api-integration-altareq-fintech-saas.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Fintech engineer in Dubai reviewing a secure UAE Open Finance API integration with consent, bank data and payment flows">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/uae-open-finance-api-integration.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-09-25T16:22:49.221Z">
+    <meta property="article:modified_time" content="2026-09-25T16:22:49.221Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="FinTech & Integrations">
+    <meta property="article:tag" content="UAE Open Finance">
+    <meta property="article:tag" content="AlTareq">
+    <meta property="article:tag" content="Fintech API">
+    <meta property="article:tag" content="FAPI 2.0">
+    <meta property="article:tag" content="SaaS Integration">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UAE Open Finance API Integration: Practical SaaS Guide">
+    <meta name="twitter:description" content="Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/uae-open-finance-api-integration-altareq-fintech-saas.jpg">
+    <meta name="twitter:image:alt" content="Fintech engineer in Dubai reviewing a secure UAE Open Finance API integration with consent, bank data and payment flows">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/style.js" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "UAE Open Finance API Integration: Practical SaaS Guide", "item": "https://aisaaswithmustafa.com/blog/uae-open-finance-api-integration.html" }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "UAE Open Finance API Integration: Practical SaaS Guide",
+          "description": "Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.",
+          "image": "https://aisaaswithmustafa.com/blog/images/uae-open-finance-api-integration-altareq-fintech-saas.jpg",
+          "datePublished": "2026-09-25T16:22:49.221Z",
+          "dateModified": "2026-09-25T16:22:49.221Z",
+          "articleSection": "FinTech & Integrations",
+          "keywords": ["UAE Open Finance","AlTareq","Fintech API","FAPI 2.0","SaaS Integration"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/uae-open-finance-api-integration.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Mustafa-Angular-Full-Stack.pdf" target="_blank" rel="noopener noreferrer" download
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>FinTech & Integrations</p>
+                        <h1 id="article-title">UAE Open Finance API Integration: Practical SaaS Guide</h1>
+                        <p class="article-summary">Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-09-25T16:22:49.221Z">September 25, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>FinTech &amp; Integrations</span>
+                <span>UAE Open Finance</span>
+                <span>AlTareq</span>
+                <span>Fintech API</span>
+                <span>FAPI 2.0</span>
+                <span>SaaS Integration</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/uae-open-finance-api-integration-altareq-fintech-saas.jpg" alt="Fintech engineer in Dubai reviewing a secure UAE Open Finance API integration with consent, bank data and payment flows" width="1200" height="675" loading="eager" />
+                        <figcaption>FinTech & Integrations <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#why-uae-open-finance-api-integration-matters-now">Why UAE Open Finance API integration matters now</a></li>
+                    <li><a href="#understand-the-uae-open-finance-architecture-before-writing-code">Understand the UAE Open Finance architecture before writing code</a></li>
+                    <li><a href="#map-the-altareq-consent-journey-end-to-end">Map the AlTareq consent journey end to end</a></li>
+                    <li><a href="#build-the-integration-as-a-secure-backend-boundary">Build the integration as a secure backend boundary</a></li>
+                    <li><a href="#design-consent-and-privacy-as-product-features">Design consent and privacy as product features</a></li>
+                    <li><a href="#use-a-production-architecture-that-can-be-audited">Use a production architecture that can be audited</a></li>
+                    <li><a href="#test-failure-paths-before-certification-and-launch">Test failure paths before certification and launch</a></li>
+                    <li><a href="#uae-open-finance-api-integration-checklist">UAE Open Finance API integration checklist</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>A <strong>UAE Open Finance API integration</strong> is no longer just an idea for future fintech products. The Central Bank of the UAE has established a regulated framework for consent-based financial data sharing and transaction initiation, while the AlTareq ecosystem provides common infrastructure for banks, insurers and approved third-party providers.</p>
+<p>For a fintech SaaS team, the opportunity is attractive: account aggregation, cash-flow tools, payment initiation, lending workflows, insurance comparisons and SME finance products can use authorised data instead of screen scraping or manual uploads. The difficult part is not calling one REST endpoint. It is building a complete consent, identity, security, callback and audit system that behaves safely when users cancel, tokens expire or upstream services retry.</p>
+<p>This guide explains how I would plan that integration in a production SaaS application. It covers the UAE Open Finance architecture, the AlTareq consent journey, FAPI security, backend boundaries, privacy, testing and operational checks. It is an engineering guide, not legal or licensing advice; regulated teams should confirm their exact obligations with the CBUAE and qualified advisers.</p>
+<h2 class="scroll-mt-28" id="why-uae-open-finance-api-integration-matters-now">Why UAE Open Finance API integration matters now</h2>
+<p>The CBUAE describes <a href="https://centralbank.ae/en/our-operations/fintech-digital-transformation/open-finance/" target="_blank" rel="noopener noreferrer">Open Finance</a> as secure access to financial systems for accredited third-party providers using customer-consented data. Its goal is to support more data-rich, collaborative and customer-focused services for individuals, SMEs and companies.</p>
+<p>The CBUAE's 2025 annual report says AlTareq went live with centralised infrastructure, standard consent journeys, payment initiation, confirmation of payee, data-sharing APIs and insurance quote services. Public API documentation continued to receive updates in 2026. That makes this a timely search topic and a real implementation topic for UAE fintech teams.</p>
+<h2 class="scroll-mt-28" id="understand-the-uae-open-finance-architecture-before-writing-code">Understand the UAE Open Finance architecture before writing code</h2>
+<p>The <a href="https://rulebook.centralbank.ae/en/rulebook/introduction-and-scope-2" target="_blank" rel="noopener noreferrer">CBUAE Open Finance Regulation</a> describes three connected parts: the Trust Framework, the API Hub and Common Infrastructural Services. Treating them as separate responsibilities makes the integration easier to reason about.</p>
+<h3>Trust Framework</h3>
+<p>The Trust Framework establishes who is allowed to participate. It includes a participant directory, identity and access services, application registration and digital certificates. Your application should not maintain a hand-written list of banks or trust an endpoint supplied by a browser. It should use approved participant and discovery data and validate the systems it communicates with.</p>
+<h3>API Hub</h3>
+<p>The API Hub provides a standard integration point across financial institutions. Its API Manager aggregates participant APIs and exposes harmonised interfaces. This reduces the need for a different connector for every bank, but your product still owns consent state, error handling and reconciliation.</p>
+<h3>Common services</h3>
+<p>Common services cover consent and authorisation, service assurance, reporting, analytics and administration. Your SaaS product still needs a clear record of what the user requested, what was approved, which account or product was involved, when access expires and why a workflow failed.</p>
+<p>I would model these systems behind a dedicated integration module. The rest of the application should ask that module for an authorised account list or payment status instead of spreading Open Finance request logic across UI components and unrelated API routes.</p>
+<h2 class="scroll-mt-28" id="map-the-altareq-consent-journey-end-to-end">Map the AlTareq consent journey end to end</h2>
+<p>The official <a href="https://openfinanceuae.atlassian.net/wiki/spaces/OF/pages/455278830/AlTareq+Centralised+Authentication+and+Authorization+Integration+Guide" target="_blank" rel="noopener noreferrer">AlTareq integration guide</a> describes a centralised authentication and authorisation flow for Third-Party Providers and Licensed Financial Institutions. In plain English, the user chooses a provider, approves a specific request in AlTareq and returns to the fintech product after authorisation.</p>
+<p>A simplified application flow looks like this:</p>
+<ol>
+<li>The user starts an action such as connecting a bank account or initiating a payment.</li>
+<li>Your backend creates a local consent attempt with a unique state and expiry.</li>
+<li>The application retrieves approved participant and discovery information.</li>
+<li>The backend submits a Pushed Authorization Request, usually called PAR.</li>
+<li>The user is redirected or deep-linked to AlTareq with approved request identifiers.</li>
+<li>AlTareq authenticates the user and shows the requested data or transaction scope.</li>
+<li>The user approves or rejects the request.</li>
+<li>The user returns to a registered callback URL.</li>
+<li>Your backend validates the callback, exchanges the code and updates consent state.</li>
+<li>Only then does the application request authorised data or initiate the approved service.</li>
+</ol>
+<p>The browser should never decide that consent succeeded simply because it reached a success page. The backend must match the callback to the original state and validate the response. This is the same principle I use for reliable billing events: redirects explain progress, while verified server-side messages control durable state. My <a href="/blog/stripe-webhooks-nextjs-saas-idempotency.html">Stripe webhook guide</a> covers that reliability pattern in more detail.</p>
+<h2 class="scroll-mt-28" id="build-the-integration-as-a-secure-backend-boundary">Build the integration as a secure backend boundary</h2>
+<p>The AlTareq guide references the FAPI 2.0 Security Profile, Pushed Authorization Requests, OpenID discovery and registered redirect URIs. These controls exist because financial authorisation requires stronger guarantees than a normal social login.</p>
+<p>I would keep certificates, signing keys, client credentials and token operations in a server-only service. A Next.js page or mobile client can begin the connection, but it should never receive private keys or build signed financial requests directly. Production keys belong in a managed secret store with access logging and rotation procedures, not in the repository.</p>
+<p>A small internal state model prevents ambiguous outcomes:</p>
+<pre><code class="language-ts">type ConsentStatus =
+  | 'created'
+  | 'authorization_pending'
+  | 'authorized'
+  | 'rejected'
+  | 'revoked'
+  | 'expired'
+  | 'failed';
+
+async function completeCallback(input: CallbackInput) {
+  const attempt = await findConsentByState(hash(input.state));
+  if (!attempt || attempt.expiresAt &lt; new Date()) {
+    throw new Error('Invalid or expired consent state');
+  }
+
+  const tokens = await exchangeAuthorizationCode(input.code);
+  await markConsentAuthorized(attempt.id, tokens.consentId);
+  return { consentId: attempt.id };
+}</code></pre>
+<p>The example is intentionally generic. Exact request signing, certificate handling and token fields must follow the current specifications. The stable design choices are to bind every flow to the correct tenant and user, enforce expiry and make repeated callbacks safe.</p>
+<h3>Plan for retries and out-of-order events</h3>
+<p>Financial APIs and event notifications can retry. Network timeouts can leave the caller unsure whether an operation completed. Give every state-changing request an idempotency key, store the external reference and provide status reconciliation. If a callback arrives twice, the second delivery should return success without creating another consent or payment.</p>
+<p>Keep an append-only event history alongside the current status. Support teams need to answer what the user approved, what request was sent, what response arrived and which code changed the state. Do not place full account data, access tokens or personal information in general application logs.</p>
+<h2 class="scroll-mt-28" id="design-consent-and-privacy-as-product-features">Design consent and privacy as product features</h2>
+<p><a href="https://rulebook.centralbank.ae/en/rulebook/article-22-data-privacy-and-consent-use-personal-data-0" target="_blank" rel="noopener noreferrer">CBUAE Article 22</a> says personal data processing for Open Finance services requires explicit user consent, and that consent must be specific, informed, unambiguous and freely given. Multiple purposes should be distinguishable, and requests should remain relevant to their stated purpose.</p>
+<p>The product should clearly explain:</p>
+<ul>
+<li>which financial institution the user is connecting;</li>
+<li>which account, policy or product is involved;</li>
+<li>what data will be read or what action will be initiated;</li>
+<li>why the application needs it;</li>
+<li>how long access lasts;</li>
+<li>whether the action is one-time or recurring; and</li>
+<li>how the user can review or revoke consent.</li>
+</ul>
+<p>Store the consent purpose and version shown to the user. When scopes or purposes change, request fresh approval instead of quietly expanding access. Data retention should be tied to the service need and the user's relationship with the product.</p>
+<p>Open Finance requirements sit alongside broader privacy duties. My <a href="/blog/uae-pdpl-compliance-saas.html">UAE PDPL checklist for SaaS</a> explains data mapping, user rights and privacy-by-design. If onboarding uses national digital identity, review my <a href="/blog/uae-pass-nextjs-nodejs-integration.html">UAE PASS integration guide</a> rather than mixing identity and financial-consent logic into one route.</p>
+<h2 class="scroll-mt-28" id="use-a-production-architecture-that-can-be-audited">Use a production architecture that can be audited</h2>
+<p>For a multi-tenant SaaS product, I would separate the integration into six areas:</p>
+<ul>
+<li><strong>Participant directory:</strong> approved providers, discovery metadata and controlled caching.</li>
+<li><strong>Consent service:</strong> local state, purpose, scopes, expiry, revocation and history.</li>
+<li><strong>Security service:</strong> keys, certificates, request signing, encryption and token handling.</li>
+<li><strong>API client:</strong> typed requests, validation, timeouts, retries and idempotency.</li>
+<li><strong>Event processor:</strong> verified notifications, deduplication and reconciliation jobs.</li>
+<li><strong>Operations view:</strong> safe diagnostics, audit events, alerts and support actions.</li>
+</ul>
+<p>Every record must include the tenant boundary. A user in Company A must never retrieve a consent, token reference or account record belonging to Company B. Enforce that rule in backend queries and database policies, not only in frontend navigation. My <a href="/blog/supabase-rls-multi-role-apps.html">Supabase RLS guide</a> shows how I think about database-enforced isolation.</p>
+<h2 class="scroll-mt-28" id="test-failure-paths-before-certification-and-launch">Test failure paths before certification and launch</h2>
+<p>The framework includes sandbox and conformance processes. Use them to test more than the happy path. Cover rejected consent, expired state, concurrent journeys, an unavailable authorisation app, invalid signatures, certificate rotation, token expiry, revoked access, repeated callbacks, provider-directory changes and reconciliation after a timeout.</p>
+<p>Production monitoring should track authorisation completion rate, callback errors, token failures, API latency, provider availability, retry volume and reconciliation gaps. Alert on changes from the normal baseline, but avoid putting account numbers or raw payloads into alert messages.</p>
+<h2 class="scroll-mt-28" id="uae-open-finance-api-integration-checklist">UAE Open Finance API integration checklist</h2>
+<ul>
+<li>Confirm the business model, regulated role and onboarding path before development.</li>
+<li>Use the approved participant directory and discovery metadata.</li>
+<li>Keep private keys, certificates and token exchange on the server.</li>
+<li>Implement PAR, callback validation and FAPI requirements from current specifications.</li>
+<li>Bind every consent flow to the correct user and tenant.</li>
+<li>Use explicit statuses for pending, authorised, rejected, revoked, expired and failed consent.</li>
+<li>Make callbacks, notifications and transaction requests idempotent.</li>
+<li>Store purpose, scope, expiry and consent-version evidence.</li>
+<li>Minimise retained financial and personal data.</li>
+<li>Test revocation, retries, key rotation and provider outages.</li>
+<li>Complete sandbox, conformance and security review before production.</li>
+</ul>
+<h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2>
+<p>A UAE Open Finance API integration is a regulated product workflow, not a simple bank-data connector. The reliable approach starts with the Trust Framework and API Hub, keeps credentials in a dedicated backend boundary, treats consent as an explicit state machine and records enough evidence to support users and audits safely.</p>
+<p>AlTareq reduces fragmentation with common infrastructure and standard journeys. Your product still owns tenant isolation, user experience, retry behaviour, privacy and monitoring. Build those parts deliberately and the integration becomes easier to test and operate.</p>
+<p>If you are planning a UAE fintech product, account-data workflow or secure API integration, I can help turn the requirements into a practical architecture and delivery plan. Review my <a href="/full-stack-developer-uae.html">full-stack SaaS development services in the UAE</a> or <a href="/#contact">tell me what you are building</a>.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="uae-development-help">
+                <div>
+                    <p>Available across the UAE</p>
+                    <h2 id="uae-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/full-stack-developer-uae.html">Explore UAE services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/logo-2-200.webp" alt="Muhammad Mustafa" width="72" height="88" loading="lazy" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <div class="article-author-links">
+                                <a href="/">View portfolio</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/uae-pass-nextjs-nodejs-integration.html" class="article-related-card">
+                        <p>UAE Integrations</p>
+                        <h3>UAE PASS Integration with Next.js and Node.js SaaS Apps</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/uae-pdpl-compliance-saas.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>UAE PDPL Compliance Checklist for SaaS Applications</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/stripe-webhooks-nextjs-saas-idempotency.html" class="article-related-card">
+                        <p>Payments &amp; Billing</p>
+                        <h3>Reliable Stripe Webhooks in Next.js SaaS: Practical Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>

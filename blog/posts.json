@@ -1,5 +1,29 @@
 [
   {
+    "slug": "uae-open-finance-api-integration",
+    "title": "UAE Open Finance API Integration: Practical SaaS Guide",
+    "metaDescription": "Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.",
+    "heroImageFile": "uae-open-finance-api-integration-altareq-fintech-saas.jpg",
+    "heroImageAlt": "Fintech engineer in Dubai reviewing a secure UAE Open Finance API integration with consent, bank data and payment flows",
+    "publishDate": "September 25, 2026",
+    "publishDateIso": "2026-09-25T16:22:49.221Z",
+    "readingTime": 8,
+    "category": "FinTech & Integrations",
+    "tags": [
+      "UAE Open Finance",
+      "AlTareq",
+      "Fintech API",
+      "FAPI 2.0",
+      "SaaS Integration"
+    ],
+    "relatedSlugs": [
+      "uae-pass-nextjs-nodejs-integration",
+      "uae-pdpl-compliance-saas",
+      "stripe-webhooks-nextjs-saas-idempotency"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "stripe-webhooks-nextjs-saas-idempotency",
     "title": "Reliable Stripe Webhooks in Next.js SaaS: Practical Guide",
     "metaDescription": "Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.",
