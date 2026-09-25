@@ -145,6 +145,29 @@
                 <h2 class="sr-only">Featured Projects</h2>
                 <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 
+                    <!-- Shopify Social Image Automation -->
+                    <div x-show="filter === 'All' || filter === 'SaaS'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <picture class="block">
+                            <source type="image/avif" srcset="assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app-600w.avif 600w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px">
+                            <img src="assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app.jpg" width="1200" height="900"
+                                srcset="assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app-600w.jpg 600w, assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app.jpg 1200w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
+                                alt="Shopify social image automation app generating branded product images for WhatsApp and Open Graph previews" loading="lazy"
+                                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        </picture>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Shopify Social Image Automation</h3>
+                                <a href="https://aisaaswithmustafa.com/portfolio" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition"
+                                    aria-label="View Shopify Social Image Automation portfolio project">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Example Card 11 -->
                     <div x-show="filter === 'All' || filter === 'SaaS'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
@@ -198,10 +221,15 @@
                     <!-- Example Card JobHunter -->
                     <div x-show="filter === 'All' || filter === 'SaaS'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <img src="assets/img/portfolio/jobhunter-abu-dhabi-ai-job-application-agent-600w.jpg" width="600" height="400"
-                            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
-                            alt="JobHunter AI job application platform for Abu Dhabi professionals" loading="lazy"
-                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <picture class="block">
+                            <source type="image/avif" srcset="assets/img/portfolio/ai-react-nextjs-job-search-agent-banner-600w.avif 600w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px">
+                            <img src="assets/img/portfolio/ai-react-nextjs-job-search-agent-banner.jpg" width="1200" height="800"
+                                srcset="assets/img/portfolio/ai-react-nextjs-job-search-agent-banner-600w.jpg 600w, assets/img/portfolio/ai-react-nextjs-job-search-agent-banner.jpg 1200w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
+                                alt="JobHunter AI job search and CV tailoring agent built with React and Next.js" loading="lazy"
+                                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        </picture>
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="p-5">
@@ -401,25 +429,6 @@
                         </div>
                     </div>
 
-                    <!-- Example Card 17 -->
-                    <div x-show="filter === 'All' || filter === 'Web'"
-                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
-                        <span
-                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
-                        <img src="assets/img/portfolio/nirvanabotanics-skincare-shopify-store-development-theme-customization-portfolio-banner.jpg" width="1200" height="900" srcset="assets/img/portfolio/nirvanabotanics-skincare-shopify-store-development-theme-customization-portfolio-banner-600w.jpg 600w, assets/img/portfolio/nirvanabotanics-skincare-shopify-store-development-theme-customization-portfolio-banner.jpg 1200w" sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
-                            alt="Nirvana Botanics Skincare Shopify Store"
-                            class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="p-5">
-                                <h3 class="text-xl font-bold text-white mb-2">Nirvana Botanics</h3>
-                                <a href="https://www.nirvanabotanics.com/" target="_blank" rel="noopener noreferrer"
-                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition" aria-label="View Nirvana Botanics project">View
-                                    Project</a>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Example Card 18 -->
                     <div x-show="filter === 'All' || filter === 'Web'"
                         class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
@@ -511,6 +520,106 @@
                                 <a href="http://heritageschool.cl/" target="_blank" rel="noopener noreferrer"
                                     class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition" aria-label="View Heritage School project">View
                                     Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leathers by MR Shopify Store -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
+                        <picture class="block">
+                            <source type="image/avif" srcset="assets/img/portfolio/leathers-by-mr-shopify-storefront-600w.avif 600w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px">
+                            <img src="assets/img/portfolio/leathers-by-mr-shopify-storefront.jpg" width="1200" height="800"
+                                srcset="assets/img/portfolio/leathers-by-mr-shopify-storefront-600w.jpg 600w, assets/img/portfolio/leathers-by-mr-shopify-storefront.jpg 1200w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
+                                alt="Leathers by MR luxury leather goods Shopify store with a custom mobile-first theme and category navigation" loading="lazy"
+                                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        </picture>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Leathers by MR</h3>
+                                <a href="/#contact"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition"
+                                    aria-label="Discuss a custom Shopify store like Leathers by MR">Discuss a Shopify Store</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Issa Wig Show Shopify Store -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
+                        <picture class="block">
+                            <source type="image/avif" srcset="assets/img/portfolio/issawigshow-shopify-wig-store-figma-custom-theme-development-600w.avif 600w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px">
+                            <img src="assets/img/portfolio/issawigshow-shopify-wig-store-figma-custom-theme-development.jpg" width="1200" height="799"
+                                srcset="assets/img/portfolio/issawigshow-shopify-wig-store-figma-custom-theme-development-600w.jpg 600w, assets/img/portfolio/issawigshow-shopify-wig-store-figma-custom-theme-development.jpg 1200w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
+                                alt="Issa Wig Show custom Shopify wig store developed from Figma with premium hair and beauty collections" loading="lazy"
+                                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        </picture>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Issa Wig Show</h3>
+                                <a href="https://issawigshow.com/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition"
+                                    aria-label="View the Issa Wig Show Shopify store">View Store</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keep Showing Up Shopify Print-on-Demand Store -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
+                        <picture class="block">
+                            <source type="image/avif" srcset="assets/img/portfolio/keep-showing-up-shopify-print-on-demand-store-development-600w.avif 600w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px">
+                            <img src="assets/img/portfolio/keep-showing-up-shopify-print-on-demand-store-development.jpg" width="1200" height="800"
+                                srcset="assets/img/portfolio/keep-showing-up-shopify-print-on-demand-store-development-600w.jpg 600w, assets/img/portfolio/keep-showing-up-shopify-print-on-demand-store-development.jpg 1200w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
+                                alt="Keep Showing Up Shopify print-on-demand apparel store with custom products and theme development" loading="lazy"
+                                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        </picture>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Keep Showing Up</h3>
+                                <a href="/#contact"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition"
+                                    aria-label="Discuss a Shopify print-on-demand store like Keep Showing Up">Discuss a Shopify Store</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nirvana Botanics Premium Shopify Cosmetics Store -->
+                    <div x-show="filter === 'All' || filter === 'Web'"
+                        class="group relative overflow-hidden rounded-2xl border border-gray-700 bg-gray-900 shadow-lg transition hover:shadow-2xl hover:border-primary">
+                        <span
+                            class="absolute top-3 left-3 z-10 bg-[#95BF47] text-white text-xs font-semibold px-2 py-1 rounded-full shadow">Shopify</span>
+                        <picture class="block">
+                            <source type="image/avif" srcset="assets/img/portfolio/nirvana-botanics-premium-shopify-cosmetics-store-development-600w.avif 600w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px">
+                            <img src="assets/img/portfolio/nirvana-botanics-premium-shopify-cosmetics-store-development.jpg" width="1200" height="675"
+                                srcset="assets/img/portfolio/nirvana-botanics-premium-shopify-cosmetics-store-development-600w.jpg 600w, assets/img/portfolio/nirvana-botanics-premium-shopify-cosmetics-store-development.jpg 1200w"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
+                                alt="Nirvana Botanics premium Shopify cosmetics store with a high-converting design and clean beauty branding" loading="lazy"
+                                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+                        </picture>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/60 to-transparent flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="p-5">
+                                <h3 class="text-xl font-bold text-white mb-2">Nirvana Botanics</h3>
+                                <a href="https://www.nirvanabotanics.com/" target="_blank" rel="noopener noreferrer"
+                                    class="inline-block px-4 py-2 rounded bg-white text-primary font-semibold shadow hover:bg-primary/80 transition"
+                                    aria-label="View the Nirvana Botanics Shopify cosmetics store">View Store</a>
                             </div>
                         </div>
                     </div>

@@ -44,25 +44,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const scene = document.getElementById("heroScene");
 
   if (hero && scene && !reducedMotion) {
-    let pointerFrame = 0;
+    const canTrackPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    hero.addEventListener("pointermove", (event) => {
-      if (window.innerWidth < 901) return;
-      if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
+    if (canTrackPointer) {
+      let pointerFrame = 0;
 
-      pointerFrame = window.requestAnimationFrame(() => {
-        const bounds = hero.getBoundingClientRect();
-        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-        scene.style.setProperty("--scene-x", `${x * 14}px`);
-        scene.style.setProperty("--scene-y", `${y * 10}px`);
+      hero.addEventListener("pointermove", (event) => {
+        if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
+
+        pointerFrame = window.requestAnimationFrame(() => {
+          const bounds = hero.getBoundingClientRect();
+          const pointerX = event.clientX - bounds.left;
+          const pointerY = event.clientY - bounds.top;
+          const normalizedX = pointerX / bounds.width - 0.5;
+          const normalizedY = pointerY / bounds.height - 0.5;
+
+          hero.style.setProperty("--pointer-x", `${pointerX}px`);
+          hero.style.setProperty("--pointer-y", `${pointerY}px`);
+          hero.style.setProperty("--ambient-one-x", `${normalizedX * 10}px`);
+          hero.style.setProperty("--ambient-one-y", `${normalizedY * 8}px`);
+          hero.style.setProperty("--ambient-two-x", `${normalizedX * -7}px`);
+          hero.style.setProperty("--ambient-two-y", `${normalizedY * -6}px`);
+          hero.classList.add("is-pointer-active");
+        });
       });
-    });
 
-    hero.addEventListener("pointerleave", () => {
-      scene.style.setProperty("--scene-x", "0px");
-      scene.style.setProperty("--scene-y", "0px");
-    });
+      hero.addEventListener("pointerleave", () => {
+        if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
+        pointerFrame = 0;
+        hero.classList.remove("is-pointer-active");
+        hero.style.setProperty("--ambient-one-x", "0px");
+        hero.style.setProperty("--ambient-one-y", "0px");
+        hero.style.setProperty("--ambient-two-x", "0px");
+        hero.style.setProperty("--ambient-two-y", "0px");
+      });
+    }
 
     const updateSceneScroll = () => {
       const bounds = hero.getBoundingClientRect();
@@ -74,135 +90,213 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", updateSceneScroll, { passive: true });
   }
 
-  const heroProject = scene?.querySelector("[data-hero-project]");
+  const projectFrame = scene?.querySelector("[data-project-frame]");
 
-  if (heroProject) {
-    const showcaseProjects = [
+  if (scene && projectFrame) {
+    const projects = [
       {
         name: "CultureAI",
-        description: "AI employee engagement SaaS",
-        status: "Live SaaS",
+        kicker: "Flagship SaaS build",
+        kind: "AI employee engagement SaaS",
+        status: "Live product",
         href: "https://app.startcultureai.com/",
         avif: "assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner-600w.avif",
         image: "assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner-600w.jpg",
         alt: "CultureAI employee engagement SaaS dashboard and survey analytics",
-        ariaLabel: "View the live CultureAI SaaS platform",
+        badges: [
+          ["nextdotjs", "Next.js", "Product UI"],
+          ["react", "React", "Interface"],
+          ["nodedotjs", "Node.js", "API layer"],
+          ["supabase", "Supabase", "Auth + data"],
+          ["stripe", "Stripe", "Billing"],
+          ["ai", "OpenAI", "Intelligence"],
+        ],
+      },
+      {
+        name: "Shopify Social Image Automation",
+        kicker: "Shopify automation build",
+        kind: "Branded social image app",
+        status: "Portfolio project",
+        href: "https://aisaaswithmustafa.com/portfolio",
+        avif: "assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app-600w.avif",
+        image: "assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app-600w.jpg",
+        alt: "Shopify social image automation app generating branded product images for WhatsApp and Open Graph previews",
+        badges: [
+          ["shopify", "Shopify", "App platform"],
+          ["nodedotjs", "Node.js", "Express API"],
+          ["graphql", "GraphQL", "Admin API"],
+          ["webhook", "Webhooks", "Automation"],
+          ["image", "Sharp", "Image rendering"],
+          ["vercel", "Vercel", "Deployment"],
+        ],
       },
       {
         name: "BWL League",
-        description: "Realtime sports platform",
-        status: "Live Platform",
+        kicker: "Production sports build",
+        kind: "Multi-role sports platform",
+        status: "Live platform",
         href: "https://bwlleague.com/",
         avif: "assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql-600w.avif",
         image: "assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql-600w.jpg",
-        alt: "BWL League sports platform dashboard and Android application",
-        ariaLabel: "View the live BWL League platform",
+        alt: "BWL League multi-role football tournament dashboard with live standings and team management",
+        badges: [
+          ["nextdotjs", "Next.js", "Web app"],
+          ["supabase", "Supabase", "Backend"],
+          ["postgresql", "PostgreSQL", "Database"],
+          ["realtime", "Realtime", "Live scores"],
+          ["shield", "RLS", "Access control"],
+          ["android", "Android", "Mobile support"],
+        ],
       },
       {
         name: "AutoLeap",
-        description: "Automotive SaaS platform",
+        kicker: "Enterprise SaaS build",
+        kind: "Automotive repair SaaS",
         status: "Production SaaS",
         href: "https://autoleap.com/",
         avif: "assets/img/portfolio/autoleap-dashboard-saas-600w.avif",
         image: "assets/img/portfolio/autoleap-dashboard-saas-600w.jpg",
-        alt: "AutoLeap automotive repair SaaS dashboard showing sales, reviews and business performance",
-        ariaLabel: "View AutoLeap's automotive repair SaaS platform",
+        alt: "AutoLeap automotive repair SaaS dashboard showing business performance and customer reviews",
+        badges: [
+          ["angular", "Angular", "Frontend"],
+          ["typescript", "TypeScript", "Application"],
+          ["nodedotjs", "Node.js", "Services"],
+          ["mongodb", "MongoDB", "Data"],
+          ["reactivex", "RxJS", "State"],
+          ["api", "REST APIs", "Integration"],
+        ],
       },
       {
         name: "Apex Logistics",
-        description: "GCC logistics PWA",
+        kicker: "Offline-first PWA build",
+        kind: "GCC logistics platform",
         status: "Live PWA",
         href: "https://apexlogistics.life/",
         avif: "assets/img/portfolio/apex-logistics-driver-job-marketplace-react-tanstack-pwa-600w.avif",
         image: "assets/img/portfolio/apex-logistics-driver-job-marketplace-react-tanstack-pwa-600w.jpg",
-        alt: "Apex Logistics GCC freight quotation platform",
-        ariaLabel: "View the live Apex Logistics platform",
+        alt: "Apex Logistics GCC freight platform with shipment quotes and driver workflows",
+        badges: [
+          ["react", "React 19", "Interface"],
+          ["tanstack", "TanStack", "Data sync"],
+          ["typescript", "TypeScript", "Application"],
+          ["firebase", "Firestore", "Cloud data"],
+          ["pwa", "PWA", "Offline app"],
+          ["database", "IndexedDB", "Local queue"],
+        ],
       },
       {
         name: "JobHunter",
-        description: "AI job application agent",
-        status: "Live AI App",
+        kicker: "AI agent build",
+        kind: "AI job application agent",
+        status: "Live AI app",
         href: "https://jobhunter-lemon.vercel.app/",
-        avif: "assets/img/portfolio/jobhunter-abu-dhabi-ai-job-application-agent-600w.avif",
-        image: "assets/img/portfolio/jobhunter-abu-dhabi-ai-job-application-agent-600w.jpg",
-        alt: "JobHunter AI job application agent showing Abu Dhabi vacancies and CV tailoring",
-        ariaLabel: "View the live JobHunter AI application agent",
+        avif: "assets/img/portfolio/ai-react-nextjs-job-search-agent-banner-600w.avif",
+        image: "assets/img/portfolio/ai-react-nextjs-job-search-agent-banner-600w.jpg",
+        alt: "JobHunter AI job search and CV tailoring agent built with React and Next.js",
+        badges: [
+          ["nextdotjs", "Next.js", "Web app"],
+          ["typescript", "TypeScript", "Application"],
+          ["ai", "AI Agents", "Automation"],
+          ["document", "CV Tailoring", "Documents"],
+          ["search", "Job Search", "Discovery"],
+          ["workflow", "Workflows", "Applications"],
+        ],
       },
     ];
-    const source = heroProject.querySelector("[data-hero-project-source]");
-    const image = heroProject.querySelector("[data-hero-project-image]");
-    const windowName = heroProject.querySelector("[data-hero-project-window]");
-    const windowStatus = heroProject.querySelector("[data-hero-project-status]");
-    const projectName = heroProject.querySelector("[data-hero-project-name]");
-    const projectDescription = heroProject.querySelector("[data-hero-project-description]");
-    const projectCount = heroProject.querySelector("[data-hero-project-count]");
-    const progress = scene.querySelector("[data-hero-project-progress]");
-    const triggers = Array.from(scene.querySelectorAll("[data-hero-project-trigger]"));
-    const intervalDuration = 5600;
-    let activeProject = 0;
+    const projectSource = projectFrame.querySelector("[data-project-source]");
+    const projectImage = projectFrame.querySelector("[data-project-image]");
+    const projectBadges = Array.from(scene.querySelectorAll(".stack-badge"));
+    let projectIndex = 0;
     let projectTimer = 0;
-    let changeTimer = 0;
+    let settleTimer = 0;
+    let isSwitchingProject = false;
 
-    showcaseProjects.slice(1).forEach((project) => {
+    const preloadProject = (index) => {
       const preload = new Image();
-      preload.src = project.image;
-    });
-
-    const restartProgress = () => {
-      if (!progress || reducedMotion) return;
-      progress.classList.remove("is-running");
-      void progress.offsetWidth;
-      progress.classList.add("is-running");
+      preload.src = projects[index].avif;
     };
 
-    const renderProject = (index, animate = true) => {
-      const project = showcaseProjects[index];
-      const update = () => {
-        heroProject.href = project.href;
-        heroProject.target = "_blank";
-        heroProject.rel = "noopener noreferrer";
-        heroProject.setAttribute("aria-label", project.ariaLabel);
-        if (source) source.srcset = project.avif;
-        if (image) { image.src = project.image; image.alt = project.alt; }
-        if (windowName) windowName.textContent = project.name;
-        if (windowStatus) windowStatus.textContent = project.status;
-        if (projectName) projectName.textContent = project.name;
-        if (projectDescription) projectDescription.textContent = project.description;
-        if (projectCount) projectCount.textContent = `${String(index + 1).padStart(2, "0")} / ${String(showcaseProjects.length).padStart(2, "0")}`;
-        triggers.forEach((trigger, triggerIndex) => trigger.setAttribute("aria-selected", String(triggerIndex === index)));
-        heroProject.classList.remove("is-changing");
-        restartProgress();
-      };
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(() => preloadProject(1), { timeout: 1200 });
+    } else {
+      window.setTimeout(() => preloadProject(1), 500);
+    }
 
-      window.clearTimeout(changeTimer);
-      if (animate && !reducedMotion) {
-        heroProject.classList.add("is-changing");
-        changeTimer = window.setTimeout(update, 300);
-      } else {
-        update();
+    const renderProject = async (nextIndex) => {
+      const project = projects[nextIndex];
+      projectFrame.href = project.href;
+      if (projectSource) projectSource.srcset = project.avif;
+      if (projectImage) {
+        projectImage.src = project.image;
+        projectImage.alt = project.alt;
       }
-    };
-
-    const scheduleProject = () => {
-      window.clearInterval(projectTimer);
-      if (reducedMotion) return;
-      projectTimer = window.setInterval(() => {
-        if (scene.matches(":hover") || scene.contains(document.activeElement)) return;
-        activeProject = (activeProject + 1) % showcaseProjects.length;
-        renderProject(activeProject);
-      }, intervalDuration);
-    };
-
-    triggers.forEach((trigger, index) => {
-      trigger.addEventListener("click", () => {
-        activeProject = index;
-        renderProject(activeProject);
-        scheduleProject();
+      scene.querySelectorAll("[data-project-name], [data-project-title]").forEach((element) => {
+        element.textContent = project.name;
       });
-    });
+      const kind = scene.querySelector("[data-project-kind]");
+      const status = scene.querySelector("[data-project-status]");
+      const kicker = scene.querySelector("[data-project-kicker]");
+      const stack = scene.querySelector(".project-stack-badges");
+      if (kind) kind.textContent = project.kind;
+      if (status) status.textContent = project.status;
+      if (kicker) kicker.textContent = project.kicker;
+      if (stack) stack.setAttribute("aria-label", `${project.name} technology stack`);
+      projectBadges.forEach((badge, index) => {
+        const [icon, title, detail] = project.badges[index];
+        const badgeIcon = badge.querySelector("img");
+        const badgeTitle = badge.querySelector("strong");
+        const badgeDetail = badge.querySelector("small");
+        if (badgeIcon) {
+          badgeIcon.src = `assets/icons/stack/${icon}.svg`;
+          badgeIcon.alt = `${title} logo`;
+        }
+        if (badgeTitle) badgeTitle.textContent = title;
+        if (badgeDetail) badgeDetail.textContent = detail;
+      });
 
-    restartProgress();
-    scheduleProject();
+      if (projectImage) {
+        await Promise.race([
+          projectImage.decode().catch(() => undefined),
+          new Promise((resolve) => window.setTimeout(resolve, 350)),
+        ]);
+      }
+
+      projectIndex = nextIndex;
+      preloadProject((projectIndex + 1) % projects.length);
+
+      if (reducedMotion) {
+        isSwitchingProject = false;
+        return;
+      }
+      void scene.offsetWidth;
+      scene.classList.replace("is-transitioning", "is-entering");
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => {
+        scene.classList.remove("is-entering");
+        scene.classList.add("has-advanced");
+        isSwitchingProject = false;
+      }, 1000);
+    };
+
+    const advanceProject = () => {
+      if (isSwitchingProject) return;
+      if (scene.matches(":hover") || scene.contains(document.activeElement)) {
+        projectTimer = window.setTimeout(advanceProject, 350);
+        return;
+      }
+      isSwitchingProject = true;
+      const nextIndex = (projectIndex + 1) % projects.length;
+      projectTimer = window.setTimeout(advanceProject, 4000);
+      if (reducedMotion) {
+        renderProject(nextIndex);
+        return;
+      }
+      scene.classList.remove("has-advanced", "is-entering");
+      scene.classList.add("is-transitioning");
+      window.setTimeout(() => renderProject(nextIndex), 520);
+    };
+
+    projectTimer = window.setTimeout(advanceProject, 4000);
   }
 
   const canvas = document.getElementById("heroParticles");
