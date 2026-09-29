@@ -1,5 +1,29 @@
 [
   {
+    "slug": "agentic-ai-uae-businesses-production-guide",
+    "title": "Agentic AI for UAE Businesses: Production Readiness Guide",
+    "metaDescription": "A practical guide to agentic AI for UAE businesses covering workflow design, human approval, tool permissions, UAE data controls, testing and rollout.",
+    "heroImageFile": "agentic-ai-uae-business-production-readiness-dubai.jpg",
+    "heroImageAlt": "UAE business and software engineering team in Dubai reviewing a production agentic AI workflow with approval gates and audit monitoring",
+    "publishDate": "September 29, 2026",
+    "publishDateIso": "2026-09-29T16:47:49.052Z",
+    "readingTime": 8,
+    "category": "AI & Automation",
+    "tags": [
+      "Agentic AI UAE",
+      "Dubai AI",
+      "AI Agents",
+      "Business Automation",
+      "Responsible AI"
+    ],
+    "relatedSlugs": [
+      "openai-agents-api-saas-production-guide",
+      "dubai-ai-seal-ai-saas-guide",
+      "uae-pdpl-compliance-saas"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "uae-open-finance-api-integration",
     "title": "UAE Open Finance API Integration: Practical SaaS Guide",
     "metaDescription": "Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.",
