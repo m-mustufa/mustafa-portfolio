@@ -1,5 +1,29 @@
 [
   {
+    "slug": "uae-wcag-2-2-website-accessibility-checklist",
+    "title": "UAE WCAG 2.2 Website Accessibility Checklist for 2026",
+    "metaDescription": "Use this UAE WCAG 2.2 website accessibility checklist to test keyboard access, forms, focus, mobile targets, screen readers and production releases.",
+    "heroImageFile": "uae-wcag-2-2-website-accessibility-checklist.jpg",
+    "heroImageAlt": "UAE full-stack developer testing a Dubai business website against WCAG 2.2 accessibility requirements",
+    "publishDate": "October 6, 2026",
+    "publishDateIso": "2026-10-06T00:38:45.926Z",
+    "readingTime": 8,
+    "category": "Web Engineering",
+    "tags": [
+      "UAE WCAG 2.2",
+      "Website Accessibility",
+      "Dubai Web Development",
+      "Accessible SaaS",
+      "Frontend Testing"
+    ],
+    "relatedSlugs": [
+      "nextjs-security-checklist-2026",
+      "hire-full-stack-developer-uae-guide",
+      "uae-pdpl-compliance-saas"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "agentic-ai-uae-businesses-production-guide",
     "title": "Agentic AI for UAE Businesses: Production Readiness Guide",
     "metaDescription": "A practical guide to agentic AI for UAE businesses covering workflow design, human approval, tool permissions, UAE data controls, testing and rollout.",
