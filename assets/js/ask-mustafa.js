@@ -16,6 +16,7 @@
   const history = [];
   const isLocalPreview = window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const minimumThinkingTime = 750;
   const placeholderQuestions = [
     "How many years of full-stack experience do you have?",
     "Tell me about your Angular expertise.",
@@ -91,8 +92,14 @@
     if (role === "assistant") {
       const avatar = document.createElement("span");
       avatar.className = "ask-mustafa-avatar";
-      avatar.textContent = "M";
       avatar.setAttribute("aria-hidden", "true");
+
+      const avatarImage = document.createElement("img");
+      avatarImage.src = "assets/img/logo-2-128.webp";
+      avatarImage.alt = "";
+      avatarImage.width = 128;
+      avatarImage.height = 156;
+      avatar.appendChild(avatarImage);
       row.appendChild(avatar);
     }
 
@@ -101,6 +108,39 @@
     row.appendChild(body);
     conversation.appendChild(row);
     conversation.scrollTop = conversation.scrollHeight;
+    return row;
+  }
+
+  function addThinkingMessage() {
+    const row = addMessage("assistant", "");
+    const body = row.querySelector("p");
+    const label = document.createElement("span");
+    const dots = document.createElement("span");
+
+    row.classList.add("is-thinking");
+    body.setAttribute("role", "status");
+    body.setAttribute("aria-label", "Mustafa’s assistant is thinking");
+    label.textContent = "Thinking";
+    dots.className = "ask-mustafa-thinking-dots";
+    dots.setAttribute("aria-hidden", "true");
+
+    for (let index = 0; index < 3; index += 1) {
+      dots.appendChild(document.createElement("i"));
+    }
+
+    body.append(label, dots);
+    return row;
+  }
+
+  function wait(milliseconds) {
+    return new Promise(function (resolve) {
+      window.setTimeout(resolve, milliseconds);
+    });
+  }
+
+  async function finishThinking(startedAt) {
+    const elapsed = performance.now() - startedAt;
+    await wait(Math.max(0, minimumThinkingTime - elapsed));
   }
 
   function getSampleAnswer(question) {
@@ -118,7 +158,7 @@
     isSending = sending;
     input.disabled = sending;
     submit.disabled = sending;
-    status.textContent = sending ? "Mustafa’s assistant is thinking…" : "";
+    status.textContent = "";
 
     if (sending) {
       window.clearTimeout(placeholderTimer);
@@ -170,18 +210,19 @@
   async function submitQuestion(question) {
     panel.hidden = false;
     addMessage("user", question);
-
-    if (isLocalPreview) {
-      status.textContent = "Local preview — sample answer, no API request made.";
-      window.setTimeout(function () {
-        addMessage("assistant", getSampleAnswer(question));
-      }, 280);
-      return;
-    }
-
+    const thinkingMessage = addThinkingMessage();
+    const thinkingStartedAt = performance.now();
     setSending(true);
 
     try {
+      if (isLocalPreview) {
+        await finishThinking(thinkingStartedAt);
+        thinkingMessage.remove();
+        addMessage("assistant", getSampleAnswer(question));
+        status.textContent = "Local preview — sample answer, no API request made.";
+        return;
+      }
+
       const controller = new AbortController();
       const timeout = window.setTimeout(function () { controller.abort(); }, 25000);
       const response = await fetch("/.netlify/functions/ask-mustafa", {
@@ -197,6 +238,8 @@
         throw new Error(data.error || "The assistant could not answer right now.");
       }
 
+      await finishThinking(thinkingStartedAt);
+      thinkingMessage.remove();
       addMessage("assistant", data.answer);
       history.push(
         { role: "user", content: question },
@@ -204,6 +247,8 @@
       );
       if (history.length > 8) history.splice(0, history.length - 8);
     } catch (error) {
+      await finishThinking(thinkingStartedAt);
+      thinkingMessage.remove();
       const message = error.name === "AbortError"
         ? "The request timed out. Please try again."
         : "I’m temporarily unavailable. Please try again, or contact Mustafa using the form below.";

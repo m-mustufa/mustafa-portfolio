@@ -285,6 +285,7 @@
   gap: 0.65rem;
   align-items: flex-start;
   margin: 0 0 0.8rem;
+  animation: ask-mustafa-message-in 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .ask-mustafa-message:last-child {
@@ -313,6 +314,61 @@
   background: #51d7d5;
   border-color: transparent;
   border-radius: 0.85rem 0.85rem 0.25rem;
+}
+
+.ask-mustafa-message.is-thinking p {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.58rem;
+  min-width: 7.2rem;
+  color: #a9bdcc;
+}
+
+.ask-mustafa-thinking-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+}
+
+.ask-mustafa-thinking-dots i {
+  width: 0.34rem;
+  height: 0.34rem;
+  background: #51d7d5;
+  border-radius: 999px;
+  opacity: 0.35;
+  animation: ask-mustafa-thinking-dot 1.05s ease-in-out infinite;
+}
+
+.ask-mustafa-thinking-dots i:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.ask-mustafa-thinking-dots i:nth-child(3) {
+  animation-delay: 280ms;
+}
+
+@keyframes ask-mustafa-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ask-mustafa-thinking-dot {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: translateY(0) scale(0.82);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-0.18rem) scale(1);
+  }
 }
 
 .ask-mustafa-status,
@@ -486,6 +542,8 @@
   }
 
   .ask-mustafa-bar,
+  .ask-mustafa-message,
+  .ask-mustafa-thinking-dots i,
   .ask-mustafa-send,
   .ask-mustafa-privacy > span,
   .ask-mustafa-launcher,
