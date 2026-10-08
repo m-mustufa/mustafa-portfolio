@@ -20,9 +20,15 @@
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/index.html</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aisaaswithmustafa.com/blog/mcp-server-security-uae-ai-saas.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/uae-wcag-2-2-website-accessibility-checklist.html</loc>

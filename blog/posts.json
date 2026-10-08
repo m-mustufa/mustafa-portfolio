@@ -1,5 +1,29 @@
 [
   {
+    "slug": "mcp-server-security-uae-ai-saas",
+    "title": "MCP Server Security for UAE AI SaaS: 2026 Checklist",
+    "metaDescription": "A practical MCP server security checklist for UAE AI SaaS covering OAuth, least privilege, tool approval, tenant isolation, logging and safe deployment.",
+    "heroImageFile": "mcp-server-security-uae-ai-saas.jpg",
+    "heroImageAlt": "UAE software engineer reviewing MCP server security controls for an enterprise AI platform",
+    "publishDate": "October 8, 2026",
+    "publishDateIso": "2026-10-08T15:22:32.348Z",
+    "readingTime": 4,
+    "category": "AI Engineering",
+    "tags": [
+      "MCP Server Security",
+      "Model Context Protocol",
+      "AI Agent Security UAE",
+      "Enterprise AI",
+      "Node.js MCP"
+    ],
+    "relatedSlugs": [
+      "agentic-ai-uae-businesses-production-guide",
+      "openai-agents-api-saas-production-guide",
+      "uae-pdpl-compliance-saas"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "uae-wcag-2-2-website-accessibility-checklist",
     "title": "UAE WCAG 2.2 Website Accessibility Checklist for 2026",
     "metaDescription": "Use this UAE WCAG 2.2 website accessibility checklist to test keyboard access, forms, focus, mobile targets, screen readers and production releases.",
