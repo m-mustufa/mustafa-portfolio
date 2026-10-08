@@ -64,6 +64,8 @@
   flex: 0 0 1.85rem;
   width: 1.85rem;
   height: 1.85rem;
+  align-self: center;
+  margin-right: 0.16rem;
   border-radius: 0;
   box-shadow: none;
 }
@@ -79,6 +81,10 @@
   height: 92%;
   object-fit: contain;
   filter: drop-shadow(0 0.2rem 0.35rem rgba(0, 0, 0, 0.22));
+}
+
+.ask-mustafa-bar-mark img {
+  transform: translateY(-0.08rem);
 }
 
 .ask-mustafa-label {
