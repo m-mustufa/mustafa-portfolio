@@ -8,7 +8,8 @@
     "watch:css": "tailwindcss -i ./assets/css/tailwind-src.css -o ./assets/css/tailwind.css --watch",
     "refresh:blog-seo": "node scripts/refresh-blog-seo.js",
     "validate:blog-seo": "node scripts/validate-blog-seo.js",
-    "validate:site-seo": "node scripts/validate-site-seo.js"
+    "validate:site-seo": "node scripts/validate-site-seo.js",
+    "test:assistant": "node scripts/test-ask-mustafa-knowledge.js"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
