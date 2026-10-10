@@ -160,7 +160,10 @@ exports.handler = async function handler(event) {
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
       console.error("Groq API error", response.status, data.error && data.error.message ? data.error.message : "Unknown error");
-      return jsonResponse(502, { error: "The assistant could not answer right now." });
+      return jsonResponse(502, {
+        error: "The assistant could not answer right now.",
+        code: `GROQ_UPSTREAM_${response.status}`
+      });
     }
 
     const answer = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
@@ -171,7 +174,10 @@ exports.handler = async function handler(event) {
     return jsonResponse(200, { answer: answer.trim().slice(0, 1200) });
   } catch (error) {
     console.error("Ask Mustafa function failed", error.name || "Error");
-    return jsonResponse(502, { error: error.name === "AbortError" ? "The assistant timed out. Please try again." : "The assistant could not answer right now." });
+    return jsonResponse(502, {
+      error: error.name === "AbortError" ? "The assistant timed out. Please try again." : "The assistant could not answer right now.",
+      code: error.name === "AbortError" ? "GROQ_TIMEOUT" : "GROQ_NETWORK"
+    });
   } finally {
     clearTimeout(timeout);
   }
