@@ -505,10 +505,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Privacy-conscious site measurement. The Google tag only loads on the
-// production domain, and EEA/UK visitors are measured only after the existing
-// Google CMP reports analytics consent. Event metadata never includes form
-// values, assistant questions, email addresses, or other user-provided text.
+// Privacy-conscious site measurement. Analytics is denied by default and the
+// Google tag is only loaded after a visitor explicitly accepts analytics
+// cookies. Event metadata never includes form values, assistant questions,
+// email addresses, or other user-provided text.
 (function initializeSiteAnalytics() {
   "use strict";
 
@@ -520,31 +520,64 @@ document.addEventListener("DOMContentLoaded", () => {
     "aisaaswithmustafa.com",
     "www.aisaaswithmustafa.com"
   ]);
+  const previewHosts = new Set(["", "localhost", "127.0.0.1"]);
+  const consentStorageKey = "mustafa_analytics_consent_v1";
+  const consentStylesVersion = "20261010";
   const startedForms = new WeakSet();
+  const currentScript = document.currentScript;
+  const isProduction = productionHosts.has(window.location.hostname);
+  const canShowConsentUi = isProduction || previewHosts.has(window.location.hostname);
   let analyticsReady = false;
-  let consentListenerRegistered = false;
+  let googleTagRequested = false;
 
   function track(eventName, parameters) {
     if (!analyticsReady || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, parameters || {});
   }
 
-  window.siteAnalytics = Object.freeze({ track });
+  window.siteAnalytics = Object.freeze({ track, showConsentSettings });
 
-  function loadGoogleTag() {
-    if (analyticsReady || !productionHosts.has(window.location.hostname)) return;
-
+  function initializeConsentDefaults() {
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function gtag() {
       window.dataLayer.push(arguments);
     };
 
     window.gtag("consent", "default", {
-      analytics_storage: "granted",
+      analytics_storage: "denied",
       ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied"
     });
+  }
+
+  function updateConsent(analyticsStorage) {
+    if (typeof window.gtag !== "function") return;
+    window.gtag("consent", "update", {
+      analytics_storage: analyticsStorage,
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied"
+    });
+  }
+
+  function enableAnalytics() {
+    updateConsent("granted");
+    if (!isProduction) return;
+
+    const wasReady = analyticsReady;
+    analyticsReady = true;
+
+    if (googleTagRequested) {
+      if (!wasReady) {
+        window.gtag("event", "page_view", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      }
+      return;
+    }
+
     window.gtag("js", new Date());
     window.gtag("config", measurementId, {
       allow_google_signals: false,
@@ -556,52 +589,173 @@ document.addEventListener("DOMContentLoaded", () => {
     googleTag.async = true;
     googleTag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
     document.head.appendChild(googleTag);
-    analyticsReady = true;
+    googleTagRequested = true;
   }
 
-  function useConsentData(tcData, success) {
-    if (!success || !tcData) return;
+  function clearAnalyticsCookies() {
+    const cookieNames = document.cookie
+      .split(";")
+      .map(function getCookieName(cookie) {
+        return cookie.split("=")[0].trim();
+      })
+      .filter(function isGoogleAnalyticsCookie(name) {
+        return name === "_ga" || name.indexOf("_ga_") === 0;
+      });
 
-    if (tcData.gdprApplies === false) {
-      loadGoogleTag();
-      return;
-    }
+    cookieNames.forEach(function expireCookie(name) {
+      document.cookie = name + "=; Max-Age=0; Path=/; SameSite=Lax";
+      if (isProduction) {
+        document.cookie = name + "=; Max-Age=0; Path=/; Domain=.aisaaswithmustafa.com; SameSite=Lax";
+      }
+    });
+  }
 
-    if (tcData.gdprApplies !== true) return;
-    if (tcData.eventStatus !== "tcloaded" && tcData.eventStatus !== "useractioncomplete") return;
+  function disableAnalytics() {
+    analyticsReady = false;
+    updateConsent("denied");
+    clearAnalyticsCookies();
+  }
 
-    const purposeConsent = tcData.purpose && tcData.purpose.consents;
-    const vendorConsent = tcData.vendor && tcData.vendor.consents;
-    const googleVendorId = 755;
-    if (purposeConsent && purposeConsent[1] === true && vendorConsent && vendorConsent[googleVendorId] === true) {
-      loadGoogleTag();
+  function readConsentPreference() {
+    try {
+      const value = window.localStorage.getItem(consentStorageKey);
+      return value === "granted" || value === "denied" ? value : null;
+    } catch (error) {
+      return null;
     }
   }
 
-  function registerConsentListener() {
-    if (consentListenerRegistered || typeof window.__tcfapi !== "function") return false;
-    consentListenerRegistered = true;
-    window.__tcfapi("addEventListener", 2, useConsentData);
-    return true;
+  function saveConsentPreference(value) {
+    try {
+      window.localStorage.setItem(consentStorageKey, value);
+    } catch (error) {
+      // A blocked storage API should not prevent the visitor from making a
+      // choice for the current page.
+    }
+  }
+
+  function ensureConsentStyles() {
+    if (document.querySelector("link[data-cookie-consent-styles]")) return;
+
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.dataset.cookieConsentStyles = "true";
+
+    if (currentScript && currentScript.src) {
+      stylesheet.href = new URL(
+        "../css/cookie-consent.css?v=" + consentStylesVersion,
+        currentScript.src
+      ).href;
+    } else {
+      stylesheet.href = "/assets/css/cookie-consent.css?v=" + consentStylesVersion;
+    }
+
+    document.head.appendChild(stylesheet);
+  }
+
+  function hideConsentBanner() {
+    const banner = document.querySelector("[data-cookie-consent-banner]");
+    if (banner) banner.hidden = true;
+    document.documentElement.classList.remove("has-cookie-consent-banner");
+  }
+
+  function applyConsentPreference(value) {
+    saveConsentPreference(value);
+    hideConsentBanner();
+
+    if (value === "granted") {
+      enableAnalytics();
+    } else {
+      disableAnalytics();
+    }
+  }
+
+  function createConsentBanner() {
+    let banner = document.querySelector("[data-cookie-consent-banner]");
+    if (banner) return banner;
+
+    banner = document.createElement("section");
+    banner.className = "cookie-consent-banner";
+    banner.dataset.cookieConsentBanner = "true";
+    banner.setAttribute("role", "dialog");
+    banner.setAttribute("aria-labelledby", "cookie-consent-title");
+    banner.setAttribute("aria-describedby", "cookie-consent-description");
+    banner.innerHTML = [
+      '<div class="cookie-consent-card">',
+      '  <div class="cookie-consent-copy">',
+      '    <p class="cookie-consent-eyebrow">Your privacy</p>',
+      '    <h2 id="cookie-consent-title">Optional analytics cookies</h2>',
+      '    <p id="cookie-consent-description">I use Google Analytics to understand which pages and features are useful. Analytics only starts if you accept, and advertising cookies stay disabled.</p>',
+      "  </div>",
+      '  <div class="cookie-consent-actions">',
+      '    <button type="button" class="cookie-consent-button cookie-consent-button-secondary" data-cookie-consent-deny>Only necessary</button>',
+      '    <button type="button" class="cookie-consent-button cookie-consent-button-primary" data-cookie-consent-accept>Accept analytics</button>',
+      "  </div>",
+      "</div>"
+    ].join("");
+
+    banner.querySelector("[data-cookie-consent-deny]").addEventListener("click", function denyAnalytics() {
+      applyConsentPreference("denied");
+    });
+    banner.querySelector("[data-cookie-consent-accept]").addEventListener("click", function acceptAnalytics() {
+      applyConsentPreference("granted");
+    });
+
+    document.body.appendChild(banner);
+    return banner;
+  }
+
+  function showConsentSettings(shouldFocus) {
+    if (!canShowConsentUi) return;
+    const banner = createConsentBanner();
+    banner.hidden = false;
+    document.documentElement.classList.add("has-cookie-consent-banner");
+
+    if (shouldFocus) {
+      const firstAction = banner.querySelector("[data-cookie-consent-deny]");
+      if (firstAction) firstAction.focus();
+    }
+  }
+
+  function ensureConsentSettingsControl() {
+    if (!canShowConsentUi || document.querySelector("[data-cookie-settings]")) return;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cookie-settings-link";
+    button.dataset.cookieSettings = "true";
+    button.textContent = "Cookie settings";
+    button.addEventListener("click", function reopenConsentSettings() {
+      showConsentSettings(true);
+    });
+
+    const pageFooter = Array.from(document.querySelectorAll("body > footer")).pop();
+    if (pageFooter) {
+      pageFooter.appendChild(button);
+    } else {
+      button.classList.add("cookie-settings-link-floating");
+      document.body.appendChild(button);
+    }
   }
 
   function startMeasurement() {
-    if (!productionHosts.has(window.location.hostname)) return;
-    if (registerConsentListener()) return;
+    if (!canShowConsentUi) return;
 
-    let attempts = 0;
-    const consentPoll = window.setInterval(function pollForConsentManager() {
-      attempts += 1;
-      if (registerConsentListener()) {
-        window.clearInterval(consentPoll);
-        return;
-      }
+    initializeConsentDefaults();
+    ensureConsentStyles();
+    ensureConsentSettingsControl();
 
-      if (attempts >= 10) {
-        window.clearInterval(consentPoll);
-        loadGoogleTag();
-      }
-    }, 250);
+    const query = new URLSearchParams(window.location.search);
+    const forceBanner = query.get("consent") === "show" || query.get("fc") === "alwaysshow";
+    const preference = forceBanner ? null : readConsentPreference();
+
+    if (preference === "granted") {
+      enableAnalytics();
+    } else if (preference === "denied") {
+      disableAnalytics();
+    } else {
+      showConsentSettings(false);
+    }
   }
 
   document.addEventListener("focusin", function handleFormStart(event) {
