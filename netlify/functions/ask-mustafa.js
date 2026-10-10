@@ -151,8 +151,9 @@ exports.handler = async function handler(event) {
           ...history,
           { role: "user", content: question }
         ],
+        reasoning_effort: "low",
         temperature: 0,
-        max_completion_tokens: 240
+        max_completion_tokens: 600
       }),
       signal: controller.signal
     });
