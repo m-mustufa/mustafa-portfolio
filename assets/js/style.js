@@ -504,3 +504,185 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+// Privacy-conscious site measurement. The Google tag only loads on the
+// production domain, and EEA/UK visitors are measured only after the existing
+// Google CMP reports analytics consent. Event metadata never includes form
+// values, assistant questions, email addresses, or other user-provided text.
+(function initializeSiteAnalytics() {
+  "use strict";
+
+  if (window.__mustafaAnalyticsInitialized) return;
+  window.__mustafaAnalyticsInitialized = true;
+
+  const measurementId = "G-7YQ91FHWS6";
+  const productionHosts = new Set([
+    "aisaaswithmustafa.com",
+    "www.aisaaswithmustafa.com"
+  ]);
+  const startedForms = new WeakSet();
+  let analyticsReady = false;
+  let consentListenerRegistered = false;
+
+  function track(eventName, parameters) {
+    if (!analyticsReady || typeof window.gtag !== "function") return;
+    window.gtag("event", eventName, parameters || {});
+  }
+
+  window.siteAnalytics = Object.freeze({ track });
+
+  function loadGoogleTag() {
+    if (analyticsReady || !productionHosts.has(window.location.hostname)) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function gtag() {
+      window.dataLayer.push(arguments);
+    };
+
+    window.gtag("consent", "default", {
+      analytics_storage: "granted",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied"
+    });
+    window.gtag("js", new Date());
+    window.gtag("config", measurementId, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      send_page_view: true
+    });
+
+    const googleTag = document.createElement("script");
+    googleTag.async = true;
+    googleTag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+    document.head.appendChild(googleTag);
+    analyticsReady = true;
+  }
+
+  function useConsentData(tcData, success) {
+    if (!success || !tcData) return;
+
+    if (tcData.gdprApplies === false) {
+      loadGoogleTag();
+      return;
+    }
+
+    if (tcData.gdprApplies !== true) return;
+    if (tcData.eventStatus !== "tcloaded" && tcData.eventStatus !== "useractioncomplete") return;
+
+    const purposeConsent = tcData.purpose && tcData.purpose.consents;
+    const vendorConsent = tcData.vendor && tcData.vendor.consents;
+    const googleVendorId = 755;
+    if (purposeConsent && purposeConsent[1] === true && vendorConsent && vendorConsent[googleVendorId] === true) {
+      loadGoogleTag();
+    }
+  }
+
+  function registerConsentListener() {
+    if (consentListenerRegistered || typeof window.__tcfapi !== "function") return false;
+    consentListenerRegistered = true;
+    window.__tcfapi("addEventListener", 2, useConsentData);
+    return true;
+  }
+
+  function startMeasurement() {
+    if (!productionHosts.has(window.location.hostname)) return;
+    if (registerConsentListener()) return;
+
+    let attempts = 0;
+    const consentPoll = window.setInterval(function pollForConsentManager() {
+      attempts += 1;
+      if (registerConsentListener()) {
+        window.clearInterval(consentPoll);
+        return;
+      }
+
+      if (attempts >= 10) {
+        window.clearInterval(consentPoll);
+        loadGoogleTag();
+      }
+    }, 250);
+  }
+
+  document.addEventListener("focusin", function handleFormStart(event) {
+    const form = event.target.closest("form");
+    if (!form || startedForms.has(form)) return;
+
+    if (form.matches("[data-ask-form]")) {
+      startedForms.add(form);
+      track("ask_mustafa_open", { interaction_type: "input_focus" });
+      return;
+    }
+
+    if (form.action && form.action.includes("formspree.io")) {
+      startedForms.add(form);
+      track("contact_form_start", { form_name: "project_request" });
+    }
+  });
+
+  document.addEventListener("submit", function handleTrackedSubmit(event) {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+
+    if (form.matches("[data-ask-form]")) {
+      track("ask_mustafa_question", { assistant_name: "ask_mustafa" });
+      return;
+    }
+
+    if (form.action && form.action.includes("formspree.io")) {
+      track("contact_form_submit", { form_name: "project_request" });
+    }
+  }, true);
+
+  document.addEventListener("click", function handleTrackedClick(event) {
+    const target = event.target.closest("a, button");
+    if (!target) return;
+
+    if (target.matches("[data-ask-open]")) {
+      track("ask_mustafa_open", { interaction_type: "launcher" });
+      return;
+    }
+
+    if (!(target instanceof HTMLAnchorElement)) return;
+    const href = target.href || "";
+
+    if (target.hasAttribute("download")) {
+      track("file_download", {
+        file_name: href.split("/").pop() || "download",
+        link_text: (target.textContent || "").trim().slice(0, 80)
+      });
+      return;
+    }
+
+    const contactChannels = [
+      ["upwork.com", "upwork"],
+      ["linkedin.com", "linkedin"],
+      ["wa.me/", "whatsapp"],
+      ["calendly.com", "calendly"],
+      ["mailto:", "email"],
+      ["tel:", "phone"]
+    ];
+    const channel = contactChannels.find(function findChannel(entry) {
+      return href.includes(entry[0]);
+    });
+
+    if (channel) {
+      track("contact_channel_click", { channel: channel[1] });
+      return;
+    }
+
+    if (href.endsWith("#contact") || href.includes("/#contact")) {
+      track("contact_cta_click", {
+        link_text: (target.textContent || "").trim().slice(0, 80)
+      });
+    }
+  });
+
+  if (window.location.pathname === "/thanks.html" || window.location.pathname === "/thanks") {
+    document.addEventListener("DOMContentLoaded", function trackConfirmedLead() {
+      track("generate_lead", { form_name: "project_request" });
+    }, { once: true });
+  }
+
+  startMeasurement();
+})();
