@@ -120,7 +120,7 @@ Delivery approach:
     keywords: ["education", "degree", "diploma", "aptech", "ielts", "language", "english", "urdu", "certification", "certificate"],
     content: `
 Education, languages and credentials:
-- Mustafa completed a software engineering qualification at Aptech Computer Education from 2011 to 2014. The supplied documents describe it as an Advanced Diploma and as an Associate's Degree in Computer Software Engineering; do not choose a more specific label unless Mustafa confirms it.
+- Mustafa completed a software engineering qualification at Aptech Computer Education from 2011 to 2014. Use this neutral wording in visitor-facing answers. The supplied documents use two different labels for it, so do not call it an Advanced Diploma or Associate's Degree unless Mustafa confirms the preferred label.
 - His IELTS overall band score is 7.0.
 - He lists professional working proficiency in English and full professional proficiency in Urdu.
 - His published certifications include Empowered Startups - Global Startup Accelerator Entrepreneur and Certified Empowered Startupper.
