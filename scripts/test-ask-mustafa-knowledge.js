@@ -11,6 +11,7 @@ const angularContext = buildKnowledgeContext("What did you build with Angular at
 assert.match(angularContext, /Workboard 2\.0/);
 assert.match(angularContext, /version 8 through version 19/);
 assert.match(angularContext, /10\+ product modules/);
+assert.match(angularContext, /Do not attribute unrelated AutoLeap APIs/);
 
 const projectContext = buildKnowledgeContext("Which SaaS products have you built?", [], {});
 assert.match(projectContext, /CultureAI/);

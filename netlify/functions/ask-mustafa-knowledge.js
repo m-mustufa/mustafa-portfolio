@@ -27,7 +27,7 @@ Experience:
 Angular and enterprise frontend work:
 - Mustafa works on complex Angular frontends in AutoLeap's established production SaaS codebase.
 - He led the Angular upgrade path from version 8 through version 19 while maintaining stable continuous releases.
-- He built Workboard 2.0 from scratch: a Kanban workflow with drag-and-drop, technician assignment, custom tags and multi-tab support.
+- He independently built Workboard 2.0 from scratch. Its verified scope is only: a Kanban workflow, drag-and-drop, technician assignment, custom tags and multi-tab support. Do not attribute unrelated AutoLeap APIs, integrations, modernization or admin tooling specifically to Workboard 2.0.
 - He has owned 10+ product modules end to end, including Repair Orders, Purchase Orders, Oil Change Stickers and Tire Storage.
 - His published AutoLeap record includes resolving 642 Jira tickets across 2,800+ commits.
 - His performance work includes fixing memory leaks, reducing unnecessary rendering and data loading, and adding lazy scrolling across 8+ list views.
@@ -94,7 +94,7 @@ AI product engineering:
     content: `
 Published project evidence:
 - CultureAI: Mustafa is the solo builder of this live multi-tenant employee-engagement SaaS product. Its stack includes React, TypeScript, Node.js, Express, MongoDB, OpenAI, LLM streaming, Clerk, RBAC, realtime analytics and Stripe billing.
-- AutoLeap: this is an established team product to which Mustafa contributes as a senior engineer. His verified work includes Workboard 2.0, ownership of 10+ modules, Angular v8-v19 upgrades, Angular and Next.js frontend work, Node.js APIs, third-party integrations, activity logging, internal admin tooling, performance work and production maintenance. Do not describe AutoLeap as a solo project.
+- AutoLeap: this is an established team product to which Mustafa contributes as a senior engineer. His wider verified work includes ownership of 10+ modules, Angular v8-v19 upgrades, Angular and Next.js frontend work, Node.js APIs, third-party integrations, activity logging, internal admin tooling, performance work and production maintenance. Workboard 2.0 is one specific independently built feature whose confirmed scope is a Kanban workflow, drag-and-drop, technician assignment, custom tags and multi-tab support. Do not merge the wider AutoLeap work into Workboard's scope, and do not describe AutoLeap as a solo project.
 - BWL League: a multi-role sports platform using Next.js, Supabase and realtime features for different roles and live workflows.
 - Apex Logistics: Mustafa is the solo full-stack developer of this GCC freight marketplace using React 19, TypeScript, TanStack Start and Firestore. Verified work includes Firestore security rules, driver bidding, Xero OAuth2 server-side integration and investigation of a production-only Cloud Run failure.
 - JobHunter: Mustafa is the solo full-stack developer of this AI job-discovery product. It finds live vacancies, matches candidate experience and uses Claude to generate job-specific CVs end to end.
