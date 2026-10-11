@@ -1,0 +1,4 @@
+[build.processing.html]
+  # Preserve the explicit .html canonical URLs used by metadata, the sitemap,
+  # source links, and _redirects instead of rewriting links to pretty aliases.
+  pretty_urls = false
