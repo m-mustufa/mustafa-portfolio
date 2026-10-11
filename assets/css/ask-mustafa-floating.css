@@ -216,7 +216,7 @@
 }
 
 .ask-mustafa-panel {
-  width: min(38rem, calc(100vw - 2rem));
+  width: min(30rem, calc(100vw - 2rem));
   margin: 0 auto 0.7rem;
   overflow: hidden;
   background: rgba(8, 24, 37, 0.97);
