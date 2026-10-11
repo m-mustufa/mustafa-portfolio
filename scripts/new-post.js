@@ -140,7 +140,10 @@ function regenerateSitemap(posts) {
   let sitemap = fs.readFileSync(sitemapPath, "utf8");
   // Strip any existing blog entries, then re-add all from the manifest (idempotent, avoids duplicates)
   sitemap = sitemap.replace(/\s*<url>\s*<loc>https:\/\/aisaaswithmustafa\.com\/blog\/[\s\S]*?<\/url>/g, "");
-  const blogIndexLastModified = posts[0]?.publishDateIso.slice(0, 10) || new Date().toISOString().slice(0, 10);
+  const blogIndexLastModified = posts.reduce((latest, post) => {
+    const date = (post.modifiedDateIso || post.publishDateIso).slice(0, 10);
+    return date > latest ? date : latest;
+  }, "") || new Date().toISOString().slice(0, 10);
   const entries = [
     `  <url>
     <loc>${SITE_URL}/blog/index.html</loc>
@@ -151,7 +154,7 @@ function regenerateSitemap(posts) {
     ...posts.map(
       (post) => `  <url>
     <loc>${SITE_URL}/blog/${post.slug}.html</loc>
-    <lastmod>${post.publishDateIso.slice(0, 10)}</lastmod>
+    <lastmod>${(post.modifiedDateIso || post.publishDateIso).slice(0, 10)}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>`

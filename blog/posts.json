@@ -310,12 +310,12 @@
   },
   {
     "slug": "uae-pass-nextjs-nodejs-integration",
-    "title": "UAE PASS Integration with Next.js and Node.js SaaS Apps",
-    "metaDescription": "Build a secure UAE PASS integration for Next.js and Node.js SaaS apps, covering OAuth 2.0, account linking, corporate users, testing and launch.",
+    "title": "UAE PASS API Integration Guide for Next.js and Node.js",
+    "metaDescription": "Learn how to build a secure UAE PASS API integration in Next.js and Node.js, including OAuth 2.0, callbacks, account linking, testing and approval.",
     "heroImageAlt": "UAE PASS integration architecture connecting a Next.js application and Node.js API to secure UAE digital identity services",
     "publishDate": "August 3, 2026",
     "publishDateIso": "2026-08-03T16:59:28.167Z",
-    "readingTime": 10,
+    "readingTime": 11,
     "category": "UAE Integrations",
     "tags": [
       "UAE PASS",
@@ -329,6 +329,7 @@
       "uae-pdpl-compliance-saas",
       "supabase-rls-multi-role-apps"
     ],
+    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
