@@ -28,7 +28,7 @@
     <meta property="og:site_name" content="Muhammad Mustafa">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-09-29T16:47:49.052Z">
-    <meta property="article:modified_time" content="2026-09-29T16:47:49.052Z">
+    <meta property="article:modified_time" content="2026-10-11T00:00:00.000Z">
     <meta property="article:author" content="Muhammad Mustafa">
     <meta property="article:section" content="AI & Automation">
     <meta property="article:tag" content="Agentic AI UAE">
@@ -50,7 +50,7 @@
 
     <link rel="stylesheet" href="../assets/css/tailwind.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="../assets/js/style.js?v=20261010-consent" defer></script>
+    <script src="../assets/js/style.js?v=20261011-lead" defer></script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -71,7 +71,7 @@
           "description": "A practical guide to agentic AI for UAE businesses covering workflow design, human approval, tool permissions, UAE data controls, testing and rollout.",
           "image": "https://aisaaswithmustafa.com/blog/images/muhammad-mustafa-agentic-ai-uae-developer-office.jpg",
           "datePublished": "2026-09-29T16:47:49.052Z",
-          "dateModified": "2026-09-29T16:47:49.052Z",
+          "dateModified": "2026-10-11T00:00:00.000Z",
           "articleSection": "AI & Automation",
           "keywords": ["Agentic AI UAE","Dubai AI","AI Agents","Business Automation","Responsible AI"],
           "author": { "@id": "https://aisaaswithmustafa.com/#person" },
@@ -130,7 +130,7 @@
                             <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
                             <div>
                                 <strong>Muhammad Mustafa</strong>
-                                <span>Published <time datetime="2026-09-29T16:47:49.052Z">September 29, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
+                                <span>Published <time datetime="2026-09-29T16:47:49.052Z">September 29, 2026</time> · Updated <time datetime="2026-10-11T00:00:00.000Z">October 11, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
                             </div>
                         </div>
                         <div class="article-topics" aria-label="Article topics">
@@ -199,6 +199,7 @@
 <li><strong>Operations view:</strong> gives authorised staff a queue for approvals, failures and trace inspection.</li>
 </ul>
 <p>The model should never receive a database password or unrestricted API client. It should request a named tool such as <code>createDraftReply</code> or <code>lookupOrderStatus</code>. The application validates the request, checks the tenant and user, applies policy and then calls the real service.</p>
+<p>If the agent connects to business tools through Model Context Protocol, my <a href="/blog/mcp-server-security-uae-ai-saas.html">MCP server security checklist for UAE AI SaaS</a> explains the OAuth, least-privilege, tenant-isolation and approval controls I would apply before production access.</p>
 <pre><code class="language-ts">type AgentAction = {
   tenantId: string;
   tool: 'lookup_customer' | 'draft_reply' | 'send_reply';
@@ -225,6 +226,7 @@ async function executeAction(action: AgentAction, actor: User) {
 <li><strong>Execute:</strong> the agent performs a reversible action within limits, with full tracing and an escalation path.</li>
 </ul>
 <p>Approval screens need enough context to make a real decision: the proposed action, source records, reason, affected customer, confidence limits and expected result. A button that only says “Approve AI” is not meaningful oversight.</p>
+<p>Those approval and operations screens must also work for keyboard and assistive-technology users. My <a href="/blog/uae-wcag-2-2-website-accessibility-checklist.html">UAE WCAG 2.2 website accessibility checklist</a> covers focus, forms, screen readers, mobile targets and release testing.</p>
 <h2 class="scroll-mt-28" id="apply-uae-data-and-ai-governance-from-the-first-design">Apply UAE data and AI governance from the first design</h2>
 <p>Dubai's <a href="https://www.digitaldubai.ae/docs/default-source/publications/dubai-state-of-ai-report.pdf" target="_blank" rel="noopener noreferrer">State of AI report</a> describes eleven principles for public-sector AI, including lawful use, privacy, human-centred design, security, accountability, transparency, explainability, robustness and sustainability. Even when a private company is not directly subject to that policy, these principles are a useful production checklist.</p>
 <p>Start with a data map. Record what the agent can read, what is sent to a model provider, where traces are stored, who can review them and how long they are retained. Remove secrets and unnecessary personal data before model calls. Do not put raw customer records into general logs merely because tracing is enabled.</p>
@@ -296,19 +298,19 @@ async function executeAction(action: AgentAction, actor: User) {
                     <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 <div class="article-related-grid">
-                                        <a href="/blog/openai-agents-api-saas-production-guide.html" class="article-related-card">
+                                        <a href="/blog/mcp-server-security-uae-ai-saas.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>MCP Server Security for UAE AI SaaS: 2026 Checklist</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/uae-wcag-2-2-website-accessibility-checklist.html" class="article-related-card">
+                        <p>Web Engineering</p>
+                        <h3>UAE WCAG 2.2 Website Accessibility Checklist for 2026</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/openai-agents-api-saas-production-guide.html" class="article-related-card">
                         <p>AI &amp; Automation</p>
                         <h3>OpenAI Agents API for SaaS: Production Readiness Guide</h3>
-                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
-                    </a>
-                    <a href="/blog/dubai-ai-seal-ai-saas-guide.html" class="article-related-card">
-                        <p>AI &amp; Automation</p>
-                        <h3>Dubai AI Seal Guide for AI SaaS Companies in 2026</h3>
-                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
-                    </a>
-                    <a href="/blog/uae-pdpl-compliance-saas.html" class="article-related-card">
-                        <p>Security &amp; Compliance</p>
-                        <h3>UAE PDPL Compliance Checklist for SaaS Applications</h3>
                         <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
                 </div>

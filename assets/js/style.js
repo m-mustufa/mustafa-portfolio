@@ -522,6 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ]);
   const previewHosts = new Set(["", "localhost", "127.0.0.1"]);
   const consentStorageKey = "mustafa_analytics_consent_v1";
+  const confirmedLeadStorageKey = "mustafa_confirmed_project_request_v1";
   const consentStylesVersion = "20261010";
   const startedForms = new WeakSet();
   const currentScript = document.currentScript;
@@ -783,10 +784,59 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (form.action && form.action.includes("formspree.io")) {
-      track("contact_form_submit", { form_name: "project_request" });
+    if (form.matches("[data-contact-form]") && form.action.includes("formspree.io")) {
+      event.preventDefault();
+      submitProjectRequest(form);
     }
   }, true);
+
+  async function submitProjectRequest(form) {
+    if (form.dataset.submitting === "true") return;
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const status = form.querySelector("[data-contact-form-status]");
+    const originalButtonHtml = submitButton ? submitButton.innerHTML : "";
+    form.dataset.submitting = "true";
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+    }
+    if (status) {
+      status.hidden = false;
+      status.classList.remove("is-error");
+      status.textContent = "Sending your project request...";
+    }
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      });
+
+      if (!response.ok) throw new Error("Formspree rejected the request.");
+
+      track("contact_form_submit", { form_name: "project_request" });
+      try {
+        window.sessionStorage.setItem(confirmedLeadStorageKey, "1");
+      } catch (error) {
+        // The local confirmation marker is optional; form delivery succeeded.
+      }
+      window.location.assign("/thanks.html");
+    } catch (error) {
+      form.dataset.submitting = "false";
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonHtml;
+      }
+      if (status) {
+        status.hidden = false;
+        status.classList.add("is-error");
+        status.textContent = "I couldn't send that request. Please try again or email me directly.";
+      }
+    }
+  }
 
   document.addEventListener("click", function handleTrackedClick(event) {
     const target = event.target.closest("a, button");
@@ -832,11 +882,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  if (window.location.pathname === "/thanks.html" || window.location.pathname === "/thanks") {
-    document.addEventListener("DOMContentLoaded", function trackConfirmedLead() {
-      track("generate_lead", { form_name: "project_request" });
-    }, { once: true });
-  }
-
   startMeasurement();
+
+  if (window.location.pathname === "/thanks.html" || window.location.pathname === "/thanks") {
+    let confirmedLead = false;
+    try {
+      confirmedLead = window.sessionStorage.getItem(confirmedLeadStorageKey) === "1";
+      window.sessionStorage.removeItem(confirmedLeadStorageKey);
+    } catch (error) {
+      confirmedLead = false;
+    }
+
+    if (confirmedLead) {
+      const trackConfirmedLead = function trackConfirmedLead() {
+        track("generate_lead", { form_name: "project_request" });
+      };
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", trackConfirmedLead, { once: true });
+      } else {
+        trackConfirmedLead();
+      }
+    }
+  }
 })();
