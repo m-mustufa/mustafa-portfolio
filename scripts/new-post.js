@@ -3,7 +3,7 @@
  * Publishes a new blog post from structured data: renders the template,
  * generates the hero image, and updates blog/posts.json (the single source
  * of truth), which regenerates blog/index.html, the homepage "From the
- * Blog" preview section, and sitemap.xml.
+ * Blog" preview section, sitemap.xml, and canonical blog redirects.
  *
  * Usage:
  *   node scripts/new-post.js --data path/to/post.json
@@ -162,6 +162,29 @@ function regenerateSitemap(posts) {
   console.log("Updated sitemap.xml");
 }
 
+function regenerateCanonicalRedirects(posts) {
+  const redirectsPath = path.join(ROOT, "_redirects");
+  let redirects = fs.readFileSync(redirectsPath, "utf8");
+  const startMarker = "# BLOG_CANONICAL_REDIRECTS_START";
+  const endMarker = "# BLOG_CANONICAL_REDIRECTS_END";
+  const entries = [
+    "/blog /blog/index.html 301!",
+    "/blog/ /blog/index.html 301!",
+    "/blog/index /blog/index.html 301!",
+    ...posts.map((post) => `/blog/${post.slug} /blog/${post.slug}.html 301!`),
+  ];
+  const replacement = `${startMarker}\n${entries.join("\n")}\n${endMarker}`;
+  const markerPattern = /# BLOG_CANONICAL_REDIRECTS_START[\s\S]*?# BLOG_CANONICAL_REDIRECTS_END/;
+
+  if (!markerPattern.test(redirects)) {
+    throw new Error("Missing canonical redirect markers in _redirects.");
+  }
+
+  redirects = redirects.replace(markerPattern, replacement);
+  fs.writeFileSync(redirectsPath, redirects);
+  console.log("Updated _redirects canonical blog aliases");
+}
+
 const args = parseArgs(process.argv.slice(2));
 if (!args.data) {
   console.error("Usage: node scripts/new-post.js --data path/to/post.json");
@@ -234,6 +257,7 @@ console.log("Updated blog/posts.json");
 regenerateBlogIndex(posts);
 regenerateHomeSection(posts);
 regenerateSitemap(posts);
+regenerateCanonicalRedirects(posts);
 
 // Related links depend on the complete manifest, so refresh every generated post.
 execFileSync("node", [path.join(ROOT, "scripts", "refresh-blog-seo.js")], { stdio: "inherit" });

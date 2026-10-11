@@ -3781,6 +3781,24 @@ img.up-img {
     transform: translateX(3px);
 }
 
+.contact-form-footer button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+    transform: none;
+    box-shadow: none;
+}
+
+.contact-form-status {
+    min-height: 1.25rem;
+    margin: 0.75rem 0 0;
+    color: #9fb4c4;
+    font-size: 0.78rem;
+}
+
+.contact-form-status.is-error {
+    color: #fca5a5;
+}
+
 .contact-upwork-card {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(32rem, 1.2fr);
@@ -4834,7 +4852,7 @@ img.up-img {
 }
 /* HOME_INLINE_CSS_END */
   </style>
-  <script src="assets/js/style.js?v=20261010-consent" defer></script>
+  <script src="assets/js/style.js?v=20261011-lead" defer></script>
   <script src="assets/js/home-motion.js?v=20260917-tech-map" defer></script>
   <script src="assets/js/ask-mustafa.js?v=20261008-thinking" defer></script>
 
@@ -5818,7 +5836,7 @@ img.up-img {
           </div>
         </div>
 
-        <form action="https://formspree.io/f/xjkrnwyl" method="POST" class="contact-form-card" data-contact-card>
+        <form action="https://formspree.io/f/xjkrnwyl" method="POST" class="contact-form-card" data-contact-card data-contact-form>
           <div class="contact-card-heading">
             <p>Project details</p>
             <h3>Tell me what you’re building.</h3>
@@ -5844,6 +5862,7 @@ img.up-img {
             <p>I usually reply directly by email.</p>
             <button type="submit">Send project request <span aria-hidden="true">→</span></button>
           </div>
+          <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite" hidden></p>
         </form>
       </div>
 

@@ -65,10 +65,11 @@
       "Responsible AI"
     ],
     "relatedSlugs": [
-      "openai-agents-api-saas-production-guide",
-      "dubai-ai-seal-ai-saas-guide",
-      "uae-pdpl-compliance-saas"
+      "mcp-server-security-uae-ai-saas",
+      "uae-wcag-2-2-website-accessibility-checklist",
+      "openai-agents-api-saas-production-guide"
     ],
+    "modifiedDateIso": "2026-10-11T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {

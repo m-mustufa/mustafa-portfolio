@@ -1,2 +1,35 @@
 # Preserve paths and SEO signals when visitors use the old Netlify hostname.
 https://mustcode.netlify.app/* https://aisaaswithmustafa.com/:splat 301!
+
+# Keep one canonical URL format. Netlify otherwise serves these extensionless
+# aliases as 200 pages, which splits Google's indexing signals.
+/portfolio /portfolio.html 301!
+/profile /profile.html 301!
+/full-stack-developer-uae /full-stack-developer-uae.html 301!
+/thanks /thanks.html 301!
+
+# BLOG_CANONICAL_REDIRECTS_START
+/blog /blog/index.html 301!
+/blog/ /blog/index.html 301!
+/blog/index /blog/index.html 301!
+/blog/mcp-server-security-uae-ai-saas /blog/mcp-server-security-uae-ai-saas.html 301!
+/blog/uae-wcag-2-2-website-accessibility-checklist /blog/uae-wcag-2-2-website-accessibility-checklist.html 301!
+/blog/agentic-ai-uae-businesses-production-guide /blog/agentic-ai-uae-businesses-production-guide.html 301!
+/blog/uae-open-finance-api-integration /blog/uae-open-finance-api-integration.html 301!
+/blog/stripe-webhooks-nextjs-saas-idempotency /blog/stripe-webhooks-nextjs-saas-idempotency.html 301!
+/blog/ai-job-application-agent-human-review /blog/ai-job-application-agent-human-review.html 301!
+/blog/stripe-fraud-prevention-ai-saas /blog/stripe-fraud-prevention-ai-saas.html 301!
+/blog/openai-agents-api-saas-production-guide /blog/openai-agents-api-saas-production-guide.html 301!
+/blog/hire-full-stack-developer-uae-guide /blog/hire-full-stack-developer-uae-guide.html 301!
+/blog/dubai-ai-seal-ai-saas-guide /blog/dubai-ai-seal-ai-saas-guide.html 301!
+/blog/adhics-v2-healthcare-saas-abu-dhabi /blog/adhics-v2-healthcare-saas-abu-dhabi.html 301!
+/blog/uae-pdpl-compliance-saas /blog/uae-pdpl-compliance-saas.html 301!
+/blog/arabic-ai-chatbot-abu-dhabi /blog/arabic-ai-chatbot-abu-dhabi.html 301!
+/blog/uae-pass-nextjs-nodejs-integration /blog/uae-pass-nextjs-nodejs-integration.html 301!
+/blog/uae-einvoicing-saas-integration /blog/uae-einvoicing-saas-integration.html 301!
+/blog/nextjs-security-checklist-2026 /blog/nextjs-security-checklist-2026.html 301!
+/blog/offline-first-react-pwa-tanstack-query /blog/offline-first-react-pwa-tanstack-query.html 301!
+/blog/extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization /blog/extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization.html 301!
+/blog/supabase-rls-multi-role-apps /blog/supabase-rls-multi-role-apps.html 301!
+/blog/stripe-per-seat-billing-multi-tenant-saas /blog/stripe-per-seat-billing-multi-tenant-saas.html 301!
+# BLOG_CANONICAL_REDIRECTS_END
