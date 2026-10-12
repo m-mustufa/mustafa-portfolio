@@ -241,12 +241,13 @@
   },
   {
     "slug": "adhics-v2-healthcare-saas-abu-dhabi",
-    "title": "ADHICS V2 Guide for Abu Dhabi Healthcare SaaS",
-    "metaDescription": "A practical ADHICS V2 guide for Abu Dhabi healthcare SaaS covering patient data, cloud security, access control, vendors, audit evidence and incidents.",
+    "title": "ADHICS V2 Standard: Abu Dhabi Healthcare SaaS Guide",
+    "metaDescription": "Understand the ADHICS V2 standard for Abu Dhabi healthcare SaaS, including scope, cloud controls, audit evidence, implementation steps and official PDFs.",
     "heroImageAlt": "ADHICS V2 healthcare SaaS security architecture protecting Abu Dhabi patient data with access controls, encryption, audit logs and incident response",
     "publishDate": "August 22, 2026",
     "publishDateIso": "2026-08-22T16:53:23.960Z",
-    "readingTime": 10,
+    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
+    "readingTime": 11,
     "category": "Security & Compliance",
     "tags": [
       "ADHICS V2",
@@ -269,7 +270,8 @@
     "heroImageAlt": "UAE PDPL compliance architecture for a SaaS application showing consent, encrypted data, access controls, user rights and audit logs",
     "publishDate": "August 14, 2026",
     "publishDateIso": "2026-08-13T19:39:02.504Z",
-    "readingTime": 10,
+    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
+    "readingTime": 11,
     "category": "Security & Compliance",
     "tags": [
       "UAE PDPL",
