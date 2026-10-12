@@ -126,13 +126,17 @@ function buildRelatedPostsHtml(relatedPosts) {
 
 function buildServiceCta(post) {
   if (!post.serviceLandingPage) return "";
-  return `<aside class="article-service-cta" aria-labelledby="uae-development-help">
+  const isGlobalAiSaas = post.serviceLandingPage === "/ai-saas-development-services.html";
+  const eyebrow = isGlobalAiSaas ? "Available for global remote projects" : "Available across the UAE";
+  const headingId = isGlobalAiSaas ? "ai-saas-development-help" : "uae-development-help";
+  const linkLabel = isGlobalAiSaas ? "Explore AI SaaS services" : "Explore UAE services";
+  return `<aside class="article-service-cta" aria-labelledby="${headingId}">
                 <div>
-                    <p>Available across the UAE</p>
-                    <h2 id="uae-development-help">Building a SaaS or AI product?</h2>
+                    <p>${eyebrow}</p>
+                    <h2 id="${headingId}">Building a SaaS or AI product?</h2>
                     <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
                 </div>
-                <a href="${escapeHtml(post.serviceLandingPage)}">Explore UAE services <span aria-hidden="true">&rarr;</span></a>
+                <a href="${escapeHtml(post.serviceLandingPage)}">${linkLabel} <span aria-hidden="true">&rarr;</span></a>
             </aside>\n`;
 }
 

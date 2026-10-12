@@ -13,6 +13,11 @@ const pages = [
     canonical: `${SITE_URL}/full-stack-developer-uae.html`,
     primaryPhrase: "full-stack",
   },
+  {
+    file: "ai-saas-development-services.html",
+    canonical: `${SITE_URL}/ai-saas-development-services.html`,
+    primaryPhrase: "ai saas development services",
+  },
 ];
 
 function countMatches(value, pattern) {
@@ -79,17 +84,22 @@ for (const page of pages) {
   }
 }
 
-const landingHtml = fs.readFileSync(path.join(ROOT, "full-stack-developer-uae.html"), "utf8");
-if (/"@type":\s*"LocalBusiness"/.test(landingHtml)) {
-  errors.push("full-stack-developer-uae.html: must not claim LocalBusiness without a physical UAE location");
-}
-if (!/"@type":\s*"Service"/.test(landingHtml) || !/"@type":\s*"FAQPage"/.test(landingHtml)) {
-  errors.push("full-stack-developer-uae.html: Service or FAQPage structured data is missing");
+for (const landingFile of ["full-stack-developer-uae.html", "ai-saas-development-services.html"]) {
+  const landingHtml = fs.readFileSync(path.join(ROOT, landingFile), "utf8");
+  if (/"@type":\s*"LocalBusiness"/.test(landingHtml)) {
+    errors.push(`${landingFile}: must not claim LocalBusiness without a verified physical business location`);
+  }
+  if (!/"@type":\s*"Service"/.test(landingHtml) || !/"@type":\s*"FAQPage"/.test(landingHtml)) {
+    errors.push(`${landingFile}: Service or FAQPage structured data is missing`);
+  }
 }
 
 const homeHtml = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 if (!homeHtml.includes('href="/full-stack-developer-uae.html"')) {
   errors.push("index.html: UAE service landing page is not internally linked");
+}
+if (!homeHtml.includes('href="/ai-saas-development-services.html"')) {
+  errors.push("index.html: global AI SaaS service landing page is not internally linked");
 }
 if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
   errors.push("index.html: ProfilePage structured data is missing");
@@ -98,6 +108,9 @@ if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
 const sitemap = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
 if (!sitemap.includes(`${SITE_URL}/full-stack-developer-uae.html`)) {
   errors.push("sitemap.xml: UAE service landing page is missing");
+}
+if (!sitemap.includes(`${SITE_URL}/ai-saas-development-services.html`)) {
+  errors.push("sitemap.xml: global AI SaaS service landing page is missing");
 }
 if (!sitemap.includes(`${SITE_URL}/blog/index.html`)) {
   errors.push("sitemap.xml: blog index is missing");
@@ -108,6 +121,7 @@ const legacyHostnameFiles = [
   "portfolio.html",
   "profile.html",
   "thanks.html",
+  "ai-saas-development-services.html",
   "full-stack-developer-uae.html",
   "blog/index.html",
   "blog/_template.html",
@@ -127,4 +141,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("Validated homepage and UAE service page SEO, schema, images, links and sitemap entry.");
+console.log("Validated homepage plus global and UAE service page SEO, schema, images, links and sitemap entries.");
