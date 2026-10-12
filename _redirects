@@ -12,6 +12,7 @@ https://mustcode.netlify.app/* https://aisaaswithmustafa.com/:splat 301!
 /blog /blog/index.html 301!
 /blog/ /blog/index.html 301!
 /blog/index /blog/index.html 301!
+/blog/ai-agent-vs-chatbot /blog/ai-agent-vs-chatbot.html 301!
 /blog/mcp-server-security-uae-ai-saas /blog/mcp-server-security-uae-ai-saas.html 301!
 /blog/uae-wcag-2-2-website-accessibility-checklist /blog/uae-wcag-2-2-website-accessibility-checklist.html 301!
 /blog/agentic-ai-uae-businesses-production-guide /blog/agentic-ai-uae-businesses-production-guide.html 301!

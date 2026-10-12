@@ -1,5 +1,29 @@
 [
   {
+    "slug": "ai-agent-vs-chatbot",
+    "title": "AI Agent vs Chatbot: Cost, Architecture and Use Cases",
+    "metaDescription": "AI agent vs chatbot explained through architecture, cost, security and real SaaS use cases, with a practical checklist for choosing the right approach.",
+    "heroImageFile": "ai-agent-vs-chatbot.jpg",
+    "heroImageAlt": "Two office monitors comparing a simple AI chatbot interface with a multi-step AI agent workflow",
+    "publishDate": "October 12, 2026",
+    "publishDateIso": "2026-10-12T07:16:42.542Z",
+    "readingTime": 9,
+    "category": "AI & Automation",
+    "tags": [
+      "AI Agent vs Chatbot",
+      "AI Agents",
+      "AI Chatbots",
+      "Agentic AI",
+      "SaaS Architecture"
+    ],
+    "relatedSlugs": [
+      "ai-job-application-agent-human-review",
+      "openai-agents-api-saas-production-guide",
+      "agentic-ai-uae-businesses-production-guide"
+    ],
+    "serviceLandingPage": ""
+  },
+  {
     "slug": "mcp-server-security-uae-ai-saas",
     "title": "MCP Server Security for UAE AI SaaS: 2026 Checklist",
     "metaDescription": "A practical MCP server security checklist for UAE AI SaaS covering OAuth, least privilege, tool approval, tenant isolation, logging and safe deployment.",
