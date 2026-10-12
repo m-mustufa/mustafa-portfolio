@@ -98,8 +98,8 @@
   },
   {
     "slug": "uae-open-finance-api-integration",
-    "title": "UAE Open Finance API Integration: Practical SaaS Guide",
-    "metaDescription": "Build a UAE Open Finance API integration for fintech SaaS with AlTareq consent flows, FAPI security, reliable callbacks, audit logs and testing.",
+    "title": "How UAE Businesses Implement Open Finance APIs (2026)",
+    "metaDescription": "Learn how UAE businesses can implement Open Finance APIs using AlTareq: licensing, consent flows, FAPI security, callbacks, testing and launch checks.",
     "heroImageFile": "uae-open-finance-api-integration-altareq-fintech-saas.jpg",
     "heroImageAlt": "Fintech engineer in Dubai reviewing a secure UAE Open Finance API integration with consent, bank data and payment flows",
     "publishDate": "September 25, 2026",
@@ -108,16 +108,17 @@
     "category": "FinTech & Integrations",
     "tags": [
       "UAE Open Finance",
+      "Open Finance API",
       "AlTareq",
-      "Fintech API",
-      "FAPI 2.0",
-      "SaaS Integration"
+      "CBUAE",
+      "Fintech Integration"
     ],
     "relatedSlugs": [
       "uae-pass-nextjs-nodejs-integration",
       "uae-pdpl-compliance-saas",
       "stripe-webhooks-nextjs-saas-idempotency"
     ],
+    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
@@ -306,7 +307,7 @@
       "UAE"
     ],
     "relatedSlugs": [
-      "supabase-rls-multi-role-apps",
+      "uae-open-finance-api-integration",
       "adhics-v2-healthcare-saas-abu-dhabi",
       "uae-pass-nextjs-nodejs-integration"
     ],
@@ -354,7 +355,7 @@
     "relatedSlugs": [
       "nextjs-security-checklist-2026",
       "uae-pdpl-compliance-saas",
-      "adhics-v2-healthcare-saas-abu-dhabi"
+      "uae-open-finance-api-integration"
     ],
     "modifiedDateIso": "2026-10-12T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
