@@ -337,8 +337,8 @@
   },
   {
     "slug": "uae-pass-nextjs-nodejs-integration",
-    "title": "UAE PASS API Integration Guide for Next.js and Node.js",
-    "metaDescription": "Learn how to build a secure UAE PASS API integration in Next.js and Node.js, including OAuth 2.0, callbacks, account linking, testing and approval.",
+    "title": "UAE PASS Integration Guide: API Steps & Checklist (2026)",
+    "metaDescription": "Follow UAE PASS integration steps for Next.js and Node.js: OAuth 2.0, secure callbacks, account linking, staging, testing and production approval.",
     "heroImageAlt": "UAE PASS integration architecture connecting a Next.js application and Node.js API to secure UAE digital identity services",
     "publishDate": "August 3, 2026",
     "publishDateIso": "2026-08-03T16:59:28.167Z",
