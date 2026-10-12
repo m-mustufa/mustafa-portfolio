@@ -123,8 +123,8 @@
   },
   {
     "slug": "stripe-webhooks-nextjs-saas-idempotency",
-    "title": "Reliable Stripe Webhooks in Next.js SaaS: Practical Guide",
-    "metaDescription": "Build reliable Stripe webhooks in Next.js with signature verification, idempotent processing, queues, retries and safe subscription access control.",
+    "title": "Stripe Webhooks in Next.js: Signature & Idempotency Guide",
+    "metaDescription": "Fix Stripe webhook failures in Next.js with signature verification, idempotent processing, durable queues, safe retries and subscription reconciliation.",
     "heroImageFile": "reliable-stripe-webhooks-nextjs-saas-idempotency-dubai.jpg",
     "heroImageAlt": "SaaS engineer in Dubai monitoring reliable Stripe webhook deliveries, signature verification, retries and idempotent payment processing in Next.js",
     "publishDate": "September 23, 2026",
@@ -134,15 +134,16 @@
     "tags": [
       "Stripe Webhooks",
       "Next.js",
-      "SaaS Billing",
-      "Idempotency",
-      "Subscription Management"
+      "Signature Verification",
+      "Webhook Idempotency",
+      "SaaS Billing"
     ],
     "relatedSlugs": [
       "stripe-per-seat-billing-multi-tenant-saas",
       "stripe-fraud-prevention-ai-saas",
       "nextjs-security-checklist-2026"
     ],
+    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
@@ -188,7 +189,7 @@
     ],
     "relatedSlugs": [
       "stripe-per-seat-billing-multi-tenant-saas",
-      "openai-agents-api-saas-production-guide",
+      "stripe-webhooks-nextjs-saas-idempotency",
       "nextjs-security-checklist-2026"
     ],
     "serviceLandingPage": "/full-stack-developer-uae.html"
@@ -490,7 +491,7 @@
     ],
     "relatedSlugs": [
       "supabase-rls-multi-role-apps",
-      "uae-einvoicing-saas-integration",
+      "stripe-webhooks-nextjs-saas-idempotency",
       "nextjs-security-checklist-2026"
     ]
   }
