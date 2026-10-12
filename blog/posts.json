@@ -1,12 +1,13 @@
 [
   {
     "slug": "ai-agent-vs-chatbot",
-    "title": "AI Agent vs Chatbot: Cost, Architecture and Use Cases",
-    "metaDescription": "AI agent vs chatbot explained through architecture, cost, security and real SaaS use cases, with a practical checklist for choosing the right approach.",
+    "title": "AI Agent vs Chatbot: Differences, Costs & SaaS Use Cases",
+    "metaDescription": "Compare AI agents and chatbots by architecture, cost, security and SaaS use case. Use this practical checklist to choose the right approach for your product.",
     "heroImageFile": "ai-agent-vs-chatbot.jpg",
     "heroImageAlt": "Two office monitors comparing a simple AI chatbot interface with a multi-step AI agent workflow",
     "publishDate": "October 12, 2026",
     "publishDateIso": "2026-10-12T07:16:42.542Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 9,
     "category": "AI & Automation",
     "tags": [
@@ -25,12 +26,13 @@
   },
   {
     "slug": "mcp-server-security-uae-ai-saas",
-    "title": "MCP Server Security for UAE AI SaaS: 2026 Checklist",
-    "metaDescription": "A practical MCP server security checklist for UAE AI SaaS covering OAuth, least privilege, tool approval, tenant isolation, logging and safe deployment.",
+    "title": "MCP Server Security Checklist for UAE AI SaaS (2026)",
+    "metaDescription": "Secure an MCP server for UAE AI SaaS with OAuth, least privilege, tool approval, tenant isolation, audit logs, abuse testing and safe production rollout.",
     "heroImageFile": "mcp-server-security-uae-ai-saas.jpg",
     "heroImageAlt": "Empty UAE technology office with a laptop, security key and enterprise server racks",
     "publishDate": "October 8, 2026",
     "publishDateIso": "2026-10-08T15:22:32.348Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 4,
     "category": "AI Engineering",
     "tags": [
@@ -49,12 +51,13 @@
   },
   {
     "slug": "uae-wcag-2-2-website-accessibility-checklist",
-    "title": "UAE WCAG 2.2 Website Accessibility Checklist for 2026",
-    "metaDescription": "Use this UAE WCAG 2.2 website accessibility checklist to test keyboard access, forms, focus, mobile targets, screen readers and production releases.",
+    "title": "UAE WCAG 2.2 Website Accessibility Checklist (2026)",
+    "metaDescription": "Audit a UAE website against WCAG 2.2 with practical checks for keyboard access, focus, forms, mobile targets, screen readers and release testing.",
     "heroImageFile": "uae-wcag-2-2-website-accessibility-checklist.jpg",
     "heroImageAlt": "UAE full-stack developer testing a Dubai business website against WCAG 2.2 accessibility requirements",
     "publishDate": "October 6, 2026",
     "publishDateIso": "2026-10-06T00:38:45.926Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 8,
     "category": "Web Engineering",
     "tags": [
@@ -148,12 +151,13 @@
   },
   {
     "slug": "ai-job-application-agent-human-review",
-    "title": "Build an AI Job Application Agent That Stays Honest",
-    "metaDescription": "Build an AI job application agent that finds roles, scores fit, tailors CVs truthfully, protects personal data and keeps applications human-approved.",
+    "title": "AI Job Application Agent: Honest CVs & Human Review",
+    "metaDescription": "Build an AI job application agent that finds roles, verifies experience, scores fit and tailors CVs without fabricated claims or automatic submissions.",
     "heroImageFile": "ai-job-application-agent-jobhunter-human-review.jpg",
     "heroImageAlt": "JobHunter AI job application agent dashboard showing job discovery, CV tailoring, fit scoring and human approval",
     "publishDate": "September 22, 2026",
     "publishDateIso": "2026-09-22T14:59:47.944Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 9,
     "category": "AI & Automation",
     "tags": [
@@ -172,12 +176,13 @@
   },
   {
     "slug": "stripe-fraud-prevention-ai-saas",
-    "title": "Stripe Fraud Prevention for AI SaaS: Practical Guide",
-    "metaDescription": "A practical Stripe fraud prevention guide for AI SaaS covering Radar, trial abuse, card testing, 3D Secure, webhooks, entitlements and monitoring.",
+    "title": "Stripe Fraud Prevention for AI SaaS: Radar & Trial Abuse",
+    "metaDescription": "Stop card testing, stolen-card payments and AI trial abuse using Stripe Radar, 3D Secure, verified webhooks, entitlements and product-level limits.",
     "heroImageFile": "stripe-fraud-prevention-ai-saas-radar-security-checklist.jpg",
     "heroImageAlt": "AI SaaS engineering team in Dubai reviewing Stripe payment fraud prevention, subscription risk and usage monitoring dashboards",
     "publishDate": "September 19, 2026",
     "publishDateIso": "2026-09-19T17:14:59.806Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 9,
     "category": "Payments & Billing",
     "tags": [
@@ -196,12 +201,13 @@
   },
   {
     "slug": "openai-agents-api-saas-production-guide",
-    "title": "OpenAI Agents API for SaaS: Production Readiness Guide",
-    "metaDescription": "A practical OpenAI Agents API guide for SaaS teams covering architecture, tool permissions, human approval, tracing, testing, cost and production rollout.",
+    "title": "OpenAI Agents API for SaaS: Architecture & Production Guide",
+    "metaDescription": "Build a production SaaS agent with OpenAI's Agents API, secure tools, approval gates, durable sessions, tracing, evaluations, cost controls and rollout plans.",
     "heroImageFile": "openai-agents-api-saas-production-readiness-architecture.jpg",
     "heroImageAlt": "OpenAI Agents API architecture for a SaaS product showing business data, tools, secure sandbox, human approval and workflow tracing",
     "publishDate": "September 14, 2026",
     "publishDateIso": "2026-09-14T06:16:18.030Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 8,
     "category": "AI & Automation",
     "tags": [
@@ -317,11 +323,12 @@
   },
   {
     "slug": "arabic-ai-chatbot-abu-dhabi",
-    "title": "Arabic AI Chatbot Development for Abu Dhabi Businesses",
-    "metaDescription": "Build a secure Arabic AI chatbot for Abu Dhabi businesses using bilingual RAG, WhatsApp integration, human handoff, privacy controls and testing.",
+    "title": "Arabic AI Chatbot Development in Abu Dhabi: 2026 Guide",
+    "metaDescription": "Build a bilingual Arabic AI chatbot in Abu Dhabi with RAG, WhatsApp integration, human handoff, UAE privacy controls, evaluation and production monitoring.",
     "heroImageAlt": "Arabic and English AI chatbot architecture for an Abu Dhabi business using RAG, WhatsApp, CRM integration and human support",
     "publishDate": "August 8, 2026",
     "publishDateIso": "2026-08-08T00:16:28.820Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 10,
     "category": "AI & Automation",
     "tags": [
@@ -364,11 +371,12 @@
   },
   {
     "slug": "uae-einvoicing-saas-integration",
-    "title": "UAE E-Invoicing Integration Guide for SaaS in 2026",
-    "metaDescription": "Prepare SaaS and ERP systems for UAE e-invoicing in Dubai, Abu Dhabi and Sharjah using Peppol PINT-AE, ASP integration, validation and audit logs.",
+    "title": "UAE E-Invoicing 2026: PINT-AE Integration Guide for SaaS",
+    "metaDescription": "Prepare a SaaS or ERP system for UAE e-invoicing with PINT-AE XML, Accredited Service Provider integration, validation, audit logs and rollout deadlines.",
     "heroImageAlt": "UAE e-invoicing integration architecture connecting a SaaS platform, accredited service providers, Peppol and the Federal Tax Authority",
     "publishDate": "August 1, 2026",
     "publishDateIso": "2026-08-01T10:25:05.412Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 9,
     "category": "UAE Integrations",
     "tags": [
@@ -387,11 +395,12 @@
   },
   {
     "slug": "nextjs-security-checklist-2026",
-    "title": "Next.js Security Checklist After the July 2026 Release",
-    "metaDescription": "Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.",
+    "title": "Next.js Security Checklist: Server Actions, CSP & Patching",
+    "metaDescription": "Secure a Next.js application with current patches, Server Action authorization, CSP headers, dependency controls and production verification steps.",
     "heroImageAlt": "Next.js security checklist showing dependency patching, Server Action authorization, CSP headers, and production verification",
     "publishDate": "July 24, 2026",
     "publishDateIso": "2026-07-24T16:28:43.719Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 8,
     "category": "Security & Compliance",
     "tags": [
@@ -409,11 +418,12 @@
   },
   {
     "slug": "offline-first-react-pwa-tanstack-query",
-    "title": "Offline-First React PWA with TanStack Query: A Practical Guide",
-    "metaDescription": "Build an offline-first React PWA with TanStack Query, IndexedDB, service workers, mutation queues, conflict handling, and reliable reconnect sync.",
+    "title": "Offline-First React PWA: TanStack Query & IndexedDB Guide",
+    "metaDescription": "Build an offline-first React PWA with TanStack Query, IndexedDB, service workers, durable mutation queues, conflict handling and reliable reconnect sync.",
     "heroImageAlt": "Offline-first React PWA architecture showing TanStack Query, IndexedDB, a service worker, and a cloud API",
     "publishDate": "July 21, 2026",
     "publishDateIso": "2026-07-21T17:13:25.465Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 9,
     "category": "Web Engineering",
     "tags": [
@@ -454,11 +464,12 @@
   },
   {
     "slug": "supabase-rls-multi-role-apps",
-    "title": "Supabase RLS for Multi-Role Apps: What I Learned",
-    "metaDescription": "A practical guide to Supabase RLS for multi-role apps, covering team isolation, role permissions, policy design, testing, and common security mistakes.",
+    "title": "Supabase RLS for Multi-Role Apps: Policies & Testing",
+    "metaDescription": "Secure multi-role Supabase apps with tenant isolation, SELECT and write policies, RBAC claims, policy tests, indexes and safe service-role boundaries.",
     "heroImageAlt": "Supabase Row Level Security diagram separating admin, coach, and team database access",
     "publishDate": "July 17, 2026",
     "publishDateIso": "2026-07-17T12:26:58.775Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 5,
     "category": "Security & Compliance",
     "tags": [
@@ -476,11 +487,12 @@
   },
   {
     "slug": "stripe-per-seat-billing-multi-tenant-saas",
-    "title": "Stripe Per-Seat Billing: What Actually Breaks",
-    "metaDescription": "Lessons from implementing Stripe per-seat billing in a multi-tenant SaaS (CultureAI) — where seat counts actually get out of sync, and how to prevent it.",
+    "title": "Stripe Per-Seat Billing for SaaS: Seat Sync & Webhooks",
+    "metaDescription": "Implement Stripe per-seat billing for multi-tenant SaaS with reliable seat synchronization, webhook idempotency, subscription states and reconciliation.",
     "heroImageAlt": "Diagram showing Stripe subscription seats syncing with a multi-tenant database via webhooks",
     "publishDate": "July 16, 2026",
     "publishDateIso": "2026-07-16T09:33:02.173Z",
+    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
     "readingTime": 5,
     "category": "SaaS Engineering",
     "tags": [

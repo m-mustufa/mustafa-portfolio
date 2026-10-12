@@ -9,15 +9,15 @@
     <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
 
     <!-- SEO Meta -->
-    <title>Next.js Security Checklist After the July 2026 Release</title>
-    <meta name="description" content="Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.">
+    <title>Next.js Security Checklist: Server Actions, CSP & Patching</title>
+    <meta name="description" content="Secure a Next.js application with current patches, Server Action authorization, CSP headers, dependency controls and production verification steps.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="Muhammad Mustafa">
     <link rel="canonical" href="https://aisaaswithmustafa.com/blog/nextjs-security-checklist-2026.html">
 
     <!-- Open Graph / Social Meta -->
-    <meta property="og:title" content="Next.js Security Checklist After the July 2026 Release">
-    <meta property="og:description" content="Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.">
+    <meta property="og:title" content="Next.js Security Checklist: Server Actions, CSP & Patching">
+    <meta property="og:description" content="Secure a Next.js application with current patches, Server Action authorization, CSP headers, dependency controls and production verification steps.">
     <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/nextjs-security-checklist-2026.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
     <meta property="og:site_name" content="Muhammad Mustafa">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-07-24T16:28:43.719Z">
-    <meta property="article:modified_time" content="2026-07-24T16:28:43.719Z">
+    <meta property="article:modified_time" content="2026-10-13T00:00:00.000Z">
     <meta property="article:author" content="Muhammad Mustafa">
     <meta property="article:section" content="Security & Compliance">
     <meta property="article:tag" content="Next.js Security">
@@ -39,8 +39,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Next.js Security Checklist After the July 2026 Release">
-    <meta name="twitter:description" content="Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.">
+    <meta name="twitter:title" content="Next.js Security Checklist: Server Actions, CSP & Patching">
+    <meta name="twitter:description" content="Secure a Next.js application with current patches, Server Action authorization, CSP headers, dependency controls and production verification steps.">
     <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/nextjs-security-checklist-2026.jpg">
     <meta name="twitter:image:alt" content="Next.js security checklist showing dependency patching, Server Action authorization, CSP headers, and production verification">
 
@@ -62,16 +62,16 @@
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
             { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
-            { "@type": "ListItem", "position": 3, "name": "Next.js Security Checklist After the July 2026 Release", "item": "https://aisaaswithmustafa.com/blog/nextjs-security-checklist-2026.html" }
+            { "@type": "ListItem", "position": 3, "name": "Next.js Security Checklist: Server Actions, CSP & Patching", "item": "https://aisaaswithmustafa.com/blog/nextjs-security-checklist-2026.html" }
           ]
         },
         {
           "@type": "BlogPosting",
-          "headline": "Next.js Security Checklist After the July 2026 Release",
-          "description": "Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.",
+          "headline": "Next.js Security Checklist: Server Actions, CSP & Patching",
+          "description": "Secure a Next.js application with current patches, Server Action authorization, CSP headers, dependency controls and production verification steps.",
           "image": "https://aisaaswithmustafa.com/blog/images/nextjs-security-checklist-2026.jpg",
           "datePublished": "2026-07-24T16:28:43.719Z",
-          "dateModified": "2026-07-24T16:28:43.719Z",
+          "dateModified": "2026-10-13T00:00:00.000Z",
           "articleSection": "Security & Compliance",
           "keywords": ["Next.js Security","Server Actions","CSP","Web Security","Production"],
           "author": { "@id": "https://aisaaswithmustafa.com/#person" },
@@ -124,13 +124,13 @@
                 <div class="article-shell article-hero-grid">
                     <div class="article-hero-copy">
                         <p class="article-kicker"><span aria-hidden="true"></span>Security & Compliance</p>
-                        <h1 id="article-title">Next.js Security Checklist After the July 2026 Release</h1>
-                        <p class="article-summary">Use this practical Next.js security checklist to patch July 2026 issues, protect Server Actions, enforce authorization, add CSP headers, and verify deployment.</p>
+                        <h1 id="article-title">Next.js Security Checklist: Server Actions, CSP & Patching</h1>
+                        <p class="article-summary">Secure a Next.js application with current patches, Server Action authorization, CSP headers, dependency controls and production verification steps.</p>
                         <div class="article-byline">
                             <img src="../assets/img/logo-2-128.webp" alt="" width="48" height="59" aria-hidden="true" />
                             <div>
                                 <strong>Muhammad Mustafa</strong>
-                                <span>Published <time datetime="2026-07-24T16:28:43.719Z">July 24, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
+                                <span>Published <time datetime="2026-07-24T16:28:43.719Z">July 24, 2026</time> · Updated <time datetime="2026-10-13T00:00:00.000Z">October 13, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
                             </div>
                         </div>
                         <div class="article-topics" aria-label="Article topics">
@@ -197,7 +197,7 @@ export async function updateTeam(formData: FormData) {
                         <div>
                             <p>Written from production experience</p>
                             <h2 id="about-author">Muhammad Mustafa</h2>
-                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 11+ years of experience building production web applications, multi-tenant platforms, secure integrations and AI-powered products.</span>
                             <div class="article-author-links">
                                 <a href="/">View portfolio</a>
                                 <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
@@ -218,7 +218,7 @@ export async function updateTeam(formData: FormData) {
                 <div class="article-related-grid">
                                         <a href="/blog/supabase-rls-multi-role-apps.html" class="article-related-card">
                         <p>Security &amp; Compliance</p>
-                        <h3>Supabase RLS for Multi-Role Apps: What I Learned</h3>
+                        <h3>Supabase RLS for Multi-Role Apps: Policies &amp; Testing</h3>
                         <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
                     <a href="/blog/uae-pass-nextjs-nodejs-integration.html" class="article-related-card">
