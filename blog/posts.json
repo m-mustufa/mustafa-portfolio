@@ -266,8 +266,8 @@
   },
   {
     "slug": "adhics-v2-healthcare-saas-abu-dhabi",
-    "title": "ADHICS V2 Standard: Abu Dhabi Healthcare SaaS Guide",
-    "metaDescription": "Understand the ADHICS V2 standard for Abu Dhabi healthcare SaaS, including scope, cloud controls, audit evidence, implementation steps and official PDFs.",
+    "title": "ADHICS V2 Standard PDF & Implementation Checklist",
+    "metaDescription": "Use this ADHICS V2 implementation checklist for Abu Dhabi healthcare SaaS, covering the official PDF, scope, cloud controls, audit evidence and readiness.",
     "heroImageAlt": "ADHICS V2 healthcare SaaS security architecture protecting Abu Dhabi patient data with access controls, encryption, audit logs and incident response",
     "publishDate": "August 22, 2026",
     "publishDateIso": "2026-08-22T16:53:23.960Z",
@@ -276,9 +276,9 @@
     "category": "Security & Compliance",
     "tags": [
       "ADHICS V2",
+      "ADHICS Standard",
+      "ADHICS Audit",
       "Healthcare SaaS",
-      "Cybersecurity",
-      "Patient Data",
       "Abu Dhabi"
     ],
     "relatedSlugs": [
@@ -354,7 +354,7 @@
     "relatedSlugs": [
       "nextjs-security-checklist-2026",
       "uae-pdpl-compliance-saas",
-      "supabase-rls-multi-role-apps"
+      "adhics-v2-healthcare-saas-abu-dhabi"
     ],
     "modifiedDateIso": "2026-10-12T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
@@ -401,7 +401,7 @@
     "relatedSlugs": [
       "supabase-rls-multi-role-apps",
       "uae-pass-nextjs-nodejs-integration",
-      "offline-first-react-pwa-tanstack-query"
+      "adhics-v2-healthcare-saas-abu-dhabi"
     ]
   },
   {
