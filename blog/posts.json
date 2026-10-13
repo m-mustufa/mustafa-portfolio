@@ -22,7 +22,7 @@
       "openai-agents-api-saas-production-guide",
       "agentic-ai-uae-businesses-production-guide"
     ],
-    "serviceLandingPage": ""
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "mcp-server-security-uae-ai-saas",
@@ -147,7 +147,7 @@
       "nextjs-security-checklist-2026"
     ],
     "modifiedDateIso": "2026-10-12T00:00:00.000Z",
-    "serviceLandingPage": "/full-stack-developer-uae.html"
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "ai-job-application-agent-human-review",
@@ -172,7 +172,7 @@
       "hire-full-stack-developer-uae-guide",
       "nextjs-security-checklist-2026"
     ],
-    "serviceLandingPage": "/full-stack-developer-uae.html"
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "stripe-fraud-prevention-ai-saas",
@@ -197,7 +197,7 @@
       "stripe-webhooks-nextjs-saas-idempotency",
       "nextjs-security-checklist-2026"
     ],
-    "serviceLandingPage": "/full-stack-developer-uae.html"
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "openai-agents-api-saas-production-guide",
@@ -222,7 +222,7 @@
       "arabic-ai-chatbot-abu-dhabi",
       "nextjs-security-checklist-2026"
     ],
-    "serviceLandingPage": "/full-stack-developer-uae.html"
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "hire-full-stack-developer-uae-guide",
@@ -414,7 +414,8 @@
       "supabase-rls-multi-role-apps",
       "uae-pass-nextjs-nodejs-integration",
       "adhics-v2-healthcare-saas-abu-dhabi"
-    ]
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "offline-first-react-pwa-tanstack-query",
@@ -437,7 +438,8 @@
       "nextjs-security-checklist-2026",
       "supabase-rls-multi-role-apps",
       "extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization"
-    ]
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization",
@@ -483,7 +485,8 @@
       "uae-pdpl-compliance-saas",
       "nextjs-security-checklist-2026",
       "stripe-per-seat-billing-multi-tenant-saas"
-    ]
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "stripe-per-seat-billing-multi-tenant-saas",
@@ -506,6 +509,7 @@
       "supabase-rls-multi-role-apps",
       "stripe-webhooks-nextjs-saas-idempotency",
       "nextjs-security-checklist-2026"
-    ]
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
   }
 ]

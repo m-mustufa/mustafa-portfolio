@@ -3732,6 +3732,24 @@ img.up-img {
     transform: translateX(3px);
 }
 
+.contact-form-footer button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+    transform: none;
+    box-shadow: none;
+}
+
+.contact-form-status {
+    min-height: 1.25rem;
+    margin: 0.75rem 0 0;
+    color: #9fb4c4;
+    font-size: 0.78rem;
+}
+
+.contact-form-status.is-error {
+    color: #fca5a5;
+}
+
 .contact-upwork-card {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(32rem, 1.2fr);

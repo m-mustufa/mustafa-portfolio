@@ -5,6 +5,7 @@ https://mustcode.netlify.app/* https://aisaaswithmustafa.com/:splat 301!
 # aliases as 200 pages, which splits Google's indexing signals.
 /portfolio /portfolio.html 301!
 /profile /profile.html 301!
+/ai-saas-development-services /ai-saas-development-services.html 301!
 /full-stack-developer-uae /full-stack-developer-uae.html 301!
 /thanks /thanks.html 301!
 
