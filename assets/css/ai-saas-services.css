@@ -85,19 +85,24 @@
 }
 
 .ai-service-portrait {
-    width: 8.25rem;
-    height: 10.3125rem;
-    border: 1px solid rgba(45, 212, 191, 0.42);
-    border-radius: 1.25rem;
+    width: 12.375rem;
+    height: 15.46875rem;
+    max-width: 72vw;
+    border: 0;
+    border-radius: 2.5rem;
     object-fit: cover;
     object-position: center 34%;
-    box-shadow: 0 18px 40px rgba(0, 8, 18, 0.38), 0 0 28px rgba(45, 212, 191, 0.11);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    opacity: 0.94;
+    filter: saturate(0.86) contrast(0.96) brightness(0.94) drop-shadow(0 18px 28px rgba(0, 8, 18, 0.28));
+    -webkit-mask-image: radial-gradient(ellipse 76% 82% at 50% 43%, #000 50%, rgba(0, 0, 0, 0.96) 64%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
+    mask-image: radial-gradient(ellipse 76% 82% at 50% 43%, #000 50%, rgba(0, 0, 0, 0.96) 64%, rgba(0, 0, 0, 0.5) 80%, transparent 100%);
+    transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
 }
 
 .ai-service-hero-card:hover .ai-service-portrait {
     transform: translateY(-2px) scale(1.015);
-    box-shadow: 0 22px 48px rgba(0, 8, 18, 0.44), 0 0 34px rgba(45, 212, 191, 0.16);
+    opacity: 1;
+    filter: saturate(0.92) contrast(0.98) brightness(0.98) drop-shadow(0 22px 34px rgba(0, 8, 18, 0.34));
 }
 
 .ai-service-section-nav {
