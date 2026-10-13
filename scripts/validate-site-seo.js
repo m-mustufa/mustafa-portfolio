@@ -84,7 +84,13 @@ for (const page of pages) {
   }
 }
 
-for (const landingFile of ["full-stack-developer-uae.html", "ai-saas-development-services.html"]) {
+const serviceLandingPages = [
+  { file: "full-stack-developer-uae.html", analyticsName: "uae-full-stack-development" },
+  { file: "ai-saas-development-services.html", analyticsName: "ai-saas-development" },
+];
+
+for (const landingPage of serviceLandingPages) {
+  const landingFile = landingPage.file;
   const landingHtml = fs.readFileSync(path.join(ROOT, landingFile), "utf8");
   if (/"@type":\s*"LocalBusiness"/.test(landingHtml)) {
     errors.push(`${landingFile}: must not claim LocalBusiness without a verified physical business location`);
@@ -92,6 +98,29 @@ for (const landingFile of ["full-stack-developer-uae.html", "ai-saas-development
   if (!/"@type":\s*"Service"/.test(landingHtml) || !/"@type":\s*"FAQPage"/.test(landingHtml)) {
     errors.push(`${landingFile}: Service or FAQPage structured data is missing`);
   }
+  if (!landingHtml.includes(`data-service-page="${landingPage.analyticsName}"`)) {
+    errors.push(`${landingFile}: service-page analytics identity is missing`);
+  }
+  if (countMatches(landingHtml, /data-service-cta=/g) !== 4) {
+    errors.push(`${landingFile}: expected four tracked service CTAs`);
+  }
+  if (!landingHtml.includes('data-service-cta="contact" data-cta-location="header"')) {
+    errors.push(`${landingFile}: header contact CTA tracking is missing`);
+  }
+  if (!landingHtml.includes('data-service-cta="contact" data-cta-location="hero"')) {
+    errors.push(`${landingFile}: hero contact CTA tracking is missing`);
+  }
+  if (!landingHtml.includes('data-service-cta="contact" data-cta-location="final"')) {
+    errors.push(`${landingFile}: final contact CTA tracking is missing`);
+  }
+  if (!landingHtml.includes('data-service-cta="book_call" data-cta-location="final"')) {
+    errors.push(`${landingFile}: final booking CTA tracking is missing`);
+  }
+}
+
+const analyticsScript = fs.readFileSync(path.join(ROOT, "assets/js/style.js"), "utf8");
+if (!analyticsScript.includes('track("service_cta_click"')) {
+  errors.push("assets/js/style.js: service CTA event tracking is missing");
 }
 
 const homeHtml = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");

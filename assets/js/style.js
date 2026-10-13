@@ -850,6 +850,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!(target instanceof HTMLAnchorElement)) return;
     const href = target.href || "";
 
+    const serviceCtaAction = target.dataset.serviceCta;
+    if (serviceCtaAction) {
+      track("service_cta_click", {
+        service_page: document.body.dataset.servicePage || "unknown",
+        cta_action: serviceCtaAction,
+        cta_location: target.dataset.ctaLocation || "unknown",
+        link_text: (target.textContent || "").trim().slice(0, 80)
+      });
+    }
+
     if (target.hasAttribute("download")) {
       track("file_download", {
         file_name: href.split("/").pop() || "download",
