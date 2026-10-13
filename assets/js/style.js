@@ -57,6 +57,126 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  if (document.body.classList.contains("blog-post-page")) {
+    const article = document.querySelector(".article-prose");
+    const tocLinks = Array.from(document.querySelectorAll('.article-toc a[href^="#"]'));
+
+    if (article) {
+      const progress = document.createElement("div");
+      progress.className = "article-reading-progress";
+      progress.setAttribute("role", "progressbar");
+      progress.setAttribute("aria-label", "Article reading progress");
+      progress.setAttribute("aria-valuemin", "0");
+      progress.setAttribute("aria-valuemax", "100");
+      progress.setAttribute("aria-valuenow", "0");
+      progress.innerHTML = '<span aria-hidden="true"></span>';
+      document.body.appendChild(progress);
+
+      const tocSections = tocLinks
+        .map((link) => {
+          const targetId = decodeURIComponent(link.getAttribute("href").slice(1));
+          return { link, section: document.getElementById(targetId) };
+        })
+        .filter((item) => item.section);
+
+      let readingFrame = 0;
+      const updateReadingState = () => {
+        readingFrame = 0;
+        const viewportAnchor = window.scrollY + Math.min(window.innerHeight * 0.3, 220);
+        const articleStart = article.getBoundingClientRect().top + window.scrollY;
+        const articleEnd = articleStart + article.offsetHeight - Math.max(window.innerHeight * 0.55, 320);
+        const readingRange = Math.max(articleEnd - articleStart, 1);
+        const readingPercent = Math.round(Math.min(1, Math.max(0, (viewportAnchor - articleStart) / readingRange)) * 100);
+
+        progress.style.setProperty("--reading-progress", `${readingPercent}%`);
+        progress.setAttribute("aria-valuenow", String(readingPercent));
+
+        const tocAnchor = Math.min(window.innerHeight * 0.42, 340);
+        let activeItem = null;
+        tocSections.forEach((item) => {
+          const sectionTop = item.section.getBoundingClientRect().top;
+          if (sectionTop <= tocAnchor) activeItem = item;
+        });
+
+        tocSections.forEach((item) => {
+          const isActive = item === activeItem;
+          item.link.classList.toggle("is-active", isActive);
+          if (isActive) item.link.setAttribute("aria-current", "location");
+          else item.link.removeAttribute("aria-current");
+        });
+      };
+
+      const requestReadingUpdate = () => {
+        if (readingFrame) return;
+        readingFrame = window.requestAnimationFrame(updateReadingState);
+      };
+
+      updateReadingState();
+      window.addEventListener("scroll", requestReadingUpdate, { passive: true });
+      window.addEventListener("resize", requestReadingUpdate);
+
+      article.querySelectorAll("pre").forEach((pre) => {
+        const code = pre.querySelector("code");
+        if (!code || pre.closest(".article-code-shell")) return;
+
+        const shell = document.createElement("div");
+        shell.className = "article-code-shell";
+        pre.parentNode.insertBefore(shell, pre);
+        shell.appendChild(pre);
+
+        const copyButton = document.createElement("button");
+        copyButton.className = "article-copy-code";
+        copyButton.type = "button";
+        copyButton.textContent = "Copy code";
+        copyButton.setAttribute("aria-label", "Copy code snippet");
+        copyButton.setAttribute("aria-live", "polite");
+        shell.appendChild(copyButton);
+
+        copyButton.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(code.innerText);
+            copyButton.textContent = "Copied";
+            copyButton.classList.add("is-copied");
+          } catch (error) {
+            copyButton.textContent = "Copy failed";
+          }
+
+          window.setTimeout(() => {
+            copyButton.textContent = "Copy code";
+            copyButton.classList.remove("is-copied");
+          }, 1800);
+        });
+      });
+
+      const revealTargets = document.querySelectorAll([
+        ".article-experience-note",
+        ".article-inline-figure",
+        ".article-prose blockquote",
+        ".article-prose table",
+        ".article-service-cta",
+        ".article-author",
+        ".article-related-card"
+      ].join(","));
+
+      if (!reducedMotion && "IntersectionObserver" in window) {
+        document.body.classList.add("has-article-reveals");
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          });
+        }, { rootMargin: "0px 0px -10%", threshold: 0.08 });
+
+        revealTargets.forEach((target, index) => {
+          target.classList.add("article-reveal");
+          target.style.setProperty("--article-reveal-delay", `${Math.min(index % 3, 2) * 70}ms`);
+          revealObserver.observe(target);
+        });
+      }
+    }
+  }
+
   const hero = document.querySelector(".hero-shell");
   const scene = document.getElementById("heroScene");
 
