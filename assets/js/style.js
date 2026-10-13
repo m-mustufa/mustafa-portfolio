@@ -26,7 +26,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const scrollTopButton = document.getElementById("scrollToTop");
+  let scrollTopButton = document.getElementById("scrollToTop");
+  const isBlogPage = document.body.classList.contains("blog-page")
+    || document.body.classList.contains("blog-post-page");
+
+  if (!scrollTopButton && isBlogPage) {
+    scrollTopButton = document.createElement("button");
+    scrollTopButton.id = "scrollToTop";
+    scrollTopButton.className = "scroll-to-top";
+    scrollTopButton.type = "button";
+    scrollTopButton.setAttribute("aria-label", "Scroll back to top");
+    scrollTopButton.title = "Back to top";
+    scrollTopButton.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 15l6-6 6 6" />
+      </svg>
+    `;
+    document.body.appendChild(scrollTopButton);
+  }
 
   if (scrollTopButton) {
     const updateScrollTopButton = () => {
