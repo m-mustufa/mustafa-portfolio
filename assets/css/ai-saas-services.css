@@ -84,6 +84,22 @@
     animation: ai-service-shimmer 7s 1.4s ease-in-out infinite;
 }
 
+.ai-service-portrait {
+    width: 8.25rem;
+    height: 10.3125rem;
+    border: 1px solid rgba(45, 212, 191, 0.42);
+    border-radius: 1.25rem;
+    object-fit: cover;
+    object-position: center 34%;
+    box-shadow: 0 18px 40px rgba(0, 8, 18, 0.38), 0 0 28px rgba(45, 212, 191, 0.11);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.ai-service-hero-card:hover .ai-service-portrait {
+    transform: translateY(-2px) scale(1.015);
+    box-shadow: 0 22px 48px rgba(0, 8, 18, 0.44), 0 0 34px rgba(45, 212, 191, 0.16);
+}
+
 .ai-service-section-nav {
     animation: ai-service-rise 0.7s 0.52s ease-out both;
 }
