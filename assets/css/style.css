@@ -4820,6 +4820,16 @@ img.up-img {
     object-fit: contain;
 }
 
+.article-byline img.article-author-photo {
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgba(82, 212, 217, 0.5);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 24%;
+    box-shadow: 0 8px 24px rgba(0, 7, 16, 0.32);
+}
+
 .article-byline div {
     display: grid;
     gap: 0.2rem;
@@ -5090,6 +5100,54 @@ img.up-img {
     color: #d4e1e5;
 }
 
+.article-experience-note {
+    margin: 2rem 0;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid rgba(82, 212, 217, 0.28);
+    border-left: 4px solid #52d4d9;
+    border-radius: 0.85rem;
+    background: linear-gradient(135deg, rgba(22, 74, 86, 0.28), rgba(7, 25, 38, 0.72));
+}
+
+.article-experience-note strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: #72e3e5;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.article-experience-note p {
+    margin: 0;
+    color: #d5e2e7;
+    font-size: 0.94rem;
+    line-height: 1.72;
+}
+
+.article-inline-figure {
+    overflow: hidden;
+    margin: 2.25rem 0;
+    border: 1px solid rgba(94, 185, 194, 0.26);
+    border-radius: 1rem;
+    background: #061321;
+    box-shadow: 0 22px 55px rgba(0, 7, 16, 0.26);
+}
+
+.article-inline-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.article-inline-figure figcaption {
+    padding: 0.85rem 1rem;
+    border-top: 1px solid rgba(94, 185, 194, 0.18);
+    color: #92aab8;
+    font-size: 0.76rem;
+    line-height: 1.55;
+}
+
 .article-prose.prose pre {
     overflow-x: auto;
     border: 1px solid rgba(101, 157, 178, 0.22);
@@ -5192,6 +5250,16 @@ img.up-img {
     flex: none;
 }
 
+.article-author > img.article-author-photo {
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid rgba(82, 212, 217, 0.42);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 22%;
+    box-shadow: 0 12px 30px rgba(0, 7, 16, 0.32);
+}
+
 .article-author h2 {
     margin-top: 0.22rem;
     color: #f1f6f7;
@@ -5212,6 +5280,23 @@ img.up-img {
     flex-wrap: wrap;
     gap: 1.25rem;
     margin-top: 0.75rem;
+}
+
+.article-author-credentials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+}
+
+.article-author-credentials span {
+    padding: 0.32rem 0.55rem;
+    border: 1px solid rgba(82, 212, 217, 0.22);
+    border-radius: 999px;
+    background: rgba(48, 182, 188, 0.07);
+    color: #bdd6dd;
+    font-size: 0.66rem;
+    font-weight: 750;
 }
 
 .article-author-links a {
