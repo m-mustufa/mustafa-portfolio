@@ -114,6 +114,10 @@ document.addEventListener("DOMContentLoaded", () => {
       updateReadingState();
       window.addEventListener("scroll", requestReadingUpdate, { passive: true });
       window.addEventListener("resize", requestReadingUpdate);
+      window.addEventListener("hashchange", requestReadingUpdate);
+      window.addEventListener("pageshow", requestReadingUpdate);
+      window.addEventListener("load", requestReadingUpdate, { once: true });
+      window.setTimeout(requestReadingUpdate, 600);
 
       article.querySelectorAll("pre").forEach((pre) => {
         const code = pre.querySelector("code");
