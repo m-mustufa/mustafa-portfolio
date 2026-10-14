@@ -148,21 +148,17 @@ function renderPostPage({ template, post, contentHtml, posts }) {
   const category = post.category || "SaaS Engineering";
   const tags = normaliseTags(post);
   const modifiedDateIso = post.modifiedDateIso || post.publishDateIso;
+  const effectivePublishDateIso = modifiedDateIso;
+  const effectivePublishDate = formatIsoDate(effectivePublishDateIso);
   const { contentHtml: enhancedContent, tocHtml } = addHeadingIdsAndBuildToc(contentHtml);
   const relatedPosts = selectRelatedPosts(post, posts);
-  const isUpdated = new Date(modifiedDateIso).getTime() > new Date(post.publishDateIso).getTime();
-  const updatedDateHtml = isUpdated
-    ? ` · Updated <time datetime="${escapeHtml(modifiedDateIso)}">${escapeHtml(formatIsoDate(modifiedDateIso))}</time>`
-    : "";
-
   const replacements = {
     "{{TITLE}}": post.title,
     "{{META_DESCRIPTION}}": post.metaDescription,
     "{{SLUG}}": post.slug,
-    "{{PUBLISH_DATE_ISO}}": post.publishDateIso,
+    "{{PUBLISH_DATE_ISO}}": effectivePublishDateIso,
     "{{MODIFIED_DATE_ISO}}": modifiedDateIso,
-    "{{PUBLISH_DATE}}": post.publishDate,
-    "{{UPDATED_DATE_HTML}}": updatedDateHtml,
+    "{{PUBLISH_DATE}}": effectivePublishDate,
     "{{READING_TIME}}": String(post.readingTime),
     "{{HERO_IMAGE_FILENAME}}": post.heroImageFile || `${post.slug}.jpg`,
     "{{HERO_IMAGE_ALT}}": post.heroImageAlt || post.title,

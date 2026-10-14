@@ -47,6 +47,25 @@ npm run build:css  # rebuild assets/css/tailwind.css after ANY class change in t
   - Never fabricate stats/quotes/incidents; describing real general technical experience is fine, inventing specific unverifiable claims is not
 - **Topic sourcing**: user explicitly rejected both free trend-scraping (fragile, no official free API) and generic AI topic-chasing. Current approach: do a real web search (`WebSearch` tool) on the chosen technical topic to ground the post in current, accurate information — not just written from training-data memory — with topics chosen from the user's real project stack (CultureAI, BWL League, Apex Logistics, AutoLeap, StartStorez tech). User floated paying for Ahrefs API access for real keyword-volume validation later — not set up, would need user to confirm their plan includes API credits (it's a separate paid add-on from a normal seat) before building against it.
 
+### Blog content enhancement rules (agreed 2026-10-15)
+
+Apply these rules to every new post and to existing posts selected for a meaningful refresh. Do not force the same visual element into every article or make superficial daily edits merely to change its date.
+
+- Match the content format to search intent:
+  - comparison / "vs" posts should include a concise comparison table near the definitions when it helps the reader decide;
+  - how-to posts should use ordered steps and show prerequisites, verification and failure handling;
+  - checklist posts should use a scannable checklist with clear pass/fail or decision criteria;
+  - case studies should separate the problem, constraints, implementation, trade-offs and outcome.
+- Tables are editorial tools, not mandatory SEO decoration. When used, give them useful column headings, accessible table markup and a mobile-safe presentation.
+- Build topic clusters deliberately. Each post should link contextually to its relevant service/hub page and to 2-4 genuinely related articles where useful. Important spoke articles should also link back to the hub or parent guide.
+- Internal-link anchor text must be concise and descriptive of the destination. Avoid standalone generic anchors such as "click here" or "read more." A related-article card is acceptable when the entire card link contains the descriptive article title.
+- Preserve information gain: include first-hand project experience, concrete architecture or implementation decisions, original examples, and honest trade-offs. Do not publish a post that merely paraphrases competing articles.
+- Use current, authoritative primary sources for technical, legal, security and platform claims. Verify time-sensitive facts before drafting or refreshing a post.
+- Default structured data remains `BlogPosting`/`Article`, `Person` and `BreadcrumbList`. Do not add `FAQPage` schema merely to chase rankings or rich results. Add visible FAQ content only when it genuinely helps readers, and add FAQ markup only when the page and current Google eligibility rules support it.
+- Refresh existing posts selectively using evidence: Google Search Console impressions, clicks, CTR, query relevance, ranking position, content staleness or a clear missing section. Prioritize pages already receiving relevant impressions. Do not bulk-add keywords, tables, images or FAQs to every post.
+- Change the visible latest `Published` date only after a substantial content improvement, not for spelling fixes, formatting changes or SEO date freshness alone.
+- For each refresh, record the reason and improve at least one substantive area: accuracy, missing intent, original experience, comparison/decision support, examples, internal links, visuals or conversion path.
+
 ### Built and verified (first real post published as of 2026-07-16)
 - `blog/_template.html` — reusable post template. **Uses relative asset/image paths on purpose** (`../assets/...`, `images/{{SLUG}}.jpg`), not root-relative — this lets the user open a draft post directly via `file://` (double-click) and see it fully styled, which is how they've been reviewing drafts. Do not "fix" this back to root-relative; it was deliberately changed after the user hit a broken-styling issue from double-clicking a file.
 - `blog/index.html` — the listing page. **Must stay root-relative** (`/assets/...`, `/blog/images/...`) — unlike individual posts, this page previously broke via a static-server clean-URL redirect quirk (`/blog/index.html` → `/blog`) that mangles relative path resolution. Don't unify these two pages onto the same path style; they need different ones for different reasons.

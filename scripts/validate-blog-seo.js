@@ -31,6 +31,10 @@ for (const post of posts) {
     [countMatches(html, /<main[\s>]/gi) === 1, "must contain exactly one main landmark"],
     [html.includes('aria-labelledby="table-of-contents"'), "table of contents is missing"],
     [html.includes('id="about-author"'), "author section is missing"],
+    [html.includes('../assets/img/muhammad-mustafa-ai-saas-developer.webp'), "real author photo is missing"],
+    [!html.includes('../assets/img/logo-2-200.webp'), "author card still uses the mascot avatar"],
+    [!html.includes('· Updated <time'), "visible metadata still shows a separate updated date"],
+    [html.includes('"@type": "Person"'), "Person structured data is missing"],
     [html.includes('id="related-articles"'), "related articles section is missing"],
     [html.includes(`property="og:image" content="${expectedImage}"`), "Open Graph image is not the post hero"],
     [html.includes(`name="twitter:image" content="${expectedImage}"`), "Twitter image is not the post hero"],
@@ -53,6 +57,7 @@ for (const post of posts) {
       const data = JSON.parse(match[1]);
       const article = data["@graph"]?.find((entry) => entry["@type"] === "BlogPosting");
       if (!article?.dateModified) errors.push(`${relativePath}: BlogPosting dateModified is missing`);
+      if (article?.datePublished !== article?.dateModified) errors.push(`${relativePath}: published and modified dates must match the visible republished date`);
       if (!Array.isArray(article?.keywords) || !article.keywords.length) errors.push(`${relativePath}: BlogPosting keywords are missing`);
     } catch (error) {
       errors.push(`${relativePath}: invalid JSON-LD (${error.message})`);
