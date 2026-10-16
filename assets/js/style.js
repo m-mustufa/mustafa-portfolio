@@ -26,6 +26,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const delayedAutoplayVideos = document.querySelectorAll("video[data-autoplay-after-load]");
+
+  delayedAutoplayVideos.forEach((video) => {
+    let playbackStarted = false;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.addEventListener("ended", () => {
+      playbackStarted = false;
+      video.load();
+    });
+
+    const startPlayback = () => {
+      video.play()
+        .then(() => { playbackStarted = true; })
+        .catch(() => {
+          // Browser autoplay policies can still block playback. Native controls remain available.
+        });
+    };
+
+    const playWhenReady = () => {
+      if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+        startPlayback();
+        return;
+      }
+
+      video.addEventListener("canplay", startPlayback, { once: true });
+    };
+
+    if (document.readyState === "complete") playWhenReady();
+    else window.addEventListener("load", playWhenReady, { once: true });
+
+    if (video.hasAttribute("data-pause-outside-viewport") && "IntersectionObserver" in window) {
+      const visibilityObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!playbackStarted) return;
+          if (!entry.isIntersecting) video.pause();
+          else if (video.paused && video.currentTime > 0 && !video.ended) startPlayback();
+        });
+      }, { threshold: 0.18 });
+      visibilityObserver.observe(video);
+    }
+  });
+
   let scrollTopButton = document.getElementById("scrollToTop");
   const isBlogPage = document.body.classList.contains("blog-page")
     || document.body.classList.contains("blog-post-page");

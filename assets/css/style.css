@@ -4914,11 +4914,25 @@ img.up-img {
     pointer-events: none;
 }
 
-.article-hero-visual img {
+.article-hero-visual img,
+.article-hero-visual video {
     display: block;
     width: 100%;
     aspect-ratio: 16 / 9;
+    margin: 0;
+    background: #030b13;
     object-fit: cover;
+}
+
+.article-hero-visual-video::after {
+    display: none;
+}
+
+.article-hero-visual.article-hero-visual-video figcaption {
+    position: static;
+    padding: 0.8rem 1rem;
+    border-top: 1px solid rgba(94, 185, 194, 0.18);
+    background: rgba(4, 16, 27, 0.96);
 }
 
 .article-hero-visual figcaption {
