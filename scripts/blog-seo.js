@@ -144,6 +144,21 @@ function formatIsoDate(isoDate) {
   return new Date(isoDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
+function buildHeroMedia(post) {
+  const imageFile = post.heroImageFile || `${post.slug}.jpg`;
+  const imageAlt = post.heroImageAlt || post.title;
+
+  if (!post.heroVideoFile) {
+    return `<img src="images/${escapeHtml(imageFile)}" alt="${escapeHtml(imageAlt)}" width="1200" height="675" loading="eager" />`;
+  }
+
+  const videoAlt = post.heroVideoAlt || imageAlt;
+  return `<video class="article-hero-video" data-autoplay-after-load data-pause-outside-viewport muted playsinline controls preload="auto" poster="images/${escapeHtml(imageFile)}" width="1200" height="675" aria-label="${escapeHtml(videoAlt)}">
+                            <source src="../assets/videos/${escapeHtml(post.heroVideoFile)}" type="video/mp4">
+                            Your browser does not support embedded MP4 video.
+                        </video>`;
+}
+
 function renderPostPage({ template, post, contentHtml, posts }) {
   const category = post.category || "SaaS Engineering";
   const tags = normaliseTags(post);
@@ -162,6 +177,8 @@ function renderPostPage({ template, post, contentHtml, posts }) {
     "{{READING_TIME}}": String(post.readingTime),
     "{{HERO_IMAGE_FILENAME}}": post.heroImageFile || `${post.slug}.jpg`,
     "{{HERO_IMAGE_ALT}}": post.heroImageAlt || post.title,
+    "{{HERO_MEDIA}}": buildHeroMedia(post),
+    "{{HERO_VISUAL_CLASS}}": post.heroVideoFile ? " article-hero-visual-video" : "",
     "{{CATEGORY}}": category,
     "{{ARTICLE_TAG_META}}": buildTagMeta(tags),
     "{{SCHEMA_KEYWORDS}}": JSON.stringify(tags),

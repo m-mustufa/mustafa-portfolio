@@ -1,5 +1,31 @@
 [
   {
+    "slug": "tesla-roadster-web-application-performance",
+    "title": "Tesla Roadster and Web Application Performance Optimization",
+    "metaDescription": "Tesla Roadster lessons for web application performance optimization, API timeout handling, payment idempotency, Core Web Vitals and scalable SaaS.",
+    "heroImageFile": "tesla-roadster-web-application-performance.jpg",
+    "heroImageAlt": "Tesla Roadster inspired comparison between acceleration and reliable web application performance",
+    "heroVideoFile": "tesla-roadster-software-performance-reliable-web-development-muhammad-mustafa.mp4",
+    "heroVideoAlt": "Tesla Roadster inspired video about reliable web application performance",
+    "publishDate": "October 16, 2026",
+    "publishDateIso": "2026-10-16T15:38:07.310Z",
+    "readingTime": 10,
+    "category": "Software Engineering",
+    "tags": [
+      "Web Application Performance",
+      "Performance Optimization",
+      "Software Performance Engineering",
+      "Scalable Web Applications",
+      "Tesla Roadster"
+    ],
+    "relatedSlugs": [
+      "stripe-webhooks-nextjs-saas-idempotency",
+      "offline-first-react-pwa-tanstack-query",
+      "nextjs-security-checklist-2026"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
+  },
+  {
     "slug": "secure-agentic-ai-uae-workflows-2026",
     "title": "How Can UAE Businesses Build Secure Agentic AI Applications and Automate Business Workflows in 2026?",
     "metaDescription": "Learn how UAE businesses can build secure agentic AI applications with bounded workflows, human approval, privacy controls and reliable automation.",
