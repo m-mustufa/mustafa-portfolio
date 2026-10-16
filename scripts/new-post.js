@@ -195,6 +195,10 @@ if (!args.data) {
 }
 
 const post = JSON.parse(fs.readFileSync(path.resolve(args.data), "utf8"));
+if (JSON.stringify(post).includes("—")) {
+  console.error("Blog drafts must not contain em dashes (—). Rewrite them with standard punctuation before rendering.");
+  process.exit(1);
+}
 if (!post.title || !post.metaDescription || !post.contentHtml) {
   console.error("post.json must include at least: title, metaDescription, contentHtml");
   process.exit(1);
