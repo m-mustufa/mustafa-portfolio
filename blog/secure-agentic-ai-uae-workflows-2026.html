@@ -175,6 +175,7 @@
                     <li><a href="#engineer-for-retries-duplicates-and-partial-failure">Engineer for retries, duplicates and partial failure</a></li>
                     <li><a href="#test-the-path-not-only-the-final-answer">Test the path, not only the final answer</a></li>
                     <li><a href="#roll-out-automation-in-controlled-stages">Roll out automation in controlled stages</a></li>
+                    <li><a href="#secure-agentic-ai-faq">Secure agentic AI FAQ</a></li>
                     <li><a href="#final-takeaway">Final takeaway</a></li>
                 </ol>
             </nav>
@@ -230,7 +231,7 @@
 <p>The official <a href="https://uaelegislation.gov.ae/en/legislations/1972/download">UAE Personal Data Protection Law</a> should be reviewed with qualified legal or compliance advisers for the organisation's exact circumstances. A technical checklist is useful, but it is not a substitute for legal assessment.</p>
 <h2 class="scroll-mt-28" id="defend-tools-from-prompt-injection">Defend tools from prompt injection</h2>
 <p>Agentic systems often read untrusted content such as customer emails, uploaded documents, web pages or support tickets. That content can contain instructions designed to manipulate the model. A malicious document may tell the agent to ignore its rules, reveal private data or call a sensitive tool.</p>
-<p>Untrusted content should be treated as data, not as authority. The application can reduce risk by extracting limited structured fields, separating instructions from retrieved content and requiring strict schemas for tool arguments. Tool permissions should be enforced using the authenticated user's identity and tenant—not values invented by the model.</p>
+<p>Untrusted content should be treated as data, not as authority. The application can reduce risk by extracting limited structured fields, separating instructions from retrieved content and requiring strict schemas for tool arguments. Tool permissions should be enforced using the authenticated user's identity and tenant, not values invented by the model.</p>
 <p>OpenAI's current <a href="https://developers.openai.com/api/docs/guides/agent-builder-safety">agent safety guidance</a> recommends layered guardrails, tool approvals and evaluations rather than relying on a single prompt. OWASP's <a href="https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/">Agentic AI threats and mitigations</a> also provides a useful threat-model reference for teams assessing autonomous behaviour and tool misuse.</p>
 <h2 class="scroll-mt-28" id="engineer-for-retries-duplicates-and-partial-failure">Engineer for retries, duplicates and partial failure</h2>
 <p>Business workflow automation must remain reliable when APIs time out or a task restarts. An agent may repeat the same action after a network failure, even when the first request succeeded. Without protection, this can create duplicate tickets, repeated emails or multiple financial operations.</p>
@@ -244,6 +245,17 @@
 <h2 class="scroll-mt-28" id="roll-out-automation-in-controlled-stages">Roll out automation in controlled stages</h2>
 <p>A secure rollout can begin in observation mode. The agent analyses a task and recommends an action, but cannot change anything. After its recommendations perform reliably, the business can allow it to create drafts. Low-risk, reversible actions may then be automated, while higher-risk actions continue to require approval.</p>
 <p>A disciplined <a href="https://aisaaswithmustafa.com/blog/openai-agents-api-saas-production-guide.html">custom application development</a> process should include threat modelling, privacy review, evaluation datasets, pilot users and a rollback plan before wider deployment. The team should expand autonomy based on evidence from real runs, not because a demonstration appeared convincing.</p>
+<h2 class="scroll-mt-28" id="secure-agentic-ai-faq">Secure agentic AI FAQ</h2>
+<h3>What is the safest first agentic AI workflow for a UAE business?</h3>
+<p>Start with one bounded, low-risk workflow with clear inputs, approved tools and a measurable result. Drafting a reply is safer than changing records automatically.</p>
+<h3>Does every agent action require human approval?</h3>
+<p>Approval should match the risk. Read-only searches and drafts may run after testing. Customer communication, payments, record changes and access changes should require a person.</p>
+<h3>How should an AI agent protect UAE customer data?</h3>
+<p>Collect only required data, redact sensitive fields, enforce tenant isolation, define retention, review providers and obtain advice about applicable UAE privacy requirements.</p>
+<h3>How can prompt injection be stopped from triggering business tools?</h3>
+<p>Treat external content as untrusted data. Authenticate users, validate arguments, enforce tool allowlists, require approval for sensitive actions and test cross-tenant attacks.</p>
+<h3>What should be tested before an agentic AI production launch?</h3>
+<p>Test normal tasks, missing data, denied approvals, malicious input, duplicates and outages. Verify limits, audit logs, safe retries, rollback and human escalation.</p>
 <h2 class="scroll-mt-28" id="final-takeaway">Final takeaway</h2>
 <p>UAE businesses can gain real value from agentic AI in 2026, but safe automation requires more than connecting a model to company software. The strongest systems use bounded workflows, server-enforced permissions, carefully scoped tools, human approval, privacy controls, durable state and detailed evaluations.</p>
 <p>Start with one workflow where success can be measured. Keep the application in control, treat all external content as untrusted and give the agent only the access required for that task. Once the system proves reliable under real operating conditions, its responsibilities can grow without turning business automation into an uncontrolled security risk.</p>
