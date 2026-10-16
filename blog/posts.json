@@ -1,5 +1,29 @@
 [
   {
+    "slug": "secure-agentic-ai-uae-workflows-2026",
+    "title": "How Can UAE Businesses Build Secure Agentic AI Applications and Automate Business Workflows in 2026?",
+    "metaDescription": "Learn how UAE businesses can build secure agentic AI applications with bounded workflows, human approval, privacy controls and reliable automation.",
+    "heroImageFile": "secure-agentic-ai-uae-workflows-2026.jpg",
+    "heroImageAlt": "Secure agentic AI workflow connecting protected UAE business systems with human approval",
+    "publishDate": "October 16, 2026",
+    "publishDateIso": "2026-10-16T08:12:16.290Z",
+    "readingTime": 7,
+    "category": "AI & Automation",
+    "tags": [
+      "Secure Agentic AI",
+      "UAE Business Automation",
+      "AI Agent Security",
+      "Node.js Development",
+      "Workflow Automation"
+    ],
+    "relatedSlugs": [
+      "agentic-ai-uae-businesses-production-guide",
+      "mcp-server-security-uae-ai-saas",
+      "uae-pdpl-compliance-saas"
+    ],
+    "serviceLandingPage": "/full-stack-developer-uae.html"
+  },
+  {
     "slug": "ai-agent-vs-chatbot",
     "title": "AI Agent vs Chatbot: Differences, Costs & SaaS Use Cases",
     "metaDescription": "Compare AI agents and chatbots by architecture, cost, security and SaaS use case. Use this practical checklist to choose the right approach for your product.",

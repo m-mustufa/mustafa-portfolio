@@ -26,9 +26,15 @@
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/index.html</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aisaaswithmustafa.com/blog/secure-agentic-ai-uae-workflows-2026.html</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/ai-agent-vs-chatbot.html</loc>
