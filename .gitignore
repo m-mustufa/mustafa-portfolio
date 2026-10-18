@@ -49,3 +49,8 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Fiverr portfolio assets (not part of the deployed app)
+fiverr/
+
+# Local Netlify folder
+.netlify
