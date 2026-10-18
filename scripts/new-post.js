@@ -191,8 +191,19 @@ function regenerateCanonicalRedirects(posts) {
 }
 
 const args = parseArgs(process.argv.slice(2));
+if (args.refresh) {
+  const posts = loadPosts();
+  regenerateBlogIndex(posts);
+  regenerateHomeSection(posts);
+  regenerateSitemap(posts);
+  regenerateCanonicalRedirects(posts);
+  execFileSync("node", [path.join(ROOT, "scripts", "refresh-blog-seo.js")], { stdio: "inherit" });
+  console.log(`Refreshed all manifest-derived blog files for ${posts.length} posts.`);
+  process.exit(0);
+}
+
 if (!args.data) {
-  console.error("Usage: node scripts/new-post.js --data path/to/post.json");
+  console.error("Usage: node scripts/new-post.js --data path/to/post.json | --refresh");
   process.exit(1);
 }
 

@@ -13,6 +13,25 @@ function countMatches(value, pattern) {
   return (value.match(pattern) || []).length;
 }
 
+function plainText(value) {
+  return value
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function validateSearchSnippet(relativePath, html) {
+  const title = plainText(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || "");
+  const description = html.match(/<meta name="description"\s+content="([^"]+)"/i)?.[1] || "";
+  if (title.length < 30 || title.length > 65) {
+    errors.push(`${relativePath}: title length is ${title.length}, expected 30-65`);
+  }
+  if (description.length < 120 || description.length > 170) {
+    errors.push(`${relativePath}: description length is ${description.length}, expected 120-170`);
+  }
+}
+
 for (const post of posts) {
   const relativePath = `blog/${post.slug}.html`;
   const postPath = path.join(ROOT, relativePath);
@@ -22,6 +41,7 @@ for (const post of posts) {
   }
 
   const html = fs.readFileSync(postPath, "utf8");
+  validateSearchSnippet(relativePath, html);
   const expectedImage = `${SITE_URL}/blog/images/${post.heroImageFile || `${post.slug}.jpg`}`;
   const checks = [
     [!/{{[A-Z0-9_]+}}/.test(html), "contains an unreplaced template placeholder"],
@@ -33,12 +53,12 @@ for (const post of posts) {
     [html.includes('id="about-author"'), "author section is missing"],
     [html.includes('../assets/img/muhammad-mustafa-ai-saas-developer.webp'), "real author photo is missing"],
     [!html.includes('../assets/img/logo-2-200.webp'), "author card still uses the mascot avatar"],
-    [!html.includes('· Updated <time'), "visible metadata still shows a separate updated date"],
     [html.includes('"@type": "Person"'), "Person structured data is missing"],
     [html.includes('id="related-articles"'), "related articles section is missing"],
     [html.includes(`property="og:image" content="${expectedImage}"`), "Open Graph image is not the post hero"],
     [html.includes(`name="twitter:image" content="${expectedImage}"`), "Twitter image is not the post hero"],
     [html.includes('property="article:modified_time"'), "article modified time is missing"],
+    [html.includes(`Published <time datetime="${post.publishDateIso}">${post.publishDate}</time>`), "visible published date does not match the manifest"],
     [countMatches(html, /property="article:tag"/g) >= 1, "article tags are missing"],
     [countMatches(html, /class="article-related-card"/g) === 3, "must contain exactly three related article cards"],
   ];
@@ -57,7 +77,12 @@ for (const post of posts) {
       const data = JSON.parse(match[1]);
       const article = data["@graph"]?.find((entry) => entry["@type"] === "BlogPosting");
       if (!article?.dateModified) errors.push(`${relativePath}: BlogPosting dateModified is missing`);
-      if (article?.datePublished !== article?.dateModified) errors.push(`${relativePath}: published and modified dates must match the visible republished date`);
+      if (article?.datePublished !== post.publishDateIso) errors.push(`${relativePath}: BlogPosting datePublished does not match the manifest`);
+      if (article?.dateModified !== (post.modifiedDateIso || post.publishDateIso)) errors.push(`${relativePath}: BlogPosting dateModified does not match the manifest`);
+      const hasSeparateModifiedDate = (post.modifiedDateIso || post.publishDateIso).slice(0, 10) !== post.publishDateIso.slice(0, 10);
+      if (hasSeparateModifiedDate && !html.includes(`Updated <time datetime="${post.modifiedDateIso}"`)) {
+        errors.push(`${relativePath}: visible updated date is missing`);
+      }
       if (!Array.isArray(article?.keywords) || !article.keywords.length) errors.push(`${relativePath}: BlogPosting keywords are missing`);
     } catch (error) {
       errors.push(`${relativePath}: invalid JSON-LD (${error.message})`);
@@ -76,6 +101,8 @@ for (const post of posts) {
     }
   }
 }
+
+validateSearchSnippet("blog/index.html", fs.readFileSync(path.join(BLOG_DIR, "index.html"), "utf8"));
 
 if (errors.length) {
   console.error(`Blog SEO validation failed with ${errors.length} error(s):`);

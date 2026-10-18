@@ -162,18 +162,23 @@ function buildHeroMedia(post) {
 function renderPostPage({ template, post, contentHtml, posts }) {
   const category = post.category || "SaaS Engineering";
   const tags = normaliseTags(post);
+  const publishDateIso = post.publishDateIso;
+  const publishDate = post.publishDate || formatIsoDate(publishDateIso);
   const modifiedDateIso = post.modifiedDateIso || post.publishDateIso;
-  const effectivePublishDateIso = modifiedDateIso;
-  const effectivePublishDate = formatIsoDate(effectivePublishDateIso);
+  const hasSeparateModifiedDate = modifiedDateIso.slice(0, 10) !== publishDateIso.slice(0, 10);
+  const updatedDateHtml = hasSeparateModifiedDate
+    ? ` <i aria-hidden="true"></i> Updated <time datetime="${escapeHtml(modifiedDateIso)}">${escapeHtml(formatIsoDate(modifiedDateIso))}</time>`
+    : "";
   const { contentHtml: enhancedContent, tocHtml } = addHeadingIdsAndBuildToc(contentHtml);
   const relatedPosts = selectRelatedPosts(post, posts);
   const replacements = {
     "{{TITLE}}": post.title,
     "{{META_DESCRIPTION}}": post.metaDescription,
     "{{SLUG}}": post.slug,
-    "{{PUBLISH_DATE_ISO}}": effectivePublishDateIso,
+    "{{PUBLISH_DATE_ISO}}": publishDateIso,
     "{{MODIFIED_DATE_ISO}}": modifiedDateIso,
-    "{{PUBLISH_DATE}}": effectivePublishDate,
+    "{{PUBLISH_DATE}}": publishDate,
+    "{{UPDATED_DATE_HTML}}": updatedDateHtml,
     "{{READING_TIME}}": String(post.readingTime),
     "{{HERO_IMAGE_FILENAME}}": post.heroImageFile || `${post.slug}.jpg`,
     "{{HERO_IMAGE_ALT}}": post.heroImageAlt || post.title,

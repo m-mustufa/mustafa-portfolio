@@ -6,6 +6,7 @@
   "scripts": {
     "build:css": "tailwindcss -i ./assets/css/tailwind-src.css -o ./assets/css/tailwind.css --minify && node scripts/inline-home-css.js",
     "watch:css": "tailwindcss -i ./assets/css/tailwind-src.css -o ./assets/css/tailwind.css --watch",
+    "refresh:blog": "node scripts/new-post.js --refresh",
     "refresh:blog-seo": "node scripts/refresh-blog-seo.js",
     "validate:blog-seo": "node scripts/validate-blog-seo.js",
     "validate:site-seo": "node scripts/validate-site-seo.js",
