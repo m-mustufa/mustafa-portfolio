@@ -18,6 +18,11 @@ const pages = [
     canonical: `${SITE_URL}/ai-saas-development-services.html`,
     primaryPhrase: "ai saas development services",
   },
+  {
+    file: "tools/upwork-proposal-roast.html",
+    canonical: `${SITE_URL}/tools/upwork-proposal-roast.html`,
+    primaryPhrase: "upwork proposal",
+  },
 ];
 
 function countMatches(value, pattern) {
@@ -130,6 +135,9 @@ if (!homeHtml.includes('href="/full-stack-developer-uae.html"')) {
 if (!homeHtml.includes('href="/ai-saas-development-services.html"')) {
   errors.push("index.html: global AI SaaS service landing page is not internally linked");
 }
+if (!homeHtml.includes('href="/tools/upwork-proposal-roast.html"')) {
+  errors.push("index.html: Upwork Proposal Roast tool is not internally linked");
+}
 if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
   errors.push("index.html: ProfilePage structured data is missing");
 }
@@ -144,6 +152,9 @@ if (!sitemap.includes(`${SITE_URL}/ai-saas-development-services.html`)) {
 if (!sitemap.includes(`${SITE_URL}/blog/index.html`)) {
   errors.push("sitemap.xml: blog index is missing");
 }
+if (!sitemap.includes(`${SITE_URL}/tools/upwork-proposal-roast.html`)) {
+  errors.push("sitemap.xml: Upwork Proposal Roast tool is missing");
+}
 
 const legacyHostnameFiles = [
   "index.html",
@@ -152,6 +163,7 @@ const legacyHostnameFiles = [
   "thanks.html",
   "ai-saas-development-services.html",
   "full-stack-developer-uae.html",
+  "tools/upwork-proposal-roast.html",
   "blog/index.html",
   "blog/_template.html",
   "robots.txt",
@@ -170,4 +182,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("Validated homepage plus global and UAE service page SEO, schema, images, links and sitemap entries.");
+console.log("Validated homepage, service pages and free-tool SEO, schema, images, links and sitemap entries.");

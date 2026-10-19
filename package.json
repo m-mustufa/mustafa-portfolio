@@ -10,6 +10,7 @@
     "refresh:blog-seo": "node scripts/refresh-blog-seo.js",
     "validate:blog-seo": "node scripts/validate-blog-seo.js",
     "validate:site-seo": "node scripts/validate-site-seo.js",
+    "test:proposal-roast": "node scripts/test-proposal-roast.js",
     "test:assistant": "node scripts/test-ask-mustafa-knowledge.js"
   },
   "devDependencies": {
