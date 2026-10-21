@@ -178,8 +178,8 @@
   },
   {
     "slug": "agentic-ai-uae-businesses-production-guide",
-    "title": "Agentic AI for UAE Businesses: Production Readiness Guide",
-    "metaDescription": "A practical guide to agentic AI for UAE businesses covering workflow design, human approval, tool permissions, UAE data controls, testing and rollout.",
+    "title": "Agentic AI for UAE Businesses: A Practical 90-Day Plan",
+    "metaDescription": "Planning agentic AI in the UAE? Use this 90-day guide to choose one workflow, set permissions and approval gates, test safely and launch with UAE data controls.",
     "heroImageFile": "muhammad-mustafa-agentic-ai-uae-developer-office.jpg",
     "heroImageAlt": "Muhammad Mustafa, full-stack SaaS and AI developer for UAE businesses, in a modern technology office",
     "publishDate": "September 29, 2026",
@@ -198,13 +198,13 @@
       "uae-wcag-2-2-website-accessibility-checklist",
       "openai-agents-api-saas-production-guide"
     ],
-    "modifiedDateIso": "2026-10-11T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
     "slug": "uae-open-finance-api-integration",
-    "title": "How UAE Businesses Implement Open Finance APIs (2026)",
-    "metaDescription": "Learn how UAE businesses can implement Open Finance APIs using AlTareq: licensing, consent flows, FAPI security, callbacks, testing and launch checks.",
+    "title": "How UAE Businesses Implement Open Finance Solutions (2026)",
+    "metaDescription": "A practical UAE Open Finance implementation guide covering CBUAE roles, AlTareq, consent, FAPI security, callbacks, testing and production launch.",
     "heroImageFile": "uae-open-finance-api-integration-altareq-fintech-saas.jpg",
     "heroImageAlt": "Fintech engineer in Dubai reviewing a secure UAE Open Finance API integration with consent, bank data and payment flows",
     "publishDate": "September 25, 2026",
@@ -223,7 +223,7 @@
       "uae-pdpl-compliance-saas",
       "stripe-webhooks-nextjs-saas-idempotency"
     ],
-    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
@@ -354,12 +354,12 @@
   },
   {
     "slug": "dubai-ai-seal-ai-saas-guide",
-    "title": "Dubai AI Seal Requirements: 2026 Application Checklist",
-    "metaDescription": "Understand Dubai AI Seal requirements for AI companies, including eligibility, evidence, six-tier classification and a practical 2026 readiness checklist.",
+    "title": "Dubai AI Seal: Requirements & Application Checklist (2026)",
+    "metaDescription": "Applying for the Dubai AI Seal? Check eligibility, required evidence, six-tier classification, AI governance, security and application readiness for 2026.",
     "heroImageAlt": "Dubai AI Seal readiness architecture for an AI SaaS company showing product evidence, responsible AI controls, data governance, security and audit records",
     "publishDate": "September 2, 2026",
     "publishDateIso": "2026-09-02T04:08:16+05:00",
-    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 10,
     "category": "AI & Automation",
     "tags": [
