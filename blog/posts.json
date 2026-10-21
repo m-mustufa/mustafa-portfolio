@@ -253,13 +253,13 @@
   },
   {
     "slug": "ai-job-application-agent-human-review",
-    "title": "AI Job Application Agent: Honest CVs & Human Review",
-    "metaDescription": "Build an AI job application agent that finds roles, verifies experience, scores fit and tailors CVs without fabricated claims or automatic submissions.",
+    "title": "AI Job Application Agent: Build Without Fake CV Claims",
+    "metaDescription": "Build an AI job application agent that finds roles, scores fit and tailors verified CV content without fake claims, blind automation or unwanted submissions.",
     "heroImageFile": "ai-job-application-agent-jobhunter-human-review.jpg",
     "heroImageAlt": "JobHunter AI job application agent dashboard showing job discovery, CV tailoring, fit scoring and human approval",
     "publishDate": "September 22, 2026",
     "publishDateIso": "2026-09-22T20:02:23+05:00",
-    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 9,
     "category": "AI & Automation",
     "tags": [
@@ -329,12 +329,13 @@
   },
   {
     "slug": "hire-full-stack-developer-uae-guide",
-    "title": "Hire a Full-Stack Developer in UAE: 2026 Checklist",
-    "metaDescription": "Hire a full-stack developer in the UAE with a practical checklist for project scope, technical vetting, cost, contracts, security and delivery ownership.",
+    "title": "Hire a Full-Stack Developer in UAE: Fiverr vs Upwork",
+    "metaDescription": "Hiring a full-stack developer in the UAE? Compare Fiverr, Upwork and direct hiring, then use a checklist for scope, vetting, security and delivery.",
     "heroImageFile": "hire-full-stack-saas-developer-uae-dubai-fiverr-upwork-direct.jpg",
     "heroImageAlt": "UAE business owner comparing Fiverr, Upwork and direct hiring options with a full-stack SaaS developer in Dubai",
     "publishDate": "September 10, 2026",
     "publishDateIso": "2026-09-10T18:24:38+05:00",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 9,
     "category": "Hiring & Delivery",
     "tags": [
@@ -349,7 +350,6 @@
       "stripe-per-seat-billing-multi-tenant-saas",
       "uae-pass-nextjs-nodejs-integration"
     ],
-    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
@@ -474,12 +474,12 @@
   },
   {
     "slug": "uae-einvoicing-saas-integration",
-    "title": "UAE E-Invoicing 2026: PINT-AE Integration Guide for SaaS",
-    "metaDescription": "Prepare a SaaS or ERP system for UAE e-invoicing with PINT-AE XML, Accredited Service Provider integration, validation, audit logs and rollout deadlines.",
+    "title": "UAE E-Invoicing Integration: PINT-AE Guide for SaaS (2026)",
+    "metaDescription": "Plan UAE e-invoicing integration for SaaS or ERP: PINT-AE fields, ASP APIs, validation, idempotent delivery, audit logs and rollout deadlines.",
     "heroImageAlt": "UAE e-invoicing integration architecture connecting a SaaS platform, accredited service providers, Peppol and the Federal Tax Authority",
     "publishDate": "August 1, 2026",
     "publishDateIso": "2026-08-01T15:25:39+05:00",
-    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 9,
     "category": "UAE Integrations",
     "tags": [
