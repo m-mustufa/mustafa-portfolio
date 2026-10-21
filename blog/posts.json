@@ -228,8 +228,8 @@
   },
   {
     "slug": "stripe-webhooks-nextjs-saas-idempotency",
-    "title": "Stripe Webhooks in Next.js: Signature & Idempotency Guide",
-    "metaDescription": "Fix Stripe webhook failures in Next.js with signature verification, idempotent processing, durable queues, safe retries and subscription reconciliation.",
+    "title": "Stripe Webhooks in Next.js: Fix Duplicates & Retries",
+    "metaDescription": "Build reliable Stripe webhooks in Next.js. Verify signatures, prevent duplicate processing, handle retries and out-of-order events, and reconcile subscriptions.",
     "heroImageFile": "reliable-stripe-webhooks-nextjs-saas-idempotency-dubai.jpg",
     "heroImageAlt": "SaaS engineer in Dubai monitoring reliable Stripe webhook deliveries, signature verification, retries and idempotent payment processing in Next.js",
     "publishDate": "September 23, 2026",
@@ -248,7 +248,7 @@
       "stripe-fraud-prevention-ai-saas",
       "nextjs-security-checklist-2026"
     ],
-    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
@@ -278,13 +278,13 @@
   },
   {
     "slug": "stripe-fraud-prevention-ai-saas",
-    "title": "Stripe Fraud Prevention: Radar, Card Testing & AI SaaS",
-    "metaDescription": "Prevent Stripe card testing, stolen-card payments and AI trial abuse with Radar, 3D Secure, verified webhooks, usage limits and a response playbook.",
+    "title": "Stripe Fraud Prevention for AI SaaS: Radar & Card Testing",
+    "metaDescription": "Stop card testing, stolen-card payments and AI trial abuse with Stripe Radar, 3D Secure, verified webhooks, usage controls and an incident response plan.",
     "heroImageFile": "stripe-fraud-prevention-ai-saas-radar-security-checklist.jpg",
     "heroImageAlt": "AI SaaS engineering team in Dubai reviewing Stripe payment fraud prevention, subscription risk and usage monitoring dashboards",
     "publishDate": "September 19, 2026",
     "publishDateIso": "2026-09-19T22:16:47+05:00",
-    "modifiedDateIso": "2026-10-14T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 10,
     "category": "Payments & Billing",
     "tags": [
@@ -450,8 +450,8 @@
   },
   {
     "slug": "uae-pass-nextjs-nodejs-integration",
-    "title": "UAE PASS Integration Guide: API Steps & Checklist (2026)",
-    "metaDescription": "Follow UAE PASS integration steps for Next.js and Node.js: OAuth 2.0, secure callbacks, account linking, staging, testing and production approval.",
+    "title": "UAE PASS API Integration: Next.js & Node.js Guide (2026)",
+    "metaDescription": "Implement UAE PASS API integration in Next.js or Node.js with secure OAuth callbacks, account linking, staging tests and a production launch checklist.",
     "heroImageAlt": "UAE PASS integration architecture connecting a Next.js application and Node.js API to secure UAE digital identity services",
     "publishDate": "August 3, 2026",
     "publishDateIso": "2026-08-03T23:49:22+05:00",
@@ -469,7 +469,7 @@
       "uae-pdpl-compliance-saas",
       "uae-open-finance-api-integration"
     ],
-    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "serviceLandingPage": "/full-stack-developer-uae.html"
   },
   {
