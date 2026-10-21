@@ -9,15 +9,15 @@
     <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
 
     <!-- SEO Meta -->
-    <title>Supabase RLS for Multi-Role Apps: Policies & Testing</title>
-    <meta name="description" content="Secure multi-role Supabase apps with tenant isolation, SELECT and write policies, RBAC claims, policy tests, indexes and safe service-role boundaries.">
+    <title>Supabase RLS Policies: Multi-Tenant SQL & Testing</title>
+    <meta name="description" content="Build Supabase RLS policies for multi-tenant apps with ownership checks, role-based access, SELECT/write rules, tests and safe service-role boundaries.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="Muhammad Mustafa">
     <link rel="canonical" href="https://aisaaswithmustafa.com/blog/supabase-rls-multi-role-apps.html">
 
     <!-- Open Graph / Social Meta -->
-    <meta property="og:title" content="Supabase RLS for Multi-Role Apps: Policies & Testing">
-    <meta property="og:description" content="Secure multi-role Supabase apps with tenant isolation, SELECT and write policies, RBAC claims, policy tests, indexes and safe service-role boundaries.">
+    <meta property="og:title" content="Supabase RLS Policies: Multi-Tenant SQL & Testing">
+    <meta property="og:description" content="Build Supabase RLS policies for multi-tenant apps with ownership checks, role-based access, SELECT/write rules, tests and safe service-role boundaries.">
     <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/supabase-rls-multi-role-apps.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
     <meta property="og:site_name" content="Muhammad Mustafa">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-07-17T17:29:55+05:00">
-    <meta property="article:modified_time" content="2026-10-13T00:00:00.000Z">
+    <meta property="article:modified_time" content="2026-10-21T00:00:00.000Z">
     <meta property="article:author" content="Muhammad Mustafa">
     <meta property="article:section" content="Security & Compliance">
     <meta property="article:tag" content="Supabase RLS">
@@ -39,8 +39,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Supabase RLS for Multi-Role Apps: Policies & Testing">
-    <meta name="twitter:description" content="Secure multi-role Supabase apps with tenant isolation, SELECT and write policies, RBAC claims, policy tests, indexes and safe service-role boundaries.">
+    <meta name="twitter:title" content="Supabase RLS Policies: Multi-Tenant SQL & Testing">
+    <meta name="twitter:description" content="Build Supabase RLS policies for multi-tenant apps with ownership checks, role-based access, SELECT/write rules, tests and safe service-role boundaries.">
     <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/supabase-rls-multi-role-apps.jpg">
     <meta name="twitter:image:alt" content="Supabase Row Level Security diagram separating admin, coach, and team database access">
 
@@ -62,7 +62,7 @@
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
             { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
-            { "@type": "ListItem", "position": 3, "name": "Supabase RLS for Multi-Role Apps: Policies & Testing", "item": "https://aisaaswithmustafa.com/blog/supabase-rls-multi-role-apps.html" }
+            { "@type": "ListItem", "position": 3, "name": "Supabase RLS Policies: Multi-Tenant SQL & Testing", "item": "https://aisaaswithmustafa.com/blog/supabase-rls-multi-role-apps.html" }
           ]
         },
         {
@@ -79,11 +79,11 @@
         },
         {
           "@type": "BlogPosting",
-          "headline": "Supabase RLS for Multi-Role Apps: Policies & Testing",
-          "description": "Secure multi-role Supabase apps with tenant isolation, SELECT and write policies, RBAC claims, policy tests, indexes and safe service-role boundaries.",
+          "headline": "Supabase RLS Policies: Multi-Tenant SQL & Testing",
+          "description": "Build Supabase RLS policies for multi-tenant apps with ownership checks, role-based access, SELECT/write rules, tests and safe service-role boundaries.",
           "image": "https://aisaaswithmustafa.com/blog/images/supabase-rls-multi-role-apps.jpg",
           "datePublished": "2026-07-17T17:29:55+05:00",
-          "dateModified": "2026-10-13T00:00:00.000Z",
+          "dateModified": "2026-10-21T00:00:00.000Z",
           "articleSection": "Security & Compliance",
           "keywords": ["Supabase RLS","PostgreSQL","Multi-Tenant SaaS","Access Control","Security"],
           "author": { "@id": "https://aisaaswithmustafa.com/#person" },
@@ -136,13 +136,13 @@
                 <div class="article-shell article-hero-grid">
                     <div class="article-hero-copy">
                         <p class="article-kicker"><span aria-hidden="true"></span>Security & Compliance</p>
-                        <h1 id="article-title">Supabase RLS for Multi-Role Apps: Policies & Testing</h1>
-                        <p class="article-summary">Secure multi-role Supabase apps with tenant isolation, SELECT and write policies, RBAC claims, policy tests, indexes and safe service-role boundaries.</p>
+                        <h1 id="article-title">Supabase RLS Policies: Multi-Tenant SQL & Testing</h1>
+                        <p class="article-summary">Build Supabase RLS policies for multi-tenant apps with ownership checks, role-based access, SELECT/write rules, tests and safe service-role boundaries.</p>
                         <div class="article-byline">
                             <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
                             <div>
                                 <strong>Muhammad Mustafa</strong>
-                                <span>Published <time datetime="2026-07-17T17:29:55+05:00">July 17, 2026</time> <i aria-hidden="true"></i> Updated <time datetime="2026-10-13T00:00:00.000Z">October 13, 2026</time> <i aria-hidden="true"></i> 5 min read</span>
+                                <span>Published <time datetime="2026-07-17T17:29:55+05:00">July 17, 2026</time> <i aria-hidden="true"></i> Updated <time datetime="2026-10-21T00:00:00.000Z">October 21, 2026</time> <i aria-hidden="true"></i> 5 min read</span>
                             </div>
                         </div>
                         <div class="article-topics" aria-label="Article topics">
@@ -185,6 +185,7 @@
                 <div class="article-reading-column">
                     <div class="article-prose prose prose-invert max-w-none">
                         <!-- ARTICLE_CONTENT_START -->
+                        <p><strong>Quick answer:</strong> Supabase RLS policies should verify both tenant ownership and the action a role may perform. Enable RLS on every exposed table, write separate SELECT and mutation rules, keep service-role keys off the client, and test each policy with real user sessions.</p>
                         <p>Supabase Row Level Security is the part of a multi-role app that decides which database rows each user can read or change. In BWL League, the platform serves coaches, teams, and admins. Those users share the same application, but they should not share the same level of access. I learned that hiding an admin button in React is useful for the interface, but it is not security. The real boundary has to exist in the database.</p><p>This article explains how I think about Supabase RLS for a multi-role app: start with ownership, separate actions, keep privileged access off the client, and test policies as carefully as application code.</p><h2 class="scroll-mt-28" id="why-supabase-rls-belongs-in-the-database">Why Supabase RLS belongs in the database</h2><p>A frontend role check only changes what a user sees. A curious user can still inspect network requests or call an API endpoint directly. Row Level Security, usually shortened to RLS, adds the authorization rule inside PostgreSQL. Every database request is filtered through that rule.</p><p>Supabase describes a policy as something similar to an automatic <code>WHERE</code> clause. If a coach may only read rows for their own team, the database applies that condition even when the client asks for every row. That gives the app a second and more reliable security boundary.</p><p>This matters because Supabase applications can query the database directly from the browser. The public client key identifies the project; it is not supposed to grant unlimited access. The user's session and the RLS policies decide what the request can actually do. Supabase recommends enabling RLS on every table in an exposed schema such as <code>public</code>.</p><h2 class="scroll-mt-28" id="start-with-relationships-not-role-names">Start with relationships, not role names</h2><p>It is tempting to begin with statements such as “admins can do everything” and “coaches can edit scores.” Those statements are incomplete until the data model explains which league, team, or match the user belongs to.</p><p>For a league platform, I prefer to make membership explicit. A membership row can connect a user to an organisation or team and store the role they hold there. Policies can then answer two separate questions:</p><ul><li><strong>Scope:</strong> Does this row belong to the user's league or team?</li><li><strong>Permission:</strong> Does the user's role allow this action?</li></ul><p>Keeping those questions separate makes policies easier to review. A coach might be allowed to update a match, but only when that match belongs to their team. An admin might manage the whole league, but not a different league that happens to use the same database.</p><p>Here is a simplified example for reading matches. The exact table names will vary, but the important part is the relationship check rather than trusting a role sent by the browser:</p><pre><code>alter table public.matches enable row level security;
 
 create policy "members can view league matches"
@@ -246,7 +247,7 @@ using (
                 <div class="article-related-grid">
                                         <a href="/blog/uae-pdpl-compliance-saas.html" class="article-related-card">
                         <p>Security &amp; Compliance</p>
-                        <h3>UAE PDPL Compliance Checklist for SaaS Applications</h3>
+                        <h3>UAE PDPL Compliance for SaaS: 2026 Engineering Checklist</h3>
                         <span>Read guide <i aria-hidden="true">&rarr;</i></span>
                     </a>
                     <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">

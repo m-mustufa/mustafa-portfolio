@@ -402,12 +402,12 @@
   },
   {
     "slug": "uae-pdpl-compliance-saas",
-    "title": "UAE PDPL Compliance Checklist for SaaS Applications",
-    "metaDescription": "A practical UAE PDPL compliance checklist for SaaS applications covering consent, privacy by design, user rights, vendors, security and data transfers.",
+    "title": "UAE PDPL Compliance for SaaS: 2026 Engineering Checklist",
+    "metaDescription": "Use this UAE PDPL compliance checklist for SaaS: map personal data, record consent, handle user rights, secure vendors and review cross-border transfers.",
     "heroImageAlt": "UAE PDPL compliance architecture for a SaaS application showing consent, encrypted data, access controls, user rights and audit logs",
     "publishDate": "August 14, 2026",
     "publishDateIso": "2026-08-14T00:56:34+05:00",
-    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 11,
     "category": "Security & Compliance",
     "tags": [
@@ -546,12 +546,12 @@
   },
   {
     "slug": "extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization",
-    "title": "Enterprise Angular Migration: ExtJS/AngularJS to Angular 19",
-    "metaDescription": "Modernize an enterprise dashboard safely with this Angular migration guide for ExtJS, AngularJS and Angular 8-19 upgrades, testing, rollout and build systems.",
+    "title": "ExtJS/AngularJS to Angular 19: Enterprise Migration Guide",
+    "metaDescription": "Plan an ExtJS or AngularJS migration to Angular 19 with staged releases, dependency upgrades, parity testing and a safer enterprise dashboard rollout.",
     "heroImageAlt": "ExtJS and AngularJS enterprise dashboard migrating to a modern Angular 19 interface",
     "publishDate": "July 17, 2026",
     "publishDateIso": "2026-07-17T17:50:07+05:00",
-    "modifiedDateIso": "2026-10-12T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 6,
     "category": "Web Engineering",
     "tags": [
@@ -569,12 +569,12 @@
   },
   {
     "slug": "supabase-rls-multi-role-apps",
-    "title": "Supabase RLS for Multi-Role Apps: Policies & Testing",
-    "metaDescription": "Secure multi-role Supabase apps with tenant isolation, SELECT and write policies, RBAC claims, policy tests, indexes and safe service-role boundaries.",
+    "title": "Supabase RLS Policies: Multi-Tenant SQL & Testing",
+    "metaDescription": "Build Supabase RLS policies for multi-tenant apps with ownership checks, role-based access, SELECT/write rules, tests and safe service-role boundaries.",
     "heroImageAlt": "Supabase Row Level Security diagram separating admin, coach, and team database access",
     "publishDate": "July 17, 2026",
     "publishDateIso": "2026-07-17T17:29:55+05:00",
-    "modifiedDateIso": "2026-10-13T00:00:00.000Z",
+    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
     "readingTime": 5,
     "category": "Security & Compliance",
     "tags": [
