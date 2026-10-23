@@ -1,5 +1,31 @@
 [
   {
+    "slug": "scalable-nodejs-apis-modern-saas-2026",
+    "title": "Scalable Node.js APIs for Modern SaaS Platforms (2026)",
+    "metaDescription": "Learn how to build scalable Node.js APIs for modern SaaS platforms with multi-tenant architecture, queues, idempotency, security and observability.",
+    "heroImageFile": "scalable-nodejs-api-modern-saas-platform-engineering-2026.jpg",
+    "heroImageAlt": "Software engineering team reviewing Node.js API code and SaaS performance metrics in a modern office",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "October 23, 2026",
+    "publishDateIso": "2026-10-23T04:20:54.535Z",
+    "readingTime": 9,
+    "category": "Node.js Development",
+    "tags": [
+      "Node.js APIs",
+      "SaaS Architecture",
+      "API Scalability",
+      "Multi-Tenant SaaS",
+      "Backend Development"
+    ],
+    "relatedSlugs": [
+      "stripe-webhooks-nextjs-saas-idempotency",
+      "uae-open-finance-api-integration",
+      "hire-full-stack-developer-uae-guide"
+    ],
+    "serviceLandingPage": "/"
+  },
+  {
     "slug": "web-design-dubai-arabic-english-websites",
     "title": "Web Design Dubai: Bilingual Websites That Convert in 2026",
     "metaDescription": "Learn how Dubai businesses can build high-converting Arabic and English websites with RTL design, mobile performance, accessibility and clear user journeys.",
