@@ -1697,6 +1697,39 @@ html {
     }
 }
 
+@media (max-width: 767px) {
+    .hero-copy,
+    .hero-scene,
+    .project-constellation-window,
+    .stack-badge,
+    .project-constellation-lines path,
+    .capability-proof span,
+    .product-stage-orbits,
+    .product-stage-orbits span,
+    .product-stage-window {
+        animation: none !important;
+    }
+
+    .stack-badge {
+        opacity: 1;
+        filter: none;
+        transform: none;
+        translate: none;
+        will-change: auto;
+    }
+}
+
+.capabilities-section,
+.build-story,
+.work-section,
+#blog-preview,
+.why-section,
+.testimonials-section,
+.contact-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+}
+
 /* Focused capability panels */
 .capabilities-section {
     position: relative;

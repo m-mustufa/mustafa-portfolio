@@ -820,7 +820,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function ensureConsentStyles() {
-    if (document.querySelector("link[data-cookie-consent-styles]")) return;
+    if (document.querySelector("[data-cookie-consent-styles]")) return;
 
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";

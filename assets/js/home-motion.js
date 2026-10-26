@@ -1,12 +1,12 @@
 /* Homepage-only motion. No dependency, scroll interception or content fetching. */
-document.addEventListener("DOMContentLoaded", () => {
+function initializeHomepageMotion() {
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const desktopQuery = window.matchMedia("(min-width: 1051px) and (min-height: 650px)");
   const canvas = document.getElementById("heroArchitecture");
   const hero = canvas?.closest(".hero-shell");
   const context = canvas?.getContext("2d", { alpha: true });
 
-  if (context && hero) {
+  if (context && hero && desktopQuery.matches) {
     let width = 0, height = 0, frame = 0, lastPaint = 0;
     let visible = false;
     const roundedRect = (x, y, boxWidth, boxHeight, radius) => {
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const capabilities = document.querySelector(".capabilities-section");
-  if (capabilities && !motionQuery.matches) {
+  if (capabilities && desktopQuery.matches && !motionQuery.matches) {
     const cards = Array.from(capabilities.querySelectorAll("[data-capability-card]"));
     const cta = capabilities.querySelector(".uae-capability-cta");
     const phaseNumber = capabilities.querySelector("[data-capability-phase-number]");
@@ -321,4 +321,10 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("pageshow", schedule);
   motionQuery.addEventListener("change", configure);
   desktopQuery.addEventListener("change", configure);
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeHomepageMotion, { once: true });
+} else {
+  initializeHomepageMotion();
+}
