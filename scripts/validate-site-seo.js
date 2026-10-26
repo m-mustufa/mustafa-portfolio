@@ -9,9 +9,9 @@ const errors = [];
 const pages = [
   { file: "index.html", canonical: `${SITE_URL}/`, primaryPhrase: "full-stack" },
   {
-    file: "full-stack-developer-uae.html",
-    canonical: `${SITE_URL}/full-stack-developer-uae.html`,
-    primaryPhrase: "full-stack",
+    file: "full-stack-development-services-dubai.html",
+    canonical: `${SITE_URL}/full-stack-development-services-dubai.html`,
+    primaryPhrase: "full-stack development services",
   },
   {
     file: "ai-saas-development-services.html",
@@ -90,7 +90,7 @@ for (const page of pages) {
 }
 
 const serviceLandingPages = [
-  { file: "full-stack-developer-uae.html", analyticsName: "uae-full-stack-development" },
+  { file: "full-stack-development-services-dubai.html", analyticsName: "uae-full-stack-development" },
   { file: "ai-saas-development-services.html", analyticsName: "ai-saas-development" },
 ];
 
@@ -129,8 +129,8 @@ if (!analyticsScript.includes('track("service_cta_click"')) {
 }
 
 const homeHtml = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-if (!homeHtml.includes('href="/full-stack-developer-uae.html"')) {
-  errors.push("index.html: UAE service landing page is not internally linked");
+if (!homeHtml.includes('href="/full-stack-development-services-dubai.html"')) {
+  errors.push("index.html: Dubai full-stack service landing page is not internally linked");
 }
 if (!homeHtml.includes('href="/ai-saas-development-services.html"')) {
   errors.push("index.html: global AI SaaS service landing page is not internally linked");
@@ -143,8 +143,8 @@ if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
 }
 
 const sitemap = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
-if (!sitemap.includes(`${SITE_URL}/full-stack-developer-uae.html`)) {
-  errors.push("sitemap.xml: UAE service landing page is missing");
+if (!sitemap.includes(`${SITE_URL}/full-stack-development-services-dubai.html`)) {
+  errors.push("sitemap.xml: Dubai full-stack service landing page is missing");
 }
 if (!sitemap.includes(`${SITE_URL}/ai-saas-development-services.html`)) {
   errors.push("sitemap.xml: global AI SaaS service landing page is missing");
@@ -162,7 +162,7 @@ const legacyHostnameFiles = [
   "profile.html",
   "thanks.html",
   "ai-saas-development-services.html",
-  "full-stack-developer-uae.html",
+  "full-stack-development-services-dubai.html",
   "tools/upwork-proposal-roast.html",
   "blog/index.html",
   "blog/_template.html",

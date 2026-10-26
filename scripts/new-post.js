@@ -21,7 +21,7 @@
  *   "category": "Security & Compliance",
  *   "tags": ["UAE PDPL", "SaaS Compliance"],
  *   "relatedSlugs": ["optional-curated-related-post-slug"],
- *   "serviceLandingPage": "/full-stack-developer-uae.html",
+ *   "serviceLandingPage": "/full-stack-development-services-dubai.html",
  *   "contentHtml": "<p>...</p><h2>...</h2>..."   // already-written post body as HTML
  * }
  */
