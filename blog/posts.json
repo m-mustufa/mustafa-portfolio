@@ -1,5 +1,31 @@
 [
   {
+    "slug": "secure-custom-software-uae-rbac-cloud-architecture-2026",
+    "title": "Secure Custom Software UAE: RBAC & Cloud Architecture (2026)",
+    "metaDescription": "Learn how UAE businesses can build secure custom software with role-based access, tenant isolation, audit trails and scalable cloud architecture.",
+    "heroImageFile": "secure-custom-software-uae-rbac-cloud-architecture-2026.jpg",
+    "heroImageAlt": "UAE software engineering team reviewing role-based access controls and secure cloud architecture in a Dubai office",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "October 28, 2026",
+    "publishDateIso": "2026-10-27T22:48:16.465Z",
+    "readingTime": 8,
+    "category": "Security & Cloud Architecture",
+    "tags": [
+      "Custom Software UAE",
+      "Role-Based Access Control",
+      "Cloud Architecture",
+      "Software Security",
+      "Dubai"
+    ],
+    "relatedSlugs": [
+      "supabase-rls-multi-role-apps",
+      "mcp-server-security-uae-ai-saas",
+      "nextjs-security-checklist-2026"
+    ],
+    "serviceLandingPage": "/full-stack-development-services-dubai.html"
+  },
+  {
     "slug": "scalable-nodejs-apis-modern-saas-2026",
     "title": "Scalable Node.js APIs for Modern SaaS Platforms (2026)",
     "metaDescription": "Learn how to build scalable Node.js APIs for modern SaaS platforms with multi-tenant architecture, queues, idempotency, security and observability.",
