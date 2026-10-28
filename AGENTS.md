@@ -22,6 +22,15 @@ npm run build:css  # rebuild assets/css/tailwind.css after ANY class change in t
 
 **If you add or change a Tailwind class anywhere and forget to rebuild, the new class will have no styling on the live site.** This has bitten past sessions — always rebuild before considering an HTML edit done.
 
+## Ask Mustafa / Scope Doctor
+
+- The homepage assistant UI lives in `index.html`, `assets/js/ask-mustafa.js` and `assets/css/ask-mustafa-floating.css`.
+- The Netlify backend is `netlify/functions/ask-mustafa.js`; verified portfolio facts come from `netlify/functions/ask-mustafa-knowledge.js`.
+- Provider routing is isolated in `netlify/functions/ask-mustafa-providers.js`. Gemini is primary when `GEMINI_API_KEY` exists; Groq is the automatic fallback through `GROQ_API_KEY`. Set `AI_PRIMARY_PROVIDER=groq` or remove the Gemini key to switch back without changing code.
+- Optional model overrides are `GEMINI_MODEL` and `GROQ_MODEL`. Never place keys in the repository; configure them in Netlify environment variables.
+- `Scope Doctor` accepts a longer rough project idea and returns MVP, postpone, stack, risk, complexity and milestone sections. It must not promise price, timeline or availability.
+- Run `npm run test:assistant` after changing prompts, provider routing, input limits or knowledge selection.
+
 ## Git / deploy notes
 
 - Bitbucket **deprecated app passwords** (returns HTTP 410). Auth now uses an Atlassian API token stored via the `manager` credential helper (Windows Credential Manager). If push suddenly fails with a 410, the stored token needs replacing — ask the user for a fresh one from Bitbucket → Personal settings → API tokens.

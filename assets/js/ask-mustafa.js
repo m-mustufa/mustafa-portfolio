@@ -13,22 +13,33 @@
   const conversation = app.querySelector("[data-ask-conversation]");
   const status = app.querySelector("[data-ask-status]");
   const submit = app.querySelector("[data-ask-submit]");
-  const history = [];
+  const modeButtons = Array.from(app.querySelectorAll("[data-ask-mode]"));
+  const scopeIntro = app.querySelector("[data-ask-scope-intro]");
+  const scopeShortcut = app.querySelector("[data-ask-scope-shortcut]");
+  const exampleButton = app.querySelector("[data-ask-example]");
+  const histories = { ask: [], scope: [] };
   const isLocalPreview = window.location.protocol === "file:" || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const minimumThinkingTime = 750;
-  const placeholderQuestions = [
-    "How many years of full-stack experience do you have?",
-    "Tell me about your Angular expertise.",
-    "Which SaaS and AI products have you built?",
-    "Are you available for a UAE project?"
-  ];
+  const placeholderQuestions = {
+    ask: [
+      "How many years of full-stack experience do you have?",
+      "Tell me about your Angular expertise.",
+      "Which SaaS and AI products have you built?",
+      "Are you available for a UAE project?"
+    ],
+    scope: [
+      "Describe your product, users, must-have workflow and deadline...",
+      "Paste the rough idea. I will separate MVP from nice-to-have features..."
+    ]
+  };
   let isSending = false;
   let placeholderQuestionIndex = 0;
   let placeholderCharacterIndex = 0;
   let isDeletingPlaceholder = false;
   let placeholderTimer = null;
   let launcherTimer = null;
+  let currentMode = "ask";
 
   const sampleAnswers = [
     {
@@ -85,7 +96,8 @@
     }
   ];
 
-  function addMessage(role, text) {
+  function addMessage(role, text, options) {
+    const messageOptions = options || {};
     const row = document.createElement("div");
     row.className = "ask-mustafa-message ask-mustafa-message-" + role;
 
@@ -103,9 +115,30 @@
       row.appendChild(avatar);
     }
 
+    const content = document.createElement("div");
+    content.className = "ask-mustafa-message-content";
     const body = document.createElement("p");
     body.textContent = text;
-    row.appendChild(body);
+    content.appendChild(body);
+
+    if (role === "assistant" && messageOptions.copyable) {
+      const copyButton = document.createElement("button");
+      copyButton.type = "button";
+      copyButton.className = "ask-mustafa-copy";
+      copyButton.textContent = "Copy brief";
+      copyButton.addEventListener("click", async function () {
+        try {
+          await navigator.clipboard.writeText(text);
+          copyButton.textContent = "Copied";
+          window.setTimeout(function () { copyButton.textContent = "Copy brief"; }, 1800);
+        } catch (_error) {
+          copyButton.textContent = "Select and copy";
+        }
+      });
+      content.appendChild(copyButton);
+    }
+
+    row.appendChild(content);
     conversation.appendChild(row);
     conversation.scrollTop = conversation.scrollHeight;
     return row;
@@ -144,6 +177,9 @@
   }
 
   function getSampleAnswer(question) {
+    if (currentMode === "scope") {
+      return "WHAT YOU ARE BUILDING\nA focused SaaS product based on the idea you pasted.\n\nMVP NOW\n- One clear user role and core workflow\n- Secure sign-in and tenant-aware data\n- The single action that proves the product is useful\n- Basic admin visibility and error tracking\n\nPOSTPONE\n- Advanced analytics\n- Multiple billing plans\n- Broad integrations\n\nCOMPLEXITY\nMedium - the core workflow is focused, but permissions and data ownership need careful design.\n\nFIRST MILESTONE\nA clickable workflow backed by real authentication and test data.\n\nOPEN QUESTIONS\n- Who is the first paying user?\n- Which result must they get in the first session?";
+    }
     const normalized = question.toLowerCase();
     const match = sampleAnswers.find(function (item) {
       return item.terms.some(function (term) { return normalized.includes(term); });
@@ -151,13 +187,44 @@
 
     return match
       ? match.answer
-      : "This local preview currently uses sample answers. Once the design is approved, the Groq-powered version will answer verified questions about my work and direct anything unconfirmed to the contact form.";
+      : "This local preview uses sample answers. On Netlify, Gemini answers first and Groq takes over automatically if Gemini is unavailable.";
+  }
+
+  function activePlaceholders() {
+    return placeholderQuestions[currentMode];
+  }
+
+  function setMode(mode, revealPanel) {
+    currentMode = mode === "scope" ? "scope" : "ask";
+    app.classList.toggle("is-scope-mode", currentMode === "scope");
+    input.maxLength = currentMode === "scope" ? 1200 : 300;
+    scopeIntro.hidden = currentMode !== "scope";
+    scopeShortcut.textContent = currentMode === "scope" ? "Ask me" : "Scope idea";
+    scopeShortcut.setAttribute("aria-label", currentMode === "scope" ? "Switch to Ask Mustafa" : "Open Scope Doctor");
+
+    modeButtons.forEach(function (button) {
+      const active = button.getAttribute("data-ask-mode") === currentMode;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    placeholderQuestionIndex = 0;
+    placeholderCharacterIndex = 0;
+    isDeletingPlaceholder = false;
+    input.placeholder = "";
+    startPlaceholderAnimation(120);
+
+    if (revealPanel || currentMode === "scope") panel.hidden = false;
+    input.focus();
   }
 
   function setSending(sending) {
     isSending = sending;
     input.disabled = sending;
     submit.disabled = sending;
+    scopeShortcut.disabled = sending;
+    exampleButton.disabled = sending;
+    modeButtons.forEach(function (button) { button.disabled = sending; });
     status.textContent = "";
 
     if (sending) {
@@ -170,7 +237,8 @@
   function animatePlaceholder() {
     if (reduceMotion || input.value || isSending) return;
 
-    const question = placeholderQuestions[placeholderQuestionIndex];
+    const questions = activePlaceholders();
+    const question = questions[placeholderQuestionIndex];
     const visibleText = question.slice(0, placeholderCharacterIndex);
     input.placeholder = visibleText;
 
@@ -193,14 +261,14 @@
     }
 
     isDeletingPlaceholder = false;
-    placeholderQuestionIndex = (placeholderQuestionIndex + 1) % placeholderQuestions.length;
+    placeholderQuestionIndex = (placeholderQuestionIndex + 1) % questions.length;
     placeholderTimer = window.setTimeout(animatePlaceholder, 380);
   }
 
   function startPlaceholderAnimation(delay) {
     window.clearTimeout(placeholderTimer);
     if (reduceMotion) {
-      input.placeholder = placeholderQuestions[0];
+      input.placeholder = activePlaceholders()[0];
       return;
     }
     if (input.value || isSending) return;
@@ -218,7 +286,7 @@
       if (isLocalPreview) {
         await finishThinking(thinkingStartedAt);
         thinkingMessage.remove();
-        addMessage("assistant", getSampleAnswer(question));
+        addMessage("assistant", getSampleAnswer(question), { copyable: currentMode === "scope" });
         status.textContent = "Local preview — sample answer, no API request made.";
         return;
       }
@@ -228,7 +296,11 @@
       const response = await fetch("/.netlify/functions/ask-mustafa", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: question, history: history.slice(-6) }),
+        body: JSON.stringify({
+          question: question,
+          mode: currentMode,
+          history: histories[currentMode].slice(-6)
+        }),
         signal: controller.signal
       });
       window.clearTimeout(timeout);
@@ -240,12 +312,17 @@
 
       await finishThinking(thinkingStartedAt);
       thinkingMessage.remove();
-      addMessage("assistant", data.answer);
-      history.push(
+      addMessage("assistant", data.answer, { copyable: currentMode === "scope" });
+      histories[currentMode].push(
         { role: "user", content: question },
         { role: "assistant", content: data.answer }
       );
-      if (history.length > 8) history.splice(0, history.length - 8);
+      if (histories[currentMode].length > 8) {
+        histories[currentMode].splice(0, histories[currentMode].length - 8);
+      }
+      status.textContent = data.provider
+        ? "Answered with " + (data.provider === "gemini" ? "Gemini" : "Groq") + ". Automatic fallback is enabled."
+        : "";
     } catch (error) {
       await finishThinking(thinkingStartedAt);
       thinkingMessage.remove();
@@ -268,6 +345,13 @@
     submitQuestion(question);
   });
 
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
   input.addEventListener("input", function () {
     if (input.value) {
       window.clearTimeout(placeholderTimer);
@@ -277,6 +361,23 @@
     placeholderCharacterIndex = 0;
     isDeletingPlaceholder = false;
     startPlaceholderAnimation(300);
+  });
+
+  modeButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      setMode(button.getAttribute("data-ask-mode"), true);
+    });
+  });
+
+  scopeShortcut.addEventListener("click", function () {
+    setMode(currentMode === "scope" ? "ask" : "scope", true);
+  });
+
+  exampleButton.addEventListener("click", function () {
+    setMode("scope", true);
+    input.value = "A multi-tenant SaaS for small service businesses. Owners invite staff, assign customer jobs, track status and charge a monthly subscription. I need a useful first version without building every report and integration.";
+    window.clearTimeout(placeholderTimer);
+    input.focus();
   });
 
   closeButton.addEventListener("click", function () {
@@ -311,5 +412,6 @@
   });
 
   input.placeholder = "";
+  setMode("ask", false);
   startPlaceholderAnimation(450);
 })();

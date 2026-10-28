@@ -38,9 +38,9 @@
 
   <link rel="preload" as="image" href="assets/img/logo-2-128.webp" type="image/webp" fetchpriority="high">
   <style>.ask-widget-loading [data-ask-mustafa]{visibility:hidden}</style>
-  <link rel="preload" href="assets/css/ask-mustafa-floating.css?v=20261026-perf" as="style"
+  <link rel="preload" href="assets/css/ask-mustafa-floating.css?v=20261028-scope-doctor" as="style"
     onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.remove('ask-widget-loading')">
-  <noscript><link rel="stylesheet" href="assets/css/ask-mustafa-floating.css?v=20261026-perf"></noscript>
+  <noscript><link rel="stylesheet" href="assets/css/ask-mustafa-floating.css?v=20261028-scope-doctor"></noscript>
 
   <!-- Theme Color for mobile browsers -->
   <meta name="theme-color" content="#00C19D" />
@@ -5083,7 +5083,7 @@ img.up-img {
       const loadScripts = function () {
         [
           "assets/js/home-motion.js?v=20261026-perf",
-          "assets/js/ask-mustafa.js?v=20261026-perf"
+          "assets/js/ask-mustafa.js?v=20261028-scope-doctor"
         ].forEach(function (source) {
           const script = document.createElement("script");
           script.src = source;
@@ -5310,18 +5310,28 @@ img.up-img {
         </button>
       </header>
 
+      <div class="ask-mustafa-modes" role="group" aria-label="Choose assistant mode">
+        <button type="button" class="is-active" data-ask-mode="ask" aria-pressed="true">Ask Mustafa</button>
+        <button type="button" data-ask-mode="scope" aria-pressed="false">Scope Doctor</button>
+      </div>
+      <div class="ask-mustafa-scope-intro" data-ask-scope-intro hidden>
+        <p><strong>Turn a rough idea into a buildable MVP.</strong> Get the essential features, what to postpone, stack, risks and first milestone.</p>
+        <button type="button" data-ask-example>Try a SaaS example</button>
+      </div>
+
       <div class="ask-mustafa-conversation" data-ask-conversation aria-live="polite"></div>
       <p class="ask-mustafa-status" data-ask-status aria-live="polite"></p>
-      <p class="ask-mustafa-note">Processed by Groq. This website does not store the conversation. Don’t share sensitive information.</p>
+      <p class="ask-mustafa-note">Processed by Gemini or Groq. This website does not store the conversation. Do not share sensitive information.</p>
     </section>
 
     <form class="ask-mustafa-bar" data-ask-form>
       <span class="ask-mustafa-bar-mark" aria-hidden="true"><img src="assets/img/logo-2-128.webp" width="128" height="156" alt="Muhammad Mustafa assistant logo"></span>
       <label class="ask-mustafa-label" for="ask-mustafa-input">Ask Mustafa a question</label>
-      <input id="ask-mustafa-input" data-ask-input type="text" maxlength="300" autocomplete="off" placeholder="How many years of full-stack experience do you have?" required>
-      <span class="ask-mustafa-privacy" tabindex="0" aria-label="Questions are processed by Groq and are not stored by this website">
+      <textarea id="ask-mustafa-input" data-ask-input rows="1" maxlength="300" autocomplete="off" placeholder="How many years of full-stack experience do you have?" required></textarea>
+      <button class="ask-mustafa-scope-shortcut" type="button" data-ask-scope-shortcut aria-label="Open Scope Doctor">Scope idea</button>
+      <span class="ask-mustafa-privacy" tabindex="0" aria-label="Questions are processed by Gemini or Groq and are not stored by this website">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5.5 5.7v5.1c0 4.2 2.7 8 6.5 9.2 3.8-1.2 6.5-5 6.5-9.2V5.7L12 3Z" /><path d="m9.4 11.7 1.8 1.8 3.6-4" /></svg>
-        <span>Groq processes questions. Nothing is stored here.</span>
+        <span>Gemini or Groq processes questions. Nothing is stored by this website.</span>
       </span>
       <button class="ask-mustafa-dismiss" type="button" data-ask-dismiss aria-label="Collapse Ask Mustafa">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" /></svg>
