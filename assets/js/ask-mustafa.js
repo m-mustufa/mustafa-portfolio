@@ -402,24 +402,53 @@
     input.focus();
   });
 
-  dismissButton.addEventListener("click", function () {
-    closePanel();
+  function collapseWidget(moveFocus) {
     window.clearTimeout(launcherTimer);
     openButton.hidden = false;
     window.requestAnimationFrame(function () {
       app.classList.add("is-collapsed");
-      openButton.focus();
+      if (moveFocus) openButton.focus();
     });
-  });
+  }
 
-  openButton.addEventListener("click", function () {
+  function expandWidget(moveFocus) {
     app.classList.remove("is-collapsed");
-    if (conversation.children.length) panel.hidden = false;
-    input.focus();
+    if (moveFocus) input.focus();
     launcherTimer = window.setTimeout(function () {
       openButton.hidden = true;
     }, 320);
+  }
+
+  dismissButton.addEventListener("click", function () {
+    closePanel();
+    autoCollapsed = false;
+    collapseWidget(true);
   });
+
+  openButton.addEventListener("click", function () {
+    autoCollapsed = false;
+    if (conversation.children.length) panel.hidden = false;
+    expandWidget(true);
+  });
+
+  // Below the hero the bar folds into the launcher, unless the visitor is mid-conversation.
+  let autoCollapsed = false;
+  const hero = document.querySelector(".hero-shell");
+  if (hero && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      const heroVisible = entries[0].isIntersecting;
+      const collapsed = app.classList.contains("is-collapsed");
+      const engaged = !panel.hidden || input.value.trim() || isSending;
+
+      if (!heroVisible && !collapsed && !engaged) {
+        autoCollapsed = true;
+        collapseWidget(false);
+      } else if (heroVisible && autoCollapsed) {
+        autoCollapsed = false;
+        expandWidget(false);
+      }
+    }, { rootMargin: "0px 0px -35% 0px" }).observe(hero);
+  }
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && !panel.hidden) {
