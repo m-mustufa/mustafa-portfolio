@@ -17,8 +17,8 @@
   width: min(30rem, calc(100vw - 2rem));
   margin: 0 auto;
   gap: 0.48rem;
-  min-height: 2.75rem;
-  padding: 0.22rem 0.3rem 0.22rem 0.38rem;
+  min-height: 3.5rem;
+  padding: 0.45rem 0.5rem 0.45rem 0.6rem;
   background:
     linear-gradient(110deg, rgba(14, 38, 54, 0.97), rgba(6, 22, 35, 0.97)),
     rgba(8, 24, 37, 0.96);
@@ -61,9 +61,9 @@
 }
 
 .ask-mustafa-bar-mark {
-  flex: 0 0 1.85rem;
-  width: 1.85rem;
-  height: 1.85rem;
+  flex: 0 0 2.2rem;
+  width: 2.2rem;
+  height: 2.2rem;
   align-self: center;
   margin-right: 0.16rem;
   border-radius: 0;
@@ -103,6 +103,7 @@
   min-width: 0;
   flex: 1 1 auto;
   height: 1.5rem;
+  max-height: 11rem;
   padding: 0;
   color: #edf5fc;
   background: transparent;
@@ -116,6 +117,23 @@
 
 .ask-mustafa-bar textarea {
   resize: none;
+  overflow-y: auto;
+}
+
+.ask-mustafa-bar textarea::-webkit-scrollbar,
+.ask-mustafa-conversation::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ask-mustafa-bar textarea::-webkit-scrollbar-button,
+.ask-mustafa-conversation::-webkit-scrollbar-button {
+  display: none;
+}
+
+.ask-mustafa-bar textarea::-webkit-scrollbar-thumb,
+.ask-mustafa-conversation::-webkit-scrollbar-thumb {
+  background: rgba(78, 223, 217, 0.4);
+  border-radius: 999px;
 }
 
 .ask-mustafa-bar input::placeholder,
@@ -126,12 +144,25 @@
 
 .ask-mustafa-widget.is-scope-mode .ask-mustafa-bar {
   align-items: flex-end;
+  padding: 0.6rem 0.5rem 0.6rem 0.65rem;
+}
+
+.ask-mustafa-widget.is-scope-mode .ask-mustafa-bar-mark {
+  align-self: flex-start;
+  margin-top: 0.1rem;
 }
 
 .ask-mustafa-widget.is-scope-mode .ask-mustafa-bar textarea {
-  height: 4.4rem;
-  padding: 0.28rem 0;
-  line-height: 1.35;
+  height: 8rem;
+  padding: 0.05rem 0.35rem 0.05rem 0;
+  line-height: 1.45;
+  align-self: stretch;
+}
+
+/* Mode tabs in the panel already switch modes; keep the bar focused on typing. */
+.ask-mustafa-widget.is-scope-mode .ask-mustafa-scope-shortcut,
+.ask-mustafa-widget.is-scope-mode .ask-mustafa-privacy {
+  display: none;
 }
 
 .ask-mustafa-scope-shortcut {
@@ -277,34 +308,44 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 0.9rem;
+  padding: 1rem 1rem;
   border-bottom: 1px solid rgba(99, 168, 190, 0.14);
 }
 
 .ask-mustafa-modes {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.35rem;
-  padding: 0.55rem 0.75rem 0;
+  gap: 0.2rem;
+  margin: 0.75rem 0.9rem 0;
+  padding: 0.2rem;
+  background: rgba(4, 18, 28, 0.7);
+  border: 1px solid rgba(112, 167, 188, 0.14);
+  border-radius: 0.7rem;
 }
 
 .ask-mustafa-modes button {
-  min-height: 2rem;
-  padding: 0.35rem 0.55rem;
-  color: #8198aa;
-  background: rgba(31, 61, 80, 0.45);
-  border: 1px solid rgba(112, 167, 188, 0.12);
-  border-radius: 0.6rem;
+  min-height: 2.35rem;
+  padding: 0.3rem 0.55rem;
+  color: #9fb4c4;
+  background: transparent;
+  border: 0;
+  border-radius: 0.52rem;
   font: inherit;
-  font-size: 0.7rem;
-  font-weight: 800;
+  font-size: 0.74rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.ask-mustafa-modes button:hover:not(.is-active) {
+  color: #e4f6f8;
+  background: rgba(94, 194, 200, 0.08);
 }
 
 .ask-mustafa-modes button.is-active {
   color: #071c25;
   background: linear-gradient(145deg, #6cebe5, #3ecdd2);
-  border-color: transparent;
+  box-shadow: 0 0.3rem 0.9rem rgba(51, 207, 207, 0.18);
 }
 
 .ask-mustafa-modes button:disabled {
@@ -317,22 +358,23 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.8rem;
-  margin: 0.55rem 0.75rem 0;
-  padding: 0.7rem 0.75rem;
+  margin: 0.65rem 0.9rem 0.9rem;
+  padding: 0.95rem 0.95rem;
   color: #a9bdcc;
-  background: linear-gradient(135deg, rgba(64, 208, 205, 0.1), rgba(21, 49, 68, 0.45));
-  border: 1px solid rgba(83, 220, 221, 0.18);
+  background: rgba(64, 208, 205, 0.06);
+  border: 1px solid rgba(83, 220, 221, 0.16);
   border-radius: 0.7rem;
 }
 
-.ask-mustafa-scope-intro[hidden] {
+.ask-mustafa-scope-intro[hidden],
+.ask-mustafa-scope-intro:has(+ .ask-mustafa-conversation:not(:empty)) {
   display: none;
 }
 
 .ask-mustafa-scope-intro p {
   margin: 0;
-  font-size: 0.7rem;
-  line-height: 1.45;
+  font-size: 0.72rem;
+  line-height: 1.5;
 }
 
 .ask-mustafa-scope-intro strong {
@@ -397,11 +439,17 @@
 }
 
 .ask-mustafa-conversation {
-  max-height: min(22rem, calc(100vh - 12rem));
+  max-height: min(27rem, calc(100vh - 12rem));
   padding: 1rem;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(78, 223, 217, 0.45) transparent;
+}
+
+.ask-mustafa-conversation:empty {
+  display: none;
+}
+
+.ask-mustafa-scope-intro[hidden] + .ask-mustafa-conversation:empty + .ask-mustafa-status + .ask-mustafa-note {
+  margin-top: 0.75rem;
 }
 
 .ask-mustafa-message {
@@ -606,7 +654,7 @@
 }
 
 .ask-mustafa-note {
-  padding: 0.65rem 1rem 0.75rem;
+  padding: 0.8rem 1rem 0.9rem;
   border-top: 1px solid rgba(99, 168, 190, 0.11);
   text-align: center;
 }
@@ -638,8 +686,8 @@
 
   .ask-mustafa-bar {
     gap: 0.38rem;
-    min-height: 2.65rem;
-    padding: 0.18rem 0.26rem 0.18rem 0.32rem;
+    min-height: 3.3rem;
+    padding: 0.4rem 0.42rem 0.4rem 0.5rem;
     border-radius: 0.9rem;
   }
 
@@ -713,5 +761,14 @@
   .ask-mustafa-launcher > span::before {
     animation: none;
     transition: none;
+  }
+}
+
+/* Firefox only: in Chrome these properties override the slimmer ::-webkit-scrollbar styles. */
+@supports not selector(::-webkit-scrollbar) {
+  .ask-mustafa-bar textarea,
+  .ask-mustafa-conversation {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(78, 223, 217, 0.4) transparent;
   }
 }

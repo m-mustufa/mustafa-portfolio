@@ -194,6 +194,13 @@
     return placeholderQuestions[currentMode];
   }
 
+  function resizeInput() {
+    input.style.height = "";
+    if (input.scrollHeight > input.clientHeight) {
+      input.style.height = (input.scrollHeight + 2) + "px";
+    }
+  }
+
   function setMode(mode, revealPanel) {
     currentMode = mode === "scope" ? "scope" : "ask";
     app.classList.toggle("is-scope-mode", currentMode === "scope");
@@ -215,6 +222,7 @@
     startPlaceholderAnimation(120);
 
     if (revealPanel || currentMode === "scope") panel.hidden = false;
+    resizeInput();
     input.focus();
   }
 
@@ -341,6 +349,7 @@
     const question = input.value.trim();
     if (!question || isSending) return;
     input.value = "";
+    resizeInput();
     startPlaceholderAnimation(550);
     submitQuestion(question);
   });
@@ -353,6 +362,7 @@
   });
 
   input.addEventListener("input", function () {
+    resizeInput();
     if (input.value) {
       window.clearTimeout(placeholderTimer);
       return;
@@ -377,16 +387,23 @@
     setMode("scope", true);
     input.value = "A multi-tenant SaaS for small service businesses. Owners invite staff, assign customer jobs, track status and charge a monthly subscription. I need a useful first version without building every report and integration.";
     window.clearTimeout(placeholderTimer);
+    resizeInput();
     input.focus();
   });
 
-  closeButton.addEventListener("click", function () {
+  function closePanel() {
     panel.hidden = true;
+    // An empty Scope Doctor bar shrinks back to the compact Ask bar once the panel closes.
+    if (currentMode === "scope" && !input.value.trim()) setMode("ask", false);
+  }
+
+  closeButton.addEventListener("click", function () {
+    closePanel();
     input.focus();
   });
 
   dismissButton.addEventListener("click", function () {
-    panel.hidden = true;
+    closePanel();
     window.clearTimeout(launcherTimer);
     openButton.hidden = false;
     window.requestAnimationFrame(function () {
@@ -406,7 +423,7 @@
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && !panel.hidden) {
-      panel.hidden = true;
+      closePanel();
       input.focus();
     }
   });
