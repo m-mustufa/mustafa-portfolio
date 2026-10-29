@@ -22,7 +22,7 @@
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="675">
-    <meta property="og:image:alt" content="Software engineer monitoring a production AI chatbot and provider health dashboards">
+    <meta property="og:image:alt" content="Gemini API fallback to Groq in Node.js running from a developer home workspace">
     <meta property="og:url" content="https://aisaaswithmustafa.com/blog/gemini-api-groq-fallback-nodejs.html">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Muhammad Mustafa">
@@ -42,7 +42,7 @@
     <meta name="twitter:title" content="Gemini API Fallback for 429 Errors with Groq in Node.js">
     <meta name="twitter:description" content="Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.">
     <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/gemini-api-groq-fallback-nodejs.jpg">
-    <meta name="twitter:image:alt" content="Software engineer monitoring a production AI chatbot and provider health dashboards">
+    <meta name="twitter:image:alt" content="Gemini API fallback to Groq in Node.js running from a developer home workspace">
 
     <meta name="theme-color" content="#00C19D" />
     <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
@@ -156,7 +156,7 @@
                     </div>
 
                     <figure class="article-hero-visual">
-                        <img src="images/gemini-api-groq-fallback-nodejs.jpg" alt="Software engineer monitoring a production AI chatbot and provider health dashboards" width="1200" height="675" loading="eager" />
+                        <img src="images/gemini-api-groq-fallback-nodejs.jpg" alt="Gemini API fallback to Groq in Node.js running from a developer home workspace" width="1200" height="675" loading="eager" />
                         <figcaption>AI Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
                     </figure>
                 </div>
@@ -197,7 +197,7 @@
 <h3>Classify the status before switching providers</h3>
 <ul><li><strong>429:</strong> retry briefly when the response indicates a temporary limit, then fall back if the user cannot wait.</li><li><strong>408, 500, 502, 503, or 504:</strong> treat as temporary network or upstream failures. A bounded retry or fallback is reasonable.</li><li><strong>400:</strong> fix the payload, model parameters, or conversation format. Sending the same invalid request to another provider may hide a bug.</li><li><strong>401 or 403:</strong> investigate credentials, project access, billing, or policy restrictions. Do not rotate through providers indefinitely.</li><li><strong>Safety refusal:</strong> preserve the refusal. A fallback must never be used to bypass a provider safety decision.</li></ul>
 <p>The exact policy depends on the product. A background summary can wait and retry. A support widget needs a quick answer or an honest temporary error. The routing layer should know that difference.</p>
-<figure><img src="images/gemini-api-429-error-production-logs.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="Developer reviewing API rate-limit errors and production server logs"><figcaption>Production logs should identify the provider and safe error code without recording API keys or private prompts.</figcaption></figure>
+<figure><img src="images/gemini-api-429-error-groq-fallback-nodejs-logs.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="Developer reviewing Gemini API 429 error logs before Groq fallback in Node.js"><figcaption>Gemini API 429 logs should identify the provider and safe error code without recording API keys or private prompts.</figcaption></figure>
 <h2 class="scroll-mt-28" id="build-one-provider-contract-in-node-js">Build one provider contract in Node.js</h2>
 <p>The frontend should not contain Gemini-specific or Groq-specific logic. It should send one request to a server endpoint and receive one normalized answer. The server owns provider order, authentication, timeouts, error mapping, and observability.</p>
 <p>I use a small provider contract with the same inputs for both services: a system prompt, the current question, recent conversation history, environment variables, and a fetch implementation. Each adapter translates those shared inputs into the provider's request format and returns plain answer text.</p>
@@ -235,7 +235,7 @@
 <p>For Ask Mustafa, both providers receive the same verified portfolio context, system instructions, user question, and recent history. The prompt blocks fabricated prices, availability, client results, and unsupported experience. Scope Doctor mode has a different structured prompt, but it follows the same provider route.</p>
 <p>I keep temperature and output limits conservative, validate the returned text, and apply a final server-side length cap. The fallback should not suddenly produce a long essay when the primary normally returns a short answer.</p>
 <p>There will still be model differences. Wording, refusal behaviour, and formatting can change. For important workflows, build a small evaluation set and run it against every enabled provider. A fallback that returns technically valid but misleading output is not reliable.</p>
-<figure><img src="images/multi-provider-ai-fallback-monitoring.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="Engineer comparing the health of two AI providers on monitoring dashboards"><figcaption>Provider health, latency and fallback frequency should be visible before users report a problem.</figcaption></figure>
+<figure><img src="images/gemini-groq-multi-provider-ai-fallback-monitoring-nodejs.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="Monitoring Gemini and Groq multi-provider AI fallback health in a Node.js application"><figcaption>Gemini and Groq provider health, latency and fallback frequency should be visible before users report a problem.</figcaption></figure>
 <h2 class="scroll-mt-28" id="secure-gemini-and-groq-keys-in-netlify-functions">Secure Gemini and Groq keys in Netlify Functions</h2>
 <p>API keys belong in the server runtime, never in browser JavaScript, HTML, a public repository, or a generated static bundle. Netlify documents that a variable must include the Functions scope before a serverless function can read it at runtime.</p>
 <p>I configure <code>GEMINI_API_KEY</code> and <code>GROQ_API_KEY</code> as secrets for the required deployment contexts. The provider module reads them through <code>process.env</code>. The frontend only calls <code>/.netlify/functions/ask-mustafa</code>; it never sees either key.</p>
