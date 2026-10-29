@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>Gemini API Fallback for 429 Errors with Groq in Node.js</title>
+    <meta name="description" content="Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/gemini-api-groq-fallback-nodejs.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="Gemini API Fallback for 429 Errors with Groq in Node.js">
+    <meta property="og:description" content="Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/gemini-api-groq-fallback-nodejs.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Software engineer monitoring a production AI chatbot and provider health dashboards">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/gemini-api-groq-fallback-nodejs.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-10-29T02:59:30.288Z">
+    <meta property="article:modified_time" content="2026-10-29T02:59:30.288Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="AI Engineering">
+    <meta property="article:tag" content="Gemini API Fallback">
+    <meta property="article:tag" content="Groq API">
+    <meta property="article:tag" content="Node.js">
+    <meta property="article:tag" content="AI Reliability">
+    <meta property="article:tag" content="Netlify Functions">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gemini API Fallback for 429 Errors with Groq in Node.js">
+    <meta name="twitter:description" content="Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/gemini-api-groq-fallback-nodejs.jpg">
+    <meta name="twitter:image:alt" content="Software engineer monitoring a production AI chatbot and provider health dashboards">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261013-reading">
+    <script src="../assets/js/style.js?v=20261013-reading2" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "Gemini API Fallback for 429 Errors with Groq in Node.js", "item": "https://aisaaswithmustafa.com/blog/gemini-api-groq-fallback-nodejs.html" }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/profile.html",
+          "image": "https://aisaaswithmustafa.com/assets/img/muhammad-mustafa-ai-saas-developer.webp",
+          "jobTitle": "Full-Stack SaaS and AI Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/muhammad-mustafa-16477a99/",
+            "https://www.upwork.com/freelancers/mustafafullstack"
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Gemini API Fallback for 429 Errors with Groq in Node.js",
+          "description": "Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.",
+          "image": "https://aisaaswithmustafa.com/blog/images/gemini-api-groq-fallback-nodejs.jpg",
+          "datePublished": "2026-10-29T02:59:30.288Z",
+          "dateModified": "2026-10-29T02:59:30.288Z",
+          "articleSection": "AI Engineering",
+          "keywords": ["Gemini API Fallback","Groq API","Node.js","AI Reliability","Netlify Functions"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/gemini-api-groq-fallback-nodejs.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf"
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>AI Engineering</p>
+                        <h1 id="article-title">Gemini API Fallback for 429 Errors with Groq in Node.js</h1>
+                        <p class="article-summary">Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-10-29T02:59:30.288Z">October 29, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>AI Engineering</span>
+                <span>Gemini API Fallback</span>
+                <span>Groq API</span>
+                <span>Node.js</span>
+                <span>AI Reliability</span>
+                <span>Netlify Functions</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/gemini-api-groq-fallback-nodejs.jpg" alt="Software engineer monitoring a production AI chatbot and provider health dashboards" width="1200" height="675" loading="eager" />
+                        <figcaption>AI Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#why-a-gemini-api-fallback-is-different-from-a-retry">Why a Gemini API fallback is different from a retry</a></li>
+                    <li><a href="#build-one-provider-contract-in-node-js">Build one provider contract in Node.js</a></li>
+                    <li><a href="#preserve-behaviour-when-the-provider-changes">Preserve behaviour when the provider changes</a></li>
+                    <li><a href="#secure-gemini-and-groq-keys-in-netlify-functions">Secure Gemini and Groq keys in Netlify Functions</a></li>
+                    <li><a href="#test-the-fallback-without-causing-an-outage">Test the fallback without causing an outage</a></li>
+                    <li><a href="#operational-risks-a-fallback-does-not-solve">Operational risks a fallback does not solve</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>A <strong>Gemini API fallback</strong> becomes important the first time a working chatbot hits a rate limit, times out, or receives a temporary provider error. A single model call can look reliable in local testing and still fail when real visitors arrive, a quota changes, or an upstream service becomes overloaded.</p>
+<p>I recently added this pattern to the Ask Mustafa assistant on my portfolio. Gemini is the primary provider, Groq is the automatic fallback, and the server returns which provider answered so I can verify the production path. If the Gemini key is removed later, the same routing code continues with Groq without a frontend change.</p>
+<p>This guide explains the practical decisions behind that implementation: which failures should be retried, when a request should move to the second provider, how to keep prompts and conversation history consistent, how to protect keys in Netlify Functions, and how to test failover without waiting for a real outage.</p>
+<h2 class="scroll-mt-28" id="why-a-gemini-api-fallback-is-different-from-a-retry">Why a Gemini API fallback is different from a retry</h2>
+<p>A retry sends the request to Gemini again. A fallback sends it to another provider. Those actions solve different problems, and treating them as the same thing can make an outage worse.</p>
+<p>Google documents <code>429 RESOURCE_EXHAUSTED</code> for rate limits and recommends exponential backoff for retryable errors such as 429, 408, and 5xx responses. A short retry can help when capacity is temporarily unavailable. It does not help when a project has exhausted its daily allowance, billing is blocked, the selected model is unavailable to that project, or the request keeps exceeding the provider timeout.</p>
+<p>A user-facing chatbot also has a latency budget. Four long retries may eventually succeed, but a visitor will experience the assistant as broken. I prefer a small, explicit timeout and a limited retry policy, followed by a second provider when the error is genuinely recoverable.</p>
+<h3>Classify the status before switching providers</h3>
+<ul><li><strong>429:</strong> retry briefly when the response indicates a temporary limit, then fall back if the user cannot wait.</li><li><strong>408, 500, 502, 503, or 504:</strong> treat as temporary network or upstream failures. A bounded retry or fallback is reasonable.</li><li><strong>400:</strong> fix the payload, model parameters, or conversation format. Sending the same invalid request to another provider may hide a bug.</li><li><strong>401 or 403:</strong> investigate credentials, project access, billing, or policy restrictions. Do not rotate through providers indefinitely.</li><li><strong>Safety refusal:</strong> preserve the refusal. A fallback must never be used to bypass a provider safety decision.</li></ul>
+<p>The exact policy depends on the product. A background summary can wait and retry. A support widget needs a quick answer or an honest temporary error. The routing layer should know that difference.</p>
+<figure><img src="images/gemini-api-429-error-production-logs.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="Developer reviewing API rate-limit errors and production server logs"><figcaption>Production logs should identify the provider and safe error code without recording API keys or private prompts.</figcaption></figure>
+<h2 class="scroll-mt-28" id="build-one-provider-contract-in-node-js">Build one provider contract in Node.js</h2>
+<p>The frontend should not contain Gemini-specific or Groq-specific logic. It should send one request to a server endpoint and receive one normalized answer. The server owns provider order, authentication, timeouts, error mapping, and observability.</p>
+<p>I use a small provider contract with the same inputs for both services: a system prompt, the current question, recent conversation history, environment variables, and a fetch implementation. Each adapter translates those shared inputs into the provider's request format and returns plain answer text.</p>
+<pre><code>async function generateAnswer({ systemPrompt, question, history, env, fetchImpl }) {
+  const order = env.AI_PRIMARY_PROVIDER === &quot;groq&quot;
+    ? [&quot;groq&quot;, &quot;gemini&quot;]
+    : [&quot;gemini&quot;, &quot;groq&quot;];
+
+  const enabled = order.filter((provider) =&gt;
+    provider === &quot;gemini&quot; ? env.GEMINI_API_KEY : env.GROQ_API_KEY
+  );
+
+  let lastError;
+  for (const provider of enabled) {
+    try {
+      const answer = provider === &quot;gemini&quot;
+        ? await callGemini({ systemPrompt, question, history, env, fetchImpl })
+        : await callGroq({ systemPrompt, question, history, env, fetchImpl });
+      return { answer, provider };
+    } catch (error) {
+      lastError = normalizeProviderError(provider, error);
+      logSafeFailure(lastError.provider, lastError.code);
+    }
+  }
+
+  throw lastError;
+}</code></pre>
+<p>This loop is intentionally boring. Reliability code should be easy to read during an incident. Adding a third provider later should mean adding one adapter and one configuration entry, not rewriting the chatbot.</p>
+<h3>Keep provider differences inside the adapters</h3>
+<p>Gemini and Groq do not use identical request bodies. Gemini represents conversation content as user and model roles with parts. Groq exposes an OpenAI-compatible chat-completions shape. Their token controls, model names, error bodies, and response structures also differ.</p>
+<p>The adapter should absorb those differences. The rest of the application should not depend on <code>candidates[0].content.parts</code> or <code>choices[0].message.content</code>. It should receive a validated non-empty string or a normalized error.</p>
+<p>That boundary also protects future migrations. A provider can change a model name or SDK without forcing a change to the browser, prompt builder, or knowledge-selection code.</p>
+<h2 class="scroll-mt-28" id="preserve-behaviour-when-the-provider-changes">Preserve behaviour when the provider changes</h2>
+<p>Successful failover is not only an HTTP 200 response. The fallback answer must still follow the product rules.</p>
+<p>For Ask Mustafa, both providers receive the same verified portfolio context, system instructions, user question, and recent history. The prompt blocks fabricated prices, availability, client results, and unsupported experience. Scope Doctor mode has a different structured prompt, but it follows the same provider route.</p>
+<p>I keep temperature and output limits conservative, validate the returned text, and apply a final server-side length cap. The fallback should not suddenly produce a long essay when the primary normally returns a short answer.</p>
+<p>There will still be model differences. Wording, refusal behaviour, and formatting can change. For important workflows, build a small evaluation set and run it against every enabled provider. A fallback that returns technically valid but misleading output is not reliable.</p>
+<figure><img src="images/multi-provider-ai-fallback-monitoring.jpg" width="1200" height="675" loading="lazy" decoding="async" alt="Engineer comparing the health of two AI providers on monitoring dashboards"><figcaption>Provider health, latency and fallback frequency should be visible before users report a problem.</figcaption></figure>
+<h2 class="scroll-mt-28" id="secure-gemini-and-groq-keys-in-netlify-functions">Secure Gemini and Groq keys in Netlify Functions</h2>
+<p>API keys belong in the server runtime, never in browser JavaScript, HTML, a public repository, or a generated static bundle. Netlify documents that a variable must include the Functions scope before a serverless function can read it at runtime.</p>
+<p>I configure <code>GEMINI_API_KEY</code> and <code>GROQ_API_KEY</code> as secrets for the required deployment contexts. The provider module reads them through <code>process.env</code>. The frontend only calls <code>/.netlify/functions/ask-mustafa</code>; it never sees either key.</p>
+<p>Environment configuration needs a deployment check. A variable can exist in the dashboard but be missing from the active production function because its scope or deployment context is wrong. After changing secrets, deploy the function and make one controlled production request. Verify the returned provider and inspect the function log without printing the secret.</p>
+<h3>Log codes, not confidential data</h3>
+<p>A useful log entry can contain the provider name, normalized error code, request identifier, duration, and whether fallback succeeded. It does not need the API key, authorization header, full system prompt, visitor message, or raw customer documents.</p>
+<p>For example, <code>gemini GEMINI_UPSTREAM_429</code> is enough to start a quota investigation. A separate metric can count fallback activations and latency. If Groq begins answering a large share of traffic, that is an operational signal even when visitors still receive successful responses.</p>
+<h2 class="scroll-mt-28" id="test-the-fallback-without-causing-an-outage">Test the fallback without causing an outage</h2>
+<p>Provider routing is easy to claim and easy to leave untested. I pass <code>fetchImpl</code> into the adapters so automated tests can supply deterministic responses without calling either real API.</p>
+<p>The essential test returns a mocked 429 from Gemini and a valid Groq response. The assertion checks the answer and confirms that the reported provider is Groq. A second test removes the Gemini key entirely and confirms Groq-only mode. Another test confirms Gemini remains first when both keys are available.</p>
+<pre><code>mockFetch
+  .replyOnce(429, {
+    error: { message: &quot;Resource exhausted&quot; }
+  })
+  .replyOnce(200, {
+    choices: [{ message: { content: &quot;Fallback answer&quot; } }]
+  });
+
+const result = await generateAnswer(testRequest);
+
+assert.equal(result.provider, &quot;groq&quot;);
+assert.equal(result.answer, &quot;Fallback answer&quot;);</code></pre>
+<p>Also test timeouts, empty responses, malformed JSON, both providers failing, and no providers configured. Confirm that a failure returns a controlled 502 or 503 response rather than a stack trace. Rate limiting on your own endpoint should remain separate from upstream provider limits.</p>
+<p>After local tests pass, make one production request and confirm the primary provider. Do not repeatedly force failures against a live API just to demonstrate fallback. Mocked failure tests are safer and more repeatable.</p>
+<h2 class="scroll-mt-28" id="operational-risks-a-fallback-does-not-solve">Operational risks a fallback does not solve</h2>
+<p>A second provider improves continuity, but it is not zero downtime. Both providers can fail, the serverless function can time out, DNS can break, and a shared application bug can make both payloads invalid.</p>
+<ul><li><strong>Latency stacking:</strong> a nine-second primary timeout followed by a nine-second fallback is too slow. Set a total user-facing budget.</li><li><strong>Cost drift:</strong> fallback traffic may use a different pricing model. Track provider usage separately.</li><li><strong>Output drift:</strong> compare safety, structure, language quality, and factual behaviour across providers.</li><li><strong>Capacity correlation:</strong> two providers can depend on overlapping infrastructure or experience demand spikes at the same time.</li><li><strong>Hidden failures:</strong> silent fallback can make the system look healthy while the primary stays broken for days.</li></ul>
+<p>Use alerts for sustained fallback rate, not every isolated error. A single transient 503 may be noise. A twenty-minute shift from Gemini to Groq deserves investigation.</p>
+<h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2>
+<p>A reliable Gemini API fallback starts with a narrow provider interface, explicit error classification, short timeouts, safe logs, and automated failure tests. Retry temporary Gemini errors briefly, move to Groq when the user-facing request cannot wait, and preserve the same product rules across both models.</p>
+<p>Keep keys in Netlify Functions, return the provider in internal verification data, and monitor how often fallback activates. Most importantly, test Gemini 429 to Groq success before production rather than assuming the loop works.</p>
+<p>Use the official <a href="https://ai.google.dev/gemini-api/docs/troubleshooting" target="_blank" rel="noopener noreferrer">Gemini troubleshooting guide</a>, <a href="https://ai.google.dev/gemini-api/docs/rate-limits" target="_blank" rel="noopener noreferrer">Gemini rate-limit documentation</a>, <a href="https://console.groq.com/docs/rate-limits" target="_blank" rel="noopener noreferrer">Groq rate-limit documentation</a>, <a href="https://console.groq.com/docs/errors" target="_blank" rel="noopener noreferrer">Groq error reference</a>, and <a href="https://docs.netlify.com/build/functions/environment-variables/" target="_blank" rel="noopener noreferrer">Netlify Functions environment-variable guide</a> for current implementation details.</p>
+<p>If you need a production AI assistant with secure provider routing, tested fallbacks and honest failure handling, <a href="/#contact">contact me to discuss the architecture</a>.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="ai-saas-development-help">
+                <div>
+                    <p>Available for global remote projects</p>
+                    <h2 id="ai-saas-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/ai-saas-development-services.html">Explore AI SaaS services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa, full-stack SaaS and AI engineer" width="600" height="750" loading="lazy" decoding="async" class="article-author-photo" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 11+ years of experience across Angular, React, Next.js, Node.js, Supabase, PostgreSQL, Stripe and production AI integrations. I write from the architecture, security and delivery trade-offs I handle in real product work.</span>
+                            <div class="article-author-credentials" aria-label="Author experience">
+                                <span>11+ years</span>
+                                <span>Production SaaS</span>
+                                <span>AI integrations</span>
+                                <span>UAE projects</span>
+                            </div>
+                            <div class="article-author-links">
+                                <a href="/profile.html">About the author</a>
+                                <a href="/portfolio.html">View portfolio</a>
+                                <a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/openai-agents-api-saas-production-guide.html" class="article-related-card">
+                        <p>AI &amp; Automation</p>
+                        <h3>OpenAI Agents API for SaaS: Architecture &amp; Production Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/ai-agent-vs-chatbot.html" class="article-related-card">
+                        <p>AI &amp; Automation</p>
+                        <h3>AI Agent vs Chatbot: Differences, Costs &amp; SaaS Use Cases</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Next.js Security Checklist: Server Actions, CSP &amp; Patching</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>

@@ -1,5 +1,31 @@
 [
   {
+    "slug": "gemini-api-groq-fallback-nodejs",
+    "title": "Gemini API Fallback for 429 Errors with Groq in Node.js",
+    "metaDescription": "Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.",
+    "heroImageFile": "gemini-api-groq-fallback-nodejs.jpg",
+    "heroImageAlt": "Software engineer monitoring a production AI chatbot and provider health dashboards",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "October 29, 2026",
+    "publishDateIso": "2026-10-29T02:59:30.288Z",
+    "readingTime": 8,
+    "category": "AI Engineering",
+    "tags": [
+      "Gemini API Fallback",
+      "Groq API",
+      "Node.js",
+      "AI Reliability",
+      "Netlify Functions"
+    ],
+    "relatedSlugs": [
+      "openai-agents-api-saas-production-guide",
+      "ai-agent-vs-chatbot",
+      "nextjs-security-checklist-2026"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
+  },
+  {
     "slug": "secure-custom-software-uae-rbac-cloud-architecture-2026",
     "title": "Secure Custom Software UAE: RBAC & Cloud Architecture (2026)",
     "metaDescription": "Learn how UAE businesses can build secure custom software with role-based access, tenant isolation, audit trails and scalable cloud architecture.",
