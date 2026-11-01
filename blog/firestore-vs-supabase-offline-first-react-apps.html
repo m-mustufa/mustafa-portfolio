@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>Firestore vs Supabase for Offline-First React Apps</title>
+    <meta name="description" content="Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/firestore-vs-supabase-offline-first-react-apps.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="Firestore vs Supabase for Offline-First React Apps">
+    <meta property="og:description" content="Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/firestore-vs-supabase-offline-first-react-apps.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Developer comparing Firestore and Supabase for an offline-first React application">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/firestore-vs-supabase-offline-first-react-apps.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-01T17:20:01.637Z">
+    <meta property="article:modified_time" content="2026-11-01T17:20:01.637Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="Web Engineering">
+    <meta property="article:tag" content="Firestore">
+    <meta property="article:tag" content="Supabase">
+    <meta property="article:tag" content="Offline-First React">
+    <meta property="article:tag" content="Firebase">
+    <meta property="article:tag" content="PostgreSQL">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Firestore vs Supabase for Offline-First React Apps">
+    <meta name="twitter:description" content="Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/firestore-vs-supabase-offline-first-react-apps.jpg">
+    <meta name="twitter:image:alt" content="Developer comparing Firestore and Supabase for an offline-first React application">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261013-reading">
+    <script src="../assets/js/style.js?v=20261013-reading2" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "Firestore vs Supabase for Offline-First React Apps", "item": "https://aisaaswithmustafa.com/blog/firestore-vs-supabase-offline-first-react-apps.html" }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/profile.html",
+          "image": "https://aisaaswithmustafa.com/assets/img/muhammad-mustafa-ai-saas-developer.webp",
+          "jobTitle": "Full-Stack SaaS and AI Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/muhammad-mustafa-16477a99/",
+            "https://www.upwork.com/freelancers/mustafafullstack"
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Firestore vs Supabase for Offline-First React Apps",
+          "description": "Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.",
+          "image": "https://aisaaswithmustafa.com/blog/images/firestore-vs-supabase-offline-first-react-apps.jpg",
+          "datePublished": "2026-11-01T17:20:01.637Z",
+          "dateModified": "2026-11-01T17:20:01.637Z",
+          "articleSection": "Web Engineering",
+          "keywords": ["Firestore","Supabase","Offline-First React","Firebase","PostgreSQL"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/firestore-vs-supabase-offline-first-react-apps.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf"
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>Web Engineering</p>
+                        <h1 id="article-title">Firestore vs Supabase for Offline-First React Apps</h1>
+                        <p class="article-summary">Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-11-01T17:20:01.637Z">November 1, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>Web Engineering</span>
+                <span>Firestore</span>
+                <span>Supabase</span>
+                <span>Offline-First React</span>
+                <span>Firebase</span>
+                <span>PostgreSQL</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/firestore-vs-supabase-offline-first-react-apps.jpg" alt="Developer comparing Firestore and Supabase for an offline-first React application" width="1200" height="675" loading="eager" />
+                        <figcaption>Web Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#firestore-vs-supabase-for-offline-first-react-apps-the-core-difference">Firestore vs Supabase for offline-first React apps: the core difference</a></li>
+                    <li><a href="#offline-reads-and-writes-are-the-deciding-factor">Offline reads and writes are the deciding factor</a></li>
+                    <li><a href="#compare-security-queries-cost-and-lock-in">Compare security, queries, cost and lock-in</a></li>
+                    <li><a href="#firestore-vs-supabase-pros-and-cons-which-should-you-choose">Firestore vs Supabase pros and cons: which should you choose?</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p><strong>Firestore vs Supabase for offline-first React apps</strong> is not simply a choice between NoSQL and PostgreSQL. The bigger question is how the product should behave when a device loses its connection, a user keeps working, and several queued changes reach the server later. Firestore gives client applications built-in offline persistence and synchronization. Supabase gives developers a relational PostgreSQL foundation, but a serious offline workflow normally needs another local database or synchronization layer.</p>
+<p>I have worked with both sides in different products. Apex Logistics uses React, TanStack Query, Firestore and PWA support, while BWL League uses Supabase, PostgreSQL and Row Level Security. This is not a controlled benchmark between identical applications. It is a practical comparison of the architecture decisions that became important in real product work.</p>
+<p>I will compare data modelling, offline writes, reconnect behaviour, security, cost risk and vendor lock-in. The right answer depends less on which platform has the longer feature list and more on the failure modes your users cannot accept.</p>
+<h2 class="scroll-mt-28" id="firestore-vs-supabase-for-offline-first-react-apps-the-core-difference">Firestore vs Supabase for offline-first React apps: the core difference</h2>
+<p>Firestore is a managed document database inside Firebase. Data lives in collections and documents, with subcollections for deeper structures. Its web and mobile SDKs are designed around real-time listeners, cached data and direct client access protected by Security Rules. This makes it quick to build a React screen that continues showing previously loaded records when the network disappears.</p>
+<p>Supabase is built around PostgreSQL. Data lives in tables with relationships, constraints, indexes, SQL functions and transactions. Supabase adds authentication, storage, real-time subscriptions and an API generated from the database schema. Client applications can query that API directly when Row Level Security is configured correctly.</p>
+<p>The official <a href="https://firebase.google.com/docs/firestore/data-model" target="_blank" rel="noopener noreferrer">Firestore data-model guide</a> describes the collection and document structure. The <a href="https://supabase.com/docs/guides/getting-started/architecture" target="_blank" rel="noopener noreferrer">Supabase architecture guide</a> explains how its services sit around PostgreSQL. Those foundations affect almost every later decision.</p>
+<table><thead><tr><th>Decision</th><th>Firestore</th><th>Supabase</th></tr></thead><tbody><tr><td>Primary model</td><td>Collections and JSON-like documents</td><td>Relational PostgreSQL tables</td></tr><tr><td>Client offline support</td><td>Built into supported client SDKs</td><td>Usually added through a local database or sync layer</td></tr><tr><td>Authorization</td><td>Firebase Security Rules</td><td>PostgreSQL Row Level Security</td></tr><tr><td>Complex relationships</td><td>Often denormalized or handled in application code</td><td>Natural fit for joins, constraints and transactions</td></tr><tr><td>Portability</td><td>Tied closely to Firebase APIs and data model</td><td>PostgreSQL data and SQL are more portable</td></tr></tbody></table>
+<h3>Firestore favours fast client development</h3>
+<p>Firestore feels natural when the application revolves around records that can be loaded independently: delivery stops, messages, field reports or user preferences. Real-time listeners and local caching reduce the amount of synchronization code needed for common cases. The trade-off is that relational reporting, cross-document consistency and complex filtering require careful modelling.</p>
+<h3>Supabase favours relational integrity</h3>
+<p>Supabase is usually easier when the domain has strong relationships: organizations, teams, memberships, roles, invoices and audit records. Foreign keys and database constraints can reject invalid states even when an application bug reaches the API. The trade-off is that PostgreSQL alone does not make the browser offline-first.</p>
+<h2 class="scroll-mt-28" id="offline-reads-and-writes-are-the-deciding-factor">Offline reads and writes are the deciding factor</h2>
+<p>The official <a href="https://firebase.google.com/docs/firestore/manage-data/enable-offline" target="_blank" rel="noopener noreferrer">Firestore offline documentation</a> says the client can read, write, listen to and query cached data. When connectivity returns, local changes synchronize with the backend. On the web, persistent caching must be enabled, supported browsers matter, and cached data may remain between sessions. That last point deserves a product decision on shared or sensitive devices.</p>
+<p>Firestore also documents last-write-wins behaviour when several offline changes affect the same document. That rule is convenient, but it is not enough for every business operation. Two drivers updating a delivery note may tolerate a newer value replacing an older one. Two users consuming the last available inventory item need a stronger server-side check.</p>
+<p>I still separate a friendly offline interface from a trustworthy business command. The UI can optimistically show a queued action, but the backend remains responsible for validating permissions, stock, status transitions and idempotency. A green check mark should mean accepted by the server, not merely saved on the device.</p>
+<figure><img src="images/offline-first-react-app-sync-low-connectivity.jpg" alt="Logistics worker testing offline-first React app synchronization in a low-connectivity warehouse" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Offline behaviour should be tested where the product is actually used, including warehouses, loading areas and unstable mobile connections.</figcaption></figure>
+<p>Supabase does not offer the same transparent browser persistence through its standard JavaScript client. Its official integration directory presents <a href="https://supabase.com/partners/integrations/powersync" target="_blank" rel="noopener noreferrer">PowerSync</a> as a PostgreSQL-to-SQLite synchronization layer for offline-first applications. Other teams use a local database, IndexedDB or their own operation queue. These approaches can work well, but conflict rules, schema changes and failed writes become explicit parts of the architecture.</p>
+<p>For a web application, TanStack Query can cache server state and improve retry behaviour, but its cache should not be confused with a complete durable sync engine. In my <a href="/blog/offline-first-react-pwa-tanstack-query.html">offline-first React PWA guide</a>, I cover persisted query data, mutation queues, idempotency and reconnect testing in more detail.</p>
+<p>A small queue entry should describe business intent instead of storing an arbitrary HTTP request:</p>
+<pre><code class="language-ts">type PendingOperation = {
+  id: string;
+  entityId: string;
+  action: "confirm-delivery" | "add-note";
+  payload: Record&lt;string, unknown&gt;;
+  createdAt: string;
+  expectedVersion?: number;
+};</code></pre>
+<p>The stable operation ID lets the server process a retry safely. The expected version can reveal that the record changed while the device was offline. Whether the backend is Firestore or Supabase, this is more reliable than blindly replaying requests.</p>
+<h2 class="scroll-mt-28" id="compare-security-queries-cost-and-lock-in">Compare security, queries, cost and lock-in</h2>
+<h3>Firebase Security Rules vs Supabase RLS</h3>
+<p>Firestore Security Rules evaluate access to document paths for mobile and web clients. Rules can use authentication claims and document data, but queries must be compatible with the rules because Firestore does not use them as filters. The official <a href="https://firebase.google.com/docs/firestore/security/get-started" target="_blank" rel="noopener noreferrer">Security Rules guide</a> also warns against open development rules in production.</p>
+<p>Supabase Row Level Security applies policies inside PostgreSQL. A policy can limit which rows a user may select, insert, update or delete. That is a strong fit for organization and team boundaries, but a missing or overly broad policy can expose data. I treat RLS policies as production code, keep them in migrations and test both allowed and denied operations. The current <a href="https://supabase.com/docs/guides/database/postgres/row-level-security" target="_blank" rel="noopener noreferrer">Supabase RLS documentation</a> recommends testing each operation for anonymous and authenticated roles.</p>
+<figure><img src="images/supabase-rls-vs-firebase-security-rules-react.jpg" alt="Developer comparing Supabase RLS and Firebase Security Rules for a React application" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Access rules need explicit allow and deny tests. A successful screen load does not prove that another tenant is blocked.</figcaption></figure>
+<p>My <a href="/blog/supabase-rls-multi-role-apps.html">Supabase RLS guide for multi-role apps</a> explains the team-isolation problems that appear when one user can hold different roles. Firestore can model the same business rules, but the implementation follows document paths and claims instead of SQL policies.</p>
+<h3>Queries and reporting</h3>
+<p>Firestore rewards query-driven denormalization. If a dashboard needs the same organization name on many records, copying that value may be simpler than rebuilding it through multiple reads. This improves a common screen but creates an update problem when shared data changes.</p>
+<p>Supabase lets PostgreSQL perform joins, aggregations and transactional updates. That is valuable for admin reporting and domains with many relationships. It can also encourage an overly large query, so indexes, pagination and measured query plans still matter.</p>
+<h3>Cost and vendor lock-in</h3>
+<p>I would not choose either platform from a sample monthly bill. Firestore charges are strongly influenced by document reads, writes, deletes, storage and network use. A real-time listener or inefficient list screen can change the pattern. Supabase plans combine allocated compute and quotas with usage-based charges for some resources. Database size, bandwidth, real-time connections, storage and extra compute all matter.</p>
+<p>Before launch, I estimate costs from product actions: opening a dashboard, syncing one shift, uploading evidence, generating a report and reconnecting after several hours. Then I test those actions with realistic data. The official <a href="https://firebase.google.com/docs/firestore/pricing" target="_blank" rel="noopener noreferrer">Firestore pricing guide</a> and <a href="https://supabase.com/pricing" target="_blank" rel="noopener noreferrer">Supabase pricing page</a> should be checked again when the product is ready to launch because limits and prices can change.</p>
+<p>Firestore creates more platform-specific code around listeners, rules, indexes and document modelling. Supabase is also a platform, but PostgreSQL data, SQL migrations and common database tools give a clearer exit path. Self-hosting Supabase is possible, though operating it safely is real infrastructure work, not a free portability button.</p>
+<h2 class="scroll-mt-28" id="firestore-vs-supabase-pros-and-cons-which-should-you-choose">Firestore vs Supabase pros and cons: which should you choose?</h2>
+<h3>Choose Firestore when</h3>
+<ul><li>Reliable mobile or browser offline behaviour is a core requirement.</li><li>The data fits independent documents and predictable query patterns.</li><li>Real-time client updates matter more than complex relational reporting.</li><li>The team wants a managed backend and accepts Firebase-specific APIs.</li></ul>
+<p><strong>Firestore pros:</strong> mature client SDKs, built-in offline persistence, real-time listeners and low backend setup for common app flows.</p>
+<p><strong>Firestore cons:</strong> denormalization work, platform-specific security and query rules, last-write-wins conflicts, and cost patterns that can surprise read-heavy screens.</p>
+<h3>Choose Supabase when</h3>
+<ul><li>The product depends on organizations, memberships, roles and relational integrity.</li><li>SQL reporting, joins, constraints and transactions are central requirements.</li><li>PostgreSQL portability matters more than built-in client synchronization.</li><li>The team can add and operate a deliberate offline layer where needed.</li></ul>
+<p><strong>Supabase pros:</strong> PostgreSQL, strong relational modelling, database-level RLS, SQL tooling and a more portable data foundation.</p>
+<p><strong>Supabase cons:</strong> offline synchronization needs additional architecture, RLS has a learning curve, and self-hosting adds operational responsibility.</p>
+<p>For a field logistics PWA that must keep working during long connection gaps, I would usually start the evaluation with Firestore. For a multi-tenant SaaS dashboard with complex roles, reporting and relational workflows, I would usually start with Supabase. If the product needs both, I would first challenge whether every screen truly needs offline writes. Adding two primary data platforms normally creates more synchronization risk than it removes.</p>
+<p>The best proof is a small failure-focused prototype. Put a device offline, make conflicting changes, close the browser, sign in as another user, reconnect slowly and inspect what the server finally accepts. That exercise exposes more than a polished feature matrix.</p>
+<p>If you are planning an offline React product or choosing its backend, <a href="/#contact">contact me</a>. I can help turn the product requirements into a practical architecture before the expensive assumptions reach production.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="uae-development-help">
+                <div>
+                    <p>Available across the UAE</p>
+                    <h2 id="uae-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/full-stack-development-services-dubai.html">Explore UAE services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa, full-stack SaaS and AI engineer" width="600" height="750" loading="lazy" decoding="async" class="article-author-photo" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 11+ years of experience across Angular, React, Next.js, Node.js, Supabase, PostgreSQL, Stripe and production AI integrations. I write from the architecture, security and delivery trade-offs I handle in real product work.</span>
+                            <div class="article-author-credentials" aria-label="Author experience">
+                                <span>11+ years</span>
+                                <span>Production SaaS</span>
+                                <span>AI integrations</span>
+                                <span>UAE projects</span>
+                            </div>
+                            <div class="article-author-links">
+                                <a href="/profile.html">About the author</a>
+                                <a href="/portfolio.html">View portfolio</a>
+                                <a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/offline-first-react-pwa-tanstack-query.html" class="article-related-card">
+                        <p>Web Engineering</p>
+                        <h3>Offline-First React PWA: TanStack Query &amp; IndexedDB Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/supabase-rls-multi-role-apps.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Supabase RLS Policies: Multi-Tenant SQL &amp; Testing</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/nextjs-security-checklist-2026.html" class="article-related-card">
+                        <p>Security &amp; Compliance</p>
+                        <h3>Next.js Security Checklist: Server Actions, CSP &amp; Patching</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>

@@ -32,9 +32,15 @@
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/index.html</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aisaaswithmustafa.com/blog/firestore-vs-supabase-offline-first-react-apps.html</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/gemini-api-groq-fallback-nodejs.html</loc>

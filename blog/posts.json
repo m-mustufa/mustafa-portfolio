@@ -1,5 +1,31 @@
 [
   {
+    "slug": "firestore-vs-supabase-offline-first-react-apps",
+    "title": "Firestore vs Supabase for Offline-First React Apps",
+    "metaDescription": "Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.",
+    "heroImageFile": "firestore-vs-supabase-offline-first-react-apps.jpg",
+    "heroImageAlt": "Developer comparing Firestore and Supabase for an offline-first React application",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 1, 2026",
+    "publishDateIso": "2026-11-01T17:20:01.637Z",
+    "readingTime": 8,
+    "category": "Web Engineering",
+    "tags": [
+      "Firestore",
+      "Supabase",
+      "Offline-First React",
+      "Firebase",
+      "PostgreSQL"
+    ],
+    "relatedSlugs": [
+      "offline-first-react-pwa-tanstack-query",
+      "supabase-rls-multi-role-apps",
+      "nextjs-security-checklist-2026"
+    ],
+    "serviceLandingPage": "/full-stack-development-services-dubai.html"
+  },
+  {
     "slug": "gemini-api-groq-fallback-nodejs",
     "title": "Gemini API Fallback for 429 Errors with Groq in Node.js",
     "metaDescription": "Build a Gemini API fallback for 429 and timeout errors using Groq, Node.js provider routing, Netlify secrets, safe logging and automated failover tests.",
