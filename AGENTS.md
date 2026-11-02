@@ -34,6 +34,7 @@ npm run build:css  # rebuild assets/css/tailwind.css after ANY class change in t
 ## Git / deploy notes
 
 - Bitbucket **deprecated app passwords** (returns HTTP 410). Auth now uses an Atlassian API token stored via the `manager` credential helper (Windows Credential Manager). If push suddenly fails with a 410, the stored token needs replacing — ask the user for a fresh one from Bitbucket → Personal settings → API tokens.
+- This clone mirrors approved pushes to both hosts: `origin` fetches from Bitbucket and has Bitbucket plus `https://github.com/m-mustufa/mustafa-portfolio.git` configured as push URLs. Use `git push origin ...` so the same commit reaches both repositories, then verify the target branch SHA on Bitbucket and GitHub. Do not update only one host.
 - Never commit secrets (API keys, tokens) to any file in this repo. `.gitignore` already excludes `node_modules/`.
 - The user has repeatedly asked for pushes to be a separate, explicit step ("push it") — don't push automatically after every change.
 
