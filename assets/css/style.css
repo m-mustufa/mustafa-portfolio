@@ -5083,6 +5083,7 @@ img.up-img {
     background: linear-gradient(90deg, rgba(61, 202, 209, 0.13), transparent);
     box-shadow: inset 2px 0 #51d0d5;
     transform: translateX(3px);
+    padding-left: 8px;
 }
 
 .article-sidebar-cta {
