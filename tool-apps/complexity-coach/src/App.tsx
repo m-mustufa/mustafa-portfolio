@@ -23,6 +23,9 @@ import {
   Mail,
   MessageCircle,
   Linkedin,
+  Github,
+  CalendarDays,
+  Phone,
   ExternalLink,
   Send
 } from 'lucide-react';
@@ -2377,145 +2380,215 @@ export function App() {
       <section
         id="contact"
         aria-labelledby="complexity-contact-title"
-        className="border-t border-teal-400/15 px-4 sm:px-6 py-12 sm:py-16"
+        className="border-t border-teal-400/15 bg-[#0B1729] px-4 sm:px-6 py-14 sm:py-20"
       >
         <div className="max-w-7xl mx-auto">
-          <div
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(13, 37, 51, 0.96), rgba(8, 24, 40, 0.96))',
-              borderColor: 'rgba(45, 212, 191, 0.24)',
-              boxShadow: '0 24px 70px rgba(0, 8, 18, 0.32)'
-            }}
-            className="border rounded-3xl p-5 sm:p-8 lg:p-10"
-          >
-            <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12">
-              <div className="space-y-6">
-                <div>
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#2DD4BF] mb-2">
-                    Need more than a complexity estimate?
-                  </p>
-                  <h2 id="complexity-contact-title" className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#F8FAFC]">
-                    Let&apos;s build or improve your{' '}
-                    <span className="text-[#2DD4BF]">SaaS product.</span>
-                  </h2>
-                  <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-[#94A3B8]">
-                    Share the product, integration or technical problem you are working on. I&apos;ll reply directly with the next practical step.
-                  </p>
-                </div>
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr] items-end gap-6 lg:gap-12 mb-8 sm:mb-10">
+            <div>
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#46D7E4] mb-3">
+                Start a project
+              </p>
+              <h2 id="complexity-contact-title" className="max-w-3xl text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.02] tracking-tight text-[#F8FAFC]">
+                Start Your <span className="text-[#45CAD5]">SaaS or AI Project</span>
+              </h2>
+            </div>
+            <p className="max-w-xl text-sm sm:text-base leading-7 text-[#A8C2DC] lg:pb-1">
+              Have a product, integration or difficult technical problem? Send the details and I&apos;ll reply directly.
+            </p>
+          </div>
 
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <a
-                    href="mailto:mustufa50@gmail.com"
-                    className="group flex items-center gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
-                  >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-400/10 text-[#2DD4BF]">
-                      <Mail className="h-4 w-4" />
-                    </span>
-                    <span className="min-w-0">
-                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Email</small>
-                      <strong className="block truncate text-xs text-[#F8FAFC]">mustufa50@gmail.com</strong>
-                    </span>
-                  </a>
-                  <a
-                    href="https://wa.me/923332284944"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
-                  >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-400/10 text-[#2DD4BF]">
-                      <MessageCircle className="h-4 w-4" />
-                    </span>
-                    <span>
-                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Quick chat</small>
-                      <strong className="block text-xs text-[#F8FAFC]">WhatsApp</strong>
-                    </span>
-                    <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#64748B]" />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
-                  >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-400/10 text-[#2DD4BF]">
-                      <Linkedin className="h-4 w-4" />
-                    </span>
-                    <span>
-                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Professional profile</small>
-                      <strong className="block text-xs text-[#F8FAFC]">LinkedIn</strong>
-                    </span>
-                    <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#64748B]" />
-                  </a>
-                  <a
-                    href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
-                  >
-                    <span>
-                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Freelance platform</small>
-                      <strong className="block text-xs text-[#F8FAFC]">Hire me on Upwork</strong>
-                    </span>
-                    <ExternalLink className="h-3.5 w-3.5 text-[#64748B]" />
-                  </a>
-                </div>
+          <aside className="mb-4 flex flex-col gap-4 rounded-2xl border border-cyan-400/25 bg-[#0C2B39] px-4 py-4 sm:px-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#46D7E4]">
+                Freelance platform
+              </p>
+              <h3 className="mt-2 text-sm sm:text-base font-extrabold text-[#F8FAFC]">
+                Prefer to hire through an established platform?
+              </h3>
+            </div>
+            <a
+              href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-lg border border-cyan-300/35 bg-[#0B91A1] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-[#0FA5B2]"
+            >
+              <span>Hire me on</span>
+              <img
+                src="/assets/img/mustafa-full-stack-saas-engineer-upwork.png"
+                width="204"
+                height="56"
+                alt="Upwork"
+                className="h-5 w-auto"
+              />
+            </a>
+          </aside>
+
+          <div className="grid lg:grid-cols-[0.92fr_1.08fr] gap-4">
+            <div className="rounded-2xl border border-slate-500/35 bg-[#16283A] p-5 sm:p-6">
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#46D7E4]">
+                Direct contact
+              </p>
+              <h3 className="mt-2 text-xl font-extrabold text-[#F8FAFC]">
+                Choose the channel that works for you.
+              </h3>
+
+              <div className="mt-5 grid sm:grid-cols-2 gap-3">
+                <a
+                  href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-500/35 bg-[#14273A] p-3 hover:border-cyan-300/45 transition-colors"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/35 bg-cyan-400/10 text-[#46D7E4]">
+                    <Linkedin className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <small className="block text-[10px] text-[#86A3BF]">Professional profile</small>
+                    <strong className="block text-xs text-[#F8FAFC]">LinkedIn</strong>
+                  </span>
+                  <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#6F91AF]" />
+                </a>
+
+                <a
+                  href="https://github.com/m-mustufa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-500/35 bg-[#14273A] p-3 hover:border-cyan-300/45 transition-colors"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/35 bg-cyan-400/10 text-[#46D7E4]">
+                    <Github className="h-4 w-4" />
+                  </span>
+                  <span>
+                    <small className="block text-[10px] text-[#86A3BF]">Code and projects</small>
+                    <strong className="block text-xs text-[#F8FAFC]">GitHub</strong>
+                  </span>
+                  <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#6F91AF]" />
+                </a>
+
+                <a
+                  href="https://wa.me/923332284944"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-500/35 bg-[#14273A] p-3 hover:border-cyan-300/45 transition-colors"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/35 bg-cyan-400/10 text-[#46D7E4]">
+                    <MessageCircle className="h-4 w-4" />
+                  </span>
+                  <span>
+                    <small className="block text-[10px] text-[#86A3BF]">Quick conversation</small>
+                    <strong className="block text-xs text-[#F8FAFC]">WhatsApp</strong>
+                  </span>
+                  <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#6F91AF]" />
+                </a>
+
+                <a
+                  href="https://calendly.com/mustdev/30min-consultation"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-500/35 bg-[#14273A] p-3 hover:border-cyan-300/45 transition-colors"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/35 bg-cyan-400/10 text-[#46D7E4]">
+                    <CalendarDays className="h-4 w-4" />
+                  </span>
+                  <span>
+                    <small className="block text-[10px] text-[#86A3BF]">30-minute consultation</small>
+                    <strong className="block text-xs text-[#F8FAFC]">Book a Call</strong>
+                  </span>
+                  <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#6F91AF]" />
+                </a>
+
+                <a
+                  href="tel:+923332284944"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-500/35 bg-[#14273A] p-3 hover:border-cyan-300/45 transition-colors sm:col-span-2"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/35 bg-cyan-400/10 text-[#46D7E4]">
+                    <Phone className="h-4 w-4" />
+                  </span>
+                  <span>
+                    <small className="block text-[10px] text-[#86A3BF]">Pakistan / UAE</small>
+                    <strong className="block text-xs text-[#F8FAFC]">+92 333 2284944</strong>
+                  </span>
+                  <span className="ml-auto text-[#6F91AF]" aria-hidden="true">&rarr;</span>
+                </a>
+
+                <a
+                  href="mailto:mustufa50@gmail.com"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-500/35 bg-[#14273A] p-3 hover:border-cyan-300/45 transition-colors sm:col-span-2"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-cyan-300/35 bg-cyan-400/10 text-[#46D7E4]">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <small className="block text-[10px] text-[#86A3BF]">Email directly</small>
+                    <strong className="block truncate text-xs text-[#F8FAFC]">mustufa50@gmail.com</strong>
+                  </span>
+                  <span className="ml-auto text-[#6F91AF]" aria-hidden="true">&rarr;</span>
+                </a>
               </div>
+            </div>
 
-              <form
-                action="https://formspree.io/f/xjkrnwyl"
-                method="POST"
-                className="rounded-2xl border border-teal-400/20 bg-[#07101E]/80 p-4 sm:p-5 space-y-4"
-                data-contact-form
-              >
-                <input type="hidden" name="_subject" value="Complexity Coach project inquiry" />
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <label className="space-y-1.5 text-xs font-semibold text-[#CBD5E1]">
-                    <span>Your name</span>
-                    <input
-                      type="text"
-                      name="name"
-                      autoComplete="name"
-                      required
-                      className="w-full rounded-lg border border-teal-400/20 bg-[#050B14] px-3 py-2.5 text-sm text-[#F8FAFC] outline-none focus:border-teal-300"
-                      placeholder="Your name"
-                    />
-                  </label>
-                  <label className="space-y-1.5 text-xs font-semibold text-[#CBD5E1]">
-                    <span>Your email</span>
-                    <input
-                      type="email"
-                      name="email"
-                      autoComplete="email"
-                      required
-                      className="w-full rounded-lg border border-teal-400/20 bg-[#050B14] px-3 py-2.5 text-sm text-[#F8FAFC] outline-none focus:border-teal-300"
-                      placeholder="you@company.com"
-                    />
-                  </label>
-                </div>
-                <label className="block space-y-1.5 text-xs font-semibold text-[#CBD5E1]">
-                  <span>Project overview</span>
-                  <textarea
-                    name="message"
-                    rows={5}
+            <form
+              action="https://formspree.io/f/xjkrnwyl"
+              method="POST"
+              className="rounded-2xl border border-slate-500/35 bg-[#16283A] p-5 sm:p-6"
+              data-contact-form
+            >
+              <input type="hidden" name="_subject" value="Complexity Coach project inquiry" />
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#46D7E4]">
+                Project details
+              </p>
+              <h3 className="mt-2 text-xl font-extrabold text-[#F8FAFC]">
+                Tell me what you&apos;re building.
+              </h3>
+
+              <div className="mt-5 grid sm:grid-cols-2 gap-4">
+                <label className="space-y-2 text-xs font-semibold text-[#CBD5E1]">
+                  <span>Your name</span>
+                  <input
+                    type="text"
+                    name="name"
+                    autoComplete="name"
                     required
-                    className="w-full resize-y rounded-lg border border-teal-400/20 bg-[#050B14] px-3 py-2.5 text-sm text-[#F8FAFC] outline-none focus:border-teal-300"
-                    placeholder="What are you building, and where do you need help?"
+                    className="w-full rounded-xl border border-slate-500/35 bg-[#0B1C2B] px-4 py-3.5 text-sm text-[#F8FAFC] outline-none focus:border-cyan-300"
+                    placeholder="Your name"
                   />
                 </label>
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-[11px] text-[#64748B]">I usually reply directly by email.</p>
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#14B8A6] to-[#06B6D4] px-4 py-2.5 text-xs font-extrabold text-[#04121C] hover:brightness-110 transition"
-                  >
-                    Send project request
-                    <Send className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-                <p className="text-xs text-[#94A3B8]" data-contact-form-status role="status" aria-live="polite" hidden />
-              </form>
-            </div>
+                <label className="space-y-2 text-xs font-semibold text-[#CBD5E1]">
+                  <span>Your email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    className="w-full rounded-xl border border-slate-500/35 bg-[#0B1C2B] px-4 py-3.5 text-sm text-[#F8FAFC] outline-none focus:border-cyan-300"
+                    placeholder="you@company.com"
+                  />
+                </label>
+              </div>
+
+              <label className="mt-4 block space-y-2 text-xs font-semibold text-[#CBD5E1]">
+                <span>Project overview</span>
+                <textarea
+                  name="message"
+                  rows={7}
+                  required
+                  className="w-full resize-y rounded-xl border border-slate-500/35 bg-[#0B1C2B] px-4 py-3.5 text-sm text-[#F8FAFC] outline-none focus:border-cyan-300"
+                  placeholder="What are you building, and where do you need help?"
+                />
+              </label>
+
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-[11px] text-[#7FA0BD]">I usually reply directly by email.</p>
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-2 rounded-lg border border-cyan-300/35 bg-[#0B91A1] px-5 py-3 text-xs font-extrabold text-white transition hover:bg-[#0FA5B2]"
+                >
+                  Send project request
+                  <Send className="h-3.5 w-3.5" />
+                </button>
+              </div>
+              <p className="mt-3 text-xs text-[#94A3B8]" data-contact-form-status role="status" aria-live="polite" hidden />
+            </form>
           </div>
         </div>
       </section>
