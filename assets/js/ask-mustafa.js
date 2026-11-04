@@ -207,7 +207,6 @@
     input.maxLength = currentMode === "scope" ? 1200 : 300;
     scopeIntro.hidden = currentMode !== "scope";
     scopeShortcut.textContent = currentMode === "scope" ? "Ask me" : "Scope idea";
-    scopeShortcut.setAttribute("aria-label", currentMode === "scope" ? "Switch to Ask Mustafa" : "Open Scope Doctor");
 
     modeButtons.forEach(function (button) {
       const active = button.getAttribute("data-ask-mode") === currentMode;

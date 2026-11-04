@@ -118,14 +118,14 @@
   display: block;
   margin: 0.55rem auto 0;
   padding: 0;
-  color: inherit;
+  color: #9ca3af;
   background: transparent;
   border: 0;
   font-size: 0.72rem;
   line-height: 1.4;
   text-decoration: underline;
   text-underline-offset: 0.18em;
-  opacity: 0.72;
+  opacity: 1;
   cursor: pointer;
 }
 

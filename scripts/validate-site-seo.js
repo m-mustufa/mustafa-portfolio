@@ -19,6 +19,11 @@ const pages = [
     primaryPhrase: "ai saas development services",
   },
   {
+    file: "tools/index.html",
+    canonical: `${SITE_URL}/tools/index.html`,
+    primaryPhrase: "free browser tools",
+  },
+  {
     file: "tools/upwork-proposal-roast.html",
     canonical: `${SITE_URL}/tools/upwork-proposal-roast.html`,
     primaryPhrase: "upwork proposal",
@@ -138,6 +143,9 @@ if (!homeHtml.includes('href="/ai-saas-development-services.html"')) {
 if (!homeHtml.includes('href="/tools/upwork-proposal-roast.html"')) {
   errors.push("index.html: Upwork Proposal Roast tool is not internally linked");
 }
+if (!homeHtml.includes('href="/tools/index.html"')) {
+  errors.push("index.html: free tools directory is not internally linked");
+}
 if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
   errors.push("index.html: ProfilePage structured data is missing");
 }
@@ -155,6 +163,9 @@ if (!sitemap.includes(`${SITE_URL}/blog/index.html`)) {
 if (!sitemap.includes(`${SITE_URL}/tools/upwork-proposal-roast.html`)) {
   errors.push("sitemap.xml: Upwork Proposal Roast tool is missing");
 }
+if (!sitemap.includes(`${SITE_URL}/tools/index.html`)) {
+  errors.push("sitemap.xml: free tools directory is missing");
+}
 
 const legacyHostnameFiles = [
   "index.html",
@@ -163,6 +174,7 @@ const legacyHostnameFiles = [
   "thanks.html",
   "ai-saas-development-services.html",
   "full-stack-development-services-dubai.html",
+  "tools/index.html",
   "tools/upwork-proposal-roast.html",
   "blog/index.html",
   "blog/_template.html",
