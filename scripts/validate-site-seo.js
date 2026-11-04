@@ -28,6 +28,11 @@ const pages = [
     canonical: `${SITE_URL}/tools/upwork-proposal-roast.html`,
     primaryPhrase: "upwork proposal",
   },
+  {
+    file: "tools/complexity-coach/index.html",
+    canonical: `${SITE_URL}/tools/complexity-coach/`,
+    primaryPhrase: "complexity coach",
+  },
 ];
 
 function countMatches(value, pattern) {
@@ -146,6 +151,9 @@ if (!homeHtml.includes('href="/tools/upwork-proposal-roast.html"')) {
 if (!homeHtml.includes('href="/tools/index.html"')) {
   errors.push("index.html: free tools directory is not internally linked");
 }
+if (!homeHtml.includes('href="/tools/complexity-coach/"')) {
+  errors.push("index.html: Complexity Coach tool is not internally linked");
+}
 if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
   errors.push("index.html: ProfilePage structured data is missing");
 }
@@ -166,6 +174,9 @@ if (!sitemap.includes(`${SITE_URL}/tools/upwork-proposal-roast.html`)) {
 if (!sitemap.includes(`${SITE_URL}/tools/index.html`)) {
   errors.push("sitemap.xml: free tools directory is missing");
 }
+if (!sitemap.includes(`${SITE_URL}/tools/complexity-coach/`)) {
+  errors.push("sitemap.xml: Complexity Coach tool is missing");
+}
 
 const legacyHostnameFiles = [
   "index.html",
@@ -176,6 +187,7 @@ const legacyHostnameFiles = [
   "full-stack-development-services-dubai.html",
   "tools/index.html",
   "tools/upwork-proposal-roast.html",
+  "tools/complexity-coach/index.html",
   "blog/index.html",
   "blog/_template.html",
   "robots.txt",
