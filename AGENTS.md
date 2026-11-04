@@ -148,3 +148,13 @@ Recommended direction (not yet agreed/started):
 - The URL Inspection **Request indexing** action has a daily quota. The user hit “Quota Exceeded”; this is a Google limit, not a site error. Do not keep retrying. Wait for the quota reset and request indexing only for the newest/highest-priority URL if needed.
 - A successful sitemap queues URLs for discovery/crawling but does not guarantee immediate indexing or ranking. Allow several days (roughly a week before treating it as a problem), and use the Page Indexing report rather than repeatedly resubmitting.
 - Ranking strategy agreed with the user: prioritize original, experience-backed posts; descriptive contextual internal links; clear author credibility/bylines; narrow long-tail keywords; and legitimate backlinks/sharing. Never buy links, spam submissions, or mass-produce thin posts.
+
+## Bing and other IndexNow search engines
+
+- Bing Webmaster Tools and IndexNow are free; do not use a paid GSC Wizard workflow for this site.
+- The public IndexNow ownership key is stored at `/0ddd3c5e36d62ab4cdac47fc97190e4f.txt`. It is intentionally public and is not a credential or secret.
+- After a production deployment is live and its changed URLs return the expected status, notify IndexNow with `node scripts/submit-indexnow.js --url <production-url> --submit`. Repeat `--url` for multiple changed URLs.
+- For a dated batch, use `node scripts/submit-indexnow.js --sitemap --since YYYY-MM-DD --submit`. Sitemap mode intentionally requires `--since`; never submit the complete unchanged sitemap after every deploy.
+- Run without `--submit` first to review the exact URL list. Draft branches and preview URLs must never be sent to IndexNow.
+- An accepted `200` or `202` response means the change notification was received; it does not guarantee indexing or ranking. Do not repeatedly submit unchanged URLs.
+- Keep Bing Webmaster Tools connected to the existing Google Search Console property and keep `https://aisaaswithmustafa.com/sitemap.xml` submitted there. Browser/account verification is a separate one-time user-authorized step.
