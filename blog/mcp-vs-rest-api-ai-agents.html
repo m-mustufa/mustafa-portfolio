@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>MCP vs REST API for AI Agents: When to Use Each</title>
+    <meta name="description" content="Compare MCP vs REST API for AI agents, including architecture, pros and cons, security, tool discovery, and when a hybrid approach works best.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/mcp-vs-rest-api-ai-agents.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="MCP vs REST API for AI Agents: When to Use Each">
+    <meta property="og:description" content="Compare MCP vs REST API for AI agents, including architecture, pros and cons, security, tool discovery, and when a hybrid approach works best.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/mcp-vs-rest-api-ai-agents-developer-comparison.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Backend developer comparing MCP and REST API integration options for an AI agent">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/mcp-vs-rest-api-ai-agents.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-04T03:24:18.885Z">
+    <meta property="article:modified_time" content="2026-11-04T03:24:18.885Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="AI Engineering">
+    <meta property="article:tag" content="MCP vs REST API">
+    <meta property="article:tag" content="Model Context Protocol">
+    <meta property="article:tag" content="AI Agents">
+    <meta property="article:tag" content="REST API">
+    <meta property="article:tag" content="SaaS Architecture">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MCP vs REST API for AI Agents: When to Use Each">
+    <meta name="twitter:description" content="Compare MCP vs REST API for AI agents, including architecture, pros and cons, security, tool discovery, and when a hybrid approach works best.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/mcp-vs-rest-api-ai-agents-developer-comparison.jpg">
+    <meta name="twitter:image:alt" content="Backend developer comparing MCP and REST API integration options for an AI agent">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261013-reading">
+    <script src="../assets/js/style.js?v=20261013-reading2" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "MCP vs REST API for AI Agents: When to Use Each", "item": "https://aisaaswithmustafa.com/blog/mcp-vs-rest-api-ai-agents.html" }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/profile.html",
+          "image": "https://aisaaswithmustafa.com/assets/img/muhammad-mustafa-ai-saas-developer.webp",
+          "jobTitle": "Full-Stack SaaS and AI Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/muhammad-mustafa-16477a99/",
+            "https://www.upwork.com/freelancers/mustafafullstack"
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "MCP vs REST API for AI Agents: When to Use Each",
+          "description": "Compare MCP vs REST API for AI agents, including architecture, pros and cons, security, tool discovery, and when a hybrid approach works best.",
+          "image": "https://aisaaswithmustafa.com/blog/images/mcp-vs-rest-api-ai-agents-developer-comparison.jpg",
+          "datePublished": "2026-11-04T03:24:18.885Z",
+          "dateModified": "2026-11-04T03:24:18.885Z",
+          "articleSection": "AI Engineering",
+          "keywords": ["MCP vs REST API","Model Context Protocol","AI Agents","REST API","SaaS Architecture"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/mcp-vs-rest-api-ai-agents.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Work</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf"
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>AI Engineering</p>
+                        <h1 id="article-title">MCP vs REST API for AI Agents: When to Use Each</h1>
+                        <p class="article-summary">Compare MCP vs REST API for AI agents, including architecture, pros and cons, security, tool discovery, and when a hybrid approach works best.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-11-04T03:24:18.885Z">November 4, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>AI Engineering</span>
+                <span>MCP vs REST API</span>
+                <span>Model Context Protocol</span>
+                <span>AI Agents</span>
+                <span>REST API</span>
+                <span>SaaS Architecture</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/mcp-vs-rest-api-ai-agents-developer-comparison.jpg" alt="Backend developer comparing MCP and REST API integration options for an AI agent" width="1200" height="675" loading="eager" />
+                        <figcaption>AI Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#mcp-vs-rest-api-at-a-glance">MCP vs REST API at a glance</a></li>
+                    <li><a href="#what-a-rest-api-does-well">What a REST API does well</a></li>
+                    <li><a href="#what-mcp-adds-for-ai-agents">What MCP adds for AI agents</a></li>
+                    <li><a href="#use-rest-and-mcp-together-instead-of-rebuilding-everything">Use REST and MCP together instead of rebuilding everything</a></li>
+                    <li><a href="#security-and-operations-differ-at-the-decision-layer">Security and operations differ at the decision layer</a></li>
+                    <li><a href="#mcp-vs-rest-api-decision-checklist">MCP vs REST API decision checklist</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p><strong>MCP vs REST API</strong> is often presented as a choice between an old integration style and a new one for AI agents. That framing is misleading. A REST API gives application code a predictable way to access data and operations. The Model Context Protocol, or MCP, gives an AI client a standard way to discover and call tools, read resources and understand what a server offers.</p><p>In many production systems, the right answer is not MCP or REST. It is a stable service layer exposed through REST for normal applications, with an MCP adapter added when an AI host needs tool discovery and model-friendly descriptions.</p><p>I use this distinction in my own SaaS work. The Ask Mustafa assistant on this site calls a normal serverless HTTP endpoint. The server owns provider selection, secrets, validation and error handling. If I later wanted external AI hosts to discover portfolio or service tools, I would expose carefully scoped MCP operations over the same trusted application logic. I would not rebuild the product around a protocol just because it is popular.</p><p>This guide compares MCP and REST APIs, explains their pros and cons, covers the 2026 MCP changes, and gives a practical decision framework for AI agents and SaaS products.</p><h2 class="scroll-mt-28" id="mcp-vs-rest-api-at-a-glance">MCP vs REST API at a glance</h2><p>The shortest answer is that REST describes how software clients work with resources over HTTP, while MCP standardises how AI applications discover and use context and capabilities. They can use similar infrastructure, but they solve different integration problems.</p><div class="table-wrap"><table><thead><tr><th>Decision area</th><th>REST API</th><th>MCP server</th></tr></thead><tbody><tr><td>Primary caller</td><td>Application code written by developers</td><td>AI hosts and agent clients</td></tr><tr><td>Operation discovery</td><td>Documentation or OpenAPI at design time</td><td>Protocol methods and tool metadata at runtime</td></tr><tr><td>Typical contract</td><td>URLs, HTTP methods, status codes and schemas</td><td>Tools, resources, prompts and JSON schemas</td></tr><tr><td>Control flow</td><td>Code decides which endpoint to call</td><td>A model may select a tool within client controls</td></tr><tr><td>Best fit</td><td>Web apps, mobile apps, services and partner integrations</td><td>AI assistants that need portable access to tools and context</td></tr><tr><td>Main risk</td><td>Breaking clients or weak endpoint authorization</td><td>Over-broad tools, unsafe model decisions and trust-boundary mistakes</td></tr></tbody></table></div><p>Neither side automatically makes a system secure, fast or easy to maintain. Those outcomes still depend on clear contracts, narrow permissions, input validation, idempotency, observability and careful product design.</p><h2 class="scroll-mt-28" id="what-a-rest-api-does-well">What a REST API does well</h2><p>A REST API is useful when the calling code already knows the operation it needs. A checkout page calls a payment endpoint. A dashboard requests an organisation's reports. A mobile application updates a delivery status. The developer chooses the URL, HTTP method, headers, request body and response handling before the software runs.</p><p>The official HTTP semantics specification defines a stateless request and response model with shared meanings for methods and status codes. That predictability matters. Gateways, caches, monitoring tools, client libraries and engineering teams already understand it.</p><h3>REST API advantages</h3><ul><li><strong>Direct control:</strong> application code decides exactly when an operation runs.</li><li><strong>Mature infrastructure:</strong> authentication, rate limiting, caching, tracing and testing tools are widely available.</li><li><strong>Clear client contracts:</strong> OpenAPI documents endpoints and schemas for developers and generated clients.</li><li><strong>Broad compatibility:</strong> almost any platform can send an HTTPS request.</li><li><strong>Efficient product interfaces:</strong> a purpose-built endpoint can return only the data a known screen needs.</li></ul><h3>REST API limitations for AI agents</h3><p>A raw API description is not always enough for a model. An endpoint named <code>POST /cases/{id}/actions</code> may be clear to the team that built it but ambiguous to an agent. The model needs to understand what the action changes, which arguments are safe, whether approval is required and how to interpret failures.</p><p>Teams often solve that problem with custom function definitions, prompt instructions and adapter code for every AI client. That can work, especially for one internal assistant, but the integration becomes harder to reuse across different hosts.</p><figure><img src="images/rest-api-debugging-ai-saas-backend-integration.jpg" alt="Developer debugging a REST API integration for an AI SaaS backend on a simple laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>A REST API remains the predictable application contract when code already knows which operation to call.</figcaption></figure><h2 class="scroll-mt-28" id="what-mcp-adds-for-ai-agents">What MCP adds for AI agents</h2><p>MCP gives AI applications a shared protocol for discovering and invoking capabilities. A server can expose tools for actions, resources for readable context and prompts for reusable interaction patterns. An MCP-compatible host can inspect these definitions instead of relying on a separate one-off connector for every service.</p><p>The official July 2026 MCP specification introduced a stateless protocol core. Modern requests carry their protocol version and client information with each call, and remote servers no longer require the older initialisation handshake or protocol-level session. The release also added header-based routing, cacheable list results and authorization hardening. That makes current MCP easier to operate on ordinary HTTP infrastructure than descriptions based on older session behaviour suggest.</p><h3>MCP advantages</h3><ul><li><strong>Runtime discovery:</strong> an AI client can learn which tools and resources are currently available.</li><li><strong>Model-facing descriptions:</strong> names, schemas and descriptions can explain when a capability should be used.</li><li><strong>Portable integrations:</strong> one server can work with multiple compatible AI hosts.</li><li><strong>Risk vocabulary:</strong> tool annotations can describe read-only, destructive, idempotent and open-world behaviour.</li><li><strong>Context and actions together:</strong> the same protocol can provide readable resources and callable tools.</li></ul><h3>MCP limitations</h3><p>MCP does not remove the underlying API, database or business service. A tool still needs real code to search records, create a draft or update a ticket. It also adds another public contract to version, secure, test and monitor.</p><p>Tool descriptions are not authorization. A model may misunderstand a description, select the wrong tool or repeat a call after a timeout. The official MCP maintainers describe annotations as hints, not guarantees. Deterministic controls must still verify identity, tenant, scope, arguments and approval at execution time.</p><p>MCP is also unnecessary when a small application has one fixed server call and no need for portable discovery. Adding a protocol layer to a simple form submission can create more maintenance without improving the user experience.</p><h2 class="scroll-mt-28" id="use-rest-and-mcp-together-instead-of-rebuilding-everything">Use REST and MCP together instead of rebuilding everything</h2><p>The architecture I prefer keeps business logic independent from both transports. A service function enforces permissions, validates input and performs the operation. A REST route calls that function for the web or mobile application. An MCP tool calls the same function for an approved AI host.</p><pre><code>async function createSupportDraft(input, actor) {
+  await requirePermission(actor, input.caseId, 'case:draft')
+  const safeInput = DraftSchema.parse(input)
+  return supportService.createDraft(safeInput, actor.id)
+}
+
+rest.post('/cases/:id/draft', async (request) =&gt; {
+  return createSupportDraft(request.body, request.user)
+})
+
+mcp.registerTool('create_support_draft', toolSchema, async (args, context) =&gt; {
+  return createSupportDraft(args, context.user)
+})</code></pre><p>This is deliberately framework-neutral pseudocode. The important point is the boundary: neither the REST route nor the MCP registration owns the authorization rule. Both enter the same tested service layer.</p><h3>Do not expose every endpoint as a tool</h3><p>Automatically converting a large OpenAPI file into hundreds of MCP tools may look efficient, but it can give the model too many overlapping choices. Design agent tools around clear tasks. A tool named <code>prepare_refund_review</code> can be safer than separate low-level tools for loading a payment, loading a customer, calculating fees and changing a status.</p><p>Keep high-impact execution narrow. Read tools can retrieve a small approved view. Draft tools can prepare changes without applying them. Write tools can require explicit confirmation and server-side idempotency. Destructive actions should be rare, obvious and separately authorized.</p><figure><img src="images/mcp-server-ai-agent-tool-testing-natural-workspace.jpg" alt="Two developers testing an MCP server tool for an AI agent in a plain shared workspace" width="1200" height="675" loading="lazy" decoding="async"><figcaption>An MCP tool should expose one understandable business capability, not an uncontrolled copy of every backend endpoint.</figcaption></figure><h2 class="scroll-mt-28" id="security-and-operations-differ-at-the-decision-layer">Security and operations differ at the decision layer</h2><p>REST and MCP can share TLS, OAuth, gateways, logs and rate limits. The extra MCP risk comes from placing a probabilistic model between user intent and tool selection. The server must assume that a syntactically valid call can still be inappropriate.</p><p>For every tool, define the allowed caller, tenant scope, data fields, side effects, retry behaviour and approval rule. Validate access tokens for the intended server. Never accept a token merely because another upstream service accepted it. Treat tool output and external resources as untrusted input before returning them to a model.</p><p>Make writes idempotent where possible. If a client times out after creating an invoice or ticket, a retry should not create a duplicate. Use a stable operation key, record the result and return the existing outcome when the same authorised request arrives again.</p><p>Logs should connect the user request, selected tool, validated actor, tenant, operation key, result and latency without storing secrets or unnecessary private content. My <a href="/blog/mcp-server-security-uae-ai-saas.html">MCP server security checklist</a> covers tool permissions, prompt injection, token handling and audit evidence in more detail. The security principles apply globally even though that article also discusses UAE deployment considerations.</p><h2 class="scroll-mt-28" id="mcp-vs-rest-api-decision-checklist">MCP vs REST API decision checklist</h2><p>Choose a REST API as the primary interface when:</p><ul><li>a web, mobile or service client has a known workflow;</li><li>developers need direct control over every request;</li><li>partners expect HTTP endpoints and OpenAPI documentation;</li><li>caching and resource semantics are central to the design;</li><li>an AI feature uses only one or two fixed internal calls.</li></ul><p>Add an MCP server when:</p><ul><li>several AI hosts need access to the same approved capabilities;</li><li>runtime tool or resource discovery provides real value;</li><li>the model must choose between a small set of clearly described operations;</li><li>you can expose narrow tasks without bypassing application authorization;</li><li>the team can maintain protocol versions, evaluations and tool-level monitoring.</li></ul><p>Use both when the product already has a reliable API and now needs agent access. Keep REST for deterministic applications and partner integrations. Put a curated MCP layer in front of selected service operations. This preserves the mature API while giving AI clients a standard contract.</p><h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2><p>MCP does not replace REST APIs. REST remains a strong foundation for predictable software integration. MCP adds a model-friendly layer for discovering tools, reading context and calling approved capabilities from compatible AI hosts.</p><p>Start with the caller and the decision. If your own code knows exactly what to call, use the API directly. If an AI host needs portable discovery across several carefully scoped capabilities, MCP may earn its extra operational cost. For many SaaS products, the best design is a shared service layer with both REST and MCP adapters.</p><p>Read the official <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/" target="_blank" rel="noopener noreferrer">2026-07-28 MCP specification release</a>, the maintainers' <a href="https://blog.modelcontextprotocol.io/posts/2026-03-16-tool-annotations/" target="_blank" rel="noopener noreferrer">tool annotations guidance</a>, and <a href="https://datatracker.ietf.org/doc/html/rfc9110" target="_blank" rel="noopener noreferrer">RFC 9110 HTTP semantics</a> before fixing the production contract.</p><p>If you need help designing a secure AI agent, REST API or MCP integration for a SaaS product, <a href="/#contact">contact me</a>.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="ai-saas-development-help">
+                <div>
+                    <p>Available for global remote projects</p>
+                    <h2 id="ai-saas-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/ai-saas-development-services.html">Explore AI SaaS services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa, full-stack SaaS and AI engineer" width="600" height="750" loading="lazy" decoding="async" class="article-author-photo" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 11+ years of experience across Angular, React, Next.js, Node.js, Supabase, PostgreSQL, Stripe and production AI integrations. I write from the architecture, security and delivery trade-offs I handle in real product work.</span>
+                            <div class="article-author-credentials" aria-label="Author experience">
+                                <span>11+ years</span>
+                                <span>Production SaaS</span>
+                                <span>AI integrations</span>
+                                <span>UAE projects</span>
+                            </div>
+                            <div class="article-author-links">
+                                <a href="/profile.html">About the author</a>
+                                <a href="/portfolio.html">View portfolio</a>
+                                <a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/mcp-server-security-uae-ai-saas.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>MCP Server Security Checklist for UAE AI SaaS (2026)</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/ai-agent-vs-chatbot.html" class="article-related-card">
+                        <p>AI &amp; Automation</p>
+                        <h3>AI Agent vs Chatbot: Differences, Costs &amp; SaaS Use Cases</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/openai-agents-api-saas-production-guide.html" class="article-related-card">
+                        <p>AI &amp; Automation</p>
+                        <h3>OpenAI Agents API for SaaS: Architecture &amp; Production Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>

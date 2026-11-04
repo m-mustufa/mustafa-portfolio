@@ -16,6 +16,7 @@ https://mustcode.netlify.app/* https://aisaaswithmustafa.com/:splat 301!
 /blog /blog/index.html 301!
 /blog/ /blog/index.html 301!
 /blog/index /blog/index.html 301!
+/blog/mcp-vs-rest-api-ai-agents /blog/mcp-vs-rest-api-ai-agents.html 301!
 /blog/firestore-vs-supabase-offline-first-react-apps /blog/firestore-vs-supabase-offline-first-react-apps.html 301!
 /blog/gemini-api-groq-fallback-nodejs /blog/gemini-api-groq-fallback-nodejs.html 301!
 /blog/secure-custom-software-uae-rbac-cloud-architecture-2026 /blog/secure-custom-software-uae-rbac-cloud-architecture-2026.html 301!

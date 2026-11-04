@@ -1,5 +1,31 @@
 [
   {
+    "slug": "mcp-vs-rest-api-ai-agents",
+    "title": "MCP vs REST API for AI Agents: When to Use Each",
+    "metaDescription": "Compare MCP vs REST API for AI agents, including architecture, pros and cons, security, tool discovery, and when a hybrid approach works best.",
+    "heroImageFile": "mcp-vs-rest-api-ai-agents-developer-comparison.jpg",
+    "heroImageAlt": "Backend developer comparing MCP and REST API integration options for an AI agent",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 4, 2026",
+    "publishDateIso": "2026-11-04T03:24:18.885Z",
+    "readingTime": 8,
+    "category": "AI Engineering",
+    "tags": [
+      "MCP vs REST API",
+      "Model Context Protocol",
+      "AI Agents",
+      "REST API",
+      "SaaS Architecture"
+    ],
+    "relatedSlugs": [
+      "mcp-server-security-uae-ai-saas",
+      "ai-agent-vs-chatbot",
+      "openai-agents-api-saas-production-guide"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
+  },
+  {
     "slug": "firestore-vs-supabase-offline-first-react-apps",
     "title": "Firestore vs Supabase for Offline-First React Apps",
     "metaDescription": "Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.",
