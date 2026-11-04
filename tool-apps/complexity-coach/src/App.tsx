@@ -12,7 +12,6 @@ import {
   Layers,
   ChevronDown,
   ChevronUp,
-  Sparkles,
   FileCode,
   ShieldAlert,
   Info,
@@ -20,8 +19,7 @@ import {
   FlaskConical,
   Copy,
   Check,
-  RotateCcw,
-  ArrowLeft
+  RotateCcw
 } from 'lucide-react';
 
 // ============================================================================
@@ -1494,6 +1492,9 @@ export function App() {
     analyzeJavaScriptComplexity(BUILT_IN_TESTS[1].code)
   );
   const [whyExpanded, setWhyExpanded] = useState<boolean>(true);
+  const [whyLanguage, setWhyLanguage] = useState<'english' | 'urdu'>('english');
+  const [evidenceExpanded, setEvidenceExpanded] = useState<boolean>(false);
+  const [assumptionsExpanded, setAssumptionsExpanded] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'analyzer' | 'testsuite'>('analyzer');
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -1549,16 +1550,9 @@ export function App() {
       }}
       className="min-h-screen overflow-x-hidden text-[#F8FAFC] flex flex-col selection:bg-teal-500/30 selection:text-teal-200"
     >
-      {/* Top Header Bar */}
-      <header
-        style={{
-          backgroundColor: 'rgba(7, 16, 30, 0.82)',
-          borderColor: 'rgba(45, 212, 191, 0.14)',
-          backdropFilter: 'blur(14px)'
-        }}
-        className="border-b sticky top-0 z-30"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      {/* Tool identity and view controls below the shared site header */}
+      <section className="pt-28 md:pt-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-3.5">
             <div
               style={{
@@ -1569,7 +1563,7 @@ export function App() {
             >
               <Cpu className="w-5 h-5 text-[#041019] stroke-[2.2]" />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2.5">
                 <h1 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#F8FAFC]">
                   Complexity{' '}
@@ -1583,36 +1577,15 @@ export function App() {
                     Coach
                   </span>
                 </h1>
-                <span
-                  style={{
-                    backgroundColor: 'rgba(20, 184, 166, 0.1)',
-                    borderColor: 'rgba(45, 212, 191, 0.32)'
-                  }}
-                  className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full text-[#2DD4BF] border"
-                >
-                  AST Static Analyzer
-                </span>
               </div>
               <p className="text-xs text-[#94A3B8] break-words">
-                Evidence-based Big-O coach for JavaScript and common TypeScript function syntax
+                JavaScript and common TypeScript function syntax
               </p>
             </div>
           </div>
 
           {/* Navigation & Test Suite Status */}
           <div className="flex w-full flex-wrap items-center gap-2.5 sm:w-auto">
-            <a
-              href="/tools/index.html"
-              style={{
-                backgroundColor: 'rgba(13, 25, 43, 0.78)',
-                borderColor: 'rgba(45, 212, 191, 0.18)'
-              }}
-              className="px-3 py-2 rounded-lg text-xs font-bold text-[#94A3B8] hover:text-[#F8FAFC] border hover:border-teal-400/40 transition-all inline-flex items-center gap-1.5"
-              aria-label="Back to all free tools"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">All free tools</span>
-            </a>
             <button
               onClick={() => setActiveTab('analyzer')}
               style={
@@ -1655,7 +1628,7 @@ export function App() {
               }`}
             >
               <FlaskConical className="w-4 h-4" />
-              <span>Built-in Test Suite</span>
+              <span>Tests</span>
               <span
                 className={`px-1.5 py-0.5 rounded text-[10px] font-extrabold ${
                   activeTab === 'testsuite'
@@ -1670,9 +1643,9 @@ export function App() {
             </button>
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Non-Negotiable Static Estimate Banner */}
+      {/* Honest static-estimate notice */}
       <div
         style={{
           backgroundColor: 'rgba(10, 22, 40, 0.75)',
@@ -1680,7 +1653,7 @@ export function App() {
         }}
         className="border-b"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 text-xs">
           <div className="flex items-center gap-2">
             <span
               style={{
@@ -1690,20 +1663,11 @@ export function App() {
               className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-[#2DD4BF] border"
             >
               <Info className="w-3.5 h-3.5 text-[#2DD4BF] shrink-0" />
-              Static estimate based on detected code patterns.
+              Static estimate, not a mathematical guarantee.
             </span>
-            <span className="text-[#94A3B8] hidden md:inline">
-              Runs locally with Acorn AST and flags unsupported patterns for manual review.
+            <span className="text-[#94A3B8]">
+              Unclear code is marked for manual review.
             </span>
-          </div>
-          {/* Color Highlight Legend */}
-          <div className="flex flex-wrap items-center gap-3 text-[11px]">
-            {(Object.keys(CATEGORY_META) as HighlightCategory[]).map((cat) => (
-              <div key={cat} className="flex items-center gap-1.5">
-                <span className={`w-2.5 h-2.5 rounded-full ${CATEGORY_META[cat].dotClass}`} />
-                <span className="text-[#94A3B8]">{CATEGORY_META[cat].label}</span>
-              </div>
-            ))}
           </div>
         </div>
       </div>
@@ -1878,69 +1842,47 @@ export function App() {
              MAIN ANALYZER VIEW (EDITOR + RESULTS PANEL)
              ================================================================ */
           <div className="space-y-6">
-            {/* Hero Section Banner Matching Portfolio Reference */}
+            {/* Compact analyzer intro and example selector */}
             <div
               style={{
                 backgroundColor: 'rgba(13, 25, 43, 0.72)',
                 borderColor: 'rgba(45, 212, 191, 0.16)',
                 backdropFilter: 'blur(12px)'
               }}
-              className="border rounded-2xl p-5 flex min-w-0 flex-col md:flex-row md:items-center justify-between gap-4"
+              className="border rounded-2xl p-4 flex min-w-0 flex-col sm:flex-row sm:items-center justify-between gap-4"
             >
               <div className="min-w-0">
-                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-teal-500/10 text-[#2DD4BF] border border-teal-400/25 mb-2">
-                  <Sparkles className="w-3 h-3" />
-                  JS / TS Interview AST Engine
-                </div>
-                <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#F8FAFC] break-words">
-                  Evidence-Based{' '}
-                  <span
-                    style={{
-                      backgroundImage: 'linear-gradient(90deg, #2DD4BF, #38BDF8)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent'
-                    }}
-                  >
-                    Time & Space Complexity
-                  </span>{' '}
-                  Coach
+                <h2 className="text-lg sm:text-xl font-extrabold tracking-tight text-[#F8FAFC] break-words">
+                  Analyze your code
                 </h2>
                 <p className="text-xs sm:text-sm text-[#94A3B8] mt-1">
-                  Select a verified interview preset below or paste your own code to inspect exact
-                  line-by-line AST evidence.
+                  Paste JavaScript or choose an example. The result shows what the analyzer found and where.
                 </p>
               </div>
 
-              {/* Quick Preset Pills */}
-              <div className="flex flex-wrap gap-1.5 md:max-w-md lg:max-w-lg">
-                {BUILT_IN_TESTS.map((test) => {
-                  const isSelected = activePresetId === test.id;
-                  return (
-                    <button
-                      key={test.id}
-                      onClick={() => handleSelectPreset(test)}
-                      style={
-                        isSelected
-                          ? {
-                              background: 'linear-gradient(90deg, #14B8A6, #06B6D4)',
-                              boxShadow: '0 0 16px rgba(20, 184, 166, 0.35)'
-                            }
-                          : {
-                              backgroundColor: 'rgba(7, 16, 30, 0.85)',
-                              borderColor: 'rgba(45, 212, 191, 0.16)'
-                            }
-                      }
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                        isSelected
-                          ? 'text-[#04121C] font-bold'
-                          : 'text-[#94A3B8] hover:text-[#F8FAFC] border hover:border-teal-400/40'
-                      }`}
-                    >
-                      {test.title}
-                    </button>
-                  );
-                })}
-              </div>
+              <label className="flex w-full flex-col gap-1.5 sm:w-72">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#94A3B8]">
+                  Try an example
+                </span>
+                <select
+                  value={activePresetId}
+                  onChange={(event) => {
+                    const selected = BUILT_IN_TESTS.find((test) => test.id === event.target.value);
+                    if (selected) handleSelectPreset(selected);
+                  }}
+                  style={{
+                    backgroundColor: 'rgba(7, 16, 30, 0.95)',
+                    borderColor: 'rgba(45, 212, 191, 0.28)'
+                  }}
+                  className="w-full rounded-lg border px-3 py-2.5 text-sm font-semibold text-[#F8FAFC] outline-none focus:border-[#2DD4BF]"
+                  aria-label="Choose a code example"
+                >
+                  <option value="" disabled>Choose an example</option>
+                  {BUILT_IN_TESTS.map((test) => (
+                    <option key={test.id} value={test.id}>{test.title}</option>
+                  ))}
+                </select>
+              </label>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -2075,32 +2017,6 @@ export function App() {
                     />
                   </div>
 
-                  {/* Annotated Line Highlights Breakdown Bar */}
-                  {Object.keys(result.lineHighlights).length > 0 && (
-                    <div
-                      style={{
-                        backgroundColor: 'rgba(7, 16, 30, 0.92)',
-                        borderColor: 'rgba(45, 212, 191, 0.14)'
-                      }}
-                      className="px-4 py-2.5 border-t flex flex-wrap items-center gap-2"
-                    >
-                      <span className="text-[11px] font-bold text-[#94A3B8]">
-                        Detected Line Highlights:
-                      </span>
-                      {Object.entries(result.lineHighlights).map(([lineNo, info]) => {
-                        const meta = CATEGORY_META[info.category];
-                        return (
-                          <span
-                            key={lineNo}
-                            title={info.tooltip}
-                            className={`px-2 py-0.5 rounded text-[11px] font-mono border ${meta.badgeClass}`}
-                          >
-                            L{lineNo}: {info.tooltip}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -2243,7 +2159,7 @@ export function App() {
                     </div>
                   )}
 
-                  {/* Plain-English Summary */}
+                  {/* Concise result summary */}
                   <div
                     style={{
                       backgroundColor: 'rgba(5, 11, 20, 0.65)',
@@ -2251,13 +2167,11 @@ export function App() {
                     }}
                     className="p-3.5 rounded-xl border text-xs text-[#94A3B8] leading-relaxed"
                   >
-                    <span className="font-bold text-[#F8FAFC] block mb-1">
-                      Plain-English Explanation:
-                    </span>
+                    <span className="font-bold text-[#F8FAFC] block mb-1">Summary</span>
                     {result.plainEnglishSummary}
                   </div>
 
-                  {/* Expandable "Why? (Simple English + Roman Urdu)" Section */}
+                  {/* Expandable explanation with one language at a time */}
                   <div
                     style={{
                       backgroundColor: 'rgba(20, 184, 166, 0.06)',
@@ -2271,12 +2185,7 @@ export function App() {
                     >
                       <div className="flex items-center gap-2">
                         <HelpCircle className="w-4 h-4 text-[#2DD4BF]" />
-                        <span className="text-xs font-bold text-[#F8FAFC]">
-                          Why?{' '}
-                          <span className="text-[#2DD4BF]">
-                            (Simple English & Roman Urdu Breakdown)
-                          </span>
-                        </span>
+                        <span className="text-xs font-bold text-[#F8FAFC]">Why this result?</span>
                       </div>
                       {whyExpanded ? (
                         <ChevronUp className="w-4 h-4 text-[#2DD4BF]" />
@@ -2288,36 +2197,27 @@ export function App() {
                     {whyExpanded && (
                       <div
                         style={{ borderColor: 'rgba(45, 212, 191, 0.18)' }}
-                        className="px-4 pb-4 pt-2 space-y-3 text-xs border-t"
+                        className="px-4 pb-4 pt-3 space-y-3 text-xs border-t"
                       >
-                        <div>
-                          <div className="text-[11px] font-bold uppercase tracking-wider text-[#2DD4BF] mb-1.5">
+                        <div className="inline-flex rounded-lg border border-teal-400/20 bg-[#050B14] p-1">
+                          <button
+                            onClick={() => setWhyLanguage('english')}
+                            className={`rounded-md px-3 py-1.5 text-[11px] font-bold transition ${whyLanguage === 'english' ? 'bg-[#14B8A6] text-[#04121C]' : 'text-[#94A3B8] hover:text-white'}`}
+                          >
                             Simple English
-                          </div>
-                          <ul className="space-y-1.5 text-[#F8FAFC] list-disc list-inside">
-                            {result.whyEnglish.map((item, idx) => (
-                              <li key={idx} className="leading-relaxed">
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
+                          </button>
+                          <button
+                            onClick={() => setWhyLanguage('urdu')}
+                            className={`rounded-md px-3 py-1.5 text-[11px] font-bold transition ${whyLanguage === 'urdu' ? 'bg-[#14B8A6] text-[#04121C]' : 'text-[#94A3B8] hover:text-white'}`}
+                          >
+                            Roman Urdu
+                          </button>
                         </div>
-
-                        <div
-                          style={{ borderColor: 'rgba(45, 212, 191, 0.14)' }}
-                          className="pt-2.5 border-t"
-                        >
-                          <div className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8] mb-1.5">
-                            Roman Urdu / Hinglish
-                          </div>
-                          <ul className="space-y-1.5 text-[#F8FAFC] list-disc list-inside">
-                            {result.whyRomanUrdu.map((item, idx) => (
-                              <li key={idx} className="leading-relaxed">
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        <ul className="space-y-1.5 text-[#F8FAFC] list-disc list-inside">
+                          {(whyLanguage === 'english' ? result.whyEnglish : result.whyRomanUrdu).map((item, idx) => (
+                            <li key={idx} className="leading-relaxed">{item}</li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
@@ -2330,18 +2230,25 @@ export function App() {
                     borderColor: 'rgba(45, 212, 191, 0.18)',
                     backdropFilter: 'blur(12px)'
                   }}
-                  className="border rounded-2xl p-5 shadow-2xl space-y-3"
+                  className="border rounded-2xl shadow-2xl overflow-hidden"
                 >
-                  <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => setEvidenceExpanded(!evidenceExpanded)}
+                    className="w-full px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-teal-500/5 transition-colors"
+                  >
                     <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#F8FAFC]">
                       Exact Code{' '}
                       <span className="text-[#2DD4BF]">Evidence ({result.evidence.length})</span>
                     </h3>
-                    <span className="text-[11px] text-[#94A3B8]">
-                      Line numbers & detected operations
-                    </span>
-                  </div>
+                    {evidenceExpanded ? (
+                      <ChevronUp className="w-4 h-4 text-[#2DD4BF] shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-[#2DD4BF] shrink-0" />
+                    )}
+                  </button>
 
+                  {evidenceExpanded && (
+                    <div className="border-t border-teal-400/15 p-4">
                   {result.evidence.length === 0 ? (
                     <div
                       style={{ borderColor: 'rgba(45, 212, 191, 0.16)' }}
@@ -2408,6 +2315,8 @@ export function App() {
                       })}
                     </div>
                   )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Assumptions & Symbolic Dimensions Box */}
@@ -2417,17 +2326,29 @@ export function App() {
                       backgroundColor: 'rgba(13, 25, 43, 0.65)',
                       borderColor: 'rgba(45, 212, 191, 0.15)'
                     }}
-                    className="border rounded-2xl p-4 space-y-2"
+                    className="border rounded-2xl overflow-hidden"
                   >
-                    <div className="text-xs font-bold text-[#F8FAFC] flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#2DD4BF]" />
-                      Assumptions & Symbolic Dimensions
-                    </div>
-                    <ul className="text-[11px] text-[#94A3B8] space-y-1 list-disc list-inside">
-                      {result.assumptions.map((assump, i) => (
-                        <li key={i}>{assump}</li>
-                      ))}
-                    </ul>
+                    <button
+                      onClick={() => setAssumptionsExpanded(!assumptionsExpanded)}
+                      className="w-full px-4 py-3.5 text-xs font-bold text-[#F8FAFC] flex items-center justify-between gap-3 text-left hover:bg-teal-500/5 transition-colors"
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#2DD4BF]" />
+                        Analysis assumptions ({result.assumptions.length})
+                      </span>
+                      {assumptionsExpanded ? (
+                        <ChevronUp className="w-4 h-4 text-[#2DD4BF] shrink-0" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-[#2DD4BF] shrink-0" />
+                      )}
+                    </button>
+                    {assumptionsExpanded && (
+                      <ul className="border-t border-teal-400/15 px-4 py-3 text-[11px] text-[#94A3B8] space-y-1.5 list-disc list-inside">
+                        {result.assumptions.map((assump, i) => (
+                          <li key={i}>{assump}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 )}
               </div>
