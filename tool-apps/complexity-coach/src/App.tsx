@@ -19,7 +19,12 @@ import {
   FlaskConical,
   Copy,
   Check,
-  RotateCcw
+  RotateCcw,
+  Mail,
+  MessageCircle,
+  Linkedin,
+  ExternalLink,
+  Send
 } from 'lucide-react';
 
 // ============================================================================
@@ -1551,7 +1556,7 @@ export function App() {
       className="min-h-screen overflow-x-hidden text-[#F8FAFC] flex flex-col selection:bg-teal-500/30 selection:text-teal-200"
     >
       {/* Tool identity and view controls below the shared site header */}
-      <section className="pt-28 md:pt-32">
+      <section className="pt-32 md:pt-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-3.5">
             <div
@@ -1653,8 +1658,8 @@ export function App() {
         }}
         className="border-b"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 text-xs">
-          <div className="flex items-center gap-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 text-xs flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             <span
               style={{
                 backgroundColor: 'rgba(20, 184, 166, 0.12)',
@@ -1668,6 +1673,18 @@ export function App() {
             <span className="text-[#94A3B8]">
               Unclear code is marked for manual review.
             </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2" aria-label="Code highlight legend">
+            <span className="font-bold uppercase tracking-wider text-[10px] text-[#64748B]">
+              Line colors
+            </span>
+            {Object.values(CATEGORY_META).map((meta) => (
+              <span key={meta.label} className="inline-flex items-center gap-1.5 whitespace-nowrap text-[#94A3B8]">
+                <span className={`w-2.5 h-2.5 rounded-full ${meta.dotClass}`} aria-hidden="true" />
+                {meta.label.replace(/ \([^)]+\)$/, '')}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -2356,6 +2373,152 @@ export function App() {
           </div>
         )}
       </main>
+
+      <section
+        id="contact"
+        aria-labelledby="complexity-contact-title"
+        className="border-t border-teal-400/15 px-4 sm:px-6 py-12 sm:py-16"
+      >
+        <div className="max-w-7xl mx-auto">
+          <div
+            style={{
+              background:
+                'linear-gradient(135deg, rgba(13, 37, 51, 0.96), rgba(8, 24, 40, 0.96))',
+              borderColor: 'rgba(45, 212, 191, 0.24)',
+              boxShadow: '0 24px 70px rgba(0, 8, 18, 0.32)'
+            }}
+            className="border rounded-3xl p-5 sm:p-8 lg:p-10"
+          >
+            <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#2DD4BF] mb-2">
+                    Need more than a complexity estimate?
+                  </p>
+                  <h2 id="complexity-contact-title" className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#F8FAFC]">
+                    Let&apos;s build or improve your{' '}
+                    <span className="text-[#2DD4BF]">SaaS product.</span>
+                  </h2>
+                  <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-[#94A3B8]">
+                    Share the product, integration or technical problem you are working on. I&apos;ll reply directly with the next practical step.
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <a
+                    href="mailto:mustufa50@gmail.com"
+                    className="group flex items-center gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-400/10 text-[#2DD4BF]">
+                      <Mail className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Email</small>
+                      <strong className="block truncate text-xs text-[#F8FAFC]">mustufa50@gmail.com</strong>
+                    </span>
+                  </a>
+                  <a
+                    href="https://wa.me/923332284944"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-400/10 text-[#2DD4BF]">
+                      <MessageCircle className="h-4 w-4" />
+                    </span>
+                    <span>
+                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Quick chat</small>
+                      <strong className="block text-xs text-[#F8FAFC]">WhatsApp</strong>
+                    </span>
+                    <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#64748B]" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-400/10 text-[#2DD4BF]">
+                      <Linkedin className="h-4 w-4" />
+                    </span>
+                    <span>
+                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Professional profile</small>
+                      <strong className="block text-xs text-[#F8FAFC]">LinkedIn</strong>
+                    </span>
+                    <ExternalLink className="ml-auto h-3.5 w-3.5 text-[#64748B]" />
+                  </a>
+                  <a
+                    href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-teal-400/20 bg-[#07101E]/70 p-3.5 hover:border-teal-300/50 transition-colors"
+                  >
+                    <span>
+                      <small className="block text-[10px] uppercase tracking-wider text-[#64748B]">Freelance platform</small>
+                      <strong className="block text-xs text-[#F8FAFC]">Hire me on Upwork</strong>
+                    </span>
+                    <ExternalLink className="h-3.5 w-3.5 text-[#64748B]" />
+                  </a>
+                </div>
+              </div>
+
+              <form
+                action="https://formspree.io/f/xjkrnwyl"
+                method="POST"
+                className="rounded-2xl border border-teal-400/20 bg-[#07101E]/80 p-4 sm:p-5 space-y-4"
+                data-contact-form
+              >
+                <input type="hidden" name="_subject" value="Complexity Coach project inquiry" />
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <label className="space-y-1.5 text-xs font-semibold text-[#CBD5E1]">
+                    <span>Your name</span>
+                    <input
+                      type="text"
+                      name="name"
+                      autoComplete="name"
+                      required
+                      className="w-full rounded-lg border border-teal-400/20 bg-[#050B14] px-3 py-2.5 text-sm text-[#F8FAFC] outline-none focus:border-teal-300"
+                      placeholder="Your name"
+                    />
+                  </label>
+                  <label className="space-y-1.5 text-xs font-semibold text-[#CBD5E1]">
+                    <span>Your email</span>
+                    <input
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      required
+                      className="w-full rounded-lg border border-teal-400/20 bg-[#050B14] px-3 py-2.5 text-sm text-[#F8FAFC] outline-none focus:border-teal-300"
+                      placeholder="you@company.com"
+                    />
+                  </label>
+                </div>
+                <label className="block space-y-1.5 text-xs font-semibold text-[#CBD5E1]">
+                  <span>Project overview</span>
+                  <textarea
+                    name="message"
+                    rows={5}
+                    required
+                    className="w-full resize-y rounded-lg border border-teal-400/20 bg-[#050B14] px-3 py-2.5 text-sm text-[#F8FAFC] outline-none focus:border-teal-300"
+                    placeholder="What are you building, and where do you need help?"
+                  />
+                </label>
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-[11px] text-[#64748B]">I usually reply directly by email.</p>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#14B8A6] to-[#06B6D4] px-4 py-2.5 text-xs font-extrabold text-[#04121C] hover:brightness-110 transition"
+                  >
+                    Send project request
+                    <Send className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+                <p className="text-xs text-[#94A3B8]" data-contact-form-status role="status" aria-live="polite" hidden />
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
