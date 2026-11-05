@@ -166,8 +166,8 @@
                         <div class="metrics-form-group">
                             <h4>Current subscription base</h4>
                             <div class="metrics-fields">
-                                <label class="metrics-field"><span>Current MRR</span><input type="number" name="mrr" min="0" step="0.01" placeholder="24000" required><small>Monthly recurring revenue</small></label>
-                                <label class="metrics-field"><span>Paying customers</span><input type="number" name="customers" min="0" step="1" placeholder="120" required><small>Active paying accounts</small></label>
+                                <label class="metrics-field"><span>Current MRR</span><input type="text" inputmode="decimal" name="mrr" data-number-mask="decimal" placeholder="24,000" required><small>Monthly recurring revenue</small></label>
+                                <label class="metrics-field"><span>Paying customers</span><input type="text" inputmode="numeric" name="customers" data-number-mask="integer" placeholder="120" required><small>Active paying accounts</small></label>
                                 <label class="metrics-field"><span>Gross margin %</span><input type="number" name="grossMarginPct" min="0" max="100" step="0.1" placeholder="82" required><small>Used for LTV and payback</small></label>
                                 <label class="metrics-field"><span>Monthly customer churn %</span><input type="number" name="customerChurnPct" min="0" max="100" step="0.1" placeholder="2.5" required><small>Logo churn, not revenue churn</small></label>
                             </div>
@@ -176,18 +176,18 @@
                         <div class="metrics-form-group">
                             <h4>This month’s MRR movement</h4>
                             <div class="metrics-fields">
-                                <label class="metrics-field"><span>New MRR</span><input type="number" name="newMrr" min="0" step="0.01" placeholder="4200"><small>From new customers</small></label>
-                                <label class="metrics-field"><span>Expansion MRR</span><input type="number" name="expansionMrr" min="0" step="0.01" placeholder="1800"><small>Upgrades and add-ons</small></label>
-                                <label class="metrics-field"><span>Contraction MRR</span><input type="number" name="contractionMrr" min="0" step="0.01" placeholder="500"><small>Downgrades</small></label>
-                                <label class="metrics-field"><span>Churned MRR</span><input type="number" name="churnedMrr" min="0" step="0.01" placeholder="1200"><small>Revenue lost to cancellations</small></label>
+                                <label class="metrics-field"><span>New MRR</span><input type="text" inputmode="decimal" name="newMrr" data-number-mask="decimal" placeholder="4,200"><small>From new customers</small></label>
+                                <label class="metrics-field"><span>Expansion MRR</span><input type="text" inputmode="decimal" name="expansionMrr" data-number-mask="decimal" placeholder="1,800"><small>Upgrades and add-ons</small></label>
+                                <label class="metrics-field"><span>Contraction MRR</span><input type="text" inputmode="decimal" name="contractionMrr" data-number-mask="decimal" placeholder="500"><small>Downgrades</small></label>
+                                <label class="metrics-field"><span>Churned MRR</span><input type="text" inputmode="decimal" name="churnedMrr" data-number-mask="decimal" placeholder="1,200"><small>Revenue lost to cancellations</small></label>
                             </div>
                         </div>
 
                         <div class="metrics-form-group">
                             <h4>Acquisition</h4>
                             <div class="metrics-fields">
-                                <label class="metrics-field"><span>Sales + marketing spend</span><input type="number" name="salesMarketingSpend" min="0" step="0.01" placeholder="18000"><small>Same reporting period</small></label>
-                                <label class="metrics-field"><span>New customers</span><input type="number" name="newCustomers" min="0" step="1" placeholder="18"><small>Acquired in that period</small></label>
+                                <label class="metrics-field"><span>Sales + marketing spend</span><input type="text" inputmode="decimal" name="salesMarketingSpend" data-number-mask="decimal" placeholder="18,000"><small>Same reporting period</small></label>
+                                <label class="metrics-field"><span>New customers</span><input type="text" inputmode="numeric" name="newCustomers" data-number-mask="integer" placeholder="18"><small>Acquired in that period</small></label>
                             </div>
                         </div>
 

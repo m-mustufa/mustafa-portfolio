@@ -1,8 +1,34 @@
 (function saasMetricsCalculatorModule(root) {
   "use strict";
 
+  function stripNumberFormatting(value) {
+    return String(value ?? "").replace(/,/g, "");
+  }
+
+  function formatMaskedNumber(value, mode) {
+    const integerOnly = mode === "integer";
+    let cleaned = stripNumberFormatting(value).replace(integerOnly ? /[^\d]/g : /[^\d.]/g, "");
+
+    if (!integerOnly) {
+      const decimalIndex = cleaned.indexOf(".");
+      if (decimalIndex !== -1) {
+        cleaned = cleaned.slice(0, decimalIndex + 1)
+          + cleaned.slice(decimalIndex + 1).replace(/\./g, "").slice(0, 2);
+      }
+    }
+
+    if (!cleaned) return "";
+
+    const hasDecimal = cleaned.includes(".");
+    let [whole, decimals = ""] = cleaned.split(".");
+    whole = whole.replace(/^0+(?=\d)/, "") || "0";
+    const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    return integerOnly ? grouped : `${grouped}${hasDecimal ? `.${decimals}` : ""}`;
+  }
+
   function finiteNumber(value) {
-    const number = Number(value);
+    const number = Number(stripNumberFormatting(value));
     return Number.isFinite(number) ? Math.max(0, number) : 0;
   }
 
@@ -55,7 +81,7 @@
     };
   }
 
-  const api = { calculateMetrics };
+  const api = { calculateMetrics, formatMaskedNumber };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.SaaSMetricsCalculator = api;
 
@@ -69,6 +95,23 @@
   const resetButton = document.querySelector("[data-reset-metrics]");
   const sampleButton = document.querySelector("[data-load-metrics-sample]");
   const summary = document.querySelector("[data-metrics-summary]");
+  const maskedFields = Array.from(form.querySelectorAll("[data-number-mask]"));
+
+  function applyNumberMask(field) {
+    const previousValue = field.value;
+    const previousCursor = field.selectionStart ?? previousValue.length;
+    const meaningfulCharacters = (previousValue.slice(0, previousCursor).match(/[\d.]/g) || []).length;
+
+    field.value = formatMaskedNumber(previousValue, field.dataset.numberMask);
+
+    let nextCursor = 0;
+    let seenCharacters = 0;
+    while (nextCursor < field.value.length && seenCharacters < meaningfulCharacters) {
+      if (/[\d.]/.test(field.value[nextCursor])) seenCharacters += 1;
+      nextCursor += 1;
+    }
+    field.setSelectionRange(nextCursor, nextCursor);
+  }
 
   function readValues() {
     return Object.fromEntries(new FormData(form).entries());
@@ -151,6 +194,17 @@
     });
   }
 
+  maskedFields.forEach((field) => {
+    field.addEventListener("input", function handleMaskedInput() {
+      applyNumberMask(field);
+    });
+    field.addEventListener("blur", function handleMaskedBlur() {
+      if (field.value.endsWith(".")) field.value = field.value.slice(0, -1);
+      applyNumberMask(field);
+      render();
+    });
+  });
+
   form.addEventListener("input", render);
   form.addEventListener("submit", function handleSubmit(event) {
     event.preventDefault();
@@ -160,6 +214,7 @@
 
   resetButton.addEventListener("click", function resetMetrics() {
     form.reset();
+    maskedFields.forEach(applyNumberMask);
     render();
   });
 
@@ -181,8 +236,10 @@
       const field = form.elements.namedItem(name);
       if (field) field.value = value;
     });
+    maskedFields.forEach(applyNumberMask);
     render();
   });
 
+  maskedFields.forEach(applyNumberMask);
   render();
 })(typeof window !== "undefined" ? window : globalThis);

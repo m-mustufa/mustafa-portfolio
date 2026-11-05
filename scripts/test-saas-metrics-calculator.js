@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 
 const assert = require("assert");
-const { calculateMetrics } = require("../assets/js/saas-metrics-calculator.js");
+const { calculateMetrics, formatMaskedNumber } = require("../assets/js/saas-metrics-calculator.js");
 
 function closeTo(actual, expected, tolerance = 0.001) {
   assert.ok(Math.abs(actual - expected) <= tolerance, `Expected ${actual} to be close to ${expected}`);
 }
 
 const sample = calculateMetrics({
-  mrr: 24000,
+  mrr: "24,000",
   customers: 120,
   grossMarginPct: 82,
   customerChurnPct: 2.5,
-  newMrr: 4200,
-  expansionMrr: 1800,
+  newMrr: "4,200",
+  expansionMrr: "1,800",
   contractionMrr: 500,
-  churnedMrr: 1200,
-  salesMarketingSpend: 18000,
+  churnedMrr: "1,200",
+  salesMarketingSpend: "18,000",
   newCustomers: 18
 });
 
@@ -30,6 +30,11 @@ assert.strictEqual(sample.ltv, 6560);
 closeTo(sample.cacPaybackMonths, 6.0975609);
 closeTo(sample.ltvToCac, 6.56);
 assert.strictEqual(sample.projectedMrr12, 75600);
+
+assert.strictEqual(formatMaskedNumber("20000", "decimal"), "20,000");
+assert.strictEqual(formatMaskedNumber("4200.5", "decimal"), "4,200.5");
+assert.strictEqual(formatMaskedNumber("1200.999", "decimal"), "1,200.99");
+assert.strictEqual(formatMaskedNumber("1,234 customers", "integer"), "1,234");
 
 const guarded = calculateMetrics({
   mrr: 0,
