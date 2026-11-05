@@ -123,7 +123,7 @@
 
 .tools-directory-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
 }
 
@@ -242,6 +242,32 @@ a.tools-directory-card:hover {
 .tools-directory-preview-code i:nth-child(2) { width: 58%; }
 .tools-directory-preview-code i:nth-child(3) { width: 69%; }
 
+.tools-directory-preview-metrics b {
+    font-size: clamp(1.85rem, 4vw, 2.75rem);
+}
+
+.tools-directory-preview-metrics > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+}
+
+.tools-directory-preview-metrics span {
+    border: 1px solid rgba(154, 190, 201, 0.15);
+    border-radius: 0.55rem;
+    color: var(--tools-muted);
+    font-size: 0.68rem;
+    padding: 0.55rem;
+}
+
+.tools-directory-preview-metrics span strong {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--tools-purple);
+    font-size: 0.78rem;
+}
+
 .tools-directory-card h3 {
     color: #fff;
     font-size: clamp(1.45rem, 3vw, 2rem);
@@ -321,6 +347,12 @@ a.tools-directory-card:hover .tools-directory-action i {
 .tools-directory-footer a {
     color: var(--tools-teal);
     font-weight: 800;
+}
+
+@media (max-width: 980px) {
+    .tools-directory-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 760px) {

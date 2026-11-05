@@ -33,6 +33,11 @@ const pages = [
     canonical: `${SITE_URL}/tools/complexity-coach/`,
     primaryPhrase: "complexity coach",
   },
+  {
+    file: "tools/saas-metrics-calculator.html",
+    canonical: `${SITE_URL}/tools/saas-metrics-calculator.html`,
+    primaryPhrase: "saas metrics calculator",
+  },
 ];
 
 function countMatches(value, pattern) {
@@ -154,6 +159,9 @@ if (!homeHtml.includes('href="/tools/index.html"')) {
 if (!homeHtml.includes('href="/tools/complexity-coach/"')) {
   errors.push("index.html: Complexity Coach tool is not internally linked");
 }
+if (!homeHtml.includes('href="/tools/saas-metrics-calculator.html"')) {
+  errors.push("index.html: SaaS Metrics Calculator tool is not internally linked");
+}
 if (!/"@type":\s*"ProfilePage"/.test(homeHtml)) {
   errors.push("index.html: ProfilePage structured data is missing");
 }
@@ -177,6 +185,9 @@ if (!sitemap.includes(`${SITE_URL}/tools/index.html`)) {
 if (!sitemap.includes(`${SITE_URL}/tools/complexity-coach/`)) {
   errors.push("sitemap.xml: Complexity Coach tool is missing");
 }
+if (!sitemap.includes(`${SITE_URL}/tools/saas-metrics-calculator.html`)) {
+  errors.push("sitemap.xml: SaaS Metrics Calculator tool is missing");
+}
 
 const legacyHostnameFiles = [
   "index.html",
@@ -188,6 +199,7 @@ const legacyHostnameFiles = [
   "tools/index.html",
   "tools/upwork-proposal-roast.html",
   "tools/complexity-coach/index.html",
+  "tools/saas-metrics-calculator.html",
   "blog/index.html",
   "blog/_template.html",
   "robots.txt",

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/assets/img/logo-2-48.png" sizes="48x48">
+
+    <title>Free SaaS Metrics Calculator: MRR, LTV &amp; CAC</title>
+    <meta name="description" content="Calculate SaaS MRR, ARR, ARPA, net revenue retention, CAC, LTV, CAC payback and a simple 12-month run-rate projection in your browser for free.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/tools/saas-metrics-calculator.html">
+
+    <meta property="og:title" content="Free SaaS Metrics Calculator: MRR, LTV &amp; CAC">
+    <meta property="og:description" content="Calculate recurring revenue, retention and SaaS unit economics with transparent formulas and no signup.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/assets/img/mustafa-full-stack-saas-engineer-angular-nodejs.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1731">
+    <meta property="og:image:height" content="909">
+    <meta property="og:image:alt" content="Muhammad Mustafa, full-stack SaaS and AI developer">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/tools/saas-metrics-calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free SaaS Metrics Calculator: MRR, LTV &amp; CAC">
+    <meta name="twitter:description" content="Understand recurring revenue, retention and unit economics with a private browser-based calculator.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/assets/img/mustafa-full-stack-saas-engineer-angular-nodejs.png">
+    <meta name="twitter:image:alt" content="Muhammad Mustafa, full-stack SaaS and AI developer">
+
+    <meta name="theme-color" content="#071520">
+    <link rel="apple-touch-icon" href="/assets/img/logo-2-180.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=20261019-tools">
+    <link rel="stylesheet" href="/assets/css/saas-metrics-calculator.css?v=20261105-1">
+    <link rel="stylesheet" href="/assets/css/tool-contact.css?v=20261105-1">
+    <script src="/assets/js/style.js?v=20261013-reading2" defer></script>
+    <script src="/assets/js/saas-metrics-calculator.js?v=20261105-1" defer></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "SaaS Metrics Calculator",
+          "url": "https://aisaaswithmustafa.com/tools/saas-metrics-calculator.html",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Any",
+          "description": "A free browser-based calculator for MRR, ARR, ARPA, NRR, CAC, LTV and CAC payback.",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "author": {
+            "@type": "Person",
+            "name": "Muhammad Mustafa",
+            "url": "https://aisaaswithmustafa.com/"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What SaaS metrics does this calculator include?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "It calculates MRR, ARR, ARPA, net new MRR, MRR growth, net revenue retention, CAC, LTV, CAC payback, LTV to CAC and a simple 12-month run-rate projection."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the SaaS metrics calculator store business data?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Calculations run locally in the browser and the entered metrics are not sent to a server."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is the SaaS forecast a financial guarantee?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The projection is a simple run-rate estimate that assumes the same net MRR movement repeats for twelve months."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="metrics-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="/assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156" class="logo-img-class">
+            </a>
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false" class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <nav id="mainNav" class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4 md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank" rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img class="up-img" src="/assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56" alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Projects</a>
+                <a href="/blog/index.html" class="text-gray-300 hover:text-primary">Blog</a>
+                <a href="/tools/index.html" class="tools-nav-current" aria-current="page">Free Tools</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="/assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf" class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="metrics-main">
+        <section class="metrics-hero" aria-labelledby="metrics-title">
+            <div class="metrics-shell">
+                <p class="metrics-kicker">Free browser-based SaaS tool</p>
+                <h1 id="metrics-title">SaaS Metrics Calculator for <strong>MRR, LTV and CAC</strong></h1>
+                <p class="metrics-lead">Enter your recurring revenue, customer movement and acquisition costs. Get clear unit-economics estimates with the formulas and assumptions shown beside the result.</p>
+                <ul class="metrics-trust-list" aria-label="Tool benefits">
+                    <li>No signup</li>
+                    <li>Your figures stay in this browser</li>
+                    <li>Transparent formulas</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="metrics-calculator" aria-labelledby="calculator-title">
+            <div class="metrics-shell">
+                <header class="metrics-section-heading">
+                    <div>
+                        <p>Calculator</p>
+                        <h2 id="calculator-title">See what your SaaS numbers are saying.</h2>
+                    </div>
+                    <p>Use one consistent monthly reporting period. Blank or zero inputs stay visible as unavailable instead of producing a misleading result.</p>
+                </header>
+
+                <div class="metrics-workspace">
+                    <form class="metrics-panel" data-saas-metrics-form>
+                        <div class="metrics-panel-heading">
+                            <div>
+                                <h3>Monthly inputs</h3>
+                                <p>Use the same currency and time window for every value.</p>
+                            </div>
+                            <button type="button" class="metrics-link-button" data-load-metrics-sample>Load sample</button>
+                        </div>
+
+                        <div class="metrics-fields">
+                            <label class="metrics-field metrics-field-wide">
+                                <span>Currency</span>
+                                <select name="currency" aria-label="Currency">
+                                    <option value="USD">USD — US Dollar</option>
+                                    <option value="EUR">EUR — Euro</option>
+                                    <option value="GBP">GBP — British Pound</option>
+                                    <option value="AED">AED — UAE Dirham</option>
+                                    <option value="PKR">PKR — Pakistani Rupee</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="metrics-form-group">
+                            <h4>Current subscription base</h4>
+                            <div class="metrics-fields">
+                                <label class="metrics-field"><span>Current MRR</span><input type="number" name="mrr" min="0" step="0.01" placeholder="24000" required><small>Monthly recurring revenue</small></label>
+                                <label class="metrics-field"><span>Paying customers</span><input type="number" name="customers" min="0" step="1" placeholder="120" required><small>Active paying accounts</small></label>
+                                <label class="metrics-field"><span>Gross margin %</span><input type="number" name="grossMarginPct" min="0" max="100" step="0.1" placeholder="82" required><small>Used for LTV and payback</small></label>
+                                <label class="metrics-field"><span>Monthly customer churn %</span><input type="number" name="customerChurnPct" min="0" max="100" step="0.1" placeholder="2.5" required><small>Logo churn, not revenue churn</small></label>
+                            </div>
+                        </div>
+
+                        <div class="metrics-form-group">
+                            <h4>This month’s MRR movement</h4>
+                            <div class="metrics-fields">
+                                <label class="metrics-field"><span>New MRR</span><input type="number" name="newMrr" min="0" step="0.01" placeholder="4200"><small>From new customers</small></label>
+                                <label class="metrics-field"><span>Expansion MRR</span><input type="number" name="expansionMrr" min="0" step="0.01" placeholder="1800"><small>Upgrades and add-ons</small></label>
+                                <label class="metrics-field"><span>Contraction MRR</span><input type="number" name="contractionMrr" min="0" step="0.01" placeholder="500"><small>Downgrades</small></label>
+                                <label class="metrics-field"><span>Churned MRR</span><input type="number" name="churnedMrr" min="0" step="0.01" placeholder="1200"><small>Revenue lost to cancellations</small></label>
+                            </div>
+                        </div>
+
+                        <div class="metrics-form-group">
+                            <h4>Acquisition</h4>
+                            <div class="metrics-fields">
+                                <label class="metrics-field"><span>Sales + marketing spend</span><input type="number" name="salesMarketingSpend" min="0" step="0.01" placeholder="18000"><small>Same reporting period</small></label>
+                                <label class="metrics-field"><span>New customers</span><input type="number" name="newCustomers" min="0" step="1" placeholder="18"><small>Acquired in that period</small></label>
+                            </div>
+                        </div>
+
+                        <div class="metrics-form-actions">
+                            <button type="button" class="metrics-secondary-button" data-reset-metrics>Reset</button>
+                            <button type="submit" class="metrics-primary-button">Calculate SaaS metrics</button>
+                        </div>
+                    </form>
+
+                    <section class="metrics-panel metrics-results" data-saas-results aria-labelledby="results-title">
+                        <div class="metrics-panel-heading">
+                            <div>
+                                <h3 id="results-title">Your metric snapshot</h3>
+                                <p>Calculated locally from the values on the left.</p>
+                            </div>
+                        </div>
+                        <div class="metrics-result-grid">
+                            <article class="metrics-result-card"><small>MRR</small><strong data-result="mrr">—</strong><span>Current recurring revenue</span></article>
+                            <article class="metrics-result-card"><small>ARR</small><strong data-result="arr">—</strong><span>MRR × 12</span></article>
+                            <article class="metrics-result-card"><small>ARPA</small><strong data-result="arpa">—</strong><span>MRR per paying customer</span></article>
+                            <article class="metrics-result-card"><small>Net new MRR</small><strong data-result="netNewMrr">—</strong><span>New + expansion − losses</span></article>
+                            <article class="metrics-result-card"><small>MRR growth</small><strong data-result="mrrGrowthPct">—</strong><span>Net new MRR ÷ current MRR</span></article>
+                            <article class="metrics-result-card"><small>NRR</small><strong data-result="nrrPct">—</strong><span>Existing-customer revenue retention</span></article>
+                            <article class="metrics-result-card"><small>CAC</small><strong data-result="cac">—</strong><span>Spend per new customer</span></article>
+                            <article class="metrics-result-card"><small>Estimated LTV</small><strong data-result="ltv">—</strong><span>Gross-margin adjusted estimate</span></article>
+                            <article class="metrics-result-card"><small>CAC payback</small><strong data-result="cacPaybackMonths">—</strong><span>Estimated months to recover CAC</span></article>
+                            <article class="metrics-result-card"><small>LTV : CAC</small><strong data-result="ltvToCac">—</strong><span>Estimated lifetime value multiple</span></article>
+                            <article class="metrics-result-card"><small>12-month MRR run rate</small><strong data-result="projectedMrr12">—</strong><span>Same net MRR change repeated</span></article>
+                        </div>
+                        <div class="metrics-summary">
+                            <h4>Plain-English readout</h4>
+                            <ul data-metrics-summary></ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <section class="metrics-explain" aria-labelledby="formula-title">
+            <div class="metrics-shell metrics-explain-grid">
+                <div class="metrics-explain-copy">
+                    <p class="metrics-kicker">Formulas and assumptions</p>
+                    <h2 id="formula-title">Useful estimates, not pretend precision.</h2>
+                    <p>SaaS metrics depend on consistent definitions and clean billing data. This calculator exposes its simplified formulas so you can spot where your own reporting needs a more detailed cohort model.</p>
+                    <div class="metrics-disclaimer">This tool is for planning and education. It is not accounting, investment or financial advice, and the 12-month figure is not a forecast guarantee.</div>
+                </div>
+                <div class="metrics-formulas">
+                    <details open><summary>MRR, ARR and net new MRR</summary><p><code>ARR = MRR × 12</code>. Net new MRR adds new and expansion MRR, then subtracts contraction and churned MRR.</p></details>
+                    <details><summary>Net revenue retention (NRR)</summary><p><code>(Starting MRR + expansion − contraction − churn) ÷ starting MRR</code>. New-customer MRR is excluded because NRR measures the existing customer base.</p></details>
+                    <details><summary>Customer acquisition cost (CAC)</summary><p><code>Sales and marketing spend ÷ new customers</code>. Use spend and customers from the same reporting period.</p></details>
+                    <details><summary>Estimated customer lifetime value (LTV)</summary><p><code>ARPA × gross margin ÷ monthly customer churn rate</code>. This simplified estimate assumes churn remains stable and does not model cohorts, expansion or discounting.</p></details>
+                    <details><summary>CAC payback and 12-month run rate</summary><p>CAC payback divides CAC by monthly gross-margin revenue per customer. The run-rate projection repeats the same entered net new MRR for 12 months without compounding or seasonality.</p></details>
+                    <details><summary>What SaaS metrics does this calculator include?</summary><p>MRR, ARR, ARPA, net new MRR, MRR growth, NRR, CAC, LTV, CAC payback, LTV to CAC and a simple 12-month MRR run rate.</p></details>
+                    <details><summary>Does this calculator store my business data?</summary><p>No. The calculation runs locally in your browser and does not send your entered metrics to a server.</p></details>
+                    <details><summary>Is the 12-month result a financial guarantee?</summary><p>No. It is a simple planning estimate that repeats the same net MRR change for twelve months.</p></details>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-contact" id="contact" aria-labelledby="metrics-contact-title">
+            <div class="project-contact-shell">
+                <header class="project-contact-heading">
+                    <div><p class="project-contact-kicker">Start a project</p><h2 id="metrics-contact-title">Start Your <strong>SaaS or AI Project</strong></h2></div>
+                    <p>Have a product, integration or difficult technical problem? Send the details and I’ll reply directly.</p>
+                </header>
+                <aside class="project-contact-platform" aria-labelledby="metrics-upwork-contact-title">
+                    <div><p class="project-contact-card-kicker">Freelance platform</p><h3 id="metrics-upwork-contact-title">Prefer to hire through an established platform?</h3></div>
+                    <a class="project-contact-upwork" href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank" rel="noopener noreferrer"><span>Hire me on</span><img src="/assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56" alt="Upwork"></a>
+                </aside>
+                <div class="project-contact-grid">
+                    <div class="project-contact-card">
+                        <p class="project-contact-card-kicker">Direct contact</p><h3>Choose the channel that works for you.</h3>
+                        <div class="project-contact-methods">
+                            <a class="project-contact-method" href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer"><span class="project-contact-mark" aria-hidden="true">in</span><span class="project-contact-copy"><small>Professional profile</small><strong>LinkedIn</strong></span><span class="project-contact-arrow" aria-hidden="true">↗</span></a>
+                            <a class="project-contact-method" href="https://github.com/m-mustufa" target="_blank" rel="noopener noreferrer"><span class="project-contact-mark" aria-hidden="true">GH</span><span class="project-contact-copy"><small>Code and projects</small><strong>GitHub</strong></span><span class="project-contact-arrow" aria-hidden="true">↗</span></a>
+                            <a class="project-contact-method" href="https://wa.me/923332284944" target="_blank" rel="noopener noreferrer"><span class="project-contact-mark" aria-hidden="true">WA</span><span class="project-contact-copy"><small>Quick conversation</small><strong>WhatsApp</strong></span><span class="project-contact-arrow" aria-hidden="true">↗</span></a>
+                            <a class="project-contact-method" href="https://calendly.com/mustdev/30min-consultation" target="_blank" rel="noopener noreferrer"><span class="project-contact-mark" aria-hidden="true">30</span><span class="project-contact-copy"><small>30-minute consultation</small><strong>Book a Call</strong></span><span class="project-contact-arrow" aria-hidden="true">↗</span></a>
+                            <a class="project-contact-method project-contact-method-wide" href="tel:+923332284944"><span class="project-contact-mark" aria-hidden="true">TEL</span><span class="project-contact-copy"><small>Pakistan / UAE</small><strong>+92 333 2284944</strong></span><span class="project-contact-arrow" aria-hidden="true">→</span></a>
+                            <a class="project-contact-method project-contact-method-wide" href="mailto:mustufa50@gmail.com"><span class="project-contact-mark" aria-hidden="true">@</span><span class="project-contact-copy"><small>Email directly</small><strong>mustufa50@gmail.com</strong></span><span class="project-contact-arrow" aria-hidden="true">→</span></a>
+                        </div>
+                    </div>
+                    <form action="https://formspree.io/f/xjkrnwyl" method="POST" class="project-contact-card project-contact-form" data-contact-form>
+                        <input type="hidden" name="_subject" value="SaaS Metrics Calculator project inquiry">
+                        <p class="project-contact-card-kicker">Project details</p><h3>Tell me what you’re building.</h3>
+                        <div class="project-contact-form-row">
+                            <label class="project-contact-field"><span>Your name</span><input type="text" name="name" placeholder="Your name" autocomplete="name" required></label>
+                            <label class="project-contact-field"><span>Your email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label>
+                        </div>
+                        <label class="project-contact-field"><span>Project overview</span><textarea name="message" placeholder="What are you building, and where do you need help?" rows="7" required></textarea></label>
+                        <div class="project-contact-form-footer"><p>I usually reply directly by email.</p><button type="submit">Send project request <span aria-hidden="true">→</span></button></div>
+                        <p class="project-contact-status" data-contact-form-status role="status" aria-live="polite" hidden></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="metrics-footer"><p>&copy; 2026 Muhammad Mustafa. Free browser tool.</p><a href="/tools/index.html">Explore all free tools</a></footer>
+</body>
+</html>
