@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="/assets/css/style.css?v=20261019-tools">
     <link rel="stylesheet" href="/assets/css/tools-directory.css?v=20261104-1">
+    <link rel="stylesheet" href="/assets/css/tool-contact.css?v=20261105-1">
     <script src="/assets/js/style.js?v=20261013-reading2" defer></script>
 
     <script type="application/ld+json">
@@ -97,7 +98,7 @@
                 <a href="/tools/index.html" class="tools-nav-current" aria-current="page">Free Tools</a>
                 <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
                 <a href="/assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf" class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
-                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+                <a href="#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
             </nav>
         </div>
     </header>
@@ -170,6 +171,84 @@
                     <h2 id="privacy-title">Useful before clever.</h2>
                 </div>
                 <p>Each tool will explain what it checked, what it could not verify and why. Browser-first processing keeps the experience fast and avoids unnecessary accounts.</p>
+            </div>
+        </section>
+
+        <section class="project-contact" id="contact" aria-labelledby="tools-contact-title">
+            <div class="project-contact-shell">
+                <header class="project-contact-heading">
+                    <div>
+                        <p class="project-contact-kicker">Start a project</p>
+                        <h2 id="tools-contact-title">Start Your <strong>SaaS or AI Project</strong></h2>
+                    </div>
+                    <p>Have a product, integration or difficult technical problem? Send the details and I’ll reply directly.</p>
+                </header>
+
+                <aside class="project-contact-platform" aria-labelledby="tools-upwork-contact-title">
+                    <div>
+                        <p class="project-contact-card-kicker">Freelance platform</p>
+                        <h3 id="tools-upwork-contact-title">Prefer to hire through an established platform?</h3>
+                    </div>
+                    <a class="project-contact-upwork" href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank" rel="noopener noreferrer">
+                        <span>Hire me on</span>
+                        <img src="/assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56" alt="Upwork">
+                    </a>
+                </aside>
+
+                <div class="project-contact-grid">
+                    <div class="project-contact-card">
+                        <p class="project-contact-card-kicker">Direct contact</p>
+                        <h3>Choose the channel that works for you.</h3>
+                        <div class="project-contact-methods">
+                            <a class="project-contact-method" href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">
+                                <span class="project-contact-mark" aria-hidden="true">in</span>
+                                <span class="project-contact-copy"><small>Professional profile</small><strong>LinkedIn</strong></span>
+                                <span class="project-contact-arrow" aria-hidden="true">↗</span>
+                            </a>
+                            <a class="project-contact-method" href="https://github.com/m-mustufa" target="_blank" rel="noopener noreferrer">
+                                <span class="project-contact-mark" aria-hidden="true">GH</span>
+                                <span class="project-contact-copy"><small>Code and projects</small><strong>GitHub</strong></span>
+                                <span class="project-contact-arrow" aria-hidden="true">↗</span>
+                            </a>
+                            <a class="project-contact-method" href="https://wa.me/923332284944" target="_blank" rel="noopener noreferrer">
+                                <span class="project-contact-mark" aria-hidden="true">WA</span>
+                                <span class="project-contact-copy"><small>Quick conversation</small><strong>WhatsApp</strong></span>
+                                <span class="project-contact-arrow" aria-hidden="true">↗</span>
+                            </a>
+                            <a class="project-contact-method" href="https://calendly.com/mustdev/30min-consultation" target="_blank" rel="noopener noreferrer">
+                                <span class="project-contact-mark" aria-hidden="true">30</span>
+                                <span class="project-contact-copy"><small>30-minute consultation</small><strong>Book a Call</strong></span>
+                                <span class="project-contact-arrow" aria-hidden="true">↗</span>
+                            </a>
+                            <a class="project-contact-method project-contact-method-wide" href="tel:+923332284944">
+                                <span class="project-contact-mark" aria-hidden="true">TEL</span>
+                                <span class="project-contact-copy"><small>Pakistan / UAE</small><strong>+92 333 2284944</strong></span>
+                                <span class="project-contact-arrow" aria-hidden="true">→</span>
+                            </a>
+                            <a class="project-contact-method project-contact-method-wide" href="mailto:mustufa50@gmail.com">
+                                <span class="project-contact-mark" aria-hidden="true">@</span>
+                                <span class="project-contact-copy"><small>Email directly</small><strong>mustufa50@gmail.com</strong></span>
+                                <span class="project-contact-arrow" aria-hidden="true">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <form action="https://formspree.io/f/xjkrnwyl" method="POST" class="project-contact-card project-contact-form" data-contact-form>
+                        <input type="hidden" name="_subject" value="Free Tools project inquiry">
+                        <p class="project-contact-card-kicker">Project details</p>
+                        <h3>Tell me what you’re building.</h3>
+                        <div class="project-contact-form-row">
+                            <label class="project-contact-field"><span>Your name</span><input type="text" name="name" placeholder="Your name" autocomplete="name" required></label>
+                            <label class="project-contact-field"><span>Your email</span><input type="email" name="email" placeholder="you@company.com" autocomplete="email" required></label>
+                        </div>
+                        <label class="project-contact-field"><span>Project overview</span><textarea name="message" placeholder="What are you building, and where do you need help?" rows="7" required></textarea></label>
+                        <div class="project-contact-form-footer">
+                            <p>I usually reply directly by email.</p>
+                            <button type="submit">Send project request <span aria-hidden="true">→</span></button>
+                        </div>
+                        <p class="project-contact-status" data-contact-form-status role="status" aria-live="polite" hidden></p>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
