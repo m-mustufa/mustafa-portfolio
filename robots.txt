@@ -1,3 +1,7 @@
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /thanks.html
+
 User-agent: *
 Allow: /
 Disallow: /thanks.html
