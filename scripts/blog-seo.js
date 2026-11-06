@@ -159,7 +159,27 @@ function buildHeroMedia(post) {
                         </video>`;
 }
 
+// Social previews (Open Graph / Twitter) use the hero photo unless the post
+// sets its own designed share card through the optional socialImage* fields.
+function socialImage(post) {
+  if (!post.socialImageFile) {
+    return {
+      file: post.heroImageFile || `${post.slug}.jpg`,
+      width: 1200,
+      height: 675,
+      alt: post.heroImageAlt || post.title,
+    };
+  }
+  return {
+    file: post.socialImageFile,
+    width: post.socialImageWidth || 1200,
+    height: post.socialImageHeight || 627,
+    alt: post.socialImageAlt || post.heroImageAlt || post.title,
+  };
+}
+
 function renderPostPage({ template, post, contentHtml, posts }) {
+  const social = socialImage(post);
   const category = post.category || "SaaS Engineering";
   const tags = normaliseTags(post);
   const publishDateIso = post.publishDateIso;
@@ -182,6 +202,10 @@ function renderPostPage({ template, post, contentHtml, posts }) {
     "{{READING_TIME}}": String(post.readingTime),
     "{{HERO_IMAGE_FILENAME}}": post.heroImageFile || `${post.slug}.jpg`,
     "{{HERO_IMAGE_ALT}}": post.heroImageAlt || post.title,
+    "{{SOCIAL_IMAGE_FILENAME}}": social.file,
+    "{{SOCIAL_IMAGE_WIDTH}}": String(social.width),
+    "{{SOCIAL_IMAGE_HEIGHT}}": String(social.height),
+    "{{SOCIAL_IMAGE_ALT}}": social.alt,
     "{{HERO_MEDIA}}": buildHeroMedia(post),
     "{{HERO_VISUAL_CLASS}}": post.heroVideoFile ? " article-hero-visual-video" : "",
     "{{CATEGORY}}": category,
@@ -214,4 +238,5 @@ module.exports = {
   extractArticleContent,
   renderPostPage,
   selectRelatedPosts,
+  socialImage,
 };

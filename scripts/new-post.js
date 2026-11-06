@@ -15,6 +15,8 @@
  *   "metaDescription": "150-160 char SEO description",
  *   "heroImageFile": "optional-descriptive-image-filename.jpg",
  *   "heroImageAlt": "descriptive alt text for the hero image",
+ *   "socialImageFile": "optional-designed-share-card.jpg",  // OG/Twitter image, 1200x627; hero is used if omitted
+ *   "socialImageAlt": "alt text for the share card",
  *   "heroVideoFile": "optional-hero-video.mp4",
  *   "heroVideoAlt": "accessible description for the hero video",
  *   "imagePrompt": "prompt used for OpenAI image generation (or ignored by the fallback)",
@@ -244,6 +246,13 @@ const newPost = {
   relatedSlugs: Array.isArray(post.relatedSlugs) ? post.relatedSlugs : [],
   serviceLandingPage: post.serviceLandingPage || "",
 };
+// Optional designed share card for Open Graph / Twitter (1200x627 JPEG).
+if (post.socialImageFile) {
+  newPost.socialImageFile = post.socialImageFile;
+  newPost.socialImageWidth = post.socialImageWidth || 1200;
+  newPost.socialImageHeight = post.socialImageHeight || 627;
+  newPost.socialImageAlt = post.socialImageAlt || newPost.heroImageAlt;
+}
 const posts = [newPost, ...loadPosts()];
 
 // 1. Render the post page from the template

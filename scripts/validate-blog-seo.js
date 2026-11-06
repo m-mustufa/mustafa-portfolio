@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const { socialImage } = require("./blog-seo");
 
 const ROOT = path.join(__dirname, "..");
 const BLOG_DIR = path.join(ROOT, "blog");
@@ -42,7 +43,11 @@ for (const post of posts) {
 
   const html = fs.readFileSync(postPath, "utf8");
   validateSearchSnippet(relativePath, html);
-  const expectedImage = `${SITE_URL}/blog/images/${post.heroImageFile || `${post.slug}.jpg`}`;
+  const social = socialImage(post);
+  const expectedImage = `${SITE_URL}/blog/images/${social.file}`;
+  if (!fs.existsSync(path.join(BLOG_DIR, "images", social.file))) {
+    errors.push(`${relativePath}: social image blog/images/${social.file} is missing`);
+  }
   const checks = [
     [!/{{[A-Z0-9_]+}}/.test(html), "contains an unreplaced template placeholder"],
     [!html.includes("mustcode.netlify.app"), "contains the legacy production hostname"],
@@ -55,8 +60,10 @@ for (const post of posts) {
     [!html.includes('../assets/img/logo-2-200.webp'), "author card still uses the mascot avatar"],
     [html.includes('"@type": "Person"'), "Person structured data is missing"],
     [html.includes('id="related-articles"'), "related articles section is missing"],
-    [html.includes(`property="og:image" content="${expectedImage}"`), "Open Graph image is not the post hero"],
-    [html.includes(`name="twitter:image" content="${expectedImage}"`), "Twitter image is not the post hero"],
+    [html.includes(`property="og:image" content="${expectedImage}"`), "Open Graph image is not the post social image"],
+    [html.includes(`name="twitter:image" content="${expectedImage}"`), "Twitter image is not the post social image"],
+    [html.includes(`property="og:image:width" content="${social.width}"`), "Open Graph image width does not match"],
+    [html.includes(`property="og:image:height" content="${social.height}"`), "Open Graph image height does not match"],
     [html.includes('property="article:modified_time"'), "article modified time is missing"],
     [html.includes(`Published <time datetime="${post.publishDateIso}">${post.publishDate}</time>`), "visible published date does not match the manifest"],
     [countMatches(html, /property="article:tag"/g) >= 1, "article tags are missing"],
