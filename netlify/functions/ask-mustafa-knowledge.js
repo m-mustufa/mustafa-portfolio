@@ -1,6 +1,6 @@
 const CORE_PROFILE = `
 Identity and positioning:
-- Muhammad Mustafa is a senior full-stack SaaS and AI engineer with 11+ years of professional experience.
+- Muhammad Mustafa is a senior full-stack SaaS and AI engineer with 10+ years of professional experience.
 - He works directly with startups, SMEs and product teams, including UAE businesses and remote clients.
 - He handles complete products and focused milestones such as integrations, modernization, debugging and production support.
 - His work is product engineering: architecture, implementation, deployment, reliability and maintainability, not only visual website development.
@@ -12,7 +12,7 @@ const KNOWLEDGE_TOPICS = [
     keywords: ["experience", "years", "senior", "background", "career", "resume", "cv", "about you", "who are you"],
     content: `
 Experience:
-- Mustafa has 11+ years of professional full-stack engineering experience.
+- Mustafa has 10+ years of professional full-stack engineering experience.
 - He worked at Creative Chaos from February 2016 to March 2020, joined AutoLeap in May 2020 as a Front-End Engineer, and moved into a Full-Stack Engineer role in July 2022.
 - He is a senior engineer at AutoLeap, technical co-founder and lead engineer at StartStorez, and the solo builder of CultureAI.
 - He has six years of fully remote collaboration experience with a Canadian product team and is comfortable working asynchronously across time zones.

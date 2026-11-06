@@ -76,7 +76,7 @@
     },
     {
       terms: ["experience", "years", "long"],
-      answer: "I’m Mustafa, a senior full-stack SaaS and AI engineer with 11+ years of experience building and maintaining production software."
+      answer: "I’m Mustafa, a senior full-stack SaaS and AI engineer with 10+ years of experience building and maintaining production software."
     },
     {
       terms: ["product", "products", "built", "project", "projects", "portfolio"],
