@@ -2,3 +2,9 @@
   # Preserve the explicit .html canonical URLs used by metadata, the sitemap,
   # source links, and _redirects instead of rewriting links to pretty aliases.
   pretty_urls = false
+
+# After each successful production deploy, ping IndexNow (Bing, Yandex and
+# other participating engines) with only the sitemap pages whose HTML changed
+# since the last production build. Branch deploys and previews are skipped.
+[[plugins]]
+  package = "/netlify/plugins/indexnow"

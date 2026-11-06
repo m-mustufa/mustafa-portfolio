@@ -11,7 +11,7 @@
     "validate:blog-seo": "node scripts/validate-blog-seo.js",
     "validate:site-seo": "node scripts/validate-site-seo.js",
     "indexnow:submit": "node scripts/submit-indexnow.js",
-    "test:indexnow": "node scripts/test-indexnow.js",
+    "test:indexnow": "node scripts/test-indexnow.js && node scripts/test-indexnow-plugin.js",
     "test:proposal-roast": "node scripts/test-proposal-roast.js",
     "test:saas-metrics": "node scripts/test-saas-metrics-calculator.js",
     "test:assistant": "node scripts/test-ask-mustafa-knowledge.js && node scripts/test-ask-mustafa-provider.js"
