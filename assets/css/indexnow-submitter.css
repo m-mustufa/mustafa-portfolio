@@ -1,0 +1,177 @@
+/* IndexNow Submitter: extends the shared tool layout in saas-metrics-calculator.css. */
+
+.indexnow-step {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(154, 190, 201, 0.15);
+}
+
+.indexnow-step:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+.indexnow-step > h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+    color: #eef8fa;
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.indexnow-step > h4 span {
+    display: inline-grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex: 0 0 auto;
+    border: 1px solid rgba(32, 213, 189, 0.45);
+    border-radius: 999px;
+    color: var(--metrics-teal);
+    background: rgba(32, 213, 189, 0.08);
+    font-size: 0.75rem;
+}
+
+.indexnow-step-copy {
+    color: var(--metrics-muted);
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+.indexnow-step code,
+.indexnow-key-location code {
+    color: var(--metrics-teal);
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+}
+
+.indexnow-key-location {
+    margin-top: 0.7rem;
+    border: 1px dashed rgba(32, 213, 189, 0.35);
+    border-radius: 0.72rem;
+    background: var(--metrics-panel-deep);
+    padding: 0.75rem 0.85rem;
+}
+
+.indexnow-input-row,
+.indexnow-button-row {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.indexnow-input-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.indexnow-input-row .metrics-secondary-button,
+.indexnow-button-row .metrics-secondary-button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.indexnow-button-row {
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+}
+
+.indexnow-page .metrics-secondary-button:disabled,
+.indexnow-page .metrics-primary-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.indexnow-page .metrics-secondary-button:not(:disabled):hover {
+    border-color: rgba(32, 213, 189, 0.55);
+    color: #fff;
+}
+
+.indexnow-page .metrics-field textarea {
+    width: 100%;
+    min-height: 9.5rem;
+    border: 1px solid rgba(154, 190, 201, 0.22);
+    border-radius: 0.72rem;
+    color: #f4fbfc;
+    background: var(--metrics-panel-deep);
+    font: inherit;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    outline: none;
+    padding: 0.75rem 0.85rem;
+    resize: vertical;
+}
+
+.indexnow-page .metrics-field textarea:focus {
+    border-color: rgba(32, 213, 189, 0.7);
+    box-shadow: 0 0 0 3px rgba(32, 213, 189, 0.08);
+}
+
+.indexnow-over-limit {
+    color: var(--metrics-orange) !important;
+}
+
+.indexnow-page .metrics-result-card strong.indexnow-tone-good {
+    color: var(--metrics-teal);
+}
+
+.indexnow-page .metrics-result-card strong.indexnow-tone-bad {
+    color: var(--metrics-orange);
+}
+
+.indexnow-log-warn::before {
+    color: var(--metrics-orange) !important;
+}
+
+.indexnow-codes {
+    margin-top: 0.8rem;
+    border: 1px solid rgba(154, 190, 201, 0.17);
+    border-radius: 0.9rem;
+    background: rgba(5, 19, 29, 0.68);
+    padding: 1rem;
+}
+
+.indexnow-codes h4 {
+    color: #eef8fa;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.indexnow-codes dl {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+}
+
+.indexnow-codes dl > div {
+    display: grid;
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: baseline;
+}
+
+.indexnow-codes dt {
+    color: var(--metrics-cyan);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.indexnow-codes dd {
+    color: #a9bdc5;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+    .indexnow-input-row {
+        flex-direction: column;
+    }
+
+    .indexnow-button-row .metrics-secondary-button {
+        flex: 1 1 100%;
+    }
+}

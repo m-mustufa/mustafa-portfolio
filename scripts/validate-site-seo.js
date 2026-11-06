@@ -38,6 +38,11 @@ const pages = [
     canonical: `${SITE_URL}/tools/saas-metrics-calculator.html`,
     primaryPhrase: "saas metrics calculator",
   },
+  {
+    file: "tools/indexnow-submitter.html",
+    canonical: `${SITE_URL}/tools/indexnow-submitter.html`,
+    primaryPhrase: "indexnow submitter",
+  },
 ];
 
 function countMatches(value, pattern) {
@@ -185,6 +190,13 @@ if (!sitemap.includes(`${SITE_URL}/tools/index.html`)) {
 if (!sitemap.includes(`${SITE_URL}/tools/complexity-coach/`)) {
   errors.push("sitemap.xml: Complexity Coach tool is missing");
 }
+if (!sitemap.includes(`${SITE_URL}/tools/indexnow-submitter.html`)) {
+  errors.push("sitemap.xml: IndexNow Submitter tool is missing");
+}
+const toolsDirectoryHtml = fs.readFileSync(path.join(ROOT, "tools/index.html"), "utf8");
+if (!toolsDirectoryHtml.includes('href="/tools/indexnow-submitter.html"')) {
+  errors.push("tools/index.html: IndexNow Submitter tool is not linked from the tools directory");
+}
 if (!sitemap.includes(`${SITE_URL}/tools/saas-metrics-calculator.html`)) {
   errors.push("sitemap.xml: SaaS Metrics Calculator tool is missing");
 }
@@ -200,6 +212,7 @@ const legacyHostnameFiles = [
   "tools/upwork-proposal-roast.html",
   "tools/complexity-coach/index.html",
   "tools/saas-metrics-calculator.html",
+  "tools/indexnow-submitter.html",
   "blog/index.html",
   "blog/_template.html",
   "robots.txt",

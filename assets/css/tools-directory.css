@@ -123,7 +123,7 @@
 
 .tools-directory-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem;
 }
 
@@ -265,6 +265,28 @@ a.tools-directory-card:hover {
     display: block;
     margin-top: 0.15rem;
     color: var(--tools-purple);
+    font-size: 0.78rem;
+}
+
+.tools-directory-preview-indexnow > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+}
+
+.tools-directory-preview-indexnow span {
+    border: 1px solid rgba(154, 190, 201, 0.15);
+    border-radius: 0.55rem;
+    color: var(--tools-muted);
+    font-size: 0.68rem;
+    padding: 0.55rem;
+}
+
+.tools-directory-preview-indexnow span strong {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--tools-teal);
     font-size: 0.78rem;
 }
 
