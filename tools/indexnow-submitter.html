@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="/assets/img/logo-2-48.png" sizes="48x48">
 
     <title>Free IndexNow Submitter: Notify Bing of Changed URLs</title>
-    <meta name="description" content="Generate an IndexNow key, check your key file and submit new or changed URLs to Bing, Yandex and other IndexNow search engines. Free, with no signup.">
+    <meta name="description" content="Submit your site to Bing with IndexNow: generate a key, check your key file and send new or changed URLs to Bing, Yandex and other engines. Free, no signup.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="Muhammad Mustafa">
     <link rel="canonical" href="https://aisaaswithmustafa.com/tools/indexnow-submitter.html">
@@ -217,6 +217,7 @@
                 </div>
                 <div class="metrics-formulas">
                     <details open><summary>What is IndexNow?</summary><p>An open protocol that lets a website notify search engines about new, updated or deleted URLs with one request. A submission to the shared endpoint is passed on to all participating engines.</p></details>
+                    <details><summary>How do I submit my site to Bing?</summary><p>Verify your site in Bing Webmaster Tools and submit your <code>sitemap.xml</code> there once. After that, use IndexNow for each page you publish or update: this tool sends those URLs to Bing straight away instead of waiting for the next crawl, and Bing shares them with the other IndexNow search engines.</p></details>
                     <details><summary>Which search engines use IndexNow?</summary><p>The IndexNow FAQ lists Amazon, Bing, Naver, Seznam.cz, Yandex and Yep. Submitting to one participant shares the URLs with the others.</p></details>
                     <details><summary>Where do I upload the key file?</summary><p>Upload <code>your-key.txt</code> to the root of the same host as your URLs, so it opens at <code>https://example.com/your-key.txt</code> and contains only the key. On Netlify, Vercel or a static host, place it in the folder that is published as the site root. On WordPress or cPanel hosting, upload it to the site's root folder, usually <code>public_html</code>.</p></details>
                     <details><summary>Why does the key file check fail?</summary><p>Common causes: the file is in a subfolder, the file name and key differ, the file contains extra text, the URL redirects to another host or protocol, or a firewall blocks automated requests. Open the exact address in a private browser window to confirm it shows only the key.</p></details>
