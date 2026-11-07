@@ -999,7 +999,32 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { Accept: "application/json" }
       });
 
-      if (!response.ok) throw new Error("Formspree rejected the request.");
+      let responseBody = null;
+      try {
+        responseBody = await response.json();
+      } catch (error) {
+        // Some Formspree responses do not include a JSON body.
+      }
+
+      if (!response.ok) {
+        const responseMessage = responseBody && typeof responseBody.error === "string"
+          ? responseBody.error
+          : "";
+        const captchaRequired = response.status === 403 && /captcha|recaptcha|custom key/i.test(responseMessage);
+
+        if (captchaRequired) {
+          if (status) {
+            status.textContent = "Opening Formspree's verification step...";
+          }
+          track("contact_form_verification", { form_name: "project_request" });
+          HTMLFormElement.prototype.submit.call(form);
+          return;
+        }
+
+        const submissionError = new Error(responseMessage || "Formspree rejected the request.");
+        submissionError.status = response.status;
+        throw submissionError;
+      }
 
       track("contact_form_submit", { form_name: "project_request" });
       try {
@@ -1017,8 +1042,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (status) {
         status.hidden = false;
         status.classList.add("is-error");
-        status.textContent = "I couldn't send that request. Please try again or email me directly.";
+        status.textContent = error && error.status === 429
+          ? "Too many requests were sent recently. Please wait a minute and try again."
+          : "I couldn't send that request. Please try again or email me directly.";
       }
+      console.error("Project request submission failed.", error);
     }
   }
 
