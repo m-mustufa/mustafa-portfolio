@@ -135,7 +135,7 @@
     border-radius: 1.5rem;
     background: linear-gradient(145deg, rgba(17, 44, 61, 0.94), rgba(9, 27, 40, 0.96));
     color: var(--tools-text);
-    padding: clamp(1.35rem, 4vw, 2.25rem);
+    padding: clamp(1.15rem, 3vw, 1.6rem);
     box-shadow: 0 26px 70px rgba(0, 7, 14, 0.22);
 }
 
@@ -159,7 +159,7 @@ a.tools-directory-card:hover {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .tools-directory-card-topline span,
@@ -188,12 +188,11 @@ a.tools-directory-card:hover {
 }
 
 .tools-directory-preview {
-    min-height: 10rem;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1rem;
     border: 1px solid rgba(159, 195, 205, 0.2);
-    border-radius: 1rem;
+    border-radius: 0.9rem;
     background: #071824;
-    padding: 1.25rem;
+    padding: 0.85rem 1.1rem;
 }
 
 .tools-directory-preview small {
@@ -204,118 +203,29 @@ a.tools-directory-card:hover {
 
 .tools-directory-preview b {
     display: block;
-    margin-top: 0.35rem;
+    margin-top: 0.2rem;
     color: var(--tools-teal);
-    font-size: clamp(2.25rem, 6vw, 3.7rem);
-    letter-spacing: -0.055em;
-    line-height: 1;
-}
-
-.tools-directory-preview-score i {
-    display: block;
-    width: 74%;
-    height: 0.45rem;
-    margin-top: 1.4rem;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--tools-teal) 66%, rgba(169, 189, 197, 0.14) 66%);
+    font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+    letter-spacing: -0.045em;
+    line-height: 1.05;
 }
 
 .tools-directory-preview-code b {
     color: var(--tools-purple);
-    font-size: clamp(2rem, 5vw, 3.25rem);
-}
-
-.tools-directory-preview-code > div {
-    display: grid;
-    gap: 0.45rem;
-    margin-top: 1.25rem;
-}
-
-.tools-directory-preview-code i {
-    display: block;
-    height: 0.32rem;
-    border-radius: 999px;
-    background: rgba(196, 181, 253, 0.22);
-}
-
-.tools-directory-preview-code i:nth-child(1) { width: 78%; }
-.tools-directory-preview-code i:nth-child(2) { width: 58%; }
-.tools-directory-preview-code i:nth-child(3) { width: 69%; }
-
-.tools-directory-preview-metrics b {
-    font-size: clamp(1.85rem, 4vw, 2.75rem);
-}
-
-.tools-directory-preview-metrics > div {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
-    margin-top: 1.2rem;
-}
-
-.tools-directory-preview-metrics span {
-    border: 1px solid rgba(154, 190, 201, 0.15);
-    border-radius: 0.55rem;
-    color: var(--tools-muted);
-    font-size: 0.68rem;
-    padding: 0.55rem;
-}
-
-.tools-directory-preview-metrics span strong {
-    display: block;
-    margin-top: 0.15rem;
-    color: var(--tools-purple);
-    font-size: 0.78rem;
-}
-
-.tools-directory-preview-indexnow > div {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
-    margin-top: 1.2rem;
-}
-
-.tools-directory-preview-indexnow span {
-    border: 1px solid rgba(154, 190, 201, 0.15);
-    border-radius: 0.55rem;
-    color: var(--tools-muted);
-    font-size: 0.68rem;
-    padding: 0.55rem;
-}
-
-.tools-directory-preview-indexnow span strong {
-    display: block;
-    margin-top: 0.15rem;
-    color: var(--tools-teal);
-    font-size: 0.78rem;
 }
 
 .tools-directory-card h3 {
     color: #fff;
-    font-size: clamp(1.45rem, 3vw, 2rem);
+    font-size: clamp(1.25rem, 2.4vw, 1.55rem);
     font-weight: 800;
-    letter-spacing: -0.025em;
-    line-height: 1.15;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .tools-directory-card > p {
-    margin-top: 0.8rem;
+    margin-top: 0.45rem;
     color: #c4d4da;
-    line-height: 1.7;
-}
-
-.tools-directory-card ul {
-    display: grid;
-    gap: 0.45rem;
-    margin-top: 1.25rem;
-    color: var(--tools-muted);
-    font-size: 0.9rem;
-}
-
-.tools-directory-card li::before {
-    margin-right: 0.5rem;
-    color: var(--tools-teal);
-    content: "✓";
+    line-height: 1.6;
 }
 
 .tools-directory-action {
@@ -323,7 +233,7 @@ a.tools-directory-card:hover {
     align-items: center;
     gap: 0.55rem;
     margin-top: auto;
-    padding-top: 1.8rem;
+    padding-top: 1rem;
     color: var(--tools-teal);
     font-weight: 800;
 }
