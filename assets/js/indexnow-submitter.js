@@ -112,6 +112,14 @@
     results.setAttribute("aria-busy", state ? "true" : "false");
   }
 
+  // Counts real tool use in Google Analytics. style.js only sends it after the
+  // visitor accepts analytics. Never include the visitor's domain, key or URLs.
+  function trackToolUse(action, result) {
+    var analytics = window.siteAnalytics;
+    if (!analytics || typeof analytics.track !== "function") return;
+    analytics.track("tool_used", { tool_name: "indexnow_submitter", tool_action: action, tool_result: result });
+  }
+
   async function send(action) {
     if (busy) return;
     var problem = validateBase();
@@ -144,12 +152,15 @@
       if (!response.ok) {
         setResult("key", "—");
         log([data.error || "The request could not be completed. Please try again."], "warn");
+        trackToolUse(action, "request_error");
         return;
       }
 
       var verification = data.verification || {};
       setResult("key", verification.ok ? "Found" : "Not found", verification.ok ? "good" : "bad");
       var lines = [verification.message + " (" + verification.keyLocation + ")"];
+
+      if (!verification.ok || !data.submission) trackToolUse(action, verification.ok ? "key_found" : "key_not_found");
 
       if (action === "submit" && !verification.ok) {
         lines.push("Nothing was sent. Fix the key file first, then submit again.");
@@ -159,6 +170,7 @@
 
       if (data.submission) {
         var submission = data.submission;
+        trackToolUse(action, "http_" + submission.httpStatus);
         setResult("status", String(submission.httpStatus), submission.ok ? "good" : "bad");
         setResult("count", String(submission.submitted), submission.ok ? "good" : "");
         lines.push(submission.message);

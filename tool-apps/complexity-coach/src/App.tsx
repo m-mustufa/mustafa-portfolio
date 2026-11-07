@@ -1493,6 +1493,21 @@ const CATEGORY_META: Record<
 // MAIN REACT COMPONENT
 // ============================================================================
 
+// Counts real tool use in Google Analytics through the site-wide style.js,
+// which only sends it after the visitor accepts analytics. The analysed code
+// is never sent; only the action and the confidence level are.
+type SiteAnalytics = { track: (eventName: string, parameters?: Record<string, string>) => void };
+
+function trackToolUse(action: string, confidence: ConfidenceLevel) {
+  const analytics = (window as Window & { siteAnalytics?: SiteAnalytics }).siteAnalytics;
+  if (!analytics || typeof analytics.track !== 'function') return;
+  analytics.track('tool_used', {
+    tool_name: 'complexity_coach',
+    tool_action: action,
+    tool_result: confidence.toLowerCase().replace(/\s+/g, '_'),
+  });
+}
+
 export function App() {
   const [code, setCode] = useState<string>(BUILT_IN_TESTS[1].code); // Default to Merge Sorted Array or Two Sum
   const [activePresetId, setActivePresetId] = useState<string>(BUILT_IN_TESTS[1].id);
@@ -1510,13 +1525,16 @@ export function App() {
   const handleAnalyze = () => {
     const res = analyzeJavaScriptComplexity(code);
     setResult(res);
+    trackToolUse('analyze', res.confidence);
   };
 
   // Load a preset test case and immediately analyze
   const handleSelectPreset = (test: TestCase) => {
+    const res = analyzeJavaScriptComplexity(test.code);
     setActivePresetId(test.id);
     setCode(test.code);
-    setResult(analyzeJavaScriptComplexity(test.code));
+    setResult(res);
+    trackToolUse('preset', res.confidence);
     setActiveTab('analyzer');
   };
 

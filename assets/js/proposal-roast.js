@@ -246,6 +246,16 @@
   const form = document.getElementById("proposalRoastForm");
   if (!form) return;
 
+  // Counts real tool use in Google Analytics. style.js only sends it after the
+  // visitor accepts analytics. Never include the job post or proposal text.
+  function trackToolUse(action, result) {
+    const analytics = root.siteAnalytics;
+    if (!analytics || typeof analytics.track !== "function") return;
+    const params = { tool_name: "upwork_proposal_roast", tool_action: action };
+    if (result) params.tool_result = result;
+    analytics.track("tool_used", params);
+  }
+
   const jobPost = document.getElementById("jobPost");
   const proposal = document.getElementById("proposal");
   const jobCount = document.getElementById("jobCount");
@@ -393,7 +403,9 @@
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!validateInputs()) return;
-    renderAnalysis(analyzeProposal(jobPost.value, proposal.value));
+    const analysis = analyzeProposal(jobPost.value, proposal.value);
+    renderAnalysis(analysis);
+    trackToolUse("roast", analysis.verdict.label.toLowerCase().replace(/\s+/g, "_"));
   });
 
   document.getElementById("loadSample").addEventListener("click", () => {

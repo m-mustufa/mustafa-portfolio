@@ -90,6 +90,18 @@
   const form = document.querySelector("[data-saas-metrics-form]");
   if (!form) return;
 
+  // Counts real tool use in Google Analytics, once per action per page view,
+  // because results update on every keystroke. style.js only sends it after
+  // the visitor accepts analytics. Never include the entered numbers.
+  const trackedActions = new Set();
+  function trackToolUse(action) {
+    if (trackedActions.has(action)) return;
+    const analytics = root.siteAnalytics;
+    if (!analytics || typeof analytics.track !== "function") return;
+    trackedActions.add(action);
+    analytics.track("tool_used", { tool_name: "saas_metrics_calculator", tool_action: action });
+  }
+
   const currencySelect = form.querySelector("[name='currency']");
   const results = document.querySelector("[data-saas-results]");
   const resetButton = document.querySelector("[data-reset-metrics]");
@@ -205,10 +217,14 @@
     });
   });
 
-  form.addEventListener("input", render);
+  form.addEventListener("input", function handleInput() {
+    render();
+    trackToolUse("calculate");
+  });
   form.addEventListener("submit", function handleSubmit(event) {
     event.preventDefault();
     render();
+    trackToolUse("calculate");
     results.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
@@ -238,6 +254,7 @@
     });
     maskedFields.forEach(applyNumberMask);
     render();
+    trackToolUse("sample");
   });
 
   maskedFields.forEach(applyNumberMask);

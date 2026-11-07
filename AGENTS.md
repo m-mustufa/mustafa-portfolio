@@ -150,6 +150,14 @@ Recommended direction (not yet agreed/started):
 - A successful sitemap queues URLs for discovery/crawling but does not guarantee immediate indexing or ranking. Allow several days (roughly a week before treating it as a problem), and use the Page Indexing report rather than repeatedly resubmitting.
 - Ranking strategy agreed with the user: prioritize original, experience-backed posts; descriptive contextual internal links; clear author credibility/bylines; narrow long-tail keywords; and legitimate backlinks/sharing. Never buy links, spam submissions, or mass-produce thin posts.
 
+## Free tools usage tracking
+
+- Each free tool sends a Google Analytics `tool_used` event through `window.siteAnalytics.track` (defined in `assets/js/style.js`), so it is only sent on production after the visitor accepts analytics. Parameters: `tool_name` (`upwork_proposal_roast`, `complexity_coach`, `saas_metrics_calculator`, `indexnow_submitter`), `tool_action` (`roast`, `analyze`, `preset`, `calculate`, `sample`, `verify`, `submit`) and, where useful, `tool_result` (verdict, confidence, `key_found`/`key_not_found`, `http_<status>`).
+- Never send what the visitor typed: proposal text, code, revenue numbers, domains, keys or URLs.
+- The SaaS calculator updates on every keystroke, so it sends each action at most once per page view.
+- Complexity Coach is a Vite app: change `tool-apps/complexity-coach/src`, then run `npm ci` (first time) and `npm run build` in that folder to regenerate `tools/complexity-coach/`.
+- To see per-tool usage in GA4, register `tool_name`, `tool_action` and `tool_result` as event-scoped custom dimensions (Admin, Custom definitions).
+
 ## Bing and other IndexNow search engines
 
 - Bing Webmaster Tools and IndexNow are free; do not use a paid GSC Wizard workflow for this site.
