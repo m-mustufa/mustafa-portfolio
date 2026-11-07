@@ -113,14 +113,16 @@
   }
 
   // Counts real tool use in Google Analytics. style.js only sends it after the
-  // visitor accepts analytics. Never include the visitor's domain, key or URLs.
-  function trackToolUse(action, result) {
+  // visitor accepts analytics. Only trusted (real user) clicks count, so a
+  // script or bot is ignored. Never include the visitor's domain, key or URLs.
+  function trackToolUse(trusted, action, result) {
+    if (!trusted) return;
     var analytics = window.siteAnalytics;
     if (!analytics || typeof analytics.track !== "function") return;
     analytics.track("tool_used", { tool_name: "indexnow_submitter", tool_action: action, tool_result: result });
   }
 
-  async function send(action) {
+  async function send(action, trusted) {
     if (busy) return;
     var problem = validateBase();
     var urls = action === "submit" ? urlLines() : [];
@@ -152,7 +154,7 @@
       if (!response.ok) {
         setResult("key", "—");
         log([data.error || "The request could not be completed. Please try again."], "warn");
-        trackToolUse(action, "request_error");
+        trackToolUse(trusted, action, "request_error");
         return;
       }
 
@@ -160,7 +162,7 @@
       setResult("key", verification.ok ? "Found" : "Not found", verification.ok ? "good" : "bad");
       var lines = [verification.message + " (" + verification.keyLocation + ")"];
 
-      if (!verification.ok || !data.submission) trackToolUse(action, verification.ok ? "key_found" : "key_not_found");
+      if (!verification.ok || !data.submission) trackToolUse(trusted, action, verification.ok ? "key_found" : "key_not_found");
 
       if (action === "submit" && !verification.ok) {
         lines.push("Nothing was sent. Fix the key file first, then submit again.");
@@ -170,7 +172,7 @@
 
       if (data.submission) {
         var submission = data.submission;
-        trackToolUse(action, "http_" + submission.httpStatus);
+        trackToolUse(trusted, action, "http_" + submission.httpStatus);
         setResult("status", String(submission.httpStatus), submission.ok ? "good" : "bad");
         setResult("count", String(submission.submitted), submission.ok ? "good" : "");
         lines.push(submission.message);
@@ -212,7 +214,7 @@
     setTimeout(function () { URL.revokeObjectURL(link.href); }, 1000);
   });
 
-  verifyButton.addEventListener("click", function () { send("verify"); });
+  verifyButton.addEventListener("click", function (event) { send("verify", event.isTrusted); });
 
   form.querySelector("[data-indexnow-reset]").addEventListener("click", function () {
     form.reset();
@@ -230,9 +232,15 @@
     refresh();
   });
   form.addEventListener("input", refresh);
+  // Browsers mark every submit event as trusted, even one started by a script,
+  // so remember whether a person actually clicked the submit button.
+  var submitClickedByUser = false;
+  submitButton.addEventListener("click", function (event) { submitClickedByUser = event.isTrusted; });
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-    send("submit");
+    var byUser = submitClickedByUser;
+    submitClickedByUser = false;
+    send("submit", byUser);
   });
 
   refresh();

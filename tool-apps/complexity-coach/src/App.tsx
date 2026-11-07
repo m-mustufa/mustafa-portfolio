@@ -1494,11 +1494,13 @@ const CATEGORY_META: Record<
 // ============================================================================
 
 // Counts real tool use in Google Analytics through the site-wide style.js,
-// which only sends it after the visitor accepts analytics. The analysed code
-// is never sent; only the action and the confidence level are.
+// which only sends it after the visitor accepts analytics. Only trusted (real
+// user) clicks count, so a script or bot is ignored. The analysed code is never
+// sent; only the action and the confidence level are.
 type SiteAnalytics = { track: (eventName: string, parameters?: Record<string, string>) => void };
 
-function trackToolUse(action: string, confidence: ConfidenceLevel) {
+function trackToolUse(event: React.SyntheticEvent | undefined, action: string, confidence: ConfidenceLevel) {
+  if (!event || !event.nativeEvent.isTrusted) return;
   const analytics = (window as Window & { siteAnalytics?: SiteAnalytics }).siteAnalytics;
   if (!analytics || typeof analytics.track !== 'function') return;
   analytics.track('tool_used', {
@@ -1522,19 +1524,19 @@ export function App() {
   const [copied, setCopied] = useState<boolean>(false);
 
   // Run analysis when user clicks "Analyze Complexity"
-  const handleAnalyze = () => {
+  const handleAnalyze = (event?: React.SyntheticEvent) => {
     const res = analyzeJavaScriptComplexity(code);
     setResult(res);
-    trackToolUse('analyze', res.confidence);
+    trackToolUse(event, 'analyze', res.confidence);
   };
 
   // Load a preset test case and immediately analyze
-  const handleSelectPreset = (test: TestCase) => {
+  const handleSelectPreset = (test: TestCase, event?: React.SyntheticEvent) => {
     const res = analyzeJavaScriptComplexity(test.code);
     setActivePresetId(test.id);
     setCode(test.code);
     setResult(res);
-    trackToolUse('preset', res.confidence);
+    trackToolUse(event, 'preset', res.confidence);
     setActiveTab('analyzer');
   };
 
@@ -1861,7 +1863,7 @@ export function App() {
                   </div>
 
                   <button
-                    onClick={() => handleSelectPreset(test)}
+                    onClick={(event) => handleSelectPreset(test, event)}
                     style={{
                       backgroundColor: 'rgba(20, 184, 166, 0.12)',
                       borderColor: 'rgba(45, 212, 191, 0.3)'
@@ -1906,7 +1908,7 @@ export function App() {
                   value={activePresetId}
                   onChange={(event) => {
                     const selected = BUILT_IN_TESTS.find((test) => test.id === event.target.value);
-                    if (selected) handleSelectPreset(selected);
+                    if (selected) handleSelectPreset(selected, event);
                   }}
                   style={{
                     backgroundColor: 'rgba(7, 16, 30, 0.95)',

@@ -247,8 +247,19 @@
   if (!form) return;
 
   // Counts real tool use in Google Analytics. style.js only sends it after the
-  // visitor accepts analytics. Never include the job post or proposal text.
-  function trackToolUse(action, result) {
+  // visitor accepts analytics. Only trusted (real user) events count, so a
+  // script or bot that triggers the form is ignored. Never include the job
+  // post or proposal text.
+  // Browsers mark every submit event as trusted, even one started by a script,
+  // so remember whether a person actually clicked the submit button.
+  let submitClickedByUser = false;
+  const submitButton = form.querySelector('button[type="submit"]');
+  if (submitButton) {
+    submitButton.addEventListener("click", (event) => { submitClickedByUser = event.isTrusted; });
+  }
+
+  function trackToolUse(byUser, action, result) {
+    if (!byUser) return;
     const analytics = root.siteAnalytics;
     if (!analytics || typeof analytics.track !== "function") return;
     const params = { tool_name: "upwork_proposal_roast", tool_action: action };
@@ -275,9 +286,21 @@
   const actionStatus = document.getElementById("actionStatus");
   let latestAnalysis = null;
 
+  // The minimums are in characters, so show character progress until a field
+  // is long enough, then switch to the word count.
+  const JOB_MIN_CHARS = 80;
+  const PROPOSAL_MIN_CHARS = 40;
+
+  function countLabel(field, minChars) {
+    const chars = field.value.trim().length;
+    if (chars < minChars) return `${chars} / ${minChars} characters`;
+    const words = countWords(field.value);
+    return `${words} ${words === 1 ? "word" : "words"}`;
+  }
+
   function updateCounts() {
-    jobCount.textContent = `${countWords(jobPost.value)} words`;
-    proposalCount.textContent = `${countWords(proposal.value)} words`;
+    jobCount.textContent = countLabel(jobPost, JOB_MIN_CHARS);
+    proposalCount.textContent = countLabel(proposal, PROPOSAL_MIN_CHARS);
   }
 
   function setStatus(message) {
@@ -344,12 +367,14 @@
 
   function validateInputs() {
     const errors = [];
-    const jobValid = jobPost.value.trim().length >= 80;
-    const proposalValid = proposal.value.trim().length >= 40;
+    const jobChars = jobPost.value.trim().length;
+    const proposalChars = proposal.value.trim().length;
+    const jobValid = jobChars >= JOB_MIN_CHARS;
+    const proposalValid = proposalChars >= PROPOSAL_MIN_CHARS;
     jobPost.setAttribute("aria-invalid", String(!jobValid));
     proposal.setAttribute("aria-invalid", String(!proposalValid));
-    if (!jobValid) errors.push("Paste at least 80 characters from the job post.");
-    if (!proposalValid) errors.push("Paste at least 40 characters from your proposal.");
+    if (!jobValid) errors.push(`The job post needs at least ${JOB_MIN_CHARS} characters (${JOB_MIN_CHARS - jobChars} more).`);
+    if (!proposalValid) errors.push(`Your proposal needs at least ${PROPOSAL_MIN_CHARS} characters (${PROPOSAL_MIN_CHARS - proposalChars} more).`);
     formError.textContent = errors.join(" ");
     formError.hidden = !errors.length;
     if (errors.length) (jobValid ? proposal : jobPost).focus();
@@ -402,10 +427,12 @@
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    const byUser = submitClickedByUser;
+    submitClickedByUser = false;
     if (!validateInputs()) return;
     const analysis = analyzeProposal(jobPost.value, proposal.value);
     renderAnalysis(analysis);
-    trackToolUse("roast", analysis.verdict.label.toLowerCase().replace(/\s+/g, "_"));
+    trackToolUse(byUser, "roast", analysis.verdict.label.toLowerCase().replace(/\s+/g, "_"));
   });
 
   document.getElementById("loadSample").addEventListener("click", () => {

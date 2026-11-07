@@ -92,10 +92,11 @@
 
   // Counts real tool use in Google Analytics, once per action per page view,
   // because results update on every keystroke. style.js only sends it after
-  // the visitor accepts analytics. Never include the entered numbers.
+  // the visitor accepts analytics. Only trusted (real user) events count, so a
+  // script or bot that fills the form is ignored. Never include the numbers.
   const trackedActions = new Set();
-  function trackToolUse(action) {
-    if (trackedActions.has(action)) return;
+  function trackToolUse(byUser, action) {
+    if (!byUser || trackedActions.has(action)) return;
     const analytics = root.siteAnalytics;
     if (!analytics || typeof analytics.track !== "function") return;
     trackedActions.add(action);
@@ -217,14 +218,25 @@
     });
   });
 
-  form.addEventListener("input", function handleInput() {
+  // Browsers mark every submit event as trusted, even one started by a script,
+  // so remember whether a person actually clicked the submit button.
+  let submitClickedByUser = false;
+  const submitButton = form.querySelector('button[type="submit"]');
+  if (submitButton) {
+    submitButton.addEventListener("click", function handleSubmitClick(event) {
+      submitClickedByUser = event.isTrusted;
+    });
+  }
+
+  form.addEventListener("input", function handleInput(event) {
     render();
-    trackToolUse("calculate");
+    trackToolUse(event.isTrusted, "calculate");
   });
   form.addEventListener("submit", function handleSubmit(event) {
     event.preventDefault();
     render();
-    trackToolUse("calculate");
+    trackToolUse(submitClickedByUser, "calculate");
+    submitClickedByUser = false;
     results.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
@@ -234,7 +246,7 @@
     render();
   });
 
-  sampleButton.addEventListener("click", function loadSample() {
+  sampleButton.addEventListener("click", function loadSample(event) {
     const sample = {
       currency: "USD",
       mrr: 24000,
@@ -254,7 +266,7 @@
     });
     maskedFields.forEach(applyNumberMask);
     render();
-    trackToolUse("sample");
+    trackToolUse(event.isTrusted, "sample");
   });
 
   maskedFields.forEach(applyNumberMask);
