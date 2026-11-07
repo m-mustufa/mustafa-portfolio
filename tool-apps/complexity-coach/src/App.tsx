@@ -226,6 +226,35 @@ const BUILT_IN_TESTS: TestCase[] = [
     code: `function transform(items, service) {
   return service.process(items);
 }`
+  },
+  {
+    id: 'string-split-filter',
+    title: '9. Filter Comments (String split)',
+    subtitle: 'split() per comment plus Set lookups; L is the string length',
+    expectedTime: 'O(m*L + n)',
+    expectedAuxSpace: 'O(n + L)',
+    expectedTotalSpace: 'O(m + n + L)',
+    expectedConfidence: 'High',
+    code: `function getCleanComments(comments, bannedWords) {
+  const seen = new Set(bannedWords);
+  const result = [];
+
+  for (const comment of comments) {
+    let isClean = true;
+    const words = comment.split(" ");
+
+    for (const word of words) {
+      if (seen.has(word)) {
+        isClean = false;
+      }
+    }
+    if (isClean) {
+      result.push(comment);
+    }
+  }
+
+  return result;
+}`
   }
 ];
 
@@ -288,10 +317,26 @@ function multiplyLoopDims(outerDims: string[]): { term: string; rank: number } {
     return { term: `${a}*${b}`, rank: 4 };
   }
   if (linearDims.length >= 3) {
-    const a = normalizeDim(linearDims[0]);
-    return { term: `${a}^${linearDims.length}`, rank: 5 };
+    // Count repeated factors so mixed nests read as n²*L instead of n^3.
+    const counts = new Map<string, number>();
+    for (const d of linearDims.map(normalizeDim)) counts.set(d, (counts.get(d) || 0) + 1);
+    const factors = Array.from(counts.entries()).map(([d, k]) => {
+      const wrap = d.includes('+') ? `(${d})` : d;
+      return k === 1 ? wrap : k === 2 ? `${wrap}²` : `${wrap}^${k}`;
+    });
+    return { term: factors.join('*'), rank: 5 };
   }
   return { term: outerDims.join(' * '), rank: 3.5 };
+}
+
+// Input-size symbols that appear in a term, e.g. 'm*L' -> {m, L}.
+function termVars(term: string): Set<string> {
+  return new Set((term.match(/[A-Za-z]+/g) || []).filter((v) => v !== 'log'));
+}
+
+function isSubsetOf(a: Set<string>, b: Set<string>): boolean {
+  for (const v of a) if (!b.has(v)) return false;
+  return true;
 }
 
 function combineTimeTerms(terms: { term: string; rank: number }[]): string {
@@ -300,30 +345,59 @@ function combineTimeTerms(terms: { term: string; rank: number }[]): string {
   const topTerms = terms.filter((t) => Math.abs(t.rank - maxRank) < 0.35);
 
   const unique = Array.from(new Set(topTerms.map((t) => t.term)));
+  let head: string;
   if (unique.length === 1) {
-    return `O(${unique[0]})`;
+    head = unique[0];
+  } else if (maxRank === 2 && unique.includes('m') && unique.includes('n')) {
+    // Check if we have 'm' and 'n' at rank 2 -> O(m + n)
+    head = 'm+n';
+  } else if (unique.includes('m+n')) {
+    head = 'm+n';
+  } else {
+    head = unique.join(' + ');
   }
-  // Check if we have 'm' and 'n' at rank 2 -> O(m + n)
-  if (maxRank === 2 && unique.includes('m') && unique.includes('n')) {
-    return 'O(m+n)';
+
+  // A smaller term is only dropped when a bigger term already contains all of
+  // its input sizes. O(m*L) does not cover building a Set of n items, so the
+  // result is O(m*L + n), not O(m*L).
+  const covering = [termVars(head)];
+  const extras: string[] = [];
+  const lowerTerms = terms
+    .filter((t) => t.rank < maxRank - 0.35)
+    .sort((a, b) => b.rank - a.rank);
+  for (const t of lowerTerms) {
+    const vars = termVars(t.term);
+    if (vars.size === 0 || extras.includes(t.term)) continue;
+    if (covering.some((cover) => isSubsetOf(vars, cover))) continue;
+    extras.push(t.term);
+    covering.push(vars);
   }
-  if (unique.includes('m+n')) {
-    return 'O(m+n)';
-  }
-  return `O(${unique.join(' + ')})`;
+  return extras.length ? `O(${head} + ${extras.join(' + ')})` : `O(${head})`;
 }
 
 function combineSpaceTerms(dims: string[]): string {
-  const nonConst = dims.filter((d) => d !== '1' && d !== '');
-  if (nonConst.length === 0) return 'O(1)';
-  const norm = Array.from(new Set(nonConst.map(normalizeDim)));
-  if (norm.includes('m+n') || (norm.includes('m') && norm.includes('n'))) {
-    return 'O(m+n)';
+  // Split sums into separate sizes, e.g. 'm+n' -> m, n.
+  const atoms: string[] = [];
+  for (const d of dims) {
+    const norm = normalizeDim(d);
+    if (norm === '1' || norm === '') continue;
+    for (const part of norm.split('+')) {
+      if (part && part !== '1' && !atoms.includes(part)) atoms.push(part);
+    }
   }
-  if (norm.length === 1) {
-    return `O(${norm[0]})`;
-  }
-  return `O(${norm.join(' + ')})`;
+  // A product such as m*L already covers m on its own.
+  const kept = atoms.filter((a) => {
+    const vars = termVars(a);
+    return !atoms.some((b) => b !== a && termVars(b).size > vars.size && isSubsetOf(vars, termVars(b)));
+  });
+  if (kept.length === 0) return 'O(1)';
+  if (kept.length === 1) return `O(${kept[0]})`;
+  if (kept.length === 2 && kept.includes('m') && kept.includes('n')) return 'O(m+n)';
+  const ordered = [
+    ...['m', 'n'].filter((v) => kept.includes(v)),
+    ...kept.filter((v) => v !== 'm' && v !== 'n')
+  ];
+  return `O(${ordered.join(' + ')})`;
 }
 
 // ============================================================================
@@ -352,6 +426,56 @@ const SAFE_GLOBAL_CALLS = new Set([
   'console.log',
   'Object.is'
 ]);
+
+// String methods. Each one reads the string once, so it costs O(L), where L is
+// the string's length. Methods like padStart or repeat are left out on purpose:
+// their cost depends on an argument, not on the string.
+const STRING_ONLY_METHODS = new Set([
+  'split',
+  'trim',
+  'trimStart',
+  'trimEnd',
+  'toLowerCase',
+  'toUpperCase',
+  'toLocaleLowerCase',
+  'toLocaleUpperCase',
+  'replace',
+  'replaceAll',
+  'normalize',
+  'startsWith',
+  'endsWith',
+  'match',
+  'matchAll',
+  'search',
+  'substring',
+  'substr',
+  'charAt',
+  'charCodeAt',
+  'codePointAt',
+  'localeCompare'
+]);
+// Shared with arrays: only treated as string methods when the receiver is a known string.
+const STRING_SHARED_METHODS = new Set(['includes', 'indexOf', 'lastIndexOf', 'slice', 'concat', 'at']);
+const STRING_CONSTANT_TIME_METHODS = new Set(['charAt', 'charCodeAt', 'codePointAt', 'at']);
+const STRING_RETURNS_STRING = new Set([
+  'trim',
+  'trimStart',
+  'trimEnd',
+  'toLowerCase',
+  'toUpperCase',
+  'toLocaleLowerCase',
+  'toLocaleUpperCase',
+  'replace',
+  'replaceAll',
+  'normalize',
+  'substring',
+  'substr',
+  'slice',
+  'concat'
+]);
+const STRING_RETURNS_ARRAY = new Set(['split', 'match', 'matchAll']);
+// A regular expression can backtrack, so these are only O(L) for simple patterns.
+const STRING_REGEX_METHODS = new Set(['split', 'replace', 'replaceAll', 'match', 'matchAll', 'search']);
 
 export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
   const lines = rawCode.split('\n');
@@ -406,7 +530,17 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
 
   // State tracked during AST traversal
   const varDimensions: Record<string, string> = {}; // e.g., nums -> 'n', nums1 -> 'm', combined -> 'm+n'
-  const varTypes: Record<string, 'array' | 'map' | 'set' | 'scalar'> = {};
+  const varTypes: Record<string, 'array' | 'map' | 'set' | 'scalar' | 'string'> = {};
+  // Arrays whose items are strings (results of split / match), so a for...of
+  // over them yields strings.
+  const stringArrays = new Set<string>();
+  // Maps a declaration's initializer node to its variable, so a chained call
+  // like `const words = s.trim().split(' ')` assigns only the outer result.
+  const initOwner = new Map<any, string>();
+  // Which parameter got which size symbol, shown in the assumptions.
+  const inputSymbols: string[] = [];
+  let usesStringLength = false;
+  const regexLines: number[] = [];
   const allocatedVars: Record<
     string,
     { line: number; dim: string; kind: string; codeSnippet: string }
@@ -454,9 +588,16 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
       // Smart dimension assignment for interview signatures
       // e.g. (nums1, m, nums2, n) or (nums1, nums2) or (arr1, arr2) or (s, t)
       const hasMAndNParams = paramNames.includes('m') && paramNames.includes('n');
+      // Collections are recognised by common names (nums, arr, items...), the
+      // single letters s/t/a/b, or a plural name (comments, bannedWords). Single
+      // letters must match exactly, so names like 'service' or 'total' are not
+      // treated as arrays just because of their first letter.
       const arrayLikeParams = paramNames.filter(
         (name) =>
-          /^(nums|arr|list|words|strs|items|intervals|matrix|grid|chars|s|t|a|b)/i.test(name) &&
+          (/^(nums|arr|list|words|strs|items|intervals|matrix|grid|chars)/i.test(name) ||
+            /^(s|t|a|b)$/.test(name) ||
+            /(list|array|arr|words|items)$/i.test(name) ||
+            (name.length >= 3 && /[^s]s$/.test(name) && !/(us|is)$/.test(name))) &&
           name !== 'm' &&
           name !== 'n' &&
           name !== 'target' &&
@@ -508,6 +649,27 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
 
   acornWalk.full(ast, pass1CollectDeclarations);
 
+  // Record which parameter of the main (top-level) function got which size
+  // symbol. Callback parameters such as (a, b) in a sort comparator are skipped.
+  const topFunction = (ast.body || [])
+    .map((stmt: any) => {
+      if (stmt.type === 'FunctionDeclaration') return stmt;
+      if (stmt.type === 'VariableDeclaration') {
+        const init = stmt.declarations?.[0]?.init;
+        if (init && /Function/.test(init.type)) return init;
+      }
+      if (stmt.type === 'ExpressionStatement' && /Function/.test(stmt.expression?.right?.type || '')) {
+        return stmt.expression.right;
+      }
+      return null;
+    })
+    .find(Boolean);
+  for (const param of topFunction?.params || []) {
+    const name = param.type === 'Identifier' ? param.name : param.left?.name;
+    const symbol = name ? varDimensions[name] : undefined;
+    if (name && symbol && symbol !== name) inputSymbols.push(`${name} = ${symbol}`);
+  }
+
   // Fallback heuristics for top-level snippets without an enclosing function signature
   if (Object.keys(varDimensions).length === 0) {
     if (/\bnums1\b/.test(rawCode) && /\bnums2\b/.test(rawCode)) {
@@ -522,9 +684,49 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
     }
   }
 
+  // True when an expression is known to be a string: a literal, a template, a
+  // variable already typed as a string, or the result of a string method.
+  function isStringReceiver(expr: any): boolean {
+    if (!expr) return false;
+    if (expr.type === 'Literal' && typeof expr.value === 'string') return true;
+    if (expr.type === 'TemplateLiteral') return true;
+    if (expr.type === 'Identifier') return varTypes[expr.name] === 'string';
+    if (expr.type === 'CallExpression' && expr.callee?.type === 'MemberExpression') {
+      return isStringMethodCall(expr.callee) && STRING_RETURNS_STRING.has(expr.callee.property?.name);
+    }
+    return false;
+  }
+
+  function isStringMethodCall(callee: any): boolean {
+    const method = callee?.property?.type === 'Identifier' ? callee.property.name : '';
+    if (!method || callee.computed) return false;
+    return (
+      STRING_ONLY_METHODS.has(method) ||
+      (STRING_SHARED_METHODS.has(method) && isStringReceiver(callee.object))
+    );
+  }
+
+  // Length symbol of a string expression: a known input size (for example a
+  // parameter `s` is n), otherwise L, the length of the string.
+  function stringDimension(expr: any): string {
+    if (!expr) return 'L';
+    if (expr.type === 'Identifier') return varDimensions[expr.name] || 'L';
+    if (expr.type === 'CallExpression' && expr.callee?.type === 'MemberExpression' && isStringMethodCall(expr.callee)) {
+      return stringDimension(expr.callee.object);
+    }
+    return 'L';
+  }
+
   // Helper to resolve the symbolic dimension of an AST expression
   function resolveExprDimension(expr: any): string {
     if (!expr) return 'n';
+    if (
+      expr.type === 'CallExpression' &&
+      expr.callee?.type === 'MemberExpression' &&
+      isStringMethodCall(expr.callee)
+    ) {
+      return stringDimension(expr.callee.object);
+    }
     if (expr.type === 'Identifier') {
       if (varDimensions[expr.name]) return varDimensions[expr.name];
       if (expr.name === 'm') return 'm';
@@ -699,6 +901,14 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
       const init = node.init;
 
       if (init) {
+        initOwner.set(init, varName);
+
+        // A fixed string literal has constant length.
+        if (init.type === 'Literal' && typeof init.value === 'string') {
+          varTypes[varName] = 'string';
+          varDimensions[varName] = '1';
+        }
+
         // Alias for length: const n = nums.length
         if (
           init.type === 'MemberExpression' &&
@@ -814,6 +1024,19 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
       }
     }
 
+    // 2B. Plain assignment of an empty array literal without a declaration,
+    // e.g. `result = [];`, is still an array.
+    if (
+      node.type === 'AssignmentExpression' &&
+      node.operator === '=' &&
+      node.left?.type === 'Identifier' &&
+      node.right?.type === 'ArrayExpression' &&
+      !node.right.elements?.some((el: any) => el?.type === 'SpreadElement')
+    ) {
+      varTypes[node.left.name] = 'array';
+      if (!varDimensions[node.left.name]) varDimensions[node.left.name] = '1';
+    }
+
     // 3. Dynamic property access guard. Known array indexing remains O(1).
     if (
       node.type === 'MemberExpression' &&
@@ -822,7 +1045,7 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
     ) {
       const objectName = node.object?.type === 'Identifier' ? node.object.name : null;
       const isKnownIndexedCollection =
-        objectName !== null && varTypes[objectName] === 'array';
+        objectName !== null && (varTypes[objectName] === 'array' || varTypes[objectName] === 'string');
 
       if (!isKnownIndexedCollection) {
         const reason = `Dynamic property access on '${objectName || 'expression'}[...]' detected on line ${line}. The runtime object shape and access cost are not statically known.`;
@@ -861,6 +1084,28 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
       } else if (node.type === 'ForOfStatement' || node.type === 'ForInStatement') {
         loopStatus = 'linear';
         loopDim = resolveExprDimension(node.right);
+        // Count string work done in the loop header itself, e.g. `for (const w of s.split(' '))`.
+        if (
+          node.right?.type === 'CallExpression' &&
+          node.right.callee?.type === 'MemberExpression' &&
+          isStringMethodCall(node.right.callee)
+        ) {
+          walkAST(node.right, activeLoopStack, currentFuncName);
+        }
+
+        // Items of a string array (from split or match) are strings no longer
+        // than the array's source string.
+        const loopVar = node.left?.declarations?.[0]?.id;
+        const iteratesStringArray =
+          (node.right?.type === 'Identifier' && stringArrays.has(node.right.name)) ||
+          (node.right?.type === 'CallExpression' &&
+            node.right.callee?.type === 'MemberExpression' &&
+            isStringMethodCall(node.right.callee) &&
+            STRING_RETURNS_ARRAY.has(node.right.callee.property?.name));
+        if (node.type === 'ForOfStatement' && loopVar?.type === 'Identifier' && iteratesStringArray) {
+          varTypes[loopVar.name] = 'string';
+          varDimensions[loopVar.name] = loopDim;
+        }
       } else {
         const res = analyzeWhileStatement(node);
         loopStatus = res.status;
@@ -994,8 +1239,93 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
         const lhsMatch = getLineText(line).match(/^(?:const|let|var)\s+([a-zA-Z0-9_$]+)\s*=/);
         const assignedVar = lhsMatch ? lhsMatch[1] : null;
 
+        // 4S. String methods: split, trim, toLowerCase, replace... Each reads the
+        // whole string once (O(L)); charAt-style lookups are O(1).
+        if (isStringMethodCall(callee)) {
+          const strDim = normalizeDim(stringDimension(callee.object));
+          if (strDim === 'L') usesStringLength = true;
+          const receiver = objName || 'string';
+          const constantTime = STRING_CONSTANT_TIME_METHODS.has(method);
+          const returnsArray = STRING_RETURNS_ARRAY.has(method);
+          const allocates = returnsArray || STRING_RETURNS_STRING.has(method);
+          const firstArg = node.arguments?.[0];
+          const usesRegex =
+            STRING_REGEX_METHODS.has(method) &&
+            (Boolean(firstArg?.regex) ||
+              (firstArg?.type === 'NewExpression' && firstArg.callee?.name === 'RegExp'));
+          if (usesRegex) regexLines.push(line);
+
+          const mult = constantTime
+            ? multiplyLoopDims(activeLoopStack)
+            : multiplyLoopDims([...activeLoopStack, strDim]);
+          if (!constantTime) {
+            timeContributions.push({
+              term: mult.term,
+              rank: mult.rank,
+              line,
+              reason: `String .${method}() reading ${strDim} characters`
+            });
+          }
+
+          // Only the outermost call of a declaration owns the variable, so
+          // `const words = s.trim().split(' ')` makes `words` the split result.
+          const ownerVar = initOwner.get(node) || null;
+          if (allocates) {
+            const key = ownerVar || `_anon_${line}_${method}`;
+            if (ownerVar) {
+              varDimensions[ownerVar] = strDim;
+              varTypes[ownerVar] = returnsArray ? 'array' : 'string';
+              if (returnsArray) stringArrays.add(ownerVar);
+            }
+            allocatedVars[key] = {
+              line,
+              dim: strDim,
+              kind: `string .${method}()`,
+              codeSnippet: getLineText(line)
+            };
+          }
+
+          const timeLabel = constantTime ? 'O(1)' : `O(${mult.term})`;
+          const spaceLabel = allocates ? `O(${strDim})` : 'O(1)';
+          const lengthNote = strDim === 'L' ? ' (L = length of the string)' : '';
+          const whatItMakes = returnsArray
+            ? `splits '${receiver}' into a new array of up to ${strDim} parts`
+            : allocates
+            ? `builds a new string of up to ${strDim} characters from '${receiver}'`
+            : `reads '${receiver}'`;
+          const whatItMakesUr = returnsArray
+            ? `'${receiver}' ko tor kar ${strDim} hisson tak ki nayi array banata hai`
+            : allocates
+            ? `'${receiver}' se ${strDim} characters tak ki nayi string banata hai`
+            : `'${receiver}' ko parhta hai`;
+
+          setHighlight(
+            line,
+            allocates ? 'allocation' : 'loop',
+            constantTime ? `.${method}() is O(1)` : `String .${method}(): ${timeLabel}`
+          );
+          evidence.push({
+            line,
+            category: allocates ? 'allocation' : 'loop',
+            operation: `${receiver}.${method}()`,
+            codeSnippet: getLineText(line),
+            timeImpact: timeLabel,
+            spaceImpact: spaceLabel,
+            explanationEn: constantTime
+              ? `'${receiver}.${method}(...)' on line ${line} reads one character by position, which is O(1).`
+              : activeLoopStack.length > 0
+              ? `'${receiver}.${method}(...)' on line ${line} ${whatItMakes}${lengthNote}. It runs inside a loop (${activeLoopStack.join(' × ')}), so the total is O(${mult.term}).`
+              : `'${receiver}.${method}(...)' on line ${line} ${whatItMakes}${lengthNote}, which takes O(${strDim}) time.`,
+            explanationUr: constantTime
+              ? `Line ${line} par '${receiver}.${method}(...)' sirf ek character position se parhta hai, is liye O(1) hai.`
+              : activeLoopStack.length > 0
+              ? `Line ${line} par '${receiver}.${method}(...)' ${whatItMakesUr}${strDim === 'L' ? ' (L = string ki lambai)' : ''}. Ye loop ke andar hai, is liye total time O(${mult.term}) banta hai.`
+              : `Line ${line} par '${receiver}.${method}(...)' ${whatItMakesUr}${strDim === 'L' ? ' (L = string ki lambai)' : ''}, jis mein O(${strDim}) time lagta hai.`
+          });
+        }
+
         // 4A. .sort()
-        if (method === 'sort') {
+        else if (method === 'sort') {
           const sortDim = normalizeDim(objDim);
           const wrapDim = sortDim.includes('+') ? `(${sortDim})` : sortDim;
           const sortTerm =
@@ -1421,12 +1751,32 @@ export function analyzeJavaScriptComplexity(rawCode: string): AnalysisResult {
       `The returned array (${outputExcludedVars.join(', ')}) is excluded from Auxiliary Space following standard algorithm interview conventions.`
     );
   }
+  if (inputSymbols.length > 0) {
+    assumptions.push(`Input sizes used in the result: ${inputSymbols.join(', ')}.`);
+  }
+  if (usesStringLength) {
+    assumptions.push(
+      'L is the length of the longest string handled by string methods such as split(), trim() or toLowerCase(). Each of these calls reads the whole string once, so it costs O(L).'
+    );
+    whyEnglish.push('L stands for the length of the string being processed, for example one comment or one word.');
+    whyRomanUrdu.push('L ka matlab hai string ki lambai, maslan ek comment ya ek word.');
+  }
+  if (regexLines.length > 0) {
+    const uniqueRegexLines = Array.from(new Set(regexLines));
+    const where =
+      uniqueRegexLines.length === 1
+        ? `on line ${uniqueRegexLines[0]} is`
+        : `on lines ${uniqueRegexLines.join(', ')} are`;
+    assumptions.push(
+      `The regular expression ${where} assumed to run in linear time. Patterns with heavy backtracking can be much slower, so confidence is Medium.`
+    );
+  }
 
   return {
     timeComplexity: finalTime,
     auxSpaceComplexity: finalAuxSpace,
     totalSpaceComplexity: finalTotalSpace,
-    confidence: 'High',
+    confidence: regexLines.length > 0 ? 'Medium' : 'High',
     manualReviewReasons: [],
     plainEnglishSummary,
     whyEnglish,

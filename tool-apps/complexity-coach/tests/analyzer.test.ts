@@ -86,6 +86,62 @@ const cases: Array<{ name: string; code: string; expected: Expected }> = [
     expected: ['O(m*n)', 'O(1)', 'O(1)', 'High']
   },
   {
+    // Shared by a visitor; used to return Manual review because of split().
+    name: 'String split inside loop (visitor example)',
+    code: `var getCleanComments = function (comments, bannedWords) {
+  const seen = new Set(bannedWords);
+  result = [];
+
+  for (const comment of comments) {
+    let isClean = true;
+    const words = comment.split(" ");
+
+    for (const word of words) {
+      if (seen.has(word)) {
+        isClean = false;
+      }
+    }
+    if (isClean === true) {
+      result.push(comment);
+    }
+  }
+
+  return result;
+};`,
+    expected: ['O(m*L + n)', 'O(n + L)', 'O(m + n + L)', 'High']
+  },
+  {
+    name: 'Chained string methods on a string parameter',
+    code: `function clean(s) { return s.trim().toLowerCase(); }`,
+    expected: ['O(n)', 'O(n)', 'O(n)', 'High']
+  },
+  {
+    name: 'Word frequency with split in loop header',
+    code: `function wordFreq(text) {
+  const counts = new Map();
+  for (const word of text.split(' ')) {
+    counts.set(word, (counts.get(word) || 0) + 1);
+  }
+  return counts;
+}`,
+    expected: ['O(n)', 'O(n)', 'O(n)', 'High']
+  },
+  {
+    name: 'Regex split lowers confidence',
+    code: `function countWords(text) { const parts = text.trim().split(/\\s+/); return parts.length; }`,
+    expected: ['O(n)', 'O(n)', 'O(n)', 'Medium']
+  },
+  {
+    name: 'Sort plus independent loop keeps both sizes',
+    code: `function sortAndScan(nums1, nums2) {
+  nums1.sort((a, b) => a - b);
+  let total = 0;
+  for (const x of nums2) total += x;
+  return total;
+}`,
+    expected: ['O(m log(m) + n)', 'O(1)', 'O(1)', 'High']
+  },
+  {
     name: 'Unsupported TypeScript syntax',
     code: `interface Item { id: number }\nfunction ids(items: Item[]) { return items.map(item => item.id); }`,
     expected: ['Manual review needed', 'Manual review needed', 'Manual review needed', 'Manual review needed']
