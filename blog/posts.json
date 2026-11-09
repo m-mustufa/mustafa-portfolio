@@ -1,5 +1,31 @@
 [
   {
+    "slug": "claude-code-vs-codex-ai-coding-agents-2026",
+    "title": "Claude Code vs Codex: Which AI Coding Agent Fits Real SaaS Work?",
+    "metaDescription": "Compare Claude Code vs Codex for real SaaS development, including repo context, permissions, long tasks, code review, pros, cons and best use cases.",
+    "heroImageFile": "claude-code-vs-codex-ai-coding-agent-comparison-2026.jpg",
+    "heroImageAlt": "Software developer comparing Claude Code and OpenAI Codex AI coding agents on a laptop in a simple home workspace",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 9, 2026",
+    "publishDateIso": "2026-11-09T13:45:36.201Z",
+    "readingTime": 9,
+    "category": "AI Engineering",
+    "tags": [
+      "Claude Code vs Codex",
+      "AI Coding Agents",
+      "Claude Code",
+      "OpenAI Codex",
+      "SaaS Development"
+    ],
+    "relatedSlugs": [
+      "mcp-vs-rest-api-ai-agents",
+      "scalable-nodejs-apis-modern-saas-2026",
+      "ai-agent-vs-chatbot"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
+  },
+  {
     "slug": "indexnow-submit-site-to-bing",
     "title": "How to Submit Your Site to Bing with IndexNow (2026 Guide)",
     "metaDescription": "Submit your site to Bing the right way: verify it in Bing Webmaster Tools, add an IndexNow key, read response codes and automate pings on each deploy.",

@@ -17,6 +17,7 @@ https://mustcode.netlify.app/* https://aisaaswithmustafa.com/:splat 301!
 /blog /blog/index.html 301!
 /blog/ /blog/index.html 301!
 /blog/index /blog/index.html 301!
+/blog/claude-code-vs-codex-ai-coding-agents-2026 /blog/claude-code-vs-codex-ai-coding-agents-2026.html 301!
 /blog/indexnow-submit-site-to-bing /blog/indexnow-submit-site-to-bing.html 301!
 /blog/mcp-vs-rest-api-ai-agents /blog/mcp-vs-rest-api-ai-agents.html 301!
 /blog/firestore-vs-supabase-offline-first-react-apps /blog/firestore-vs-supabase-offline-first-react-apps.html 301!

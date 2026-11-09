@@ -56,9 +56,15 @@
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/index.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://aisaaswithmustafa.com/blog/claude-code-vs-codex-ai-coding-agents-2026.html</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aisaaswithmustafa.com/blog/indexnow-submit-site-to-bing.html</loc>
