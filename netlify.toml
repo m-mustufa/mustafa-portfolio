@@ -8,3 +8,9 @@
 # since the last production build. Branch deploys and previews are skipped.
 [[plugins]]
   package = "/netlify/plugins/indexnow"
+
+# After a production deploy, share a newly published blog post or free tool on
+# LinkedIn (one per deploy). Off unless LINKEDIN_AUTO_POST=true is set in the
+# Netlify environment. See AGENTS.md "LinkedIn auto-share".
+[[plugins]]
+  package = "/netlify/plugins/linkedin"

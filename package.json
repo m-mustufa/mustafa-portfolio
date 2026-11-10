@@ -12,6 +12,7 @@
     "validate:site-seo": "node scripts/validate-site-seo.js",
     "indexnow:submit": "node scripts/submit-indexnow.js",
     "test:indexnow": "node scripts/test-indexnow.js && node scripts/test-indexnow-plugin.js && node scripts/test-indexnow-submitter.js",
+    "test:linkedin": "node scripts/test-linkedin-plugin.js",
     "test:proposal-roast": "node scripts/test-proposal-roast.js",
     "test:saas-metrics": "node scripts/test-saas-metrics-calculator.js",
     "test:ai-cost": "node scripts/test-ai-api-cost-calculator.js",

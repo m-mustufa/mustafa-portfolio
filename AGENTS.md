@@ -159,6 +159,20 @@ Recommended direction (not yet agreed/started):
 - Complexity Coach is a Vite app: change `tool-apps/complexity-coach/src`, then run `npm ci` (first time) and `npm run build` in that folder to regenerate `tools/complexity-coach/`.
 - To see per-tool usage in GA4, register `tool_name`, `tool_action` and `tool_result` as event-scoped custom dimensions (Admin, Custom definitions).
 
+## LinkedIn auto-share
+
+- The local Netlify build plugin `netlify/plugins/linkedin` (registered in `netlify.toml`) runs on `onSuccess` after a production deploy. When the deploy adds a new blog post (a slug in `blog/posts.json` that was not there at `CACHED_COMMIT_REF`) or a new tool page under `tools/` that is in `sitemap.xml`, it shares that one item on the user's personal LinkedIn profile. At most one LinkedIn post per deploy; others are listed in the deploy summary as not shared.
+- LinkedIn app: "AI SaaS with Mustafa Publisher" in the LinkedIn Developer Portal, associated with the Kodlers page, with the self-serve products Share on LinkedIn (`w_member_social`) and Sign In with LinkedIn using OpenID Connect (`openid`, `profile`). Posts go to the member's own profile, not the Kodlers page.
+- Netlify environment variables (never in the repo, never pasted in chat):
+  - `LINKEDIN_ACCESS_TOKEN` (secret): from the LinkedIn Token Generator with scopes `openid profile w_member_social`. It lasts 60 days and cannot be refreshed automatically for this app type.
+  - `LINKEDIN_TOKEN_CREATED` (YYYY-MM-DD): the deploy summary warns from day 50.
+  - `LINKEDIN_AUTO_POST=true`: master switch; without it nothing is shared.
+  - `LINKEDIN_DRY_RUN=true`: shows the post text in the deploy summary without sharing.
+  - Optional `LINKEDIN_API_VERSION` (YYYYMM, default in the plugin) when LinkedIn retires a version, and `LINKEDIN_PERSON_URN` to skip the userinfo lookup.
+- The Posts API does not build link previews, so the plugin uploads the post's `socialImageFile` (or hero image) through the Images API and attaches it as the article thumbnail. If the upload fails, the post is shared without an image.
+- Post text: a manifest entry's optional `linkedinText` (hand-written, preferred) or a template from the title, meta description and up to three tags. Text is escaped for LinkedIn's little text format; `#Hashtags` stay hashtags.
+- If the previous manifest cannot be read, the plugin does nothing rather than treating every post as new. Errors are shown in the deploy summary and never fail the deploy. Tests: `npm run test:linkedin` (mocked API, nothing is sent).
+
 ## Bing and other IndexNow search engines
 
 - Bing Webmaster Tools and IndexNow are free; do not use a paid GSC Wizard workflow for this site.
