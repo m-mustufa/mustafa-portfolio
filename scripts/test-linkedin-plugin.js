@@ -147,6 +147,28 @@ function mockLinkedIn(calls, overrides = {}) {
   assert.strictEqual(dry.items[0].url, `${ORIGIN}/blog/new-post.html`, "the new blog post comes first");
   assert.deepStrictEqual(dry.extra, [`${ORIGIN}/tools/ai-api-cost-calculator.html`]);
 
+  // While dry run is on, every deploy checks the token with a read-only call.
+  const checkCalls = [];
+  const checked = await runLinkedIn({
+    ...common,
+    fetchImpl: mockLinkedIn(checkCalls, {
+      "https://api.linkedin.com/v2/userinfo": () => response(200, { json: { sub: "abc123", name: "Muhammad Mustafa" } }),
+    }),
+    gitImpl: gitFactory({ oldManifest: files["blog/posts.json"] }),
+    env: { ...baseEnv, LINKEDIN_DRY_RUN: "true" },
+  });
+  assert.ok(checked.skipped.includes("no new blog post"));
+  assert.strictEqual(checked.tokenStatus, "token check: OK, connected as Muhammad Mustafa");
+  assert.deepStrictEqual(checkCalls.map((c) => c.url), ["https://api.linkedin.com/v2/userinfo"], "only the read-only check");
+  const badCheck = await runLinkedIn({
+    ...common,
+    fetchImpl: mockLinkedIn([], { "https://api.linkedin.com/v2/userinfo": () => response(401, { text: TOKEN }) }),
+    gitImpl: gitFactory({ oldManifest: files["blog/posts.json"] }),
+    env: { ...baseEnv, LINKEDIN_DRY_RUN: "true" },
+  });
+  assert.ok(badCheck.tokenStatus.includes("expired or invalid"));
+  assert.ok(!badCheck.tokenStatus.includes(TOKEN));
+
   // Full share with the mocked API.
   const calls = [];
   const result = await runLinkedIn({ ...common, fetchImpl: mockLinkedIn(calls), env: baseEnv });

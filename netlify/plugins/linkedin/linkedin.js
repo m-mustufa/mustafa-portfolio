@@ -195,6 +195,22 @@ async function createArticlePost({ token, version, author, item, thumbnail, fetc
   return response.headers?.get?.("x-restli-id") || "";
 }
 
+// Read-only check used while LINKEDIN_DRY_RUN is on: confirms the token works
+// and has the openid/profile scopes, without posting anything.
+async function checkToken(env, fetchImpl) {
+  const token = env.LINKEDIN_ACCESS_TOKEN;
+  if (!token) return "token check: LINKEDIN_ACCESS_TOKEN is not set";
+  try {
+    const response = await fetchImpl(`${API_BASE}/v2/userinfo`, { headers: { Authorization: `Bearer ${token}` } });
+    if (!response.ok) return `token check: ${(await failure(response, "reading your profile", token)).message}`;
+    const data = await response.json();
+    if (!data.sub) return "token check: the token works but is missing the openid and profile scopes";
+    return `token check: OK, connected as ${data.name || "your LinkedIn profile"}`;
+  } catch (error) {
+    return `token check failed: ${String(error.message).split(token).join("***")}`;
+  }
+}
+
 function tokenWarning(env, now = new Date()) {
   if (!env.LINKEDIN_TOKEN_CREATED) return "";
   const created = new Date(env.LINKEDIN_TOKEN_CREATED);
@@ -215,18 +231,20 @@ async function runLinkedIn({
   if (env.CONTEXT !== "production") return { skipped: `deploy context is ${env.CONTEXT || "unknown"}, not production` };
   const warning = tokenWarning(env, now);
   if (env.LINKEDIN_AUTO_POST !== "true") return { skipped: "LINKEDIN_AUTO_POST is not set to true", warning };
+  const tokenStatus = env.LINKEDIN_DRY_RUN === "true" ? await checkToken(env, fetchImpl) : "";
+  const info = { warning, tokenStatus };
 
   const fromRef = env.CACHED_COMMIT_REF;
   const toRef = env.COMMIT_REF;
-  if (!fromRef || !toRef) return { skipped: "commit references are missing", warning };
-  if (fromRef === toRef) return { skipped: "no new commit since the last production build", warning };
+  if (!fromRef || !toRef) return { skipped: "commit references are missing", ...info };
+  if (fromRef === toRef) return { skipped: "no new commit since the last production build", ...info };
 
   let oldPosts;
   try {
     oldPosts = readManifestAt(fromRef, gitImpl);
   } catch (_error) {
     // Without the previous manifest every post would look new, so do nothing.
-    return { skipped: "the previous blog manifest could not be read", warning };
+    return { skipped: "the previous blog manifest could not be read", ...info };
   }
   const newPosts = JSON.parse(readFile("blog/posts.json"));
   const addedFiles = gitImpl(["diff", "--name-only", "--diff-filter=A", fromRef, toRef])
@@ -239,11 +257,11 @@ async function runLinkedIn({
     ...detectNewPosts(oldPosts, newPosts).map(postItem),
     ...detectNewTools(addedFiles, indexable, readFile).map((tool) => ({ ...tool, commentary: toolCommentary(tool) })),
   ];
-  if (!items.length) return { skipped: "no new blog post or tool in this deploy", warning };
+  if (!items.length) return { skipped: "no new blog post or tool in this deploy", ...info };
 
   const selected = items.slice(0, MAX_POSTS_PER_DEPLOY);
   const extra = items.slice(MAX_POSTS_PER_DEPLOY).map((item) => item.url);
-  if (env.LINKEDIN_DRY_RUN === "true") return { dryRun: true, items: selected, extra, warning };
+  if (env.LINKEDIN_DRY_RUN === "true") return { dryRun: true, items: selected, extra, ...info };
 
   const token = env.LINKEDIN_ACCESS_TOKEN;
   if (!token) return { skipped: "LINKEDIN_ACCESS_TOKEN is not set", warning };

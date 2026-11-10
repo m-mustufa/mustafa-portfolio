@@ -22,6 +22,7 @@ module.exports = {
         lines.push(...(result.notes || []));
       }
       if (result.extra?.length) lines.push(`Not shared (one post per deploy): ${result.extra.join(", ")}`);
+      if (result.tokenStatus) summary = `${summary} ${result.tokenStatus[0].toUpperCase()}${result.tokenStatus.slice(1)}.`;
       if (result.warning) {
         summary = `${summary} ${result.warning}`;
       }
