@@ -169,8 +169,16 @@ Recommended direction (not yet agreed/started):
   - `LINKEDIN_AUTO_POST=true`: master switch; without it nothing is shared.
   - `LINKEDIN_DRY_RUN=true`: shows the post text in the deploy summary without sharing.
   - Optional `LINKEDIN_API_VERSION` (YYYYMM, default in the plugin) when LinkedIn retires a version, and `LINKEDIN_PERSON_URN` to skip the userinfo lookup.
-- The Posts API does not build link previews, so the plugin uploads the post's `socialImageFile` (or hero image) through the Images API and attaches it as the article thumbnail. If the upload fails, the post is shared without an image.
-- Post text: a manifest entry's optional `linkedinText` (hand-written, preferred) or a template from the title, meta description and up to three tags. Text is escaped for LinkedIn's little text format; `#Hashtags` stay hashtags.
+- **Format (agreed with the user 2026-11-10):** an image post, like the user's own SaaS Metrics Calculator post. The image is the page's own `og:image` (read from the built page; it must be a file on this site), uploaded through the Images API. The link goes inside the text (LinkedIn shortens it). If the image upload fails, nothing is posted.
+- **Text comes only from `social/linkedin.json`**, keyed by site path (`/blog/<slug>.html`, `/tools/<name>.html`). A new post or tool without a complete entry is **not shared**; the deploy summary lists it under "LinkedIn text incomplete". Nothing generic or templated is ever posted. Entry shape:
+  - `hook`: one punchline line (up to 150 characters)
+  - `intro`: one or two lines on what it is and who it is for (up to 300)
+  - `points`: 2 or 3 short benefit lines (shown with →)
+  - `cta`: optional, defaults to "Read the guide" (posts) or "Try it free" (tools)
+  - `hashtags`: 3 to 5 single words, no spaces (`SEO`, `NextJs`)
+- When publishing a post or tool, write its entry in the same commit, in the user's voice, with no em dash. Choose the hook, wording and hashtags from the page's target keywords and current keyword data (Bing helper, live search). LinkedIn has no trending-hashtag API, so never claim a hashtag is "trending" without evidence.
+- Before publishing, run `npm run validate:linkedin`, and preview the exact post with `node scripts/validate-linkedin.js --preview /blog/<slug>.html` (in Git Bash prefix `MSYS_NO_PATHCONV=1`). Show the preview to the user with the page.
+- Text is escaped for LinkedIn's little text format; `#Hashtags` stay hashtags.
 - If the previous manifest cannot be read, the plugin does nothing rather than treating every post as new. Errors are shown in the deploy summary and never fail the deploy. Tests: `npm run test:linkedin` (mocked API, nothing is sent).
 
 ## Bing and other IndexNow search engines

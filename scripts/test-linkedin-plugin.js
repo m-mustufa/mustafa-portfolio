@@ -3,13 +3,15 @@
 const assert = require("assert");
 const {
   DEFAULT_API_VERSION,
+  buildCommentary,
   detectNewPosts,
   detectNewTools,
   escapeLittle,
-  postCommentary,
+  pageImage,
   runLinkedIn,
   toHashtag,
   tokenWarning,
+  validateEntry,
 } = require("../netlify/plugins/linkedin/linkedin");
 const plugin = require("../netlify/plugins/linkedin");
 
@@ -21,61 +23,84 @@ assert.strictEqual(escapeLittle("Guide (2026) [beta] @you"), "Guide \\(2026\\) \
 assert.strictEqual(escapeLittle("Use #SEO and # alone"), "Use #SEO and \\# alone");
 assert.strictEqual(escapeLittle("a_b*c~d"), "a\\_b\\*c\\~d");
 assert.strictEqual(toHashtag("Submit Site to Bing"), "#SubmitSiteToBing");
-assert.strictEqual(toHashtag("Next.js"), "#NextJs");
+assert.strictEqual(toHashtag("NextJs"), "#NextJs");
 assert.strictEqual(toHashtag("!!!"), "");
 
-const samplePost = {
-  slug: "new-post",
-  title: "How to Submit Your Site to Bing (2026 Guide)",
-  metaDescription: "Verify, add a key and automate pings.",
-  heroImageFile: "new-post-hero.jpg",
-  socialImageFile: "new-post-social.jpg",
-  tags: ["IndexNow", "Technical SEO", "Netlify", "Extra"],
+const entry = {
+  hook: "Most sites wait for Bing to find new pages (mine doesn't).",
+  intro: "A step-by-step guide to IndexNow on a static Netlify site.",
+  points: ["Verify in Bing Webmaster Tools", "Host the key file", "Ping only changed URLs"],
+  hashtags: ["SEO", "#IndexNow", "Bing", "Netlify"],
 };
-const commentary = postCommentary(samplePost);
-assert.ok(commentary.includes("\\(2026 Guide\\)"), "reserved characters are escaped");
-assert.ok(commentary.endsWith("#IndexNow #TechnicalSEO #Netlify"), "at most three hashtags");
-assert.strictEqual(
-  postCommentary({ ...samplePost, linkedinText: "My own words (short). #SEO" }),
-  "My own words \\(short\\). #SEO",
-  "a hand-written linkedinText wins over the template",
-);
+assert.deepStrictEqual(validateEntry(entry), []);
+assert.ok(validateEntry({ ...entry, points: ["only one"] })[0].includes("points"));
+assert.ok(validateEntry({ ...entry, hashtags: ["SEO", "Two words"] })[0].includes("hashtags"));
+assert.ok(validateEntry({ ...entry, hook: "Fast — really" }).some((p) => p.includes("em dash")));
+assert.deepStrictEqual(validateEntry(undefined), ["entry is missing"]);
 
-// --- Detection --------------------------------------------------------------
+const postUrl = `${ORIGIN}/blog/new-post.html`;
+assert.strictEqual(
+  buildCommentary(entry, { kind: "post", url: postUrl }),
+  [
+    "Most sites wait for Bing to find new pages \\(mine doesn't\\).",
+    "A step-by-step guide to IndexNow on a static Netlify site.",
+    "",
+    "→ Verify in Bing Webmaster Tools",
+    "→ Host the key file",
+    "→ Ping only changed URLs",
+    "",
+    "Read the guide:",
+    postUrl,
+    "",
+    "#SEO #IndexNow #Bing #Netlify",
+  ].join("\n"),
+  "the fixed format, with the link inside the text",
+);
+assert.ok(buildCommentary(entry, { kind: "tool", url: postUrl }).includes("Try it free:"));
+assert.ok(buildCommentary({ ...entry, cta: "Get the checklist" }, { kind: "post", url: postUrl }).includes("Get the checklist:"));
+
+// --- Detection and the OG image --------------------------------------------
 assert.deepStrictEqual(
   detectNewPosts([{ slug: "old" }], [{ slug: "new-post" }, { slug: "old" }]).map((p) => p.slug),
   ["new-post"],
 );
-
-const toolHtml = `<meta property="og:title" content="AI API Cost &amp; Profit Calculator">
-<meta property="og:description" content="Model token costs.">
-<meta property="og:image" content="${ORIGIN}/assets/img/tool-card.jpg">`;
-const tools = detectNewTools(
-  ["tools/ai-api-cost-calculator.html", "tools/index.html", "tools/draft.html", "assets/x.js"],
-  new Set([`${ORIGIN}/tools/ai-api-cost-calculator.html`, `${ORIGIN}/tools/index.html`]),
-  () => toolHtml,
+assert.deepStrictEqual(
+  detectNewTools(
+    ["tools/ai-api-cost-calculator.html", "tools/index.html", "tools/draft.html", "assets/x.js"],
+    new Set([`${ORIGIN}/tools/ai-api-cost-calculator.html`, `${ORIGIN}/tools/index.html`]),
+  ),
+  [{ kind: "tool", url: `${ORIGIN}/tools/ai-api-cost-calculator.html`, file: "tools/ai-api-cost-calculator.html" }],
 );
-assert.deepStrictEqual(tools, [
-  {
-    kind: "tool",
-    url: `${ORIGIN}/tools/ai-api-cost-calculator.html`,
-    title: "AI API Cost & Profit Calculator",
-    description: "Model token costs.",
-    imagePath: "assets/img/tool-card.jpg",
-  },
-]);
+const pageHtml = (image) => `<meta property="og:title" content="Cost &amp; Profit">
+<meta property="og:image" content="${image}">
+<meta property="og:image:alt" content="Share card for the guide">`;
+assert.deepStrictEqual(pageImage(pageHtml(`${ORIGIN}/blog/images/new-post-social.jpg`)), {
+  imagePath: "blog/images/new-post-social.jpg",
+  imageAlt: "Share card for the guide",
+});
+assert.strictEqual(pageImage(pageHtml("https://cdn.example/x.jpg")).imagePath, "", "only images hosted on this site");
 
 assert.strictEqual(tokenWarning({ LINKEDIN_TOKEN_CREATED: "2026-11-01" }, new Date("2026-11-20")), "");
 assert.ok(tokenWarning({ LINKEDIN_TOKEN_CREATED: "2026-09-01" }, new Date("2026-11-01")).includes("61 days"));
 
 // --- runLinkedIn ------------------------------------------------------------
-const sitemap = `<url><loc>${ORIGIN}/blog/new-post.html</loc></url><url><loc>${ORIGIN}/tools/ai-api-cost-calculator.html</loc></url>`;
-const files = {
-  "blog/posts.json": JSON.stringify([samplePost, { slug: "old" }]),
-  "sitemap.xml": sitemap,
-  "tools/ai-api-cost-calculator.html": toolHtml,
+const toolUrl = `${ORIGIN}/tools/ai-api-cost-calculator.html`;
+const baseFiles = {
+  "blog/posts.json": JSON.stringify([{ slug: "new-post" }, { slug: "old" }]),
+  "sitemap.xml": `<url><loc>${postUrl}</loc></url><url><loc>${toolUrl}</loc></url>`,
+  "blog/new-post.html": pageHtml(`${ORIGIN}/blog/images/new-post-social.jpg`),
+  "tools/ai-api-cost-calculator.html": pageHtml(`${ORIGIN}/assets/img/tool-card.jpg`),
+  "social/linkedin.json": JSON.stringify({
+    "/blog/new-post.html": entry,
+    "/tools/ai-api-cost-calculator.html": { ...entry, hook: "A free calculator for AI API costs." },
+  }),
 };
-const readFile = (file) => files[file];
+function readerFor(files) {
+  return (file) => {
+    if (!(file in files)) throw new Error(`ENOENT ${file}`);
+    return files[file];
+  };
+}
 const readBinary = () => Buffer.from("jpeg-bytes");
 function gitFactory({ oldManifest = JSON.stringify([{ slug: "old" }]), added = "" } = {}) {
   return (args) => {
@@ -109,7 +134,7 @@ function mockLinkedIn(calls, overrides = {}) {
   return async (url, options = {}) => {
     calls.push({ url, options });
     if (overrides[url]) return overrides[url]();
-    if (url === "https://api.linkedin.com/v2/userinfo") return response(200, { json: { sub: "abc123" } });
+    if (url === "https://api.linkedin.com/v2/userinfo") return response(200, { json: { sub: "abc123", name: "Muhammad Mustafa" } });
     if (url === "https://api.linkedin.com/rest/images?action=initializeUpload") {
       return response(200, { json: { value: { uploadUrl: "https://upload.example/u1", image: "urn:li:image:IMG1" } } });
     }
@@ -121,7 +146,7 @@ function mockLinkedIn(calls, overrides = {}) {
 
 (async () => {
   const noCalls = async () => { throw new Error("must not call LinkedIn"); };
-  const common = { gitImpl: gitFactory(), readFile, readBinary, fetchImpl: noCalls };
+  const common = { gitImpl: gitFactory(), readFile: readerFor(baseFiles), readBinary, fetchImpl: noCalls };
 
   // Guard rails: nothing is sent in these cases.
   assert.ok((await runLinkedIn({ ...common, env: { ...baseEnv, CONTEXT: "branch-deploy" } })).skipped);
@@ -132,11 +157,25 @@ function mockLinkedIn(calls, overrides = {}) {
     "an unreadable old manifest never makes every post look new",
   );
   assert.ok(
-    (await runLinkedIn({ ...common, gitImpl: gitFactory({ oldManifest: files["blog/posts.json"] }), env: baseEnv })).skipped.includes("no new blog post"),
+    (await runLinkedIn({ ...common, gitImpl: gitFactory({ oldManifest: baseFiles["blog/posts.json"] }), env: baseEnv })).skipped.includes("no new blog post"),
   );
-  assert.ok((await runLinkedIn({ ...common, env: { ...baseEnv, LINKEDIN_ACCESS_TOKEN: "" } })).skipped.includes("LINKEDIN_ACCESS_TOKEN"));
 
-  // Dry run: shows what would be shared, makes no API call.
+  // No hand-written text means no post, and the reason is reported.
+  const noText = await runLinkedIn({
+    ...common,
+    readFile: readerFor({ ...baseFiles, "social/linkedin.json": "{}" }),
+    env: baseEnv,
+  });
+  assert.ok(noText.skipped.includes("no complete LinkedIn text"));
+  assert.ok(noText.notReady[0].includes("no LinkedIn text in social/linkedin.json"));
+  const noImage = await runLinkedIn({
+    ...common,
+    readFile: readerFor({ ...baseFiles, "blog/new-post.html": pageHtml("https://cdn.example/x.jpg") }),
+    env: baseEnv,
+  });
+  assert.ok(noImage.notReady[0].includes("og:image"));
+
+  // Dry run: shows what would be shared, makes no API call without a token.
   const dry = await runLinkedIn({
     ...common,
     gitImpl: gitFactory({ added: "tools/ai-api-cost-calculator.html\n" }),
@@ -144,17 +183,17 @@ function mockLinkedIn(calls, overrides = {}) {
   });
   assert.strictEqual(dry.dryRun, true);
   assert.strictEqual(dry.items.length, 1, "one post per deploy");
-  assert.strictEqual(dry.items[0].url, `${ORIGIN}/blog/new-post.html`, "the new blog post comes first");
-  assert.deepStrictEqual(dry.extra, [`${ORIGIN}/tools/ai-api-cost-calculator.html`]);
+  assert.strictEqual(dry.items[0].url, postUrl, "the new blog post comes first");
+  assert.strictEqual(dry.items[0].imagePath, "blog/images/new-post-social.jpg", "the page's OG image");
+  assert.deepStrictEqual(dry.extra, [toolUrl]);
+  assert.ok(dry.tokenStatus.includes("not set"));
 
   // While dry run is on, every deploy checks the token with a read-only call.
   const checkCalls = [];
   const checked = await runLinkedIn({
     ...common,
-    fetchImpl: mockLinkedIn(checkCalls, {
-      "https://api.linkedin.com/v2/userinfo": () => response(200, { json: { sub: "abc123", name: "Muhammad Mustafa" } }),
-    }),
-    gitImpl: gitFactory({ oldManifest: files["blog/posts.json"] }),
+    fetchImpl: mockLinkedIn(checkCalls),
+    gitImpl: gitFactory({ oldManifest: baseFiles["blog/posts.json"] }),
     env: { ...baseEnv, LINKEDIN_DRY_RUN: "true" },
   });
   assert.ok(checked.skipped.includes("no new blog post"));
@@ -163,16 +202,16 @@ function mockLinkedIn(calls, overrides = {}) {
   const badCheck = await runLinkedIn({
     ...common,
     fetchImpl: mockLinkedIn([], { "https://api.linkedin.com/v2/userinfo": () => response(401, { text: TOKEN }) }),
-    gitImpl: gitFactory({ oldManifest: files["blog/posts.json"] }),
+    gitImpl: gitFactory({ oldManifest: baseFiles["blog/posts.json"] }),
     env: { ...baseEnv, LINKEDIN_DRY_RUN: "true" },
   });
   assert.ok(badCheck.tokenStatus.includes("expired or invalid"));
   assert.ok(!badCheck.tokenStatus.includes(TOKEN));
 
-  // Full share with the mocked API.
+  // Full share with the mocked API: an image post with the OG image.
   const calls = [];
   const result = await runLinkedIn({ ...common, fetchImpl: mockLinkedIn(calls), env: baseEnv });
-  assert.deepStrictEqual(result.posted, [{ url: `${ORIGIN}/blog/new-post.html`, postId: "urn:li:share:999" }]);
+  assert.deepStrictEqual(result.posted, [{ url: postUrl, postId: "urn:li:share:999" }]);
   assert.deepStrictEqual(
     calls.map((c) => c.url),
     [
@@ -192,25 +231,26 @@ function mockLinkedIn(calls, overrides = {}) {
   assert.strictEqual(body.author, "urn:li:person:abc123");
   assert.strictEqual(body.visibility, "PUBLIC");
   assert.strictEqual(body.lifecycleState, "PUBLISHED");
-  assert.deepStrictEqual(body.content.article, {
-    source: `${ORIGIN}/blog/new-post.html`,
-    title: samplePost.title,
-    description: samplePost.metaDescription,
-    thumbnail: "urn:li:image:IMG1",
-  });
+  assert.deepStrictEqual(body.content, { media: { id: "urn:li:image:IMG1", altText: "Share card for the guide" } });
+  assert.ok(body.commentary.includes(`Read the guide:\n${postUrl}`), "the link is inside the text");
+  assert.ok(body.commentary.endsWith("#SEO #IndexNow #Bing #Netlify"));
 
-  // A failed thumbnail upload still shares the post, without an image.
-  const thumbCalls = [];
-  const noThumb = await runLinkedIn({
-    ...common,
-    fetchImpl: mockLinkedIn(thumbCalls, {
-      "https://api.linkedin.com/rest/images?action=initializeUpload": () => response(500, { text: "boom" }),
-    }),
-    env: baseEnv,
-  });
-  assert.strictEqual(noThumb.posted.length, 1);
-  assert.ok(noThumb.notes[0].startsWith("Thumbnail skipped"));
-  assert.strictEqual(JSON.parse(thumbCalls.at(-1).options.body).content.article.thumbnail, undefined);
+  // A failed image upload means no post at all (the image is part of the format).
+  let uploadError;
+  const failCalls = [];
+  try {
+    await runLinkedIn({
+      ...common,
+      fetchImpl: mockLinkedIn(failCalls, {
+        "https://api.linkedin.com/rest/images?action=initializeUpload": () => response(500, { text: "boom" }),
+      }),
+      env: baseEnv,
+    });
+  } catch (error) {
+    uploadError = error;
+  }
+  assert.ok(uploadError && uploadError.message.includes("image upload"));
+  assert.ok(!failCalls.some((c) => c.url === "https://api.linkedin.com/rest/posts"), "no post without the image");
 
   // An expired token gives a clear message that never contains the token.
   let expiredError;

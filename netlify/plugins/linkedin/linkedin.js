@@ -1,8 +1,11 @@
 // Shares a newly published blog post or free tool on the owner's LinkedIn
-// profile after a production deploy. Uses the self-serve "Share on LinkedIn"
-// product (w_member_social) and "Sign In with LinkedIn using OpenID Connect"
-// (openid, profile) for the member id. The access token lives only in the
-// Netlify environment variable LINKEDIN_ACCESS_TOKEN and is never logged.
+// profile after a production deploy, as an image post: the page's own OG image
+// plus hand-written text in a fixed format, with the link inside the text.
+//
+// Uses the self-serve "Share on LinkedIn" product (w_member_social) and "Sign
+// In with LinkedIn using OpenID Connect" (openid, profile) for the member id.
+// The access token lives only in the Netlify environment variable
+// LINKEDIN_ACCESS_TOKEN and is never logged.
 const { execFileSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
@@ -11,13 +14,14 @@ const { sitemapUrls } = require("../indexnow/changed-urls");
 const ROOT = path.join(__dirname, "..", "..", "..");
 const SITE_ORIGIN = "https://aisaaswithmustafa.com";
 const API_BASE = "https://api.linkedin.com";
+// Hand-written LinkedIn text for each post or tool, keyed by site path.
+const SOCIAL_FILE = "social/linkedin.json";
 // Versioned LinkedIn APIs are sunset roughly a year after release; override
 // with LINKEDIN_API_VERSION (YYYYMM) when this one is retired.
 const DEFAULT_API_VERSION = "202610";
 // Never flood the feed: one LinkedIn post per deploy, newest item first.
 const MAX_POSTS_PER_DEPLOY = 1;
 const COMMENTARY_LIMIT = 3000;
-const DESCRIPTION_LIMIT = 250;
 // LinkedIn tokens from the Token Generator last 60 days.
 const TOKEN_WARNING_DAYS = 50;
 
@@ -39,12 +43,6 @@ function toHashtag(tag) {
   return `#${words.map((w) => w[0].toUpperCase() + w.slice(1)).join("")}`;
 }
 
-function truncate(text, limit) {
-  const clean = String(text || "").trim();
-  if (clean.length <= limit) return clean;
-  return `${clean.slice(0, limit - 1).replace(/\s+\S*$/, "")}…`;
-}
-
 function decodeEntities(text) {
   return String(text || "")
     .replace(/&quot;/g, '"')
@@ -54,18 +52,66 @@ function decodeEntities(text) {
     .replace(/&amp;/g, "&");
 }
 
-function postCommentary(post) {
-  if (post.linkedinText) return truncate(escapeLittle(post.linkedinText), COMMENTARY_LIMIT);
-  const hashtags = (post.tags || []).slice(0, 3).map(toHashtag).filter(Boolean).join(" ");
-  const body = `New on the blog: ${post.title}\n\n${post.metaDescription}`;
-  return truncate(`${escapeLittle(body)}${hashtags ? `\n\n${hashtags}` : ""}`, COMMENTARY_LIMIT);
+function metaContent(html, property) {
+  const match = String(html).match(new RegExp(`<meta[^>]+(?:property|name)="${property}"[^>]*content="([^"]*)"`, "i"));
+  return match ? decodeEntities(match[1]) : "";
 }
 
-function toolCommentary(tool) {
-  const body = `New free tool: ${tool.title}\n\n${tool.description}\n\nFree to use, no signup.`;
-  return truncate(`${escapeLittle(body)}\n\n#FreeTools #WebDevelopment`, COMMENTARY_LIMIT);
+// --- The fixed post format ------------------------------------------------
+// social/linkedin.json:
+// { "/blog/<slug>.html": {
+//     "hook": "One line that makes people stop scrolling",
+//     "intro": "One or two lines: what it is and who it is for",
+//     "points": ["Short benefit", "Short benefit", "Optional third"],
+//     "cta": "Read the guide",            // optional; default by page type
+//     "hashtags": ["SEO", "IndexNow", "Bing"]   // 3 to 5, from the target keywords
+// } }
+function validateEntry(entry) {
+  const problems = [];
+  const text = (value) => typeof value === "string" && value.trim().length > 0;
+  if (!entry || typeof entry !== "object") return ["entry is missing"];
+  if (!text(entry.hook) || entry.hook.length > 150) problems.push("hook must be one line of up to 150 characters");
+  if (!text(entry.intro) || entry.intro.length > 300) problems.push("intro must be up to 300 characters");
+  if (!Array.isArray(entry.points) || entry.points.length < 2 || entry.points.length > 3 || !entry.points.every(text)) {
+    problems.push("points must be 2 or 3 short lines");
+  } else if (entry.points.some((p) => p.length > 160)) {
+    problems.push("each point must be up to 160 characters");
+  }
+  if (entry.cta !== undefined && (!text(entry.cta) || entry.cta.length > 40)) problems.push("cta must be up to 40 characters");
+  if (
+    !Array.isArray(entry.hashtags) ||
+    entry.hashtags.length < 3 ||
+    entry.hashtags.length > 5 ||
+    !entry.hashtags.every((tag) => /^#?[A-Za-z][A-Za-z0-9]*$/.test(String(tag)))
+  ) {
+    problems.push("hashtags must be 3 to 5 single words such as SEO or NextJs");
+  }
+  const allText = [entry.hook, entry.intro, ...(entry.points || []), entry.cta].filter(Boolean).join(" ");
+  if (allText.includes("—")) problems.push("do not use the em dash character");
+  return problems;
 }
 
+function defaultCta(kind) {
+  return kind === "tool" ? "Try it free" : "Read the guide";
+}
+
+function buildCommentary(entry, item) {
+  const hashtags = entry.hashtags.map((tag) => toHashtag(String(tag).replace(/^#/, ""))).join(" ");
+  const lines = [
+    escapeLittle(entry.hook.trim()),
+    escapeLittle(entry.intro.trim()),
+    "",
+    ...entry.points.map((point) => `→ ${escapeLittle(point.trim())}`),
+    "",
+    `${escapeLittle((entry.cta || defaultCta(item.kind)).trim())}:`,
+    item.url,
+    "",
+    hashtags,
+  ];
+  return lines.join("\n").slice(0, COMMENTARY_LIMIT);
+}
+
+// --- Finding what is new ---------------------------------------------------
 function readManifestAt(ref, gitImpl) {
   return JSON.parse(gitImpl(["show", `${ref}:blog/posts.json`]));
 }
@@ -77,45 +123,58 @@ function detectNewPosts(oldPosts, newPosts) {
   return newPosts.filter((post) => post.slug && !known.has(post.slug));
 }
 
-function metaContent(html, property) {
-  const match = html.match(new RegExp(`<meta[^>]+(?:property|name)="${property}"[^>]*content="([^"]*)"`, "i"));
-  return match ? decodeEntities(match[1]) : "";
-}
-
 // New tool pages: files added under tools/ that are listed in the sitemap.
-function detectNewTools(addedFiles, indexableUrls, readFile) {
+function detectNewTools(addedFiles, indexableUrls) {
   const tools = [];
   for (const file of addedFiles) {
     const normalized = file.replace(/\\/g, "/");
     const match = normalized.match(/^tools\/(?:([^/]+)\.html|([^/]+)\/index\.html)$/);
     if (!match || normalized === "tools/index.html") continue;
     const url = match[1] ? `${SITE_ORIGIN}/${normalized}` : `${SITE_ORIGIN}/tools/${match[2]}/`;
-    if (!indexableUrls.has(url)) continue;
-
-    const html = readFile(normalized);
-    const image = metaContent(html, "og:image");
-    tools.push({
-      kind: "tool",
-      url,
-      title: metaContent(html, "og:title"),
-      description: metaContent(html, "og:description"),
-      imagePath: image.startsWith(`${SITE_ORIGIN}/`) ? image.slice(SITE_ORIGIN.length + 1) : "",
-    });
+    if (indexableUrls.has(url)) tools.push({ kind: "tool", url, file: normalized });
   }
   return tools;
 }
 
-function postItem(post) {
+function sitePath(url) {
+  return url.startsWith(SITE_ORIGIN) ? url.slice(SITE_ORIGIN.length) : url;
+}
+
+// The image is the page's own OG image, so LinkedIn shows the same card as a
+// shared link would. It must be a file on this site.
+function pageImage(html) {
+  const image = metaContent(html, "og:image");
   return {
-    kind: "post",
-    url: `${SITE_ORIGIN}/blog/${post.slug}.html`,
-    title: post.title,
-    description: post.metaDescription,
-    imagePath: `blog/images/${post.socialImageFile || post.heroImageFile || `${post.slug}.jpg`}`,
-    commentary: postCommentary(post),
+    imagePath: image.startsWith(`${SITE_ORIGIN}/`) ? image.slice(SITE_ORIGIN.length + 1) : "",
+    imageAlt: metaContent(html, "og:image:alt") || metaContent(html, "og:title"),
   };
 }
 
+function prepareItem(item, social, readFile) {
+  const problems = [];
+  let html = "";
+  try {
+    html = readFile(item.file);
+  } catch (_error) {
+    problems.push(`page file ${item.file} not found`);
+  }
+  const { imagePath, imageAlt } = pageImage(html);
+  if (html && !imagePath) problems.push("the page has no og:image hosted on this site");
+
+  const entry = social[sitePath(item.url)];
+  if (!entry) problems.push(`no LinkedIn text in ${SOCIAL_FILE}`);
+  else problems.push(...validateEntry(entry));
+
+  return {
+    ...item,
+    imagePath,
+    imageAlt,
+    problems,
+    commentary: problems.length ? "" : buildCommentary(entry, item),
+  };
+}
+
+// --- LinkedIn API ------------------------------------------------------------
 function linkedInHeaders(token, version, extra = {}) {
   return {
     Authorization: `Bearer ${token}`,
@@ -147,9 +206,7 @@ async function getPersonUrn(env, token, fetchImpl) {
   return `urn:li:person:${data.sub}`;
 }
 
-// The Posts API does not build link previews itself, so the share card image
-// is uploaded first and attached as the article thumbnail.
-async function uploadThumbnail({ token, version, owner, imagePath, fetchImpl, readBinary }) {
+async function uploadImage({ token, version, owner, imagePath, fetchImpl, readBinary }) {
   const bytes = readBinary(imagePath);
   const init = await fetchImpl(`${API_BASE}/rest/images?action=initializeUpload`, {
     method: "POST",
@@ -170,14 +227,7 @@ async function uploadThumbnail({ token, version, owner, imagePath, fetchImpl, re
   return value.image;
 }
 
-async function createArticlePost({ token, version, author, item, thumbnail, fetchImpl }) {
-  const article = {
-    source: item.url,
-    title: truncate(item.title, 200),
-    description: truncate(item.description, DESCRIPTION_LIMIT),
-  };
-  if (thumbnail) article.thumbnail = thumbnail;
-
+async function createImagePost({ token, version, author, item, image, fetchImpl }) {
   const response = await fetchImpl(`${API_BASE}/rest/posts`, {
     method: "POST",
     headers: linkedInHeaders(token, version, { "Content-Type": "application/json" }),
@@ -186,7 +236,7 @@ async function createArticlePost({ token, version, author, item, thumbnail, fetc
       commentary: item.commentary,
       visibility: "PUBLIC",
       distribution: { feedDistribution: "MAIN_FEED", targetEntities: [], thirdPartyDistributionChannels: [] },
-      content: { article },
+      content: { media: { id: image, altText: String(item.imageAlt || "").slice(0, 300) } },
       lifecycleState: "PUBLISHED",
       isReshareDisabledByAuthor: false,
     }),
@@ -218,6 +268,14 @@ function tokenWarning(env, now = new Date()) {
   const days = Math.floor((now - created) / 86400000);
   if (days < TOKEN_WARNING_DAYS) return "";
   return `LinkedIn token is ${days} days old and expires at 60 days. Create a new one and update LINKEDIN_ACCESS_TOKEN and LINKEDIN_TOKEN_CREATED.`;
+}
+
+function readSocial(readFile) {
+  try {
+    return JSON.parse(readFile(SOCIAL_FILE));
+  } catch (_error) {
+    return {};
+  }
 }
 
 async function runLinkedIn({
@@ -253,47 +311,59 @@ async function runLinkedIn({
     .filter(Boolean);
   const indexable = sitemapUrls(readFile("sitemap.xml"));
 
-  const items = [
-    ...detectNewPosts(oldPosts, newPosts).map(postItem),
-    ...detectNewTools(addedFiles, indexable, readFile).map((tool) => ({ ...tool, commentary: toolCommentary(tool) })),
+  const found = [
+    ...detectNewPosts(oldPosts, newPosts).map((post) => ({
+      kind: "post",
+      url: `${SITE_ORIGIN}/blog/${post.slug}.html`,
+      file: `blog/${post.slug}.html`,
+    })),
+    ...detectNewTools(addedFiles, indexable),
   ];
-  if (!items.length) return { skipped: "no new blog post or tool in this deploy", ...info };
+  if (!found.length) return { skipped: "no new blog post or tool in this deploy", ...info };
 
-  const selected = items.slice(0, MAX_POSTS_PER_DEPLOY);
-  const extra = items.slice(MAX_POSTS_PER_DEPLOY).map((item) => item.url);
-  if (env.LINKEDIN_DRY_RUN === "true") return { dryRun: true, items: selected, extra, ...info };
+  // Only items with complete hand-written text and an OG image are shared;
+  // nothing generic is ever posted.
+  const social = readSocial(readFile);
+  const prepared = found.map((item) => prepareItem(item, social, readFile));
+  const ready = prepared.filter((item) => !item.problems.length);
+  const notReady = prepared
+    .filter((item) => item.problems.length)
+    .map((item) => `${item.url}: ${item.problems.join("; ")}`);
+  if (!ready.length) return { skipped: "the new item has no complete LinkedIn text", notReady, ...info };
+
+  const selected = ready.slice(0, MAX_POSTS_PER_DEPLOY);
+  const extra = ready.slice(MAX_POSTS_PER_DEPLOY).map((item) => item.url);
+  if (env.LINKEDIN_DRY_RUN === "true") return { dryRun: true, items: selected, extra, notReady, ...info };
 
   const token = env.LINKEDIN_ACCESS_TOKEN;
-  if (!token) return { skipped: "LINKEDIN_ACCESS_TOKEN is not set", warning };
+  if (!token) return { skipped: "LINKEDIN_ACCESS_TOKEN is not set", notReady, ...info };
   const version = env.LINKEDIN_API_VERSION || DEFAULT_API_VERSION;
 
   const author = await getPersonUrn(env, token, fetchImpl);
   const posted = [];
-  const notes = [];
   for (const item of selected) {
-    let thumbnail = "";
-    if (item.imagePath) {
-      try {
-        thumbnail = await uploadThumbnail({ token, version, owner: author, imagePath: item.imagePath, fetchImpl, readBinary });
-      } catch (error) {
-        notes.push(`Thumbnail skipped: ${String(error.message).split(token).join("***")}`);
-      }
-    }
-    const postId = await createArticlePost({ token, version, author, item, thumbnail, fetchImpl });
+    // The OG image is part of the format, so a failed upload means no post.
+    const image = await uploadImage({ token, version, owner: author, imagePath: item.imagePath, fetchImpl, readBinary });
+    const postId = await createImagePost({ token, version, author, item, image, fetchImpl });
     posted.push({ url: item.url, postId });
   }
-  return { posted, extra, notes, warning };
+  return { posted, extra, notReady, ...info };
 }
 
 module.exports = {
   DEFAULT_API_VERSION,
   MAX_POSTS_PER_DEPLOY,
+  SITE_ORIGIN,
+  SOCIAL_FILE,
+  buildCommentary,
   detectNewPosts,
   detectNewTools,
   escapeLittle,
-  postCommentary,
+  pageImage,
+  prepareItem,
   runLinkedIn,
+  sitePath,
   toHashtag,
-  toolCommentary,
   tokenWarning,
+  validateEntry,
 };

@@ -253,8 +253,6 @@ if (post.socialImageFile) {
   newPost.socialImageHeight = post.socialImageHeight || 627;
   newPost.socialImageAlt = post.socialImageAlt || newPost.heroImageAlt;
 }
-// Optional hand-written LinkedIn post text, used by the LinkedIn auto-share plugin.
-if (post.linkedinText) newPost.linkedinText = post.linkedinText;
 const posts = [newPost, ...loadPosts()];
 
 // 1. Render the post page from the template
