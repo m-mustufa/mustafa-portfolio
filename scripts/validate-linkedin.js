@@ -45,7 +45,9 @@ for (const key of keys) {
     failed += 1;
     console.error(`FAIL ${key}: ${item.problems.join("; ")}`);
   } else if (previewIndex > -1) {
-    console.log(`Image: ${item.imagePath}\n\n${item.commentary}`);
+    // Show the text as LinkedIn displays it, without the little-format escapes.
+    const shown = item.commentary.replace(/\\([\\|{}@[\]()<>#*_~])/g, "$1");
+    console.log(`Image: ${item.imagePath}\n\n${shown}`);
   } else {
     console.log(`OK   ${key}`);
   }

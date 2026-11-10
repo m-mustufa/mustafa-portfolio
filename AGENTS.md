@@ -175,7 +175,7 @@ Recommended direction (not yet agreed/started):
   - `intro`: one or two lines on what it is and who it is for (up to 300)
   - `points`: 2 or 3 short benefit lines (shown with →)
   - `cta`: optional, defaults to "Read the guide" (posts) or "Try it free" (tools)
-  - `hashtags`: 3 to 5 single words, no spaces (`SEO`, `NextJs`)
+  - `hashtags`: single words, no spaces (`SEO`, `NextJs`). The validator allows 3 to 7; **the user wants 7 per post** (decided 2026-11-11).
 - When publishing a post or tool, write its entry in the same commit, in the user's voice, with no em dash. Choose the hook, wording and hashtags from the page's target keywords and current keyword data (Bing helper, live search). LinkedIn has no trending-hashtag API, so never claim a hashtag is "trending" without evidence.
 - Before publishing, run `npm run validate:linkedin`, and preview the exact post with `node scripts/validate-linkedin.js --preview /blog/<slug>.html` (in Git Bash prefix `MSYS_NO_PATHCONV=1`). Show the preview to the user with the page.
 - Text is escaped for LinkedIn's little text format; `#Hashtags` stay hashtags.

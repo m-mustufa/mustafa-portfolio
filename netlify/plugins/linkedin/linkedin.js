@@ -64,7 +64,7 @@ function metaContent(html, property) {
 //     "intro": "One or two lines: what it is and who it is for",
 //     "points": ["Short benefit", "Short benefit", "Optional third"],
 //     "cta": "Read the guide",            // optional; default by page type
-//     "hashtags": ["SEO", "IndexNow", "Bing"]   // 3 to 5, from the target keywords
+//     "hashtags": ["SEO", "IndexNow", "Bing"]   // 3 to 7 (the user prefers 7), from the target keywords
 // } }
 function validateEntry(entry) {
   const problems = [];
@@ -81,10 +81,10 @@ function validateEntry(entry) {
   if (
     !Array.isArray(entry.hashtags) ||
     entry.hashtags.length < 3 ||
-    entry.hashtags.length > 5 ||
+    entry.hashtags.length > 7 ||
     !entry.hashtags.every((tag) => /^#?[A-Za-z][A-Za-z0-9]*$/.test(String(tag)))
   ) {
-    problems.push("hashtags must be 3 to 5 single words such as SEO or NextJs");
+    problems.push("hashtags must be 3 to 7 single words such as SEO or NextJs");
   }
   const allText = [entry.hook, entry.intro, ...(entry.points || []), entry.cta].filter(Boolean).join(" ");
   if (allText.includes("—")) problems.push("do not use the em dash character");
