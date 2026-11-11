@@ -47,9 +47,12 @@ for (const key of keys) {
   } else if (previewIndex > -1) {
     // Show the text as LinkedIn displays it, without the little-format escapes.
     const shown = item.commentary.replace(/\\([\\|{}@[\]()<>#*_~])/g, "$1");
-    console.log(`Image: ${item.imagePath}\n\n${shown}`);
+    const when = social[key].publishAt ? `Scheduled: ${social[key].publishAt}` : "Shared: on the deploy that publishes it";
+    console.log(`Image: ${item.imagePath}\n${when}\n\n${shown}`);
   } else {
-    console.log(`OK   ${key}`);
+    const at = social[key].publishAt;
+    const late = at && new Date(at) < new Date() ? " (time has passed; it is shared only within 24 hours of it)" : "";
+    console.log(`OK   ${key}${at ? `  scheduled ${at}${late}` : ""}`);
   }
 }
 

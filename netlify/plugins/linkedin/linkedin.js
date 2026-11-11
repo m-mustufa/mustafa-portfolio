@@ -24,6 +24,15 @@ const MAX_POSTS_PER_DEPLOY = 1;
 const COMMENTARY_LIMIT = 3000;
 // LinkedIn tokens from the Token Generator last 60 days.
 const TOKEN_WARNING_DAYS = 50;
+// Scheduled posts: an entry with "publishAt" is shared by the scheduled
+// function netlify/functions/linkedin-scheduled.mjs (every 15 minutes), never
+// by the deploy plugin. It is shared once, on the first run at or after that
+// time, and only within this window so an old schedule is never posted late.
+const SCHEDULE_WINDOW_MS = 24 * 60 * 60 * 1000;
+// Retries for a scheduled post that failed before LinkedIn created anything.
+const MAX_SCHEDULE_ATTEMPTS = 3;
+// Netlify Blobs store that remembers which scheduled posts were shared.
+const SCHEDULE_STORE = "linkedin-scheduled";
 
 function git(args, cwd = ROOT) {
   return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
@@ -64,8 +73,15 @@ function metaContent(html, property) {
 //     "intro": "One or two lines: what it is and who it is for",
 //     "points": ["Short benefit", "Short benefit", "Optional third"],
 //     "cta": "Read the guide",            // optional; default by page type
-//     "hashtags": ["SEO", "IndexNow", "Bing"]   // 3 to 7 (the user prefers 7), from the target keywords
+//     "hashtags": ["SEO", "IndexNow", "Bing"],  // 3 to 7 (the user prefers 7), from the target keywords
+//     "publishAt": "2026-11-12T15:00:00+05:00"  // optional; shared at this time instead of on deploy
 // } }
+function parsePublishAt(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(Z|[+-]\d{2}:\d{2})$/.test(value)) return null;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 function validateEntry(entry) {
   const problems = [];
   const text = (value) => typeof value === "string" && value.trim().length > 0;
@@ -85,6 +101,9 @@ function validateEntry(entry) {
     !entry.hashtags.every((tag) => /^#?[A-Za-z][A-Za-z0-9]*$/.test(String(tag)))
   ) {
     problems.push("hashtags must be 3 to 7 single words such as SEO or NextJs");
+  }
+  if (entry.publishAt !== undefined && !parsePublishAt(entry.publishAt)) {
+    problems.push("publishAt must be a date and time with a timezone, such as 2026-11-12T15:00:00+05:00");
   }
   const allText = [entry.hook, entry.intro, ...(entry.points || []), entry.cta].filter(Boolean).join(" ");
   if (allText.includes("—")) problems.push("do not use the em dash character");
@@ -186,15 +205,19 @@ function linkedInHeaders(token, version, extra = {}) {
 
 async function failure(response, what, token) {
   const body = (await response.text().catch(() => "")).split(token).join("***").slice(0, 300);
+  let error;
   if (response.status === 401) {
-    return new Error(
+    error = new Error(
       `${what} failed: the LinkedIn token is expired or invalid (HTTP 401). Create a new token in the LinkedIn Token Generator and update LINKEDIN_ACCESS_TOKEN in Netlify`,
     );
+  } else if (response.status === 403) {
+    error = new Error(`${what} failed: permission denied (HTTP 403). Check the app has Share on LinkedIn and the token has w_member_social`);
+  } else {
+    error = new Error(`${what} failed with HTTP ${response.status}: ${body}`);
   }
-  if (response.status === 403) {
-    return new Error(`${what} failed: permission denied (HTTP 403). Check the app has Share on LinkedIn and the token has w_member_social`);
-  }
-  return new Error(`${what} failed with HTTP ${response.status}: ${body}`);
+  // LinkedIn answered, so the request definitely did not succeed.
+  error.httpStatus = response.status;
+  return error;
 }
 
 async function getPersonUrn(env, token, fetchImpl) {
@@ -331,12 +354,18 @@ async function runLinkedIn({
     .map((item) => `${item.url}: ${item.problems.join("; ")}`);
   if (!ready.length) return { skipped: "the new item has no complete LinkedIn text", notReady, ...info };
 
-  const selected = ready.slice(0, MAX_POSTS_PER_DEPLOY);
-  const extra = ready.slice(MAX_POSTS_PER_DEPLOY).map((item) => item.url);
-  if (env.LINKEDIN_DRY_RUN === "true") return { dryRun: true, items: selected, extra, notReady, ...info };
+  // Items with a publishAt time are left to the scheduled function.
+  const publishAt = (item) => social[sitePath(item.url)].publishAt;
+  const scheduled = ready.filter(publishAt).map((item) => `${item.url} at ${publishAt(item)}`);
+  const immediate = ready.filter((item) => !publishAt(item));
+  if (!immediate.length) return { skipped: "the new item is scheduled for later", scheduled, notReady, ...info };
+
+  const selected = immediate.slice(0, MAX_POSTS_PER_DEPLOY);
+  const extra = immediate.slice(MAX_POSTS_PER_DEPLOY).map((item) => item.url);
+  if (env.LINKEDIN_DRY_RUN === "true") return { dryRun: true, items: selected, extra, scheduled, notReady, ...info };
 
   const token = env.LINKEDIN_ACCESS_TOKEN;
-  if (!token) return { skipped: "LINKEDIN_ACCESS_TOKEN is not set", notReady, ...info };
+  if (!token) return { skipped: "LINKEDIN_ACCESS_TOKEN is not set", scheduled, notReady, ...info };
   const version = env.LINKEDIN_API_VERSION || DEFAULT_API_VERSION;
 
   const author = await getPersonUrn(env, token, fetchImpl);
@@ -347,21 +376,159 @@ async function runLinkedIn({
     const postId = await createImagePost({ token, version, author, item, image, fetchImpl });
     posted.push({ url: item.url, postId });
   }
-  return { posted, extra, notReady, ...info };
+  return { posted, extra, scheduled, notReady, ...info };
+}
+
+// --- Scheduled posts ---------------------------------------------------------
+// Entries whose publishAt time has arrived, within the window, oldest first.
+function dueScheduled(social, now = new Date()) {
+  return Object.entries(social)
+    .map(([key, entry]) => ({ key, at: parsePublishAt(entry && entry.publishAt) }))
+    .filter(({ at }) => at && at <= now && now - at < SCHEDULE_WINDOW_MS)
+    .sort((a, b) => a.at - b.at);
+}
+
+function nextScheduled(social, now = new Date()) {
+  const upcoming = Object.entries(social)
+    .map(([key, entry]) => ({ key, at: parsePublishAt(entry && entry.publishAt), publishAt: entry && entry.publishAt }))
+    .filter(({ at }) => at && at > now)
+    .sort((a, b) => a.at - b.at);
+  return upcoming.length ? `${SITE_ORIGIN}${upcoming[0].key} at ${upcoming[0].publishAt}` : "";
+}
+
+async function fetchLive(fetchImpl, url, what) {
+  const response = await fetchImpl(url, { headers: { "Cache-Control": "no-cache" } });
+  if (!response.ok) throw new Error(`Reading ${what} from the live site failed with HTTP ${response.status}`);
+  return response;
+}
+
+function settingsLine(env) {
+  const mode = env.LINKEDIN_DRY_RUN === "true" ? "dry run" : "live";
+  const auto = env.LINKEDIN_AUTO_POST === "true" ? "on" : "off";
+  const token = env.LINKEDIN_ACCESS_TOKEN ? "available" : "not available to functions";
+  return `Settings: auto post ${auto}, ${mode}, token ${token}.`;
+}
+
+// Runs from the scheduled function. Reads the published social/linkedin.json
+// and page from the live site, shares at most one due entry, and records it in
+// a Netlify Blobs store so it is never shared twice. `store` needs
+// getWithMetadata(key, { type: "json" }) and setJSON(key, value, options).
+async function runScheduledLinkedIn({ env = process.env, fetchImpl = fetch, store, now = new Date() } = {}) {
+  const info = { warning: tokenWarning(env, now), settings: settingsLine(env) };
+  if (env.LINKEDIN_AUTO_POST !== "true") return { skipped: "LINKEDIN_AUTO_POST is not set to true", ...info };
+
+  const social = await (await fetchLive(fetchImpl, `${SITE_ORIGIN}/${SOCIAL_FILE}?t=${now.getTime()}`, SOCIAL_FILE)).json();
+  info.next = nextScheduled(social, now);
+  const due = dueScheduled(social, now);
+  if (!due.length) return { skipped: "nothing is due", ...info };
+
+  let candidate = null;
+  const handled = [];
+  for (const { key } of due) {
+    const existing = await store.getWithMetadata(key, { type: "json" });
+    const state = existing && existing.data;
+    const finished =
+      state &&
+      (state.status === "posted" ||
+        state.status === "posting" ||
+        state.status === "unknown" ||
+        (state.status === "failed" && state.attempts >= MAX_SCHEDULE_ATTEMPTS));
+    if (finished) {
+      handled.push(`${SITE_ORIGIN}${key}: ${state.status}${state.error ? ` (${state.error})` : ""}`);
+      continue;
+    }
+    candidate = { key, state, etag: existing && existing.etag };
+    break;
+  }
+  info.handled = handled;
+  if (!candidate) return { skipped: "every due post was already handled", ...info };
+
+  const item = { kind: candidate.key.startsWith("/tools/") ? "tool" : "post", url: `${SITE_ORIGIN}${candidate.key}`, file: candidate.key };
+  const html = await (await fetchLive(fetchImpl, item.url, "the page")).text();
+  const prepared = prepareItem(item, social, () => html);
+  if (prepared.problems.length) {
+    return { skipped: "the scheduled item is not ready", notReady: [`${item.url}: ${prepared.problems.join("; ")}`], ...info };
+  }
+  if (env.LINKEDIN_DRY_RUN === "true") {
+    return { dryRun: true, items: [prepared], tokenStatus: await checkToken(env, fetchImpl), ...info };
+  }
+  const token = env.LINKEDIN_ACCESS_TOKEN;
+  if (!token) return { skipped: "LINKEDIN_ACCESS_TOKEN is not available to functions (check its scopes in Netlify)", ...info };
+
+  // Claim the item first, so an overlapping run can never share it twice.
+  const attempts = ((candidate.state && candidate.state.attempts) || 0) + 1;
+  const claim = await store.setJSON(
+    candidate.key,
+    { status: "posting", attempts, at: now.toISOString() },
+    candidate.etag ? { onlyIfMatch: candidate.etag } : { onlyIfNew: true },
+  );
+  if (!claim.modified) return { skipped: "another run is already sharing it", ...info };
+
+  const version = env.LINKEDIN_API_VERSION || DEFAULT_API_VERSION;
+  let creatingPost = false;
+  try {
+    const bytes = Buffer.from(await (await fetchLive(fetchImpl, `${SITE_ORIGIN}/${prepared.imagePath}`, "the OG image")).arrayBuffer());
+    const author = await getPersonUrn(env, token, fetchImpl);
+    const image = await uploadImage({ token, version, owner: author, imagePath: prepared.imagePath, fetchImpl, readBinary: () => bytes });
+    creatingPost = true;
+    const postId = await createImagePost({ token, version, author, item: prepared, image, fetchImpl });
+    await store.setJSON(candidate.key, { status: "posted", attempts, postId, at: now.toISOString() });
+    return { posted: [{ url: item.url, postId }], ...info };
+  } catch (error) {
+    const message = String(error.message || error).split(token).join("***").split(/\r?\n/)[0];
+    // Before the post request, or when LinkedIn answered with an error, no
+    // post exists and a retry is safe. A network error during the post request
+    // leaves it unknown, so it is never retried automatically.
+    const definite = !creatingPost || Boolean(error.httpStatus);
+    const status = definite ? "failed" : "unknown";
+    await store.setJSON(candidate.key, { status, attempts, error: message, at: now.toISOString() });
+    return { failed: message, url: item.url, retry: definite && attempts < MAX_SCHEDULE_ATTEMPTS, ...info };
+  }
+}
+
+function describeScheduled(result) {
+  const lines = [];
+  let summary;
+  if (result.skipped) {
+    summary = `Skipped: ${result.skipped}.`;
+  } else if (result.dryRun) {
+    const item = result.items[0];
+    summary = `Dry run: would share ${item.url} with image ${item.imagePath}.`;
+    if (result.tokenStatus) summary = `${summary} ${result.tokenStatus[0].toUpperCase()}${result.tokenStatus.slice(1)}.`;
+    lines.push("Post text:", item.commentary);
+  } else if (result.posted) {
+    summary = `Shared ${result.posted.map((p) => p.url).join(", ")} on LinkedIn.`;
+    for (const post of result.posted) if (post.postId) lines.push(`Post id: ${post.postId}`);
+  } else {
+    summary = `Not shared ${result.url}: ${result.failed}.`;
+    lines.push(result.retry ? "It will be retried on the next run." : "Not retried automatically; check LinkedIn before sharing it by hand.");
+  }
+  if (result.notReady && result.notReady.length) lines.push("LinkedIn text incomplete:", ...result.notReady);
+  if (result.handled && result.handled.length) lines.push("Already handled:", ...result.handled);
+  if (result.next) lines.push(`Next scheduled: ${result.next}`);
+  if (result.settings) lines.push(result.settings);
+  if (result.warning) summary = `${summary} ${result.warning}`;
+  return { summary, lines };
 }
 
 module.exports = {
   DEFAULT_API_VERSION,
   MAX_POSTS_PER_DEPLOY,
+  MAX_SCHEDULE_ATTEMPTS,
+  SCHEDULE_STORE,
   SITE_ORIGIN,
   SOCIAL_FILE,
   buildCommentary,
+  describeScheduled,
   detectNewPosts,
   detectNewTools,
+  dueScheduled,
   escapeLittle,
   pageImage,
+  parsePublishAt,
   prepareItem,
   runLinkedIn,
+  runScheduledLinkedIn,
   sitePath,
   toHashtag,
   tokenWarning,

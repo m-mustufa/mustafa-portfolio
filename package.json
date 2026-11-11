@@ -22,5 +22,8 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
     "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@netlify/blobs": "10.7.13"
   }
 }

@@ -24,6 +24,7 @@ module.exports = {
       }
       if (result.notReady?.length) lines.push("Not shared, LinkedIn text incomplete:", ...result.notReady);
       if (result.extra?.length) lines.push(`Not shared (one post per deploy): ${result.extra.join(", ")}`);
+      if (result.scheduled?.length) lines.push("Scheduled (shared later by the linkedin-scheduled function):", ...result.scheduled);
       if (result.tokenStatus) summary = `${summary} ${result.tokenStatus[0].toUpperCase()}${result.tokenStatus.slice(1)}.`;
       if (result.warning) summary = `${summary} ${result.warning}`;
 
