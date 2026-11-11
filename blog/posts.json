@@ -1,5 +1,35 @@
 [
   {
+    "slug": "shopify-ai-store-builder-custom-app",
+    "title": "Shopify AI Store Builder vs Custom App: Auto Social Images",
+    "metaDescription": "The Shopify AI store builder drafts your store. Here is the custom Shopify app I built to auto-generate branded social share images for every product.",
+    "heroImageFile": "shopify-ai-store-builder-custom-app-hero.jpg",
+    "heroImageAlt": "Shopify store owner checking automatically generated product share previews for social media",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 11, 2026",
+    "publishDateIso": "2026-11-11T11:17:44.683Z",
+    "readingTime": 8,
+    "category": "Web Engineering",
+    "tags": [
+      "Shopify AI Store Builder",
+      "Shopify App Development",
+      "Shopify Developer",
+      "Open Graph Images",
+      "Node.js"
+    ],
+    "relatedSlugs": [
+      "stripe-webhooks-nextjs-saas-idempotency",
+      "hire-full-stack-developer-uae-guide",
+      "web-design-dubai-arabic-english-websites"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html",
+    "socialImageFile": "shopify-ai-store-builder-custom-app-social.jpg",
+    "socialImageWidth": 1200,
+    "socialImageHeight": 627,
+    "socialImageAlt": "Case study card: Shopify AI store builder vs custom app, showing a generated deal share image"
+  },
+  {
     "slug": "claude-code-vs-codex-ai-coding-agents-2026",
     "title": "Claude Code vs Codex: Which AI Coding Agent Fits Real SaaS Work?",
     "metaDescription": "Compare Claude Code vs Codex for real SaaS development, including repo context, permissions, long tasks, code review, pros, cons and best use cases.",

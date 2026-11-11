@@ -1,1 +1,21 @@
-{}
+{
+  "/blog/shopify-ai-store-builder-custom-app.html": {
+    "hook": "Shopify's AI store builder can draft your store in minutes. The work that eats your week starts after launch.",
+    "intro": "Case study: the custom Shopify app I built that turns every product update into a branded WhatsApp and Facebook share image.",
+    "points": [
+      "Webhooks and Sharp generate a 1200×628 deal preview automatically",
+      "Images live in the merchant's own Shopify Files, not a third-party bucket",
+      "A versioned share URL beats the old-preview cache in chat apps"
+    ],
+    "hashtags": [
+      "Shopify",
+      "ShopifyApps",
+      "Ecommerce",
+      "ShopifyDeveloper",
+      "AIStoreBuilder",
+      "NodeJS",
+      "Automation"
+    ],
+    "cta": "Read the case study"
+  }
+}
