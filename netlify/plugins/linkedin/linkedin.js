@@ -498,7 +498,7 @@ function describeScheduled(result) {
     lines.push("Post text:", item.commentary);
   } else if (result.posted) {
     summary = `Shared ${result.posted.map((p) => p.url).join(", ")} on LinkedIn.`;
-    for (const post of result.posted) if (post.postId) lines.push(`Post id: ${post.postId}`);
+    for (const post of result.posted) if (post.postId) lines.push(`Post: https://www.linkedin.com/feed/update/${post.postId}/`);
   } else {
     summary = `Not shared ${result.url}: ${result.failed}.`;
     lines.push(result.retry ? "It will be retried on the next run." : "Not retried automatically; check LinkedIn before sharing it by hand.");

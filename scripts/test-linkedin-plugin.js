@@ -373,6 +373,7 @@ function mockLinkedIn(calls, overrides = {}) {
   const scheduledBody = JSON.parse(scheduledCalls.find((c) => c.url === "https://api.linkedin.com/rest/posts").options.body);
   assert.ok(scheduledBody.commentary.includes(`Read the guide:\n${postUrl}`));
   assert.ok(describeScheduled(sharedNow).summary.startsWith("Shared"));
+  assert.ok(describeScheduled(sharedNow).lines.includes("Post: https://www.linkedin.com/feed/update/urn:li:share:999/"));
   const secondRun = await runScheduledLinkedIn({ env: scheduledEnv, fetchImpl: liveSite([]), store, now: new Date("2026-11-12T10:15:00Z") });
   assert.strictEqual(secondRun.skipped, "every due post was already handled");
 

@@ -20,7 +20,7 @@ module.exports = {
         lines.push("Post text:", item.commentary);
       } else {
         summary = `Shared ${result.posted.map((p) => p.url).join(", ")} on LinkedIn.`;
-        for (const post of result.posted) if (post.postId) lines.push(`Post id: ${post.postId}`);
+        for (const post of result.posted) if (post.postId) lines.push(`Post: https://www.linkedin.com/feed/update/${post.postId}/`);
       }
       if (result.notReady?.length) lines.push("Not shared, LinkedIn text incomplete:", ...result.notReady);
       if (result.extra?.length) lines.push(`Not shared (one post per deploy): ${result.extra.join(", ")}`);
