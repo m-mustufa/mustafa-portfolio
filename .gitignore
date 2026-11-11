@@ -54,3 +54,7 @@ fiverr/
 
 # Local Netlify folder
 .netlify
+
+# Google service account keys belong outside the repo (see scripts/gsc.js).
+gsc-reader*.json
+*service-account*.json
