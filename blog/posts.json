@@ -1,5 +1,31 @@
 [
   {
+    "slug": "openai-vs-claude-vs-gemini-api-pricing-saas-2026",
+    "title": "OpenAI vs Claude vs Gemini API Pricing for SaaS (2026)",
+    "metaDescription": "Compare OpenAI, Claude and Gemini API pricing for a SaaS product, then estimate monthly AI cost per user, profit margin, caching and break-even.",
+    "heroImageFile": "openai-vs-claude-vs-gemini-api-pricing-saas-2026.jpg",
+    "heroImageAlt": "SaaS founder comparing OpenAI, Claude and Gemini API pricing with monthly cost notes beside a laptop",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 11, 2026",
+    "publishDateIso": "2026-11-11T18:25:22.524Z",
+    "readingTime": 8,
+    "category": "AI Engineering",
+    "tags": [
+      "OpenAI vs Claude vs Gemini",
+      "AI API Pricing",
+      "LLM Cost Calculator",
+      "AI SaaS",
+      "SaaS Profit Margin"
+    ],
+    "relatedSlugs": [
+      "claude-code-vs-codex-ai-coding-agents-2026",
+      "gemini-api-groq-fallback-nodejs",
+      "ai-saas-development-strategies-uae-startups-2026"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
+  },
+  {
     "slug": "shopify-ai-store-builder-custom-app",
     "title": "Shopify AI Store Builder vs Custom App: Auto Social Images",
     "metaDescription": "The Shopify AI store builder drafts your store. Here is the custom Shopify app I built to auto-generate branded social share images for every product.",
