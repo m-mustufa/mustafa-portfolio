@@ -1,7 +1,10 @@
 (function aiApiCostCalculatorModule(root) {
   "use strict";
 
-  const MODELS = [
+  const GOOGLE_PRICING = "https://aistudio.google.com/docs/pricing";
+  // Promotional rates carry their end date and the standard rate that follows,
+  // so a preset never shows an expired promotion (see withCurrentRates).
+  const RATE_TABLE = [
     { id: "gpt-6-luna", provider: "OpenAI", name: "GPT-6 Luna", input: 0.10, cached: 0.01, output: 0.50, source: "https://developers.openai.com/api/docs/pricing" },
     { id: "gpt-6.1-terra", provider: "OpenAI", name: "GPT-6.1 Terra", input: 1.00, cached: 0.05, output: 5.00, source: "https://developers.openai.com/api/docs/pricing" },
     { id: "gpt-6.1-sol", provider: "OpenAI", name: "GPT-6.1 Sol", input: 2.00, cached: 0.10, output: 10.00, source: "https://developers.openai.com/api/docs/pricing" },
@@ -9,10 +12,29 @@
     { id: "claude-haiku-5.5", provider: "Anthropic", name: "Claude Haiku 5.5 (prompts <=100K)", input: 0.10, cached: 0.01, output: 0.50, source: "https://platform.claude.com/docs/en/about-claude/pricing" },
     { id: "claude-sonnet-5.5", provider: "Anthropic", name: "Claude Sonnet 5.5", input: 2.00, cached: 0.10, output: 10.00, source: "https://platform.claude.com/docs/en/about-claude/pricing" },
     { id: "claude-opus-5.5", provider: "Anthropic", name: "Claude Opus 5.5", input: 4.00, cached: 0.20, output: 20.00, source: "https://platform.claude.com/docs/en/about-claude/pricing" },
-    { id: "gemini-3.5-flash-lite", provider: "Google", name: "Gemini 3.5 Flash-Lite", input: 0.30, cached: 0.03, output: 2.50, source: "https://ai.google.dev/gemini-api/docs/pricing" },
-    { id: "gemini-3.5-flash", provider: "Google", name: "Gemini 3.5 Flash", input: 1.50, cached: 0.15, output: 9.00, source: "https://ai.google.dev/gemini-api/docs/pricing" },
-    { id: "gemini-3.8-flash-promo", provider: "Google", name: "Gemini 3.8 Flash (promo through Dec 31, 2026)", input: 0.75, cached: 0.075, output: 3.75, source: "https://ai.google.dev/gemini-api/docs/pricing", note: "Promotional rate ends December 31, 2026." }
+    { id: "gemini-3.5-flash-lite", provider: "Google", name: "Gemini 3.5 Flash-Lite", input: 0.30, cached: 0.03, output: 2.50, source: GOOGLE_PRICING },
+    { id: "gemini-3.8-flash-promo", provider: "Google", name: "Gemini 3.8 Flash", input: 0.75, cached: 0.075, output: 3.75, source: GOOGLE_PRICING, promo: { ends: "2026-12-31", label: "Dec 31, 2026", after: { input: 1.50, cached: 0.15, output: 7.50 } } },
+    { id: "gemini-4-carbon", provider: "Google", name: "Gemini 4 Carbon", input: 2.00, cached: 0.10, output: 10.00, source: GOOGLE_PRICING, promo: { ends: "2026-11-30", label: "Nov 30, 2026", after: { input: 4.00, cached: 0.20, output: 20.00 } } }
   ];
+
+  const usd = (value) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 3 }).format(value);
+
+  // Until the promotion ends (inclusive, by UTC date) the promo rate is used and
+  // the note gives the rate that follows; from the next day the standard rate.
+  function withCurrentRates(model, now = new Date()) {
+    if (!model.promo) return model;
+    const { promo, ...base } = model;
+    if (now.toISOString().slice(0, 10) <= promo.ends) {
+      return {
+        ...base,
+        name: `${base.name} (promo through ${promo.label})`,
+        note: `Promotional rate ends ${promo.label}. After that: ${usd(promo.after.input)} input, ${usd(promo.after.cached)} cached, ${usd(promo.after.output)} output per 1M tokens.`,
+      };
+    }
+    return { ...base, ...promo.after };
+  }
+
+  const MODELS = RATE_TABLE.map((model) => withCurrentRates(model));
 
   const PRESETS = {
     chat: { users: 1000, requestsPerUser: 30, inputTokens: 1200, outputTokens: 400, cachePct: 20, pricePerUser: 19, variableCostPerUser: 1.25, fixedCost: 300 },
@@ -77,7 +99,7 @@
       .sort((a, b) => a.result.apiCost - b.result.apiCost);
   }
 
-  const api = { MODELS, PRESETS, calculateEstimate, compareModels, formatMaskedNumber };
+  const api = { MODELS, PRESETS, RATE_TABLE, calculateEstimate, compareModels, formatMaskedNumber, withCurrentRates };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AiApiCostCalculator = api;
   if (typeof document === "undefined") return;

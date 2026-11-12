@@ -1,6 +1,21 @@
 #!/usr/bin/env node
 const assert = require("assert");
-const { MODELS, calculateEstimate, compareModels, formatMaskedNumber } = require("../assets/js/ai-api-cost-calculator.js");
+const { MODELS, RATE_TABLE, calculateEstimate, compareModels, formatMaskedNumber, withCurrentRates } = require("../assets/js/ai-api-cost-calculator.js");
+
+// Promotional rates switch to the standard rate the day after they end.
+const carbon = RATE_TABLE.find((model) => model.id === "gemini-4-carbon");
+const promo = withCurrentRates(carbon, new Date("2026-11-30T23:00:00Z"));
+assert.deepStrictEqual([promo.input, promo.cached, promo.output], [2, 0.1, 10]);
+assert.strictEqual(promo.name, "Gemini 4 Carbon (promo through Nov 30, 2026)");
+assert.strictEqual(promo.note, "Promotional rate ends Nov 30, 2026. After that: $4.00 input, $0.20 cached, $20.00 output per 1M tokens.");
+const standard = withCurrentRates(carbon, new Date("2026-12-01T00:30:00Z"));
+assert.deepStrictEqual([standard.input, standard.cached, standard.output, standard.name], [4, 0.2, 20, "Gemini 4 Carbon"]);
+assert.strictEqual(standard.note, undefined);
+assert.strictEqual(standard.promo, undefined);
+const flashAfter = withCurrentRates(RATE_TABLE.find((model) => model.id === "gemini-3.8-flash-promo"), new Date("2027-01-01T12:00:00Z"));
+assert.deepStrictEqual([flashAfter.input, flashAfter.cached, flashAfter.output], [1.5, 0.15, 7.5]);
+assert.ok(!MODELS.some((model) => model.name === "Gemini 3.5 Flash"), "Gemini 3.5 Flash is not on Google's price list");
+assert.ok(MODELS.every((model) => !model.promo), "the page only sees current rates");
 
 const estimate = calculateEstimate({
   users: "1,000", requestsPerUser: 30, inputTokens: "1,200", outputTokens: 400,
