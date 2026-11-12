@@ -1,5 +1,35 @@
 [
   {
+    "slug": "openai-claude-gemini-api-pricing",
+    "title": "OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide",
+    "metaDescription": "Compare OpenAI vs Claude vs Gemini API pricing, then turn token rates into monthly cost per user and margin with a worked example and free calculator.",
+    "heroImageFile": "openai-claude-gemini-api-pricing-hero.jpg",
+    "heroImageAlt": "Founder comparing OpenAI, Claude and Gemini API pricing on a laptop",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 12, 2026",
+    "publishDateIso": "2026-11-12T00:35:58.849Z",
+    "readingTime": 8,
+    "category": "AI Engineering",
+    "tags": [
+      "Claude API Pricing",
+      "OpenAI API Pricing",
+      "Gemini API Pricing",
+      "AI API Cost",
+      "SaaS Pricing"
+    ],
+    "relatedSlugs": [
+      "gemini-api-groq-fallback-nodejs",
+      "openai-agents-api-saas-production-guide",
+      "stripe-per-seat-billing-multi-tenant-saas"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html",
+    "socialImageFile": "openai-claude-gemini-api-pricing-social.jpg",
+    "socialImageWidth": 1200,
+    "socialImageHeight": 627,
+    "socialImageAlt": "Guide card: OpenAI vs Claude vs Gemini API pricing, with monthly cost per model for a support assistant"
+  },
+  {
     "slug": "shopify-ai-store-builder-custom-app",
     "title": "Shopify AI Store Builder vs Custom App: Auto Social Images",
     "metaDescription": "The Shopify AI store builder drafts your store. Here is the custom Shopify app I built to auto-generate branded social share images for every product.",

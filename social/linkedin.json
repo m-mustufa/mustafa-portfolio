@@ -18,5 +18,24 @@
     ],
     "cta": "Read the case study",
     "publishAt": "2026-11-13T15:00:00+05:00"
+  },
+  "/blog/openai-claude-gemini-api-pricing.html": {
+    "hook": "Price per token is the wrong number for an AI feature. Cost per user is the one your subscription has to cover.",
+    "intro": "I compared OpenAI, Claude and Gemini API pricing on a worked support-assistant example and turned it into monthly cost, margin and break-even.",
+    "points": [
+      "Output was 1/6 of the tokens but 62% of the bill",
+      "Claude Sonnet 5.5 and GPT-6.1 Sol cost exactly the same: $648 a month",
+      "Budget Gemini 3.8 Flash at its January 2027 price, not the promo"
+    ],
+    "hashtags": [
+      "OpenAI",
+      "Claude",
+      "Gemini",
+      "LLM",
+      "SaaS",
+      "AIEngineering",
+      "SaaSPricing"
+    ],
+    "publishAt": "2026-11-16T15:00:00+05:00"
   }
 }

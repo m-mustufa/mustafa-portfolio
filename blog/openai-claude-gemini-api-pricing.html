@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide</title>
+    <meta name="description" content="Compare OpenAI vs Claude vs Gemini API pricing, then turn token rates into monthly cost per user and margin with a worked example and free calculator.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/openai-claude-gemini-api-pricing.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide">
+    <meta property="og:description" content="Compare OpenAI vs Claude vs Gemini API pricing, then turn token rates into monthly cost per user and margin with a worked example and free calculator.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/openai-claude-gemini-api-pricing-social.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="627">
+    <meta property="og:image:alt" content="Guide card: OpenAI vs Claude vs Gemini API pricing, with monthly cost per model for a support assistant">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/openai-claude-gemini-api-pricing.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-12T00:35:58.849Z">
+    <meta property="article:modified_time" content="2026-11-12T00:35:58.849Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="AI Engineering">
+    <meta property="article:tag" content="Claude API Pricing">
+    <meta property="article:tag" content="OpenAI API Pricing">
+    <meta property="article:tag" content="Gemini API Pricing">
+    <meta property="article:tag" content="AI API Cost">
+    <meta property="article:tag" content="SaaS Pricing">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide">
+    <meta name="twitter:description" content="Compare OpenAI vs Claude vs Gemini API pricing, then turn token rates into monthly cost per user and margin with a worked example and free calculator.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/openai-claude-gemini-api-pricing-social.jpg">
+    <meta name="twitter:image:alt" content="Guide card: OpenAI vs Claude vs Gemini API pricing, with monthly cost per model for a support assistant">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261013-reading">
+    <script src="../assets/js/style.js?v=20261013-reading2" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide", "item": "https://aisaaswithmustafa.com/blog/openai-claude-gemini-api-pricing.html" }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/profile.html",
+          "image": "https://aisaaswithmustafa.com/assets/img/muhammad-mustafa-ai-saas-developer.webp",
+          "jobTitle": "Full-Stack SaaS and AI Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/muhammad-mustafa-16477a99/",
+            "https://www.upwork.com/freelancers/mustafafullstack",
+            "https://contra.com/muhammad_mustafa_hg8nbcx2"
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide",
+          "description": "Compare OpenAI vs Claude vs Gemini API pricing, then turn token rates into monthly cost per user and margin with a worked example and free calculator.",
+          "image": "https://aisaaswithmustafa.com/blog/images/openai-claude-gemini-api-pricing-hero.jpg",
+          "datePublished": "2026-11-12T00:35:58.849Z",
+          "dateModified": "2026-11-12T00:35:58.849Z",
+          "articleSection": "AI Engineering",
+          "keywords": ["Claude API Pricing","OpenAI API Pricing","Gemini API Pricing","AI API Cost","SaaS Pricing"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/openai-claude-gemini-api-pricing.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Projects</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/tools/index.html" class="text-gray-300 hover:text-primary">Free Tools</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf"
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>AI Engineering</p>
+                        <h1 id="article-title">OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide</h1>
+                        <p class="article-summary">Compare OpenAI vs Claude vs Gemini API pricing, then turn token rates into monthly cost per user and margin with a worked example and free calculator.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-11-12T00:35:58.849Z">November 12, 2026</time> <i aria-hidden="true"></i> 8 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>AI Engineering</span>
+                <span>Claude API Pricing</span>
+                <span>OpenAI API Pricing</span>
+                <span>Gemini API Pricing</span>
+                <span>AI API Cost</span>
+                <span>SaaS Pricing</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/openai-claude-gemini-api-pricing-hero.jpg" alt="Founder comparing OpenAI, Claude and Gemini API pricing on a laptop" width="1200" height="675" loading="eager" />
+                        <figcaption>AI Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#openai-vs-claude-vs-gemini-api-pricing-at-a-glance">OpenAI vs Claude vs Gemini API pricing at a glance</a></li>
+                    <li><a href="#how-to-turn-api-pricing-into-cost-per-user">How to turn API pricing into cost per user</a></li>
+                    <li><a href="#what-changes-the-bill-more-than-the-model">What changes the bill more than the model</a></li>
+                    <li><a href="#pricing-your-ai-feature-margin-and-break-even">Pricing your AI feature: margin and break-even</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>OpenAI, Claude and Gemini all publish their API pricing per million tokens, but that number alone does not tell you what an AI feature will cost each month, or whether your subscription price still leaves a profit. I built a free <a href="/tools/ai-api-cost-calculator.html">AI API Cost Calculator</a> to turn token prices into a monthly number before choosing a model.</p>
+<p>In this guide I compare current OpenAI vs Claude vs Gemini API pricing, show how to turn those rates into cost per user with a worked example, explain what changes the bill more than the model, and how to check your margin before you launch.</p>
+<h2 class="scroll-mt-28" id="openai-vs-claude-vs-gemini-api-pricing-at-a-glance">OpenAI vs Claude vs Gemini API pricing at a glance</h2>
+<p>A token is a small piece of text, roughly three quarters of an English word. Providers charge separately for input tokens (what you send), cached input (repeated text the provider has already processed) and output tokens (what the model writes back). The table shows standard-tier rates in US dollars per 1 million tokens, taken from each provider's official pricing page on 11 November 2026.</p>
+<table><thead><tr><th>Model</th><th>Input</th><th>Cached input</th><th>Output</th></tr></thead><tbody><tr><td>OpenAI GPT-6 Luna</td><td>$0.10</td><td>$0.01</td><td>$0.50</td></tr><tr><td>OpenAI GPT-6.1 Sol</td><td>$2.00</td><td>$0.10</td><td>$10.00</td></tr><tr><td>OpenAI GPT-6 Astra</td><td>$10.00</td><td>$1.00</td><td>$50.00</td></tr><tr><td>Claude Haiku 5.5 (prompts up to 100K tokens)</td><td>$0.10</td><td>$0.01</td><td>$0.50</td></tr><tr><td>Claude Sonnet 5.5</td><td>$2.00</td><td>$0.10</td><td>$10.00</td></tr><tr><td>Claude Opus 5.5</td><td>$4.00</td><td>$0.20</td><td>$20.00</td></tr><tr><td>Gemini 3.5 Flash-Lite</td><td>$0.30</td><td>$0.03</td><td>$2.50</td></tr><tr><td>Gemini 3.8 Flash (promo until 31 Dec 2026)</td><td>$0.75</td><td>$0.075</td><td>$3.75</td></tr><tr><td>Gemini 4 Carbon (promo until 30 Nov 2026)</td><td>$2.00</td><td>$0.10</td><td>$10.00</td></tr></tbody></table>
+<p>Check the <a href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener noreferrer">OpenAI pricing</a>, <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Claude pricing</a> and <a href="https://aistudio.google.com/docs/pricing" target="_blank" rel="noopener noreferrer">Gemini pricing</a> pages before you commit, because rates move. Four details matter more than the headline numbers:</p>
+<ul>
+<li><strong>Promotions end.</strong> Gemini 3.8 Flash doubles to $1.50 input and $7.50 output on 1 January 2027. Gemini 4 Carbon goes to $4.00 and $20.00 on 1 December 2026.</li>
+<li><strong>"Cached" works differently.</strong> On Claude, writing a prompt to the 5-minute cache costs 1.25 times the base input price, and later reads are cheap. Gemini context caching adds an hourly storage fee. Compare the mechanics, not just the column.</li>
+<li><strong>Long prompts can cost more.</strong> OpenAI charges higher rates above 272K input tokens, Claude Haiku 5.5 above 100K and Gemini 3.1 Pro above 200K. Claude Sonnet 5.5 and Opus 5.5 keep the same rate across their full 1M context.</li>
+<li><strong>Batch is half price.</strong> All three offer roughly 50% off for jobs that can wait, such as nightly summaries.</li>
+</ul>
+<h2 class="scroll-mt-28" id="how-to-turn-api-pricing-into-cost-per-user">How to turn API pricing into cost per user</h2>
+<p>Price per token is the wrong unit for a product decision. What you need is cost per user per month, because that is what your subscription price has to cover. Five numbers get you there:</p>
+<ol>
+<li><strong>Input tokens per request.</strong> Count everything you send: the system prompt, previous messages, any retrieved documents and the user's message. The system prompt and history are often bigger than the question.</li>
+<li><strong>Output tokens per request.</strong> Include reasoning or "thinking" tokens. Gemini lists output prices including thinking, and Claude bills thinking as output too.</li>
+<li><strong>Requests per user per month.</strong> Count API calls, not clicks. An agent that plans, searches and writes can make four or five calls for one user action.</li>
+<li><strong>Cached share.</strong> The part of the input that repeats exactly, usually the system prompt and fixed instructions.</li>
+<li><strong>Rates</strong> for the model, from the table above.</li>
+</ol>
+<p>The maths is small enough to keep in your codebase next to the feature:</p>
+<pre><code>function monthlyApiCost({ users, requestsPerUser, inputTokens, outputTokens, cachedShare, rates }) {
+  const requests = users * requestsPerUser;
+  const input = requests * inputTokens;
+  const cached = input * cachedShare;      // billed at the cached rate
+  const uncached = input - cached;         // billed at the full input rate
+  const output = requests * outputTokens;  // usually the biggest line
+  return (uncached * rates.input + cached * rates.cached + output * rates.output) / 1_000_000;
+}
+
+// 1,000 users, 80 requests each, 2,500 tokens in, 500 out, 40% cached
+monthlyApiCost({ users: 1000, requestsPerUser: 80, inputTokens: 2500, outputTokens: 500,
+  cachedShare: 0.4, rates: { input: 2, cached: 0.1, output: 10 } }); // 648</code></pre>
+<h3>A worked example: a support assistant</h3>
+<p>These are the numbers from the calculator's "Support" preset: 1,000 users, 80 requests each per month, 2,500 input tokens and 500 output tokens per request, with 40% of input cached. That is 80,000 requests, 200 million input tokens and 40 million output tokens a month.</p>
+<table><thead><tr><th>Model</th><th>Monthly API cost</th><th>Per user</th></tr></thead><tbody><tr><td>GPT-6 Luna or Claude Haiku 5.5</td><td>$32.80</td><td>$0.03</td></tr><tr><td>Gemini 3.8 Flash (promo price)</td><td>$246</td><td>$0.25</td></tr><tr><td>Gemini 3.8 Flash (from January 2027)</td><td>$492</td><td>$0.49</td></tr><tr><td>GPT-6.1 Sol or Claude Sonnet 5.5</td><td>$648</td><td>$0.65</td></tr><tr><td>Claude Opus 5.5</td><td>$1,296</td><td>$1.30</td></tr><tr><td>GPT-6 Astra</td><td>$3,280</td><td>$3.28</td></tr></tbody></table>
+<p>Three things stand out. Output is only one sixth of the tokens but about 62% of the bill, because output costs five times the input rate. The cheapest tier is about 20 times cheaper than the mid tier, so the first question is whether a small model is good enough for the task. And GPT-6.1 Sol and Claude Sonnet 5.5 cost exactly the same here, so between those two the decision is about answer quality, speed and tooling, not price.</p>
+<figure><img src="images/ai-api-cost-per-user-planning-notebook.jpg" alt="Founder estimating AI API cost per user in a notebook next to a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Five inputs decide the monthly bill: input tokens, output tokens, requests per user, cached share and the model's rates.</figcaption></figure>
+<h2 class="scroll-mt-28" id="what-changes-the-bill-more-than-the-model">What changes the bill more than the model</h2>
+<p>Switching models is the obvious lever, but in my experience the shape of each request matters as much. These are the levers I check before blaming the price list.</p>
+<h3>Output length</h3>
+<p>Since output dominates the bill, asking for shorter answers and setting a sensible maximum output length is often the cheapest saving. A support reply rarely needs 800 tokens.</p>
+<h3>Conversation history</h3>
+<p>Chat APIs are stateless, so each turn usually resends the earlier messages. Input grows with every turn, which means the tenth message in a conversation can cost several times the first. Trimming or summarising older turns keeps that growth in check.</p>
+<h3>Prompt caching</h3>
+<p>Put stable content first: the system prompt, tool definitions and fixed instructions. In the support example, caching 40% of the input brings Claude Sonnet 5.5 from $800 to $648 a month, a saving of 19%. Anything that changes on every request, such as a timestamp near the top of the prompt, quietly breaks the cache.</p>
+<h3>Fallbacks, retries and promotions</h3>
+<p>The assistant on this site uses Gemini 3.8 Flash by default and falls back to an open-weight model on Groq when Gemini is unavailable. I wrote up that <a href="/blog/gemini-api-groq-fallback-nodejs.html">Gemini to Groq fallback</a> separately. A fallback means part of your traffic runs on a different price list, and retries add calls. I also budget for Gemini 3.8 Flash at its January 2027 price, not the promotion, because an estimate built on a promo price stops being true on a known date.</p>
+<h3>Agents and batch jobs</h3>
+<p>Agent features multiply calls, so estimate requests per user action, not per click. A single "research this company" button can trigger a plan, several searches, a draft and a review. My <a href="/blog/openai-agents-api-saas-production-guide.html">OpenAI Agents API guide</a> covers cost controls for that case. Work that can wait, like weekly reports, belongs in a batch job at half price.</p>
+<h3>Free tiers</h3>
+<p>The Gemini API free tier currently includes Gemini 3.5 Flash-Lite and Gemini 3.8 Flash at no charge, with rate limits, and Google's pricing page notes that free-tier content may be used to improve its products. That makes it a good place to prototype and measure your token counts. I would not put customer data through it, and I would not plan a launch around it, because limits and terms are set by the provider and can change.</p>
+<h2 class="scroll-mt-28" id="pricing-your-ai-feature-margin-and-break-even">Pricing your AI feature: margin and break-even</h2>
+<p>Cost per user only matters next to revenue per user. Continuing the support example on Claude Sonnet 5.5, suppose you charge $29 per user per month, have $2.50 per user of other variable costs (hosting, email, payment fees) and $500 of fixed monthly costs:</p>
+<ul>
+<li>Revenue: 1,000 × $29 = $29,000</li>
+<li>Total cost: $648 API + $2,500 variable + $500 fixed = $3,648</li>
+<li>Gross margin: about 87%</li>
+<li>Break-even price: $3.65 per user</li>
+</ul>
+<p>The calculator shows the same figures and a plain verdict. A negative margin means the plan loses money at that price. A positive margin under 60% means usage or pricing may need tighter limits. Above that, the price covers estimated usage with room for overhead. These thresholds are my planning rule, not an industry standard.</p>
+<figure><img src="images/saas-team-reviewing-ai-feature-margin.jpg" alt="Two SaaS team members reviewing AI feature pricing and margin on a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Check the margin for heavy users separately; averages hide the accounts that cost the most.</figcaption></figure>
+<p>Averages hide power users. If your top 10% of users send five times more requests, run the calculator again with their numbers, and decide whether you need a fair-use limit or a usage-based tier. I covered the billing side in <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html">Stripe per-seat billing for SaaS</a>, and the <a href="/tools/saas-metrics-calculator.html">SaaS Metrics Calculator</a> handles MRR, LTV and CAC once the price is set.</p>
+<p>One honest limitation: the calculator prices cached tokens at the read rate. It does not add Claude's one-time cache write premium or Gemini's hourly cache storage fee, so treat its output as a planning estimate and compare it with your first real invoice.</p>
+<h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2>
+<p>Before you choose a model on API pricing alone, work through this list:</p>
+<ol>
+<li>Measure real input and output tokens per request, including system prompt, history and thinking.</li>
+<li>Count API calls per user per month, not clicks.</li>
+<li>Try the cheapest model that meets your quality bar first.</li>
+<li>Cap output length and cache the stable part of every prompt.</li>
+<li>Budget at post-promotion prices, and check margin for heavy users separately.</li>
+</ol>
+<p>You can run all of this in the free <a href="/tools/ai-api-cost-calculator.html">AI API Cost Calculator</a>, which has presets for chat, support, summarising and document workflows. If you are planning an AI feature for a SaaS product and want a second opinion on the architecture and cost, <a href="/#contact">get in touch</a>.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="ai-saas-development-help">
+                <div>
+                    <p>Available for global remote projects</p>
+                    <h2 id="ai-saas-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/ai-saas-development-services.html">Explore AI SaaS services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa, full-stack SaaS and AI engineer" width="600" height="750" loading="lazy" decoding="async" class="article-author-photo" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience across Angular, React, Next.js, Node.js, Supabase, PostgreSQL, Stripe and production AI integrations. I write from the architecture, security and delivery trade-offs I handle in real product work.</span>
+                            <div class="article-author-credentials" aria-label="Author experience">
+                                <span>10+ years</span>
+                                <span>Production SaaS</span>
+                                <span>AI integrations</span>
+                                <span>UAE projects</span>
+                            </div>
+                            <div class="article-author-links">
+                                <a href="/profile.html">About the author</a>
+                                <a href="/portfolio.html">View portfolio</a>
+                                <a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/gemini-api-groq-fallback-nodejs.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>Gemini API Fallback for 429 Errors with Groq in Node.js</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/openai-agents-api-saas-production-guide.html" class="article-related-card">
+                        <p>AI &amp; Automation</p>
+                        <h3>OpenAI Agents API vs Agents SDK: SaaS Production Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html" class="article-related-card">
+                        <p>SaaS Engineering</p>
+                        <h3>Stripe Per-Seat Billing for SaaS: Seat Sync &amp; Webhooks</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>
