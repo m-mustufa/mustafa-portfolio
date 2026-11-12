@@ -37,5 +37,24 @@
       "SaaSPricing"
     ],
     "publishAt": "2026-11-14T15:00:00+05:00"
+  },
+  "/blog/big-o-calculator-javascript.html": {
+    "hook": "Most Big O answers online are a bare O(n) with no reason. I wanted a calculator that shows its work.",
+    "intro": "I wrote a practical guide to reading time and space complexity in JavaScript, and how my free Big O calculator decides when to refuse a guess.",
+    "points": [
+      "Why m × n should never be written as n²",
+      "The hidden O(n) inside includes, shift and spread",
+      "Why recursion gets \"manual review\", not a guess"
+    ],
+    "hashtags": [
+      "JavaScript",
+      "BigONotation",
+      "TimeComplexity",
+      "SpaceComplexity",
+      "Algorithms",
+      "CodingInterview",
+      "WebDevelopment"
+    ],
+    "publishAt": "2026-11-17T15:00:00+05:00"
   }
 }

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>Big O Calculator for JavaScript: Time and Space Complexity</title>
+    <meta name="description" content="Use a Big O calculator for JavaScript the right way: read time and space complexity from loops, array and string methods, with real code examples.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/big-o-calculator-javascript.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="Big O Calculator for JavaScript: Time and Space Complexity">
+    <meta property="og:description" content="Use a Big O calculator for JavaScript the right way: read time and space complexity from loops, array and string methods, with real code examples.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/big-o-calculator-javascript-social.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="627">
+    <meta property="og:image:alt" content="Guide card: Big O calculator for JavaScript, showing a Complexity Coach report with time and space complexity">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/big-o-calculator-javascript.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-12T01:05:25.701Z">
+    <meta property="article:modified_time" content="2026-11-12T01:05:25.701Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="Web Engineering">
+    <meta property="article:tag" content="Big O Calculator">
+    <meta property="article:tag" content="Big O Notation">
+    <meta property="article:tag" content="Time Complexity">
+    <meta property="article:tag" content="Space Complexity">
+    <meta property="article:tag" content="JavaScript">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Big O Calculator for JavaScript: Time and Space Complexity">
+    <meta name="twitter:description" content="Use a Big O calculator for JavaScript the right way: read time and space complexity from loops, array and string methods, with real code examples.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/big-o-calculator-javascript-social.jpg">
+    <meta name="twitter:image:alt" content="Guide card: Big O calculator for JavaScript, showing a Complexity Coach report with time and space complexity">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261013-reading">
+    <script src="../assets/js/style.js?v=20261013-reading2" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "Big O Calculator for JavaScript: Time and Space Complexity", "item": "https://aisaaswithmustafa.com/blog/big-o-calculator-javascript.html" }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/profile.html",
+          "image": "https://aisaaswithmustafa.com/assets/img/muhammad-mustafa-ai-saas-developer.webp",
+          "jobTitle": "Full-Stack SaaS and AI Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/muhammad-mustafa-16477a99/",
+            "https://www.upwork.com/freelancers/mustafafullstack",
+            "https://contra.com/muhammad_mustafa_hg8nbcx2"
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Big O Calculator for JavaScript: Time and Space Complexity",
+          "description": "Use a Big O calculator for JavaScript the right way: read time and space complexity from loops, array and string methods, with real code examples.",
+          "image": "https://aisaaswithmustafa.com/blog/images/big-o-calculator-javascript-time-complexity-hero.jpg",
+          "datePublished": "2026-11-12T01:05:25.701Z",
+          "dateModified": "2026-11-12T01:05:25.701Z",
+          "articleSection": "Web Engineering",
+          "keywords": ["Big O Calculator","Big O Notation","Time Complexity","Space Complexity","JavaScript"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/big-o-calculator-javascript.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="../assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class" />
+            </a>
+
+            <!-- Hamburger Button -->
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false"
+                class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4
+                md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank"
+                    rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img
+                        class="up-img" src="../assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56"
+                        alt="Upwork"></a>
+                <a href="/#services" class="text-gray-300 hover:text-primary">Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Projects</a>
+                <a href="/blog/index.html" class="blog-nav-current" aria-current="page">Blog</a>
+                <a href="/tools/index.html" class="text-gray-300 hover:text-primary">Free Tools</a>
+                <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+                <a href="../assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf"
+                    class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+                <a href="/#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>Web Engineering</p>
+                        <h1 id="article-title">Big O Calculator for JavaScript: Time and Space Complexity</h1>
+                        <p class="article-summary">Use a Big O calculator for JavaScript the right way: read time and space complexity from loops, array and string methods, with real code examples.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-11-12T01:05:25.701Z">November 12, 2026</time> <i aria-hidden="true"></i> 9 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>Web Engineering</span>
+                <span>Big O Calculator</span>
+                <span>Big O Notation</span>
+                <span>Time Complexity</span>
+                <span>Space Complexity</span>
+                <span>JavaScript</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/big-o-calculator-javascript-time-complexity-hero.jpg" alt="Software developer reviewing JavaScript code on a laptop to estimate time complexity with a Big O calculator" width="1200" height="675" loading="eager" />
+                        <figcaption>Web Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#big-o-notation-in-plain-words">Big O notation in plain words</a></li>
+                    <li><a href="#how-to-read-big-o-from-javascript-code">How to read Big O from JavaScript code</a></li>
+                    <li><a href="#hidden-costs-in-javascript-array-and-string-methods">Hidden costs in JavaScript array and string methods</a></li>
+                    <li><a href="#time-and-space-complexity-including-the-output">Time and space complexity, including the output</a></li>
+                    <li><a href="#how-i-built-complexity-coach-and-where-it-refuses-to-guess">How I built Complexity Coach, and where it refuses to guess</a></li>
+                    <li><a href="#practical-takeaway">Practical takeaway</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>A Big O calculator for JavaScript is only useful if it shows its work. I built <a href="/tools/complexity-coach/">Complexity Coach</a>, a free tool that reads your code and estimates its time and space complexity, because most answers I found online were either a bare "O(n)" with no reason or a confident guess.</p>
+<p>In this guide I explain how Big O notation maps to real JavaScript, which built-in methods hide extra cost, how time and space complexity differ, and where a static calculator, including mine, should refuse to guess.</p>
+<h2 class="scroll-mt-28" id="big-o-notation-in-plain-words">Big O notation in plain words</h2>
+<p>Big O describes how the work grows when the input grows. It ignores the exact number of milliseconds, because that depends on the machine. It only asks: if the input doubles, what happens to the work?</p>
+<ul>
+<li><strong>O(1):</strong> the work stays the same, like reading <code>arr[5]</code>.</li>
+<li><strong>O(log n):</strong> the work grows very slowly, like binary search, which halves the range each step.</li>
+<li><strong>O(n):</strong> the work grows with the input, like one loop over an array.</li>
+<li><strong>O(n log n):</strong> typical for good sorting.</li>
+<li><strong>O(n²):</strong> every item compared with every other item, usually two nested loops.</li>
+</ul>
+<p>Two rules do most of the work. Drop constants, so O(2n) is just O(n). Keep the biggest term, so O(n² + n) becomes O(n²). The second rule has a catch I will come back to, because it only applies when the terms use the same input.</p>
+<h2 class="scroll-mt-28" id="how-to-read-big-o-from-javascript-code">How to read Big O from JavaScript code</h2>
+<p>You do not need maths to estimate Big O for most interview or product code. You need to count how many times each line can run.</p>
+<h3>Loops multiply, separate blocks add</h3>
+<p>One loop over <code>n</code> items is O(n). A loop inside another loop multiplies: O(n × n), or O(n²). Two loops one after the other add: O(n + n), which is still O(n).</p>
+<pre><code>function hasDuplicate(nums) {
+  for (let i = 0; i &lt; nums.length; i++) {        // n times
+    for (let j = i + 1; j &lt; nums.length; j++) {  // up to n times each
+      if (nums[i] === nums[j]) return true;
+    }
+  }
+  return false;
+}
+// Time: O(n²)  Extra space: O(1)</code></pre>
+<h3>Different inputs get different letters</h3>
+<p>This is the most common mistake I see. If the outer loop runs over <code>comments</code> and the inner loop runs over <code>bannedWords</code>, the answer is O(m × n), not O(n²). Writing n² hides the fact that a long banned-word list hurts just as much as a long comment list.</p>
+<p>The same applies to adding terms. O(m × L + n) cannot be simplified to O(m × L), because n is a different input. "Keep the biggest term" only works when the bigger term contains all the same sizes.</p>
+<h3>Halving means logarithmic</h3>
+<p>When each step cuts the remaining range in half, like binary search with a <code>mid</code> index, the loop runs about log₂ n times. For a million items, that is around 20 steps.</p>
+<h3>Recursion needs a recurrence, not a glance</h3>
+<p>Recursive code is where quick estimates go wrong. Count how many calls each call makes and how deep the calls go. The naive Fibonacci function below calls itself twice per step, so the number of calls roughly doubles at each level:</p>
+<pre><code>function fib(n) {
+  if (n &lt; 2) return n;
+  return fib(n - 1) + fib(n - 2); // two calls per call: about O(2^n)
+}
+
+function fibMemo(n, memo = new Map()) {
+  if (n &lt; 2) return n;
+  if (memo.has(n)) return memo.get(n);
+  const value = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+  memo.set(n, value); // each n is computed once: O(n) time, O(n) space
+  return value;
+}</code></pre>
+<p>The memoised version does the same maths but stores each answer, so every value of n is computed once. The call stack still grows to depth n, which is why its space is O(n), not O(1).</p>
+<figure><img src="images/big-o-notation-nested-loops-notebook-sketch.jpg" alt="Notebook sketch of nested loop blocks drawn to estimate Big O notation" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Counting how often each line runs is usually enough: nested loops multiply, separate blocks add.</figcaption></figure>
+<h2 class="scroll-mt-28" id="hidden-costs-in-javascript-array-and-string-methods">Hidden costs in JavaScript array and string methods</h2>
+<p>Many JavaScript methods look like one cheap line but contain a loop. A single <code>includes</code> inside a loop is often what turns O(n) code into O(n²).</p>
+<table><thead><tr><th>Operation</th><th>Time</th><th>Extra space</th><th>Note</th></tr></thead><tbody><tr><td><code>arr[i]</code>, <code>push</code>, <code>pop</code></td><td>O(1)</td><td>O(1)</td><td><code>push</code> is O(1) on average</td></tr><tr><td><code>includes</code>, <code>indexOf</code>, <code>find</code>, <code>some</code></td><td>O(n)</td><td>O(1)</td><td>Linear scan of the array</td></tr><tr><td><code>map</code>, <code>filter</code></td><td>O(n)</td><td>O(n)</td><td>Build a new array</td></tr><tr><td><code>slice</code>, <code>concat</code>, <code>[...arr]</code></td><td>O(k)</td><td>O(k)</td><td>Copy k items</td></tr><tr><td><code>shift</code>, <code>unshift</code>, <code>splice</code></td><td>Usually O(n)</td><td>O(1)</td><td>Other items move position</td></tr><tr><td><code>sort</code></td><td>O(n log n)</td><td>Up to O(n)</td><td>V8 uses TimSort</td></tr><tr><td><code>Map</code> / <code>Set</code> get, has, set</td><td>O(1) on average</td><td>One entry each</td><td>Hash tables in practice</td></tr><tr><td><code>split</code>, <code>trim</code>, <code>toLowerCase</code>, <code>replace</code></td><td>O(L)</td><td>O(L)</td><td>L is the string length</td></tr></tbody></table>
+<p>Two of these deserve a source. V8, the engine in Chrome and Node.js, has used TimSort for <code>Array.prototype.sort</code> since <a href="https://v8.dev/blog/array-sort" target="_blank" rel="noopener noreferrer">version 7.0</a>, which gives O(n log n) in the worst case. For <code>Map</code> and <code>Set</code>, the <a href="https://tc39.es/ecma262/multipage/keyed-collections.html" target="_blank" rel="noopener noreferrer">ECMAScript specification</a> only requires access times that are sublinear on average. Engines use hash tables, so O(1) on average is the honest way to say it.</p>
+<p>The fix for a hidden scan is usually a Set:</p>
+<pre><code>// Slow: includes scans bannedWords for every word, O(w × b)
+const isClean = words.every((word) =&gt; !bannedWords.includes(word));
+
+// Fast: build the Set once in O(b), then each lookup is O(1) on average
+const banned = new Set(bannedWords);
+const isCleanFast = words.every((word) =&gt; !banned.has(word));</code></pre>
+<p>Two more patterns catch people in code reviews. The first is a queue built on <code>shift()</code>. In a breadth-first search, calling <code>queue.shift()</code> on every step usually moves all remaining items forward, so a loop that looks linear can become O(n²) on large inputs. Keeping a head index and reading <code>queue[head++]</code> avoids the move.</p>
+<p>The second is copying inside a loop. Writing <code>acc = [...acc, item]</code> inside <code>reduce</code> copies the whole array on every step, which is also O(n²) time and creates a lot of short-lived garbage. Pushing into one array keeps it at O(n). Neither pattern is wrong for small lists, but both are worth a comment when the list comes from users.</p>
+<p>Strings need their own letter. <code>comment.split(" ")</code> reads the whole comment, so its cost depends on the comment's length, not on how many comments there are. I use L for that.</p>
+<h2 class="scroll-mt-28" id="time-and-space-complexity-including-the-output">Time and space complexity, including the output</h2>
+<p>Time complexity counts steps. Space complexity counts extra memory. Interview answers usually separate two kinds of space:</p>
+<ul>
+<li><strong>Auxiliary space:</strong> memory your algorithm needs while working, such as a Set of seen values or a temporary copy.</li>
+<li><strong>Space including output:</strong> auxiliary space plus the array you return.</li>
+</ul>
+<p>A function that fills and returns a result array of n items has O(n) total space, but its auxiliary space can still be O(1):</p>
+<pre><code>function doubled(nums) {
+  const result = new Array(nums.length); // the output: counts only in total space
+  for (let i = 0; i &lt; nums.length; i++) {
+    result[i] = nums[i] * 2;             // one index variable: O(1) extra
+  }
+  return result;
+}
+// Time: O(n)  Auxiliary space: O(1)  Space including output: O(n)</code></pre>
+<p>Mixing these two up is why two people can look at the same code and give different answers that are both partly right. Complexity Coach shows both values side by side for this reason.</p>
+<h2 class="scroll-mt-28" id="how-i-built-complexity-coach-and-where-it-refuses-to-guess">How I built Complexity Coach, and where it refuses to guess</h2>
+<p>Complexity Coach runs in your browser. It parses the code into an abstract syntax tree (AST) with the Acorn parser, so nothing is sent to a server. It then walks the tree, tracks how loops nest, recognises known array, Map, Set and string operations, highlights the lines that drive the result, and gives a confidence level: High, Medium or Manual review needed.</p>
+<p>The rule I care about most is that it does not invent answers. Recursion, calls to helper functions it cannot see, loops without a clear bound and dynamic property access all return "Manual review needed" with the reason and the exact line. A wrong O(1) is worse than no answer, because people trust it.</p>
+<figure><img src="images/javascript-code-review-time-space-complexity.jpg" alt="Two developers reviewing JavaScript code for time and space complexity" width="1200" height="675" loading="lazy" decoding="async"><figcaption>A complexity estimate is most useful in code review, when it points to the exact line that changes the result.</figcaption></figure>
+<p>That rule also showed me a gap. When I tested a comment filter that split each comment into words and checked them against a Set of banned words, the tool answered "Manual review needed", because it did not know <code>split()</code>. Honest, but not useful for very common code. I added the common string methods with L as the string length, and the same code now returns O(m × L + n) time, O(n + L) auxiliary space and O(m + n + L) including the output.</p>
+<p>The same test exposed a second problem: an earlier version dropped the n term and answered O(m × L). Building a Set of n banned words is real work that the bigger term does not cover, so smaller terms are now kept whenever they use a different input.</p>
+<h3>Static analysis or a runtime benchmark?</h3>
+<p>There are two kinds of Big O calculator. Runtime tools, such as the <a href="https://www.npmjs.com/package/big-o-calculator" target="_blank" rel="noopener noreferrer">big-o-calculator</a> package on npm, run your function with growing input sizes and fit the timings to a curve. Static tools, like Complexity Coach, read the code without running it.</p>
+<p>Runtime measurement sees real data, but timings are noisy because of JIT warm-up and garbage collection, and the result depends on the test inputs you chose. Static analysis explains why the code grows the way it does, but it cannot know the shape of your production data. I use the static estimate while writing and reviewing code, and a benchmark when a specific function is actually slow.</p>
+<h2 class="scroll-mt-28" id="practical-takeaway">Practical takeaway</h2>
+<p>Before you trust any Big O calculator, check five things yourself:</p>
+<ol>
+<li>Give each input its own letter, so m × n never hides as n².</li>
+<li>Multiply nested loops and add separate blocks.</li>
+<li>Look inside one-line methods such as <code>includes</code>, <code>slice</code>, <code>sort</code> and <code>split</code>.</li>
+<li>Report auxiliary space and space including the output separately.</li>
+<li>Treat recursion as a manual task: write the recurrence instead of guessing.</li>
+</ol>
+<p>If you want a second opinion with the evidence on each line, paste your function into <a href="/tools/complexity-coach/">Complexity Coach</a>; it is one of my <a href="/tools/index.html">free developer tools</a>. If you need help with performance in a real Node.js or SaaS codebase, <a href="/#contact">get in touch</a>.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="ai-saas-development-help">
+                <div>
+                    <p>Available for global remote projects</p>
+                    <h2 id="ai-saas-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/ai-saas-development-services.html">Explore AI SaaS services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa, full-stack SaaS and AI engineer" width="600" height="750" loading="lazy" decoding="async" class="article-author-photo" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience across Angular, React, Next.js, Node.js, Supabase, PostgreSQL, Stripe and production AI integrations. I write from the architecture, security and delivery trade-offs I handle in real product work.</span>
+                            <div class="article-author-credentials" aria-label="Author experience">
+                                <span>10+ years</span>
+                                <span>Production SaaS</span>
+                                <span>AI integrations</span>
+                                <span>UAE projects</span>
+                            </div>
+                            <div class="article-author-links">
+                                <a href="/profile.html">About the author</a>
+                                <a href="/portfolio.html">View portfolio</a>
+                                <a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/scalable-nodejs-apis-modern-saas-2026.html" class="article-related-card">
+                        <p>Node.js Development</p>
+                        <h3>Scalable Node.js APIs for Modern SaaS Platforms (2026)</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/tesla-roadster-web-application-performance.html" class="article-related-card">
+                        <p>Software Engineering</p>
+                        <h3>Tesla Roadster and Web Application Performance Optimization</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/claude-code-vs-codex-ai-coding-agents-2026.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>Claude Code vs Codex: Which AI Coding Agent Fits Real SaaS Work?</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer class="blog-footer">
+        <span>&copy; 2026 Muhammad Mustafa.</span>
+        <a href="/#contact">Available for selected SaaS and AI projects</a>
+    </footer>
+</body>
+
+</html>

@@ -1,5 +1,35 @@
 [
   {
+    "slug": "big-o-calculator-javascript",
+    "title": "Big O Calculator for JavaScript: Time and Space Complexity",
+    "metaDescription": "Use a Big O calculator for JavaScript the right way: read time and space complexity from loops, array and string methods, with real code examples.",
+    "heroImageFile": "big-o-calculator-javascript-time-complexity-hero.jpg",
+    "heroImageAlt": "Software developer reviewing JavaScript code on a laptop to estimate time complexity with a Big O calculator",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 12, 2026",
+    "publishDateIso": "2026-11-12T01:05:25.701Z",
+    "readingTime": 9,
+    "category": "Web Engineering",
+    "tags": [
+      "Big O Calculator",
+      "Big O Notation",
+      "Time Complexity",
+      "Space Complexity",
+      "JavaScript"
+    ],
+    "relatedSlugs": [
+      "scalable-nodejs-apis-modern-saas-2026",
+      "tesla-roadster-web-application-performance",
+      "claude-code-vs-codex-ai-coding-agents-2026"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html",
+    "socialImageFile": "big-o-calculator-javascript-social.jpg",
+    "socialImageWidth": 1200,
+    "socialImageHeight": 627,
+    "socialImageAlt": "Guide card: Big O calculator for JavaScript, showing a Complexity Coach report with time and space complexity"
+  },
+  {
     "slug": "openai-claude-gemini-api-pricing",
     "title": "OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide",
     "metaDescription": "Compare OpenAI vs Claude vs Gemini API pricing, then turn token rates into monthly cost per user and margin with a worked example and free calculator.",
