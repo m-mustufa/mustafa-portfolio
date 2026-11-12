@@ -10,8 +10,12 @@
 //
 // Netlify environment variables: DEVTO_API_KEY (secret, needs the Functions
 // scope), DEVTO_AUTO_POST=true (master switch), DEVTO_DRY_RUN=true (log only).
-const TurndownService = require("turndown");
-const { gfm } = require("turndown-plugin-gfm");
+// Netlify's function bundler only ships packages that the function file itself
+// imports, so devto-scheduled.mjs imports turndown and passes it in as
+// `markdown`. Local scripts and tests fall back to require().
+function loadMarkdownLib() {
+  return { TurndownService: require("turndown"), gfm: require("turndown-plugin-gfm").gfm };
+}
 const { absolutizeHtml, cleanArticleHtml } = require("../../scripts/blog-feed");
 const { extractArticleContent } = require("../../scripts/blog-seo");
 
@@ -72,7 +76,8 @@ function heroImage(html, pageUrl) {
   return match ? new URL(match[1], pageUrl).href : "";
 }
 
-function toMarkdown(articleHtml) {
+function toMarkdown(articleHtml, markdown = loadMarkdownLib()) {
+  const { TurndownService, gfm } = markdown;
   const turndown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced", bulletListMarker: "-", emDelimiter: "*" });
   turndown.use(gfm);
   turndown.addRule("figcaption", {
@@ -84,14 +89,14 @@ function toMarkdown(articleHtml) {
 
 // Builds the Forem article from the published page, so Dev.to gets exactly
 // what readers see on the site.
-function buildArticle(pageHtml, pageUrl, entry) {
+function buildArticle(pageHtml, pageUrl, entry, markdown) {
   const html = String(pageHtml).replace(/\r\n/g, "\n");
   const article = absolutizeHtml(cleanArticleHtml(extractArticleContent(html)), pageUrl);
   const title = metaContent(html, "property", "og:title") || (html.match(/<title>([^<]*)<\/title>/) || [])[1] || "";
   const footer = `*I first published this on my blog: [${title}](${pageUrl}).*`;
   return {
     title,
-    body_markdown: `${toMarkdown(article)}\n\n---\n\n${footer}\n`,
+    body_markdown: `${toMarkdown(article, markdown)}\n\n---\n\n${footer}\n`,
     published: true,
     canonical_url: pageUrl,
     description: metaContent(html, "name", "description").slice(0, 300),
@@ -147,7 +152,7 @@ async function fetchLive(fetchImpl, url, what) {
 
 // Shares at most one due post per run. `store` is a Netlify Blobs store (or a
 // fake with getWithMetadata/setJSON) that counts attempts per post.
-async function runDevto({ env = process.env, fetchImpl = fetch, store, now = new Date() } = {}) {
+async function runDevto({ env = process.env, fetchImpl = fetch, store, now = new Date(), markdown } = {}) {
   const info = { settings: settingsLine(env) };
   if (env.DEVTO_AUTO_POST !== "true") return { skipped: "DEVTO_AUTO_POST is not set to true", ...info };
 
@@ -176,7 +181,7 @@ async function runDevto({ env = process.env, fetchImpl = fetch, store, now = new
       continue;
     }
 
-    const article = buildArticle(await (await fetchLive(fetchImpl, url, "the page")).text(), url, entry);
+    const article = buildArticle(await (await fetchLive(fetchImpl, url, "the page")).text(), url, entry, markdown);
     if (dryRun) return { dryRun: true, url, article, keyStatus: await checkKey(key, fetchImpl), ...info };
 
     const attempts = ((state && state.attempts) || 0) + 1;
