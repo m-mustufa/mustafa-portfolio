@@ -1,0 +1,14 @@
+{
+  "/blog/shopify-ai-store-builder-custom-app.html": {
+    "tags": ["shopify", "node", "ecommerce", "webdev"],
+    "publishAt": "2026-11-13T15:00:00+05:00"
+  },
+  "/blog/openai-claude-gemini-api-pricing.html": {
+    "tags": ["ai", "llm", "saas", "webdev"],
+    "publishAt": "2026-11-14T15:00:00+05:00"
+  },
+  "/blog/big-o-calculator-javascript.html": {
+    "tags": ["javascript", "algorithms", "webdev", "beginners"],
+    "publishAt": "2026-11-18T23:00:00+05:00"
+  }
+}

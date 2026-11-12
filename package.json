@@ -16,18 +16,22 @@
     "test:indexnow": "node scripts/test-indexnow.js && node scripts/test-indexnow-plugin.js && node scripts/test-indexnow-submitter.js",
     "test:linkedin": "node scripts/test-linkedin-plugin.js",
     "validate:linkedin": "node scripts/validate-linkedin.js",
+    "validate:devto": "node scripts/validate-devto.js",
     "test:proposal-roast": "node scripts/test-proposal-roast.js",
     "test:saas-metrics": "node scripts/test-saas-metrics-calculator.js",
     "test:ai-cost": "node scripts/test-ai-api-cost-calculator.js",
     "test:assistant": "node scripts/test-ask-mustafa-knowledge.js && node scripts/test-ask-mustafa-provider.js",
     "test:gsc": "node scripts/test-gsc.js",
-    "test:feed": "node scripts/test-blog-feed.js"
+    "test:feed": "node scripts/test-blog-feed.js",
+    "test:devto": "node scripts/test-devto.js"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
     "tailwindcss": "^3.4.17"
   },
   "dependencies": {
-    "@netlify/blobs": "10.7.13"
+    "@netlify/blobs": "10.7.13",
+    "turndown": "7.2.4",
+    "turndown-plugin-gfm": "1.0.2"
   }
 }
