@@ -32,6 +32,7 @@ const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 const { renderPostPage } = require("./blog-seo");
+const { writeFeed } = require("./blog-feed");
 
 const ROOT = path.join(__dirname, "..");
 const POSTS_JSON = path.join(ROOT, "blog", "posts.json");
@@ -200,6 +201,7 @@ if (args.refresh) {
   regenerateSitemap(posts);
   regenerateCanonicalRedirects(posts);
   execFileSync("node", [path.join(ROOT, "scripts", "refresh-blog-seo.js")], { stdio: "inherit" });
+  console.log(`Updated blog/feed.xml with ${writeFeed()} posts.`);
   console.log(`Refreshed all manifest-derived blog files for ${posts.length} posts.`);
   process.exit(0);
 }
@@ -292,5 +294,6 @@ regenerateCanonicalRedirects(posts);
 
 // Related links depend on the complete manifest, so refresh every generated post.
 execFileSync("node", [path.join(ROOT, "scripts", "refresh-blog-seo.js")], { stdio: "inherit" });
+console.log(`Updated blog/feed.xml with ${writeFeed()} posts.`);
 
 console.log(`\nDone. Draft ready at blog/${slug}.html — remember to run "npm run build:css" if you added any new Tailwind classes, then review before pushing.`);
