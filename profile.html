@@ -73,6 +73,8 @@
   ]
 }
 </script>
+<link rel="stylesheet" href="/assets/css/tailwind.css"/>
+<link rel="stylesheet" href="/assets/css/style.css?v=20261019-tools"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -99,28 +101,16 @@ body{background:var(--bg);color:var(--ice);font-family:var(--body);line-height:1
 
 .wrap{max-width:1020px;margin:0 auto;padding:0 24px}
 a{color:var(--teal);text-decoration:none}
-a:hover{text-decoration:underline}
-a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
+main a:hover{text-decoration:underline}
+main a:focus-visible,main button:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
 
-/* ---------- SITE HEADER ---------- */
-.site-head{position:sticky;top:0;z-index:50;background:rgba(6,18,26,.82);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;
-  transition:border-color .2s,background .2s}
-.site-head.active{border-bottom-color:var(--line);background:rgba(6,18,26,.94)}
-.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:64px}
-.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ice);font-family:var(--display);
-  font-weight:600;font-size:1rem;white-space:nowrap}
-.brand:hover{text-decoration:none;color:var(--teal)}
-.brand img{width:auto;height:36px}
-.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
-.nav-links a{display:inline-block;color:var(--mute);font-size:.88rem;padding:8px 10px;border-radius:8px;white-space:nowrap}
-.nav-links a:hover{color:var(--ice);background:var(--panel);text-decoration:none}
-.nav-links a[aria-current="page"]{color:var(--teal)}
-.nav-links .nav-cta{background:var(--teal);color:var(--bg);font-weight:600;font-family:var(--display);padding:8px 16px;margin-left:6px}
-.nav-links .nav-cta:hover{background:var(--teal);color:var(--bg);box-shadow:0 6px 20px rgba(46,196,182,.3)}
+/* ---------- SHARED SITE HEADER (styles come from style.css) ---------- */
+.profile-page .site-header{border-bottom:1px solid rgba(89,172,187,.16);background:rgba(6,18,26,.86);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.profile-page .portfolio-footer{flex-wrap:wrap;gap:8px 16px}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;padding:56px 0 48px;overflow:hidden}
+.hero{position:relative;padding:176px 0 48px;overflow:hidden}
 .hero::before{
   content:"";position:absolute;inset:0;
   background:
@@ -128,10 +118,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offse
     radial-gradient(400px 240px at 0% 100%,rgba(46,196,182,.07),transparent 70%);
   pointer-events:none;
 }
-.dots{position:absolute;top:40px;right:24px;width:140px;height:90px;
+.dots{position:absolute;top:166px;right:24px;width:140px;height:90px;
   background-image:radial-gradient(var(--teal-dim) 1.4px,transparent 1.4px);
   background-size:16px 16px;opacity:.45;pointer-events:none}
-.hero-grid{display:flex;gap:40px;align-items:center;position:relative}
+.profile-hero-grid{display:flex;gap:40px;align-items:center;position:relative}
 .avatar{flex-shrink:0;width:150px;height:150px;border-radius:50%;
   border:2px solid var(--teal);padding:5px;
   box-shadow:0 0 44px rgba(46,196,182,.28)}
@@ -225,19 +215,6 @@ h2 .glyph{font-family:var(--mono);color:var(--teal);font-size:1rem}
 .btn-ghost{background:transparent;color:var(--ice);border:1px solid var(--teal-dim)}
 .btn-ghost:hover{border-color:var(--teal);box-shadow:none}
 
-/* ---------- FOOTER ---------- */
-footer{border-top:1px solid var(--line);padding:30px 0 40px;text-align:center}
-.foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;list-style:none;margin-bottom:22px;font-size:.88rem}
-.foot-links a{color:var(--ice)}
-.foot-links a:hover{color:var(--teal)}
-.foot-social{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;list-style:none;margin-bottom:22px;font-size:.82rem}
-.foot-social a{color:var(--mute)}
-.foot-social a:hover{color:var(--teal)}
-.motto{font-family:var(--mono);font-size:.82rem;color:var(--mute);display:flex;
-  flex-wrap:wrap;gap:8px 20px;justify-content:center}
-.motto span::before{content:"—";color:var(--teal);margin-right:8px}
-.copy{margin-top:18px;font-size:.75rem;color:var(--mute);opacity:.7}
-
 /* ---------- REVEAL ---------- */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -249,52 +226,46 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px;text-align:center}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:760px){
-  .hero{padding-top:52px}
-  .hero-grid{flex-direction:column;text-align:center;gap:24px}
+  .hero{padding-top:140px}
+  .profile-hero-grid{flex-direction:column;text-align:center;gap:24px}
   .chips{justify-content:center}
   .tagline{margin-left:auto;margin-right:auto}
   .proof{grid-template-columns:repeat(2,1fr)}
   .stackline{font-size:.82rem;gap:6px 14px}
   .stackline span::after{margin-left:14px}
   .sec-head{flex-direction:column;align-items:flex-start;gap:6px}
-  .site-head .wrap{flex-wrap:wrap;gap:0 12px;padding-top:10px;padding-bottom:6px;min-height:0}
-  .site-head nav{width:calc(100% + 32px);overflow-x:auto;scrollbar-width:none;margin:4px -16px 0;padding:0 8px}
-  .site-head nav::-webkit-scrollbar{display:none}
-  .nav-links{gap:0;justify-content:space-between;min-width:max-content}
-  .nav-links a{padding:8px 8px;font-size:.84rem}
-  .nav-links li:first-child,.nav-links li:last-child{display:none}
-  .mobile-cta{display:inline-block !important}
-  .hero{padding-top:36px}
   .cta{padding:40px 20px}
   .cta-actions{flex-direction:column;align-items:stretch}
+  .dots{top:110px}
 }
-.mobile-cta{display:none;background:var(--teal);color:var(--bg);font-weight:600;font-family:var(--display);
-  font-size:.82rem;padding:7px 14px;border-radius:8px;white-space:nowrap}
-.mobile-cta:hover{text-decoration:none}
 </style>
 </head>
-<body>
+<body class="profile-page">
 
-<!-- ═══════════ SITE HEADER ═══════════ -->
-<header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="AI SaaS with Mustafa home">
-      <img src="/assets/img/logo-2-128.webp" width="128" height="156" alt="" decoding="async"/>
-      AI SaaS with Mustafa
-    </a>
-    <a class="mobile-cta" href="#contact">Hire me</a>
-    <nav aria-label="Main">
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/ai-saas-development-services.html">Services</a></li>
-        <li><a href="/portfolio.html">Projects</a></li>
-        <li><a href="/blog/index.html">Blog</a></li>
-        <li><a href="/tools/index.html">Free Tools</a></li>
-        <li><a href="/profile.html" aria-current="page">About</a></li>
-        <li><a class="nav-cta" href="#contact">Hire me</a></li>
-      </ul>
-    </nav>
-  </div>
+<!-- ═══════════ SITE HEADER (shared with the other pages) ═══════════ -->
+<header class="site-header fixed top-0 left-0 right-0 z-50 fixed-height-header font-sans">
+    <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+            <img src="/assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156" class="logo-img-class">
+        </a>
+
+        <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false" class="md:hidden text-white focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <nav id="mainNav" class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4 md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+            <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank" rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img class="up-img" src="/assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56" alt="Upwork"></a>
+            <a href="/ai-saas-development-services.html" class="text-gray-300 hover:text-primary">Services</a>
+            <a href="/portfolio.html" class="text-gray-300 hover:text-primary">Projects</a>
+            <a href="/blog/index.html" class="text-gray-300 hover:text-primary">Blog</a>
+            <a href="/tools/index.html" class="text-gray-300 hover:text-primary">Free Tools</a>
+            <a href="/#about" class="text-gray-300 hover:text-primary">About</a>
+            <a href="/assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf" class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+            <a href="#contact" class="nav-project-cta px-4 py-2 text-white rounded font-bold transition">Start a Project</a>
+        </nav>
+    </div>
 </header>
 
 <main>
@@ -302,7 +273,7 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px;text-align:center}
 <section class="hero">
   <div class="dots" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="hero-grid">
+    <div class="profile-hero-grid">
       <div class="avatar">
         <!-- Replace src with your photo, e.g. assets/me.jpg -->
         <img src="https://github.com/m-mustufa.png" alt="Muhammad Mustufa" width="150" height="150"/>
@@ -470,29 +441,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 40px;text-align:center}
 </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <nav aria-label="Footer">
-      <ul class="foot-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/ai-saas-development-services.html">AI SaaS Development</a></li>
-        <li><a href="/full-stack-development-services-dubai.html">UAE &amp; GCC Development</a></li>
-        <li><a href="/portfolio.html">Projects</a></li>
-        <li><a href="/blog/index.html">Blog</a></li>
-        <li><a href="/tools/index.html">Free Tools</a></li>
-      </ul>
-    </nav>
-    <ul class="foot-social">
-      <li><a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-      <li><a href="https://github.com/m-mustufa" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-      <li><a href="https://www.upwork.com/freelancers/mustafafullstack" target="_blank" rel="noopener noreferrer">Upwork</a></li>
-      <li><a href="https://contra.com/muhammad_mustafa_hg8nbcx2" target="_blank" rel="noopener noreferrer">Contra</a></li>
-    </ul>
-    <div class="motto">
-      <span>Clean Code</span><span>Scalable Architecture</span><span>Great User Experience</span>
-    </div>
-    <div class="copy">© 2026 Muhammad Mustufa</div>
-  </div>
+<footer class="portfolio-footer font-sans">
+    <p>&copy; 2026 Muhammad Mustufa.</p>
+    <a href="/">Back to home <span aria-hidden="true">&uarr;</span></a>
 </footer>
 
 <script>
