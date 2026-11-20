@@ -1,10 +1,10 @@
 [
   {
     "slug": "big-o-calculator-javascript",
-    "title": "Big O Calculator for JavaScript: Time and Space Complexity",
-    "metaDescription": "Use a Big O calculator for JavaScript the right way: read time and space complexity from loops, array and string methods, with real code examples.",
+    "title": "Big O Notation in JavaScript: Time and Space Complexity",
+    "metaDescription": "Learn Big O notation in JavaScript with real code: read time and space complexity from loops, array and string methods, and see where a calculator helps.",
     "heroImageFile": "big-o-calculator-javascript-time-complexity-hero.jpg",
-    "heroImageAlt": "Software developer reviewing JavaScript code on a laptop to estimate time complexity with a Big O calculator",
+    "heroImageAlt": "Software developer reviewing JavaScript code on a laptop to work out its Big O time complexity",
     "heroVideoFile": "",
     "heroVideoAlt": "",
     "publishDate": "November 12, 2026",
@@ -12,11 +12,11 @@
     "readingTime": 9,
     "category": "Web Engineering",
     "tags": [
-      "Big O Calculator",
       "Big O Notation",
+      "JavaScript",
       "Time Complexity",
       "Space Complexity",
-      "JavaScript"
+      "Complexity Coach"
     ],
     "relatedSlugs": [
       "scalable-nodejs-apis-modern-saas-2026",
@@ -173,8 +173,8 @@
   },
   {
     "slug": "firestore-vs-supabase-offline-first-react-apps",
-    "title": "Firestore vs Supabase for Offline-First React Apps",
-    "metaDescription": "Compare Firestore and Supabase for offline-first React apps, including sync, security, data modelling, costs, lock-in and production trade-offs.",
+    "title": "Supabase vs Firebase for Offline-First React Apps",
+    "metaDescription": "Supabase vs Firebase for offline-first React apps: compare sync, security, data modelling, costs and lock-in, with trade-offs from real production projects.",
     "heroImageFile": "firestore-vs-supabase-offline-first-react-apps.jpg",
     "heroImageAlt": "Developer comparing Firestore and Supabase for an offline-first React application",
     "heroVideoFile": "",
@@ -184,10 +184,10 @@
     "readingTime": 8,
     "category": "Web Engineering",
     "tags": [
+      "Supabase vs Firebase",
       "Firestore",
       "Supabase",
       "Offline-First React",
-      "Firebase",
       "PostgreSQL"
     ],
     "relatedSlugs": [
@@ -404,8 +404,8 @@
   },
   {
     "slug": "mcp-server-security-uae-ai-saas",
-    "title": "MCP Server Security Checklist for UAE AI SaaS (2026)",
-    "metaDescription": "Secure an MCP server for UAE AI SaaS with OAuth, least privilege, tool approval, tenant isolation, audit logs, abuse testing and safe production rollout.",
+    "title": "MCP Server Security Checklist for AI SaaS (2026)",
+    "metaDescription": "A practical MCP server security checklist for AI SaaS teams: OAuth, least privilege, tool approval, tenant isolation, audit logs and abuse testing before launch.",
     "heroImageFile": "mcp-server-security-uae-ai-saas.jpg",
     "heroImageAlt": "Empty UAE technology office with a laptop, security key and enterprise server racks",
     "publishDate": "October 8, 2026",
@@ -416,7 +416,7 @@
     "tags": [
       "MCP Server Security",
       "Model Context Protocol",
-      "AI Agent Security UAE",
+      "AI Agent Security",
       "Enterprise AI",
       "Node.js MCP"
     ],
@@ -425,7 +425,7 @@
       "openai-agents-api-saas-production-guide",
       "uae-pdpl-compliance-saas"
     ],
-    "serviceLandingPage": "/full-stack-development-services-dubai.html"
+    "serviceLandingPage": "/ai-saas-development-services.html"
   },
   {
     "slug": "uae-wcag-2-2-website-accessibility-checklist",
@@ -580,8 +580,8 @@
   },
   {
     "slug": "openai-agents-api-saas-production-guide",
-    "title": "OpenAI Agents API vs Agents SDK: SaaS Production Guide",
-    "metaDescription": "Compare the OpenAI Agents API and Agents SDK, then build a production SaaS agent with secure tools, approval gates, tracing, cost controls and rollout plans.",
+    "title": "OpenAI Agents SDK vs Agents API: SaaS Production Guide",
+    "metaDescription": "Compare the OpenAI Agents SDK and the new Agents API, then build a production SaaS agent with secure tools, approval gates, tracing, cost controls and rollout.",
     "heroImageFile": "openai-agents-api-saas-production-readiness-architecture.jpg",
     "heroImageAlt": "OpenAI Agents API architecture for a SaaS product showing business data, tools, secure sandbox, human approval and workflow tracing",
     "publishDate": "September 14, 2026",
@@ -590,8 +590,8 @@
     "readingTime": 8,
     "category": "AI & Automation",
     "tags": [
-      "OpenAI Agents API",
       "OpenAI Agents SDK",
+      "OpenAI Agents API",
       "AI Agents",
       "SaaS Development",
       "Agent Security",
@@ -823,20 +823,20 @@
   },
   {
     "slug": "extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization",
-    "title": "ExtJS/AngularJS to Angular 19: Enterprise Migration Guide",
-    "metaDescription": "Plan an ExtJS or AngularJS migration to Angular 19 with staged releases, dependency upgrades, parity testing and a safer enterprise dashboard rollout.",
+    "title": "Angular Upgrade Guide: ExtJS and AngularJS to Modern Angular",
+    "metaDescription": "An Angular upgrade guide for enterprise dashboards: move off ExtJS or AngularJS, upgrade one major version at a time and test parity before each release.",
     "heroImageAlt": "ExtJS and AngularJS enterprise dashboard migrating to a modern Angular 19 interface",
     "publishDate": "July 17, 2026",
     "publishDateIso": "2026-07-17T17:50:07+05:00",
-    "modifiedDateIso": "2026-10-21T00:00:00.000Z",
+    "modifiedDateIso": "2026-11-20T00:00:00.000Z",
     "readingTime": 6,
     "category": "Web Engineering",
     "tags": [
+      "Angular Upgrade",
       "Angular Migration",
       "AngularJS",
       "ExtJS",
-      "Enterprise Dashboard",
-      "Modernization"
+      "Enterprise Dashboard"
     ],
     "relatedSlugs": [
       "nextjs-security-checklist-2026",
