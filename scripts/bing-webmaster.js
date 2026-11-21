@@ -9,6 +9,9 @@
 //   node scripts/bing-webmaster.js related "<phrase>" [--country us] [--language en-US] [--months 3]
 //   node scripts/bing-webmaster.js queries [--site https://aisaaswithmustafa.com/]
 //   node scripts/bing-webmaster.js pages   [--site https://aisaaswithmustafa.com/]
+//   node scripts/bing-webmaster.js links   [--url <page on the site>] [--page 0]
+//     Without --url: inbound link counts per page Bing knows about.
+//     With --url: the external pages (and anchor text) linking to that page.
 
 const { execFileSync } = require("child_process");
 
@@ -104,8 +107,13 @@ async function main() {
     result = await callApi("GetQueryStats", { siteUrl: site }, apiKey);
   } else if (command === "pages") {
     result = await callApi("GetPageStats", { siteUrl: site }, apiKey);
+  } else if (command === "links") {
+    const page = args.page || 0;
+    result = args.url
+      ? await callApi("GetUrlLinks", { siteUrl: site, link: args.url, page }, apiKey)
+      : await callApi("GetLinkCounts", { siteUrl: site, page }, apiKey);
   } else {
-    throw new Error("Commands: sites | keyword <phrase> | related <phrase> | queries | pages");
+    throw new Error("Commands: sites | keyword <phrase> | related <phrase> | queries | pages | links [--url <page>]");
   }
 
   console.log(JSON.stringify(result, null, 2));
