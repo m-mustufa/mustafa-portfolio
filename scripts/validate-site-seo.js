@@ -120,8 +120,8 @@ for (const page of pages) {
 }
 
 const serviceLandingPages = [
-  { file: "full-stack-development-services-dubai.html", analyticsName: "uae-full-stack-development" },
-  { file: "ai-saas-development-services.html", analyticsName: "ai-saas-development" },
+  { file: "full-stack-development-services-dubai.html", analyticsName: "uae-full-stack-development", ctaCount: 4 },
+  { file: "ai-saas-development-services.html", analyticsName: "ai-saas-development", ctaCount: 10, pricing: true },
 ];
 
 for (const landingPage of serviceLandingPages) {
@@ -136,8 +136,17 @@ for (const landingPage of serviceLandingPages) {
   if (!landingHtml.includes(`data-service-page="${landingPage.analyticsName}"`)) {
     errors.push(`${landingFile}: service-page analytics identity is missing`);
   }
-  if (countMatches(landingHtml, /data-service-cta=/g) !== 4) {
-    errors.push(`${landingFile}: expected four tracked service CTAs`);
+  if (countMatches(landingHtml, /data-service-cta=/g) !== landingPage.ctaCount) {
+    errors.push(`${landingFile}: expected ${landingPage.ctaCount} tracked service CTAs`);
+  }
+  if (landingPage.pricing) {
+    if (!landingHtml.includes('id="pricing"')) errors.push(`${landingFile}: pricing section is missing`);
+    if (countMatches(landingHtml, /data-cta-location="pricing-/g) !== 6) {
+      errors.push(`${landingFile}: expected six tracked pricing CTAs`);
+    }
+    if (!/"@type":\s*"OfferCatalog"/.test(landingHtml) || !landingHtml.includes('"priceCurrency": "USD"')) {
+      errors.push(`${landingFile}: USD OfferCatalog structured data is missing`);
+    }
   }
   if (!landingHtml.includes('data-service-cta="contact" data-cta-location="header"')) {
     errors.push(`${landingFile}: header contact CTA tracking is missing`);
