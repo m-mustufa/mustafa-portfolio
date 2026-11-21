@@ -19,6 +19,11 @@ const pages = [
     primaryPhrase: "ai saas development services",
   },
   {
+    file: "pricing.html",
+    canonical: `${SITE_URL}/pricing.html`,
+    primaryPhrase: "web development pricing",
+  },
+  {
     file: "cultureai-case-study.html",
     canonical: `${SITE_URL}/cultureai-case-study.html`,
     primaryPhrase: "cultureai case study",
@@ -120,8 +125,8 @@ for (const page of pages) {
 }
 
 const serviceLandingPages = [
-  { file: "full-stack-development-services-dubai.html", analyticsName: "uae-full-stack-development", ctaCount: 4 },
-  { file: "ai-saas-development-services.html", analyticsName: "ai-saas-development", ctaCount: 10, pricing: true },
+  { file: "full-stack-development-services-dubai.html", analyticsName: "uae-full-stack-development" },
+  { file: "ai-saas-development-services.html", analyticsName: "ai-saas-development" },
 ];
 
 for (const landingPage of serviceLandingPages) {
@@ -136,17 +141,8 @@ for (const landingPage of serviceLandingPages) {
   if (!landingHtml.includes(`data-service-page="${landingPage.analyticsName}"`)) {
     errors.push(`${landingFile}: service-page analytics identity is missing`);
   }
-  if (countMatches(landingHtml, /data-service-cta=/g) !== landingPage.ctaCount) {
-    errors.push(`${landingFile}: expected ${landingPage.ctaCount} tracked service CTAs`);
-  }
-  if (landingPage.pricing) {
-    if (!landingHtml.includes('id="pricing"')) errors.push(`${landingFile}: pricing section is missing`);
-    if (countMatches(landingHtml, /data-cta-location="pricing-/g) !== 6) {
-      errors.push(`${landingFile}: expected six tracked pricing CTAs`);
-    }
-    if (!/"@type":\s*"OfferCatalog"/.test(landingHtml) || !landingHtml.includes('"priceCurrency": "USD"')) {
-      errors.push(`${landingFile}: USD OfferCatalog structured data is missing`);
-    }
+  if (countMatches(landingHtml, /data-service-cta=/g) !== 4) {
+    errors.push(`${landingFile}: expected four tracked service CTAs`);
   }
   if (!landingHtml.includes('data-service-cta="contact" data-cta-location="header"')) {
     errors.push(`${landingFile}: header contact CTA tracking is missing`);
@@ -197,6 +193,16 @@ if (!sitemap.includes(`${SITE_URL}/full-stack-development-services-dubai.html`))
 if (!sitemap.includes(`${SITE_URL}/ai-saas-development-services.html`)) {
   errors.push("sitemap.xml: global AI SaaS service landing page is missing");
 }
+if (!sitemap.includes(`${SITE_URL}/pricing.html`)) errors.push("sitemap.xml: pricing page is missing");
+if (!homeHtml.includes('href="/pricing.html"')) errors.push("index.html: pricing page is not internally linked");
+{
+  const pricingHtml = fs.readFileSync(path.join(ROOT, "pricing.html"), "utf8");
+  if (!/"@type":\s*"OfferCatalog"/.test(pricingHtml) || !pricingHtml.includes('"priceCurrency": "USD"')) {
+    errors.push("pricing.html: USD OfferCatalog structured data is missing");
+  }
+  if (!/"@type":\s*"FAQPage"/.test(pricingHtml)) errors.push("pricing.html: FAQPage structured data is missing");
+  if (countMatches(pricingHtml, /data-cta-location="pricing-/g) !== 6) errors.push("pricing.html: expected six tracked package CTAs");
+}
 for (const caseStudy of ["cultureai-case-study.html", "bwl-league-case-study.html"]) {
   if (!sitemap.includes(`${SITE_URL}/${caseStudy}`)) errors.push(`sitemap.xml: ${caseStudy} is missing`);
   if (!homeHtml.includes(`href="/${caseStudy}"`)) errors.push(`index.html: ${caseStudy} is not internally linked`);
@@ -233,6 +239,7 @@ const legacyHostnameFiles = [
   "full-stack-development-services-dubai.html",
   "cultureai-case-study.html",
   "bwl-league-case-study.html",
+  "pricing.html",
   "tools/index.html",
   "tools/upwork-proposal-roast.html",
   "tools/complexity-coach/index.html",
