@@ -288,10 +288,10 @@ document.addEventListener("DOMContentLoaded", () => {
         image: "assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner-600w.jpg",
         alt: "CultureAI employee engagement SaaS dashboard and survey analytics",
         badges: [
-          ["nextdotjs", "Next.js", "Product UI"],
           ["react", "React", "Interface"],
-          ["nodedotjs", "Node.js", "API layer"],
-          ["supabase", "Supabase", "Auth + data"],
+          ["nodedotjs", "Node.js", "Express API"],
+          ["mongodb", "MongoDB", "Data"],
+          ["shield", "Clerk", "Auth + roles"],
           ["stripe", "Stripe", "Billing"],
           ["ai", "OpenAI", "Intelligence"],
         ],

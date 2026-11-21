@@ -56,7 +56,7 @@
     },
     {
       terms: ["supabase", "postgres", "database", "rls", "authentication", "rbac", "permission"],
-      answer: "I build tenant-aware data and access layers with Supabase, PostgreSQL, Row Level Security, authentication and RBAC. CultureAI and BWL League both required multi-role product flows rather than a simple single-user database."
+      answer: "I build tenant-aware data and access layers with Supabase, PostgreSQL, MongoDB, Row Level Security, authentication and RBAC. BWL League uses Supabase Row Level Security for admins, coaches and teams, while CultureAI keeps each company in its own workspace on MongoDB with role-based access."
     },
     {
       terms: ["backend", "api", "node.js", "nodejs", "integration"],
