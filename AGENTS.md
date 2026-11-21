@@ -11,7 +11,18 @@ Static HTML portfolio site for Muhammad Mustafa (Full-Stack SaaS Engineer). No f
 - Hosted on **Netlify**, deployed automatically on push to `main`
 - Git remote is **Bitbucket** (`origin`), not GitHub
 
-## Build step (the one exception to "no framework")
+## Astro build: shared header and footer (branch `astro-migration`, started 2026-11-21)
+
+The pages are still hand-written HTML at their public paths (`index.html`, `pricing.html`, `blog/*.html`, `tools/*.html`), but they are no longer published as-is. Astro (`astro.config.mjs`, `build.format: "preserve"`) renders each one into `dist/` at the exact same URL:
+
+- Each page has `<!--@site-header-->` and `<!--@site-footer-->` markers where its header and footer used to be. `src/components/LegacyPage.astro` swaps them for `src/components/SiteHeader.astro` and `src/components/SiteFooter.astro`. **Edit the nav or footer only in those two components**; never paste header/footer markup back into a page. `blog/_template.html` carries the markers too, so new posts inherit them.
+- `src/lib/legacy.mjs` sets the active nav link, the homepage `#about`/`#contact` anchors, header CTA tracking (pages whose `<body>` has `data-service-page`), adds a content hash `?v=` to every local CSS/JS reference (stale cached CSS once broke the live nav), inlines `src/components/site-footer.css`, and swaps `robots` to `noindex, nofollow` on any Netlify context other than production.
+- Static files are copied into `dist/` by `src/lib/copy-static.mjs` (assets, blog images, feed, posts.json, sitemap, robots, `_redirects`, `_headers`, verification files and `social/`, which the LinkedIn and DEV scheduled functions read live). Add any new public non-page file there.
+- Netlify runs `npm run build` and publishes `dist/` (`netlify.toml`, Node 22.15). Functions and the IndexNow/LinkedIn plugins are unchanged; they read the repo sources and git history.
+- `npm run validate:site-seo` builds first and validates `dist/`. `npm run parity` (`scripts/parity-check.js [git-ref]`) compares every page of a git ref (default `main`) with `dist/`: SEO tags, JSON-LD, headings, body text, links, images, static files, sitemap URLs and every local reference. Use it after any build change.
+- Complexity Coach ships its own compiled CSS, so the header uses `md:space-x-6` for it (variant `coach`) and the footer uses plain CSS rather than Tailwind utilities.
+
+## Build step (Tailwind)
 
 Tailwind CSS is **precompiled**, not loaded from a CDN (it was originally, but that's a 124 KiB render-blocking script — see git log for the perf pass that removed it).
 

@@ -1,0 +1,50 @@
+---
+// The one site footer. Edit links here and every page updates on build.
+// Styles live in site-footer.css (inlined into each page head by legacy.mjs).
+interface Props {
+  isHome?: boolean;
+  name?: string;
+}
+
+const { isHome = false, name = "Muhammad Mustafa" } = Astro.props;
+
+const explore = [
+  { href: "/ai-saas-development-services.html", label: "Services" },
+  { href: "/pricing.html", label: "Pricing" },
+  { href: "/portfolio.html", label: "Projects" },
+  { href: "/blog/index.html", label: "Blog" },
+  { href: "/tools/index.html", label: "Free Tools" },
+  { href: isHome ? "#contact" : "/#contact", label: "Contact" },
+];
+
+const profiles = [
+  { href: "https://www.linkedin.com/in/muhammad-mustafa-16477a99/", label: "LinkedIn" },
+  { href: "https://github.com/m-mustufa", label: "GitHub" },
+  { href: "https://www.upwork.com/freelancers/mustafafullstack", label: "Upwork" },
+  { href: "https://clutch.co/profile/ai-saas-mustafa", label: "Clutch" },
+];
+---
+<footer class="site-footer">
+      <div class="site-footer__grid">
+        <div>
+          <a href="/" class="site-footer__brand">Muhammad Mustafa</a>
+          <p class="site-footer__about">Full-stack SaaS and AI developer building websites, Shopify stores, AI chatbots and custom web apps for clients worldwide.</p>
+        </div>
+        <nav aria-label="Footer">
+          <p class="site-footer__title">Explore</p>
+          <ul class="site-footer__links">
+            {explore.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+          </ul>
+        </nav>
+        <div>
+          <p class="site-footer__title">Find me on</p>
+          <ul class="site-footer__profiles">
+            {profiles.map((link) => <li><a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a></li>)}
+          </ul>
+          <a href="https://techbehemoths.com/company/ai-saas-with-mustafa" target="_blank" rel="noopener noreferrer" data-techbehemoths-verification class="site-footer__badge">
+            <img src="https://cdn.techbehemoths.com/public/static/validation/tb-verified-logo.svg" width="123" height="40" alt="AI SaaS with Mustafa verified on TechBehemoths" loading="lazy" decoding="async">
+          </a>
+        </div>
+      </div>
+      <p class="site-footer__copy">&copy; 2026 {name}.</p>
+    </footer>

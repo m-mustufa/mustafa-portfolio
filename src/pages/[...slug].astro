@@ -1,0 +1,11 @@
+---
+import LegacyPage from "../components/LegacyPage.astro";
+import { slugPages } from "../lib/legacy.mjs";
+
+export function getStaticPaths() {
+  return slugPages();
+}
+
+const { file } = Astro.props;
+---
+<LegacyPage file={file} />

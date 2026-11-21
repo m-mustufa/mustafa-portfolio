@@ -1,0 +1,12 @@
+---
+import SiteFooter from "./SiteFooter.astro";
+import SiteHeader from "./SiteHeader.astro";
+import { loadPage } from "../lib/legacy.mjs";
+
+interface Props {
+  file: string;
+}
+
+const page = loadPage(Astro.props.file);
+---
+<Fragment set:html={page.before} />{page.header && <SiteHeader {...page.header} />}<Fragment set:html={page.middle} />{page.footer && <SiteFooter {...page.footer} />}<Fragment set:html={page.after} />

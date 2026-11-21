@@ -1,0 +1,16 @@
+/* Inlined into every page's <head> by src/lib/legacy.mjs, so the footer looks
+   the same on pages that ship their own CSS (for example Complexity Coach). */
+.site-footer { border-top: 1px solid #1f2937; background: #111827; color: #9ca3af; font-size: 0.875rem; line-height: 1.25rem; }
+.site-footer a { color: inherit; text-decoration: none; transition: color 0.15s ease; }
+.site-footer a:hover, .site-footer a:focus-visible { color: #fff; }
+.site-footer__grid { box-sizing: border-box; max-width: 72rem; margin: 0 auto; display: grid; gap: 2rem; padding: 2.5rem 1rem; text-align: left; }
+@media (min-width: 768px) { .site-footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.site-footer__brand { font-size: 1.125rem; line-height: 1.75rem; font-weight: 700; color: #fff !important; }
+.site-footer__about { margin: 0.75rem 0 0; line-height: 1.625; }
+.site-footer__title { margin: 0 0 0.75rem; font-weight: 600; color: #fff; }
+.site-footer__links, .site-footer__profiles { list-style: none; margin: 0; padding: 0; }
+.site-footer__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+.site-footer__profiles { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
+.site-footer__badge { display: inline-block; margin-top: 1.25rem; border-radius: 0.5rem; background: #fff; padding: 0.5rem 0.75rem; }
+.site-footer__badge img { display: block; max-width: 100%; height: auto; }
+.site-footer__copy { margin: 0; border-top: 1px solid #1f2937; padding: 1.25rem 1rem; text-align: center; font-size: 0.75rem; }

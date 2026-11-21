@@ -6,6 +6,8 @@
 # Node artifact files
 node_modules/
 dist/
+# Astro generated types
+.astro/
 
 # Compiled Java class files
 *.class

@@ -3,7 +3,14 @@
 const fs = require("fs");
 const path = require("path");
 
-const ROOT = path.join(__dirname, "..");
+// Pages are validated as published: the Astro build in dist/ (run `npm run build`
+// first). Source-only files such as blog/_template.html are read from the repo.
+const SOURCE_ROOT = path.join(__dirname, "..");
+const ROOT = path.join(SOURCE_ROOT, "dist");
+if (!fs.existsSync(path.join(ROOT, "index.html"))) {
+  console.error("dist/ is missing. Run `npm run build` before validating the site.");
+  process.exit(1);
+}
 const SITE_URL = "https://aisaaswithmustafa.com";
 const errors = [];
 const pages = [
@@ -251,7 +258,8 @@ const legacyHostnameFiles = [
   "sitemap.xml",
 ];
 for (const file of legacyHostnameFiles) {
-  const contents = fs.readFileSync(path.join(ROOT, file), "utf8");
+  const base = fs.existsSync(path.join(ROOT, file)) ? ROOT : SOURCE_ROOT;
+  const contents = fs.readFileSync(path.join(base, file), "utf8");
   if (contents.includes("mustcode.netlify.app")) {
     errors.push(`${file}: contains the legacy production hostname`);
   }

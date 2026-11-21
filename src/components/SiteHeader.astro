@@ -1,0 +1,58 @@
+---
+// The one site header. Edit nav links here and every page updates on build.
+interface Props {
+  isHome?: boolean;
+  active?: string;
+  trackCta?: boolean;
+  variant?: "default" | "service" | "profile" | "coach";
+}
+
+const { isHome = false, active, trackCta = false, variant = "default" } = Astro.props;
+
+const baseClass = "site-header fixed top-0 left-0 right-0 z-50 fixed-height-header";
+const headerClass = {
+  default: baseClass,
+  service: "site-header ai-service-header fixed top-0 left-0 right-0 z-50 fixed-height-header",
+  profile: `${baseClass} font-sans`,
+  coach: baseClass,
+}[variant];
+
+// Complexity Coach ships its own compiled CSS, which only has md:space-x-6.
+const navSpacing = variant === "coach" ? "md:space-x-6" : "md:space-x-3 lg:space-x-6";
+const navClass = `hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4 md:flex md:static md:flex-row md:items-center md:space-y-0 ${navSpacing} md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition`;
+
+const links = [
+  { key: "services", href: "/ai-saas-development-services.html", label: "Services" },
+  { key: "pricing", href: "/pricing.html", label: "Pricing" },
+  { key: "projects", href: "/portfolio.html", label: "Projects" },
+  { key: "blog", href: "/blog/index.html", label: "Blog" },
+  { key: "tools", href: "/tools/index.html", label: "Free Tools" },
+  { key: "about", href: isHome ? "#about" : "/#about", label: "About" },
+];
+---
+<header class={headerClass}>
+      <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+          <img src="/assets/img/logo-2-128.webp" width="128" height="156" alt="Muhammad Mustafa logo" fetchpriority={isHome ? "high" : undefined} decoding={isHome ? "async" : undefined} class="logo-img-class">
+        </a>
+
+        <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav" aria-expanded="false" class="md:hidden text-white focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <nav id="mainNav" class={navClass}>
+          <a href="https://www.upwork.com/freelancers/mustafafullstack?mp_source=share" target="_blank" rel="noopener noreferrer" class="nav-upwork text-gray-300 hover:text-primary transition">Hire me on <img class="up-img" src="/assets/img/mustafa-full-stack-saas-engineer-upwork.png" width="204" height="56" alt="Upwork"></a>
+          {links.map((link) =>
+            active === link.key ? (
+              <a href={link.href} class="text-cyan-300" aria-current="page">{link.label}</a>
+            ) : (
+              <a href={link.href} class="text-gray-300 hover:text-primary transition">{link.label}</a>
+            )
+          )}
+          <a href="/assets/docs/Full-Stack-Engineer-Mustafa.pdf" target="_blank" rel="noopener noreferrer" download="Full-Stack-Engineer-Mustafa.pdf" class="nav-cv text-gray-300 hover:text-white transition">Download CV</a>
+          <a href={isHome ? "#contact" : "/#contact"} data-service-cta={trackCta ? "contact" : undefined} data-cta-location={trackCta ? "header" : undefined} class="nav-project-cta px-4 py-2 text-white rounded font-bold transition text-center">Start a Project</a>
+        </nav>
+      </div>
+    </header>

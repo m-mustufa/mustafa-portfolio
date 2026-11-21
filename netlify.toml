@@ -1,3 +1,13 @@
+# Pages are hand-written HTML rendered through Astro (shared header/footer)
+# into dist/. See astro.config.mjs and src/components/.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Astro 7.3 needs Node 22.12 or newer.
+  NODE_VERSION = "22.15.0"
+
 [build.processing.html]
   # Preserve the explicit .html canonical URLs used by metadata, the sitemap,
   # source links, and _redirects instead of rewriting links to pretty aliases.
