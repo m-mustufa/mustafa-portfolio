@@ -1,5 +1,35 @@
 [
   {
+    "slug": "saas-mvp-cost",
+    "title": "How Much Does a SaaS MVP Cost in 2026? A Real Breakdown",
+    "metaDescription": "SaaS MVP cost in 2026: a developer breaks down build cost by feature, monthly running costs, and how freelancers, agencies and no-code tools compare.",
+    "heroImageFile": "saas-mvp-cost-hero.jpg",
+    "heroImageAlt": "Startup founder planning a SaaS MVP budget with a laptop and notebook",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 22, 2026",
+    "publishDateIso": "2026-11-21T20:25:03.386Z",
+    "readingTime": 8,
+    "category": "SaaS Engineering",
+    "tags": [
+      "SaaS MVP Cost",
+      "MVP Development",
+      "SaaS Development",
+      "Startup Budget",
+      "Stripe Billing"
+    ],
+    "relatedSlugs": [
+      "stripe-per-seat-billing-multi-tenant-saas",
+      "firestore-vs-supabase-offline-first-react-apps",
+      "openai-claude-gemini-api-pricing"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html",
+    "socialImageFile": "saas-mvp-cost-social.jpg",
+    "socialImageWidth": 1200,
+    "socialImageHeight": 627,
+    "socialImageAlt": "Guide card: How much does a SaaS MVP cost in 2026, with a feature-by-feature cost breakdown"
+  },
+  {
     "slug": "big-o-calculator-javascript",
     "title": "Big O Notation in JavaScript: Time and Space Complexity",
     "metaDescription": "Learn Big O notation in JavaScript with real code: read time and space complexity from loops, array and string methods, and see where a calculator helps.",

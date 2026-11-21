@@ -56,5 +56,24 @@
       "WebDevelopment"
     ],
     "publishAt": "2026-11-18T23:00:00+05:00"
+  },
+  "/blog/saas-mvp-cost.html": {
+    "hook": "Every SaaS MVP quote is a range. I wrote down the feature list behind the number.",
+    "intro": "A practical breakdown of what a SaaS MVP costs in 2026: build cost by feature, the monthly bill after launch, and when a freelancer, agency or no-code tool fits.",
+    "points": [
+      "Roles and billing take longer than most founders expect",
+      "Test for almost nothing, then about $65 a month on paid plans",
+      "6 questions to ask before you compare two quotes"
+    ],
+    "hashtags": [
+      "SaaS",
+      "MVP",
+      "Startups",
+      "Founders",
+      "ProductDevelopment",
+      "SoftwareDevelopment",
+      "WebDevelopment"
+    ],
+    "publishAt": "2026-11-24T14:00:00+05:00"
   }
 }
