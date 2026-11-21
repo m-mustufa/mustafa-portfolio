@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/img/logo-2-48.png" sizes="48x48" />
+
+    <title>CultureAI Case Study: Multi-Tenant AI SaaS with Stripe</title>
+    <meta name="description"
+        content="How I built CultureAI solo: a multi-tenant AI employee engagement SaaS with anonymous pulse surveys, AI summaries, RBAC and Stripe per-seat billing.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/cultureai-case-study.html">
+
+    <meta property="og:title" content="CultureAI Case Study: Multi-Tenant AI SaaS with Stripe">
+    <meta property="og:description"
+        content="How I designed, built and run CultureAI solo: anonymous pulse surveys, AI summaries, tenant isolation and Stripe per-seat billing that stays in sync.">
+    <meta property="og:image"
+        content="https://aisaaswithmustafa.com/assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="800">
+    <meta property="og:image:alt" content="CultureAI AI employee engagement SaaS dashboard, survey and AI summary screens">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/cultureai-case-study.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-21T00:00:00+05:00">
+    <meta property="article:author" content="Muhammad Mustafa">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CultureAI Case Study: Multi-Tenant AI SaaS with Stripe">
+    <meta name="twitter:description"
+        content="Anonymous pulse surveys, AI summaries, tenant isolation and Stripe per-seat billing, built and run by one engineer.">
+    <meta name="twitter:image"
+        content="https://aisaaswithmustafa.com/assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner.jpg">
+    <meta name="twitter:image:alt" content="CultureAI AI employee engagement SaaS dashboard, survey and AI summary screens">
+
+    <meta name="theme-color" content="#00C19D">
+    <link rel="apple-touch-icon" href="assets/img/logo-2-180.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ai-saas-services.css">
+    <script src="assets/js/style.js?v=20261013-service-cta" defer></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://aisaaswithmustafa.com/cultureai-case-study.html#article",
+          "headline": "CultureAI Case Study: Building a Multi-Tenant AI SaaS Solo",
+          "description": "How I built CultureAI solo: a multi-tenant AI employee engagement SaaS with anonymous pulse surveys, AI summaries, RBAC and Stripe per-seat billing.",
+          "image": "https://aisaaswithmustafa.com/assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner.jpg",
+          "datePublished": "2026-11-21T00:00:00+05:00",
+          "dateModified": "2026-11-21T00:00:00+05:00",
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/cultureai-case-study.html",
+          "about": {
+            "@type": "Thing",
+            "name": "CultureAI",
+            "description": "AI employee engagement SaaS with anonymous pulse surveys and AI summaries",
+            "url": "https://startcultureai.com/"
+          },
+          "keywords": ["CultureAI", "multi-tenant SaaS", "AI SaaS case study", "Stripe per-seat billing", "employee engagement software"]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/",
+          "jobTitle": "Senior Full-Stack SaaS & AI Developer"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://aisaaswithmustafa.com/portfolio.html" },
+            { "@type": "ListItem", "position": 3, "name": "CultureAI Case Study", "item": "https://aisaaswithmustafa.com/cultureai-case-study.html" }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="ai-saas-services-page bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white"
+    data-service-page="case-study-cultureai">
+    <header class="site-header ai-service-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class">
+            </a>
+
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav"
+                aria-expanded="false" class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4 md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="/ai-saas-development-services.html" class="text-gray-300 hover:text-primary transition">AI SaaS Services</a>
+                <a href="/full-stack-development-services-dubai.html" class="text-gray-300 hover:text-primary transition">Dubai Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Projects</a>
+                <a href="/blog/index.html" class="text-gray-300 hover:text-primary transition">Blog</a>
+                <a href="/#contact" data-service-cta="contact" data-cta-location="header"
+                    class="nav-project-cta px-4 py-2 text-white rounded font-bold transition text-center">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-36">
+        <section class="ai-service-hero px-6 pt-10 pb-12 md:pt-16">
+            <div class="max-w-6xl mx-auto">
+                <nav aria-label="Breadcrumb" class="text-sm text-gray-400 mb-8">
+                    <ol class="flex flex-wrap gap-2">
+                        <li><a href="/" class="hover:text-primary transition">Home</a></li>
+                        <li aria-hidden="true">/</li>
+                        <li><a href="/portfolio.html" class="hover:text-primary transition">Projects</a></li>
+                        <li aria-hidden="true">/</li>
+                        <li aria-current="page" class="text-gray-300">CultureAI case study</li>
+                    </ol>
+                </nav>
+
+                <div class="grid gap-12 lg:grid-cols-[3fr_2fr] items-start">
+                    <div class="ai-service-hero-copy">
+                        <p class="text-primary font-semibold mb-4">Case study &middot; AI SaaS product</p>
+                        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+                            CultureAI Case Study: Building a Multi-Tenant AI SaaS Solo
+                        </h1>
+                        <p class="text-xl text-gray-300 leading-relaxed mb-5">
+                            This CultureAI case study shows how I designed, built and launched a multi-tenant AI SaaS for employee engagement on my own. CultureAI sends anonymous pulse surveys to teams, turns the answers into AI summaries and gives managers a clear next step, while every company's data stays separate and Stripe handles per-seat billing.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed mb-8">
+                            I'm the founder and the only engineer. Every decision on this page, from the data model to the billing webhooks, is one I made and still maintain in production.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="/#contact" data-service-cta="contact" data-cta-location="hero"
+                                class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-[#0d5968] transition">Discuss your AI SaaS</a>
+                            <a href="https://startcultureai.com/" target="_blank" rel="noopener noreferrer"
+                                class="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-[#0d5968] hover:text-white transition">Visit CultureAI <span aria-hidden="true">&nearr;</span></a>
+                        </div>
+                    </div>
+
+                    <aside class="ai-service-hero-card rounded-2xl border border-gray-700 bg-white/5 p-7" aria-label="CultureAI project facts">
+                        <h2 class="text-lg font-bold mb-5">Project facts</h2>
+                        <dl class="space-y-4">
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Product</dt>
+                                <dd class="font-bold text-right">CultureAI</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">My role</dt>
+                                <dd class="font-bold text-right">Founder, solo engineer</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Type</dt>
+                                <dd class="font-bold text-right">Multi-tenant B2B SaaS</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Stack</dt>
+                                <dd class="font-bold text-right">React, Node.js, Express, MongoDB</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">AI</dt>
+                                <dd class="font-bold text-right">OpenAI API, JSON output</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Delivery</dt>
+                                <dd class="font-bold text-right">Email, Slack, WhatsApp, SMS</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Billing</dt>
+                                <dd class="font-bold text-right">Stripe, per seat</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4">
+                                <dt class="text-gray-400">Status</dt>
+                                <dd class="font-bold text-right">Live, free plan available</dd>
+                            </div>
+                        </dl>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <figure class="px-6 pb-16">
+            <div class="max-w-6xl mx-auto">
+                <img src="assets/img/portfolio/cultureai-ai-employee-engagement-saas-dashboard-banner.jpg"
+                    width="1200" height="800" decoding="async"
+                    alt="CultureAI AI employee engagement SaaS shown on its sign-in, dashboard, survey and AI summary screens"
+                    class="w-full h-auto rounded-2xl border border-gray-700">
+                <figcaption class="text-sm text-gray-400 mt-3">CultureAI's sign-in, dashboard and AI summary screens.</figcaption>
+            </div>
+        </figure>
+
+        <section id="problem" class="ai-service-reveal scroll-mt-28 px-6 py-16 bg-gray-900/60">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>The problem: engagement surveys nobody acts on</h2>
+                <p>Most employee engagement surveys fail in two places. People don't answer honestly when they think their manager can tell who said what. And the results arrive as a long report that nobody has time to read. By the time a real problem becomes visible, it often shows up in an exit interview.</p>
+                <p>I wanted a product that fixes both ends: honest input from employees, and output that a busy manager can act on in a few minutes.</p>
+
+                <h2>Constraints that shaped the build</h2>
+                <ul>
+                    <li><strong>Anonymous by design.</strong> Employees have to trust that their answers can't be traced back to them, or the data is worthless.</li>
+                    <li><strong>Reach people where they already are.</strong> Not everyone sits at a desk, so surveys had to go out by email, Slack, WhatsApp and SMS, not just a web link.</li>
+                    <li><strong>Many companies, one platform.</strong> Every organisation's surveys, scores and AI summaries must stay private to that organisation.</li>
+                    <li><strong>Different people, different access.</strong> An HR leader, a team manager and an employee should not see the same screens.</li>
+                    <li><strong>Per-seat pricing.</strong> The price follows team size, so seat counts must stay correct wherever they change.</li>
+                    <li><strong>One engineer.</strong> I build and run it alone, so the architecture has to stay simple enough to maintain.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="what-i-built" class="ai-service-reveal scroll-mt-28 px-6 py-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-3xl mb-12">
+                    <p class="text-primary font-semibold mb-3">What I built</p>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-5">From anonymous answers to a manager's next step</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        CultureAI works in three steps: collect honest feedback, show where the problems are, and let AI turn hundreds of comments into a short plan.
+                    </p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Anonymous pulse surveys</h3>
+                        <p class="text-gray-300">Custom survey templates on a 1 to 5 scale, sent by email, Slack, WhatsApp, SMS or a share link and QR code, to the whole company or a filtered segment.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Culture health dashboard</h3>
+                        <p class="text-gray-300">Scores for trust, burnout risk, engagement, loyalty and career growth, with weekly trends and a score distribution to spot outliers early.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">AI summaries and signals</h3>
+                        <p class="text-gray-300">Structured OpenAI prompts return JSON with a summary, key concerns, what's working well and recommended actions for leaders.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Responses and alerts</h3>
+                        <p class="text-gray-300">Every response is sorted as positive, neutral or negative, and low scores trigger a priority alert so leaders can act fast.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Isolated workspaces and roles</h3>
+                        <p class="text-gray-300">Each company's profile, branding, survey templates and audience are fully separate, with role-based access and sign-in through Clerk.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Stripe subscriptions</h3>
+                        <p class="text-gray-300">Free, Growth and Enterprise plans with per-seat billing through Stripe Checkout, the Customer Portal and webhooks. AI features are gated by plan.</p>
+                    </article>
+                </div>
+
+                <figure class="mt-12">
+                    <img src="assets/img/portfolio/cultureai-employee-survey-dashboard-ai-summary.jpg"
+                        width="1200" height="1021" loading="lazy" decoding="async"
+                        alt="CultureAI dashboard with survey responses, average score, culture health signals, an AI summary and a recommended action"
+                        class="w-full h-auto rounded-2xl border border-gray-700">
+                    <figcaption class="text-sm text-gray-400 mt-3">The CultureAI dashboard: responses, culture health signals, the AI summary with a recommended action, and a share link with a QR code for the next survey.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="decisions" class="ai-service-reveal scroll-mt-28 px-6 py-20 bg-gray-900/60">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>Key engineering decisions</h2>
+
+                <h3>Keep every company's data separate</h3>
+                <p>CultureAI is multi-tenant: many companies use the same application and the same database. Each workspace is fully separate, from the company profile and branding to survey templates and the audience list. Every request is tied to one workspace on the server, never decided by the browser, so one company never sees another company's surveys, scores or AI summaries. Roles then decide what each person can do inside their own workspace.</p>
+
+                <h3>Make anonymity part of the data model</h3>
+                <p>Responses are stored without a link back to the person who wrote them, so leaders can't identify who said what. I didn't want anonymity to be a screen setting that someone could switch off later. If the link doesn't exist in the data, it can't leak.</p>
+
+                <h3>Let AI do the reading, and leave decisions to people</h3>
+                <p>The AI layer exists so a manager doesn't have to read hundreds of comments. The response data goes into structured OpenAI prompts that return JSON: a summary, key concerns, what's working well and recommended actions. Because the output is structured, each part lands in its own place on the dashboard instead of arriving as one block of text. The manager still decides what to do. For HR software I think that's the right boundary: AI saves the reading time, people own the decision.</p>
+
+                <h3>Send surveys on four channels</h3>
+                <p>Email, Slack, WhatsApp and SMS each have their own connection: Gmail OAuth for email, a Slack workspace OAuth, and Twilio for WhatsApp and SMS. Survey runs go out asynchronously, and delivery status is tracked for every person on every channel, so an admin can see who received the survey and where. Each person in the audience has a department, role, location, tags and a preferred channel, which makes it easy to target one segment per run.</p>
+
+                <h3>Make Stripe the source of truth for seats</h3>
+                <p>Seat counts can change in three places: in my app, in the Stripe Customer Portal, and after a failed renewal. Early on I treated the checkout redirect as proof that a subscription had changed. That was backwards. Now every seat-related webhook overwrites the stored seat count with whatever Stripe says, instead of adding or subtracting based on what the app thinks happened.</p>
+<pre><code>// Simplified: reconcile, don't increment
+app.post('/webhooks/stripe', async (req, res) =&gt; {
+  const event = stripe.webhooks.constructEvent(
+    req.body, req.headers['stripe-signature'], webhookSecret
+  );
+
+  if (event.type === 'customer.subscription.updated') {
+    const sub = event.data.object;
+    const orgId = sub.metadata.orgId; // saved at checkout time
+    const seatCount = sub.items.data[0].quantity;
+
+    // Overwrite, don't adjust: Stripe's number always wins
+    await db.organizations.update(orgId, { seatCount, status: sub.status });
+  }
+
+  res.json({ received: true }); // answer fast, process idempotently
+});</code></pre>
+                <p>Two small details matter here. The organisation ID is saved in the subscription metadata at checkout, so the webhook doesn't need an extra lookup. And the handler answers Stripe quickly, because Stripe retries events that time out, and a slow handler ends up processing the same change twice.</p>
+
+                <h3>Treat active members as a floor</h3>
+                <p>Stripe doesn't know how many people actually use a workspace. If a company with 8 active members drops to 5 seats in the Stripe portal, that check has to live in the app. CultureAI compares seats with active members before a downgrade takes effect. If a downgrade already happened, it flags the organisation and asks an admin to remove members, instead of silently locking people out.</p>
+            </div>
+
+            <figure class="max-w-4xl mx-auto mt-12">
+                <img src="blog/images/stripe-per-seat-billing-multi-tenant-saas.jpg"
+                    width="1200" height="675" loading="lazy" decoding="async"
+                    alt="Diagram of Stripe per-seat billing: checkout, customer portal and webhooks reconciling one seat count in the SaaS database"
+                    class="w-full h-auto rounded-2xl border border-gray-700">
+                <figcaption class="text-sm text-gray-400 mt-3">How seat changes from Checkout, the Customer Portal and webhooks end up as one seat count in the database.</figcaption>
+            </figure>
+        </section>
+
+        <section id="lessons" class="ai-service-reveal scroll-mt-28 px-6 py-20">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>What I would do differently</h2>
+                <ul>
+                    <li><strong>Build the reconciliation webhook before the checkout page.</strong> Checkout runs once per company. The webhook handler runs for the whole life of every subscription, including failed renewals, mid-cycle plan changes and cancellations. It carries more of the real product.</li>
+                    <li><strong>Log every webhook payload before processing it.</strong> When a customer questions their seat count, the raw event Stripe sent turns a guessing game into a five-minute check.</li>
+                </ul>
+
+                <h2>Outcome</h2>
+                <p>CultureAI is live at <a href="https://startcultureai.com/" target="_blank" rel="noopener noreferrer">startcultureai.com</a> with a free plan, and I still build and maintain it myself.</p>
+                <ul>
+                    <li>Managers get a short AI summary and recommended actions instead of a long report.</li>
+                    <li>Every company's results stay private to that company.</li>
+                    <li>Seat counts stay in sync with Stripe, no matter where a change happens.</li>
+                    <li>The architecture stays small enough for one engineer to run in production.</li>
+                </ul>
+            </div>
+
+            <div class="max-w-3xl mx-auto mt-10">
+                <h2 class="text-2xl font-bold mb-4">Tech stack</h2>
+                <ul class="flex flex-wrap gap-2" aria-label="CultureAI tech stack">
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">React</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Tailwind CSS</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Node.js</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Express</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">MongoDB</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">OpenAI API</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Stripe Billing</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Clerk</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Twilio</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Slack API</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="related" class="ai-service-reveal scroll-mt-28 px-6 py-20 bg-gray-900/60">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8">Related reading</h2>
+                <div class="grid gap-6 md:grid-cols-3">
+                    <a href="/blog/stripe-per-seat-billing-multi-tenant-saas.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Guide</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">Stripe per-seat billing for SaaS: seat sync and webhooks</h3>
+                        <p class="text-gray-300">The full write-up of the billing lessons from CultureAI.</p>
+                    </a>
+                    <a href="/blog/stripe-webhooks-nextjs-saas-idempotency.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Guide</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">Stripe webhooks in Next.js: fix duplicates and retries</h3>
+                        <p class="text-gray-300">How to make webhook handlers safe when Stripe sends the same event twice.</p>
+                    </a>
+                    <a href="/bwl-league-case-study.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Case study</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">BWL League: multi-role platform on Supabase</h3>
+                        <p class="text-gray-300">Admin, coach and team access enforced with PostgreSQL Row Level Security.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="ai-service-reveal px-6 py-24">
+            <div class="ai-service-cta max-w-4xl mx-auto rounded-3xl border border-primary/40 bg-primary/10 p-8 md:p-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-5">Building a SaaS with AI, roles and billing?</h2>
+                <p class="text-gray-300 text-lg mb-8">Tell me about the product and where it's stuck. You'll talk directly to the engineer who built CultureAI. See my <a href="/ai-saas-development-services.html" class="text-primary font-semibold">AI SaaS development services</a> for how I work.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="/#contact" data-service-cta="contact" data-cta-location="final"
+                        class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-[#0d5968] transition">Send project details</a>
+                    <a href="https://calendly.com/mustdev/30min-consultation" target="_blank" rel="noopener noreferrer"
+                        data-service-cta="book_call" data-cta-location="final"
+                        class="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-[#0d5968] hover:text-white transition">Book a call</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-6 text-sm text-gray-400 bg-gray-900">
+        &copy; 2026 Muhammad Mustafa.
+    </footer>
+</body>
+
+</html>

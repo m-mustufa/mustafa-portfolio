@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/img/logo-2-48.png" sizes="48x48" />
+
+    <title>BWL League Case Study: Next.js and Supabase RLS Platform</title>
+    <meta name="description"
+        content="How I built BWL League, a multi-role sports league platform, with Next.js and Supabase: PostgreSQL Row Level Security for admins, coaches and teams.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/bwl-league-case-study.html">
+
+    <meta property="og:title" content="BWL League Case Study: Next.js and Supabase RLS Platform">
+    <meta property="og:description"
+        content="A multi-role sports league platform where admins, coaches and teams share one database, with access enforced by Supabase Row Level Security and live scores.">
+    <meta property="og:image"
+        content="https://aisaaswithmustafa.com/assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="800">
+    <meta property="og:image:alt" content="BWL League sports league platform on desktop and mobile">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/bwl-league-case-study.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-21T00:00:00+05:00">
+    <meta property="article:author" content="Muhammad Mustafa">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BWL League Case Study: Next.js and Supabase RLS Platform">
+    <meta name="twitter:description"
+        content="Admins, coaches and teams in one app, with access enforced inside PostgreSQL by Supabase Row Level Security.">
+    <meta name="twitter:image"
+        content="https://aisaaswithmustafa.com/assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql.jpg">
+    <meta name="twitter:image:alt" content="BWL League sports league platform on desktop and mobile">
+
+    <meta name="theme-color" content="#00C19D">
+    <link rel="apple-touch-icon" href="assets/img/logo-2-180.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ai-saas-services.css">
+    <script src="assets/js/style.js?v=20261013-service-cta" defer></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://aisaaswithmustafa.com/bwl-league-case-study.html#article",
+          "headline": "BWL League Case Study: A Multi-Role Sports Platform on Supabase",
+          "description": "How I built BWL League, a multi-role sports league platform, with Next.js and Supabase: PostgreSQL Row Level Security for admins, coaches and teams.",
+          "image": "https://aisaaswithmustafa.com/assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql.jpg",
+          "datePublished": "2026-11-21T00:00:00+05:00",
+          "dateModified": "2026-11-21T00:00:00+05:00",
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/bwl-league-case-study.html",
+          "about": {
+            "@type": "SportsOrganization",
+            "name": "Baloch Warriors League",
+            "alternateName": "BWL League",
+            "sport": ["eFootball", "Football", "PUBG", "Snooker", "Checkers"],
+            "url": "https://bwlleague.com/"
+          },
+          "keywords": ["BWL League", "Supabase RLS", "multi-role web app", "Next.js and Supabase", "sports league platform"]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/",
+          "jobTitle": "Senior Full-Stack SaaS & AI Developer"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://aisaaswithmustafa.com/portfolio.html" },
+            { "@type": "ListItem", "position": 3, "name": "BWL League Case Study", "item": "https://aisaaswithmustafa.com/bwl-league-case-study.html" }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="ai-saas-services-page bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white"
+    data-service-page="case-study-bwl-league">
+    <header class="site-header ai-service-header fixed top-0 left-0 right-0 z-50 fixed-height-header">
+        <div class="header-shell max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="site-brand flex items-center gap-3 relative group" aria-label="Muhammad Mustafa home">
+                <img src="assets/img/logo-2-128.webp" alt="Muhammad Mustafa logo" width="128" height="156"
+                    class="logo-img-class">
+            </a>
+
+            <button id="menuToggle" aria-label="Toggle navigation menu" aria-controls="mainNav"
+                aria-expanded="false" class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <nav id="mainNav"
+                class="hidden absolute top-full left-0 right-0 w-full bg-gray-900 px-4 py-4 flex flex-col space-y-4 md:flex md:static md:flex-row md:items-center md:space-y-0 md:space-x-6 md:w-auto md:bg-transparent md:px-0 md:py-0 text-lg font-semibold tracking-wide z-40 transition">
+                <a href="/ai-saas-development-services.html" class="text-gray-300 hover:text-primary transition">AI SaaS Services</a>
+                <a href="/full-stack-development-services-dubai.html" class="text-gray-300 hover:text-primary transition">Dubai Services</a>
+                <a href="/portfolio.html" class="text-gray-300 hover:text-primary transition">Projects</a>
+                <a href="/blog/index.html" class="text-gray-300 hover:text-primary transition">Blog</a>
+                <a href="/#contact" data-service-cta="contact" data-cta-location="header"
+                    class="nav-project-cta px-4 py-2 text-white rounded font-bold transition text-center">Start a Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-36">
+        <section class="ai-service-hero px-6 pt-10 pb-12 md:pt-16">
+            <div class="max-w-6xl mx-auto">
+                <nav aria-label="Breadcrumb" class="text-sm text-gray-400 mb-8">
+                    <ol class="flex flex-wrap gap-2">
+                        <li><a href="/" class="hover:text-primary transition">Home</a></li>
+                        <li aria-hidden="true">/</li>
+                        <li><a href="/portfolio.html" class="hover:text-primary transition">Projects</a></li>
+                        <li aria-hidden="true">/</li>
+                        <li aria-current="page" class="text-gray-300">BWL League case study</li>
+                    </ol>
+                </nav>
+
+                <div class="grid gap-12 lg:grid-cols-[3fr_2fr] items-start">
+                    <div class="ai-service-hero-copy">
+                        <p class="text-primary font-semibold mb-4">Case study &middot; Multi-role web platform</p>
+                        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+                            BWL League Case Study: A Multi-Role Sports Platform on Supabase
+                        </h1>
+                        <p class="text-xl text-gray-300 leading-relaxed mb-5">
+                            This BWL League case study explains how I built the web platform for Baloch Warriors League, a competitive league that tracks tournaments, matches, goals and rankings across eFootball, Football, PUBG, Snooker and Checkers. Admins, coaches and teams all work in the same app. The hard part wasn't the screens. It was making sure each person can only see and change what their role allows, with the rules enforced inside PostgreSQL by Supabase Row Level Security.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed mb-8">
+                            The platform is live at bwlleague.com and people use it every day, so an access mistake would affect real players and teams, not a demo.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="/#contact" data-service-cta="contact" data-cta-location="hero"
+                                class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-[#0d5968] transition">Discuss your platform</a>
+                            <a href="https://bwlleague.com/" target="_blank" rel="noopener noreferrer"
+                                class="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-[#0d5968] hover:text-white transition">Visit BWL League <span aria-hidden="true">&nearr;</span></a>
+                        </div>
+                    </div>
+
+                    <aside class="ai-service-hero-card rounded-2xl border border-gray-700 bg-white/5 p-7" aria-label="BWL League project facts">
+                        <h2 class="text-lg font-bold mb-5">Project facts</h2>
+                        <dl class="space-y-4">
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Client</dt>
+                                <dd class="font-bold text-right">Baloch Warriors League</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">My role</dt>
+                                <dd class="font-bold text-right">Full-stack engineer</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Type</dt>
+                                <dd class="font-bold text-right">Multi-role league platform</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Games</dt>
+                                <dd class="font-bold text-right">eFootball, Football, PUBG, Snooker, Checkers</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Matches recorded</dt>
+                                <dd class="font-bold text-right">608 (Nov 2026)</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Roles</dt>
+                                <dd class="font-bold text-right">Admin, coach, team</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Stack</dt>
+                                <dd class="font-bold text-right">Next.js, TypeScript, Supabase, PostgreSQL</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Live updates</dt>
+                                <dd class="font-bold text-right">Supabase Realtime</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4">
+                                <dt class="text-gray-400">Status</dt>
+                                <dd class="font-bold text-right">Live, used daily</dd>
+                            </div>
+                        </dl>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <figure class="px-6 pb-16">
+            <div class="max-w-6xl mx-auto">
+                <img src="assets/img/portfolio/football-tournament-dashboard-nextjs-supabase-postgresql.jpg"
+                    width="1200" height="800" decoding="async"
+                    alt="BWL League sports platform showing the Baloch Warriors League home page, results, top scorers and a mobile view"
+                    class="w-full h-auto rounded-2xl border border-gray-700">
+                <figcaption class="text-sm text-gray-400 mt-3">BWL League on desktop and mobile.</figcaption>
+            </div>
+        </figure>
+
+        <section id="challenge" class="ai-service-reveal scroll-mt-28 px-6 py-16 bg-gray-900/60">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>The challenge: three roles, one database</h2>
+                <p>Admins run the league. Coaches manage their own team. Teams follow their own matches and results. They all share one application and one database, but they should never share the same access. A coach can update their own team's match, not another team's, and never the league settings.</p>
+                <p>Supabase lets the browser query the database directly. That makes building fast, but it changes the security model. Hiding an admin button in React only changes what someone sees. A curious user can still open the browser's dev tools and call the API. So the real rules had to live in the database itself.</p>
+
+                <h2>Constraints that shaped the build</h2>
+                <ul>
+                    <li><strong>Direct database access from the browser.</strong> The public client key identifies the project. It must never grant open access on its own.</li>
+                    <li><strong>Shared tables.</strong> Leagues, teams and matches sit in the same tables, so every row belongs to a scope that has to be checked on every request.</li>
+                    <li><strong>Match days.</strong> Scores need to update for everyone following a match, without a page refresh.</li>
+                    <li><strong>No privileged key in the browser.</strong> The Supabase service role bypasses Row Level Security, so it can only exist in trusted server code.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="what-i-built" class="ai-service-reveal scroll-mt-28 px-6 py-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-3xl mb-12">
+                    <p class="text-primary font-semibold mb-3">What I built</p>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-5">One app, three kinds of users, rules in the database</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        The interface gives each role its own experience. The database decides what each role can actually read and change.
+                    </p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Tournaments, fixtures and results</h3>
+                        <p class="text-gray-300">Tournament, match and results management across five games, from group stages to the final.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Player stats and rankings</h3>
+                        <p class="text-gray-300">Player profiles, top scorers, champions and ELO-based rankings that update as results come in.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Multi-role access</h3>
+                        <p class="text-gray-300">Separate admin, coach and team experiences, with a membership row linking each user to their league or team and the role they hold there.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Row Level Security policies</h3>
+                        <p class="text-gray-300">RLS enabled on every exposed table, with a separate policy for reading, creating, updating and deleting.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Live results</h3>
+                        <p class="text-gray-300">Score updates through Supabase Realtime, so everyone following a match sees the change without refreshing.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Locked-down privileged access</h3>
+                        <p class="text-gray-300">The Supabase service role key stays in trusted server code, and every policy is tested with real sessions for each role, including requests that should be denied.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="access-rules" class="ai-service-reveal scroll-mt-28 px-6 py-20 bg-gray-900/60">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>How the access rules work</h2>
+
+                <h3>Start with relationships, not role names</h3>
+                <p>It's tempting to write rules like "admins can do everything" and "coaches can edit scores". Those rules are incomplete until the data says which league, team or match a user belongs to. So every policy answers two separate questions:</p>
+                <ul>
+                    <li><strong>Scope:</strong> does this row belong to the user's league or team?</li>
+                    <li><strong>Permission:</strong> does the user's role allow this action?</li>
+                </ul>
+                <p>Here is a simplified version of the rule for reading matches. The important part is the relationship check, not a role sent by the browser:</p>
+<pre><code>alter table public.matches enable row level security;
+
+create policy "members can view league matches"
+on public.matches
+for select
+to authenticated
+using (
+  exists (
+    select 1
+    from public.memberships m
+    where m.user_id = (select auth.uid())
+      and m.league_id = matches.league_id
+  )
+);</code></pre>
+                <p>The user ID comes from the signed-in session through <code>auth.uid()</code>. The browser can't pick a different user ID and borrow someone else's access.</p>
+
+                <h3>One policy per action</h3>
+                <p>Reading, creating, updating and deleting are different permissions, so each gets its own policy. A <code>USING</code> rule decides which existing rows a user can see or touch. A <code>WITH CHECK</code> rule validates the new data, so a valid user can't move an allowed row into another team's scope. Updates need both, plus a matching read policy. Delete gets its own decision: being able to edit a score doesn't mean you can delete the match.</p>
+
+                <h3>Watch the side doors</h3>
+                <p>A strong policy on the main table doesn't protect a related table that has none. I review every exposed table, view and storage bucket as its own item. Views need extra care, because they can bypass the policies of the tables underneath unless they run with the caller's permissions.</p>
+
+                <h3>Test the requests that should fail</h3>
+                <p>A policy isn't proven just because an admin can complete an action. I test the negative cases too: a coach from another team, a signed-in user with no membership, an anonymous request, and a user trying to change the ownership field during an update. Each database operation is tested on its own, and the rules are written down as a small access matrix of roles against actions, so they can be re-checked after every schema change.</p>
+            </div>
+
+            <figure class="max-w-4xl mx-auto mt-12">
+                <img src="blog/images/supabase-rls-multi-role-apps.jpg"
+                    width="1200" height="675" loading="lazy" decoding="async"
+                    alt="Diagram of Supabase Row Level Security separating admin, coach and team access to league data in PostgreSQL"
+                    class="w-full h-auto rounded-2xl border border-gray-700">
+                <figcaption class="text-sm text-gray-400 mt-3">How admin, coach and team access is separated by Row Level Security inside PostgreSQL.</figcaption>
+            </figure>
+        </section>
+
+        <section id="lessons" class="ai-service-reveal scroll-mt-28 px-6 py-20">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>Trade-offs and lessons</h2>
+                <ul>
+                    <li><strong>RLS adds work up front.</strong> Every table needs its own policies and tests, and a missing read policy can make a correct-looking update fail in confusing ways. For any app where users query the database directly, I think that cost is worth paying.</li>
+                    <li><strong>Front-end role checks still matter, for the interface.</strong> They keep screens clean for each role. They're just not the security boundary.</li>
+                    <li><strong>Membership rows beat role flags.</strong> When the scope is explicit in the data, policies are easier to read, review and test.</li>
+                </ul>
+
+                <h2>Outcome</h2>
+                <p>BWL League is live at <a href="https://bwlleague.com/" target="_blank" rel="noopener noreferrer">bwlleague.com</a>, with people using it every day. In November 2026 the platform's own counters showed 7 tournaments, 32 players, 608 matches played and 1,994 goals recorded. In April 2026 the same counters showed 194 matches, so the league has more than tripled its recorded matches on the platform in about seven months.</p>
+                <ul>
+                    <li>Admins, coaches and teams each see and change only what their role allows.</li>
+                    <li>Access control lives in the database, so even a user with browser dev tools can't read another team's data.</li>
+                    <li>Live scores update for everyone following a match.</li>
+                    <li>The access rules are written down as tests, so they can be checked again after every change.</li>
+                </ul>
+            </div>
+
+            <div class="max-w-3xl mx-auto mt-10">
+                <h2 class="text-2xl font-bold mb-4">Tech stack</h2>
+                <ul class="flex flex-wrap gap-2" aria-label="BWL League tech stack">
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Next.js</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">React</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">TypeScript</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Supabase</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">PostgreSQL</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Row Level Security</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Supabase Realtime</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Supabase Auth</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="related" class="ai-service-reveal scroll-mt-28 px-6 py-20 bg-gray-900/60">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8">Related reading</h2>
+                <div class="grid gap-6 md:grid-cols-3">
+                    <a href="/blog/supabase-rls-multi-role-apps.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Guide</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">Supabase RLS policies: multi-tenant SQL and testing</h3>
+                        <p class="text-gray-300">The full guide to the policy patterns used in BWL League.</p>
+                    </a>
+                    <a href="/blog/firestore-vs-supabase-offline-first-react-apps.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Comparison</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">Supabase vs Firebase for offline-first React apps</h3>
+                        <p class="text-gray-300">Data modelling, security and lock-in trade-offs from real projects.</p>
+                    </a>
+                    <a href="/cultureai-case-study.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Case study</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">CultureAI: multi-tenant AI SaaS built solo</h3>
+                        <p class="text-gray-300">Anonymous surveys, AI summaries and Stripe per-seat billing.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="ai-service-reveal px-6 py-24">
+            <div class="ai-service-cta max-w-4xl mx-auto rounded-3xl border border-primary/40 bg-primary/10 p-8 md:p-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-5">Need a multi-role app with access you can trust?</h2>
+                <p class="text-gray-300 text-lg mb-8">Tell me about your users and their roles. I'll help you design the data model and access rules before they become hard to change. See my <a href="/ai-saas-development-services.html" class="text-primary font-semibold">AI SaaS development services</a> for how I work.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="/#contact" data-service-cta="contact" data-cta-location="final"
+                        class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-[#0d5968] transition">Send project details</a>
+                    <a href="https://calendly.com/mustdev/30min-consultation" target="_blank" rel="noopener noreferrer"
+                        data-service-cta="book_call" data-cta-location="final"
+                        class="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-[#0d5968] hover:text-white transition">Book a call</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-6 text-sm text-gray-400 bg-gray-900">
+        &copy; 2026 Muhammad Mustafa.
+    </footer>
+</body>
+
+</html>
