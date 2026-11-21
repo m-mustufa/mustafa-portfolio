@@ -324,3 +324,65 @@
         transform: none !important;
     }
 }
+
+/* FAQ accordions (native <details>, no JavaScript) */
+.ai-service-faq > summary {
+    list-style: none;
+}
+
+.ai-service-faq > summary::-webkit-details-marker {
+    display: none;
+}
+
+details.ai-service-faq:hover {
+    transform: none;
+}
+
+.ai-service-faq-summary:focus-visible {
+    outline: 2px solid #2dd4bf;
+    outline-offset: 4px;
+    border-radius: 1rem;
+}
+
+.ai-service-faq-icon {
+    position: relative;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid rgba(45, 212, 191, 0.45);
+    border-radius: 999px;
+    transition: background 0.25s ease;
+}
+
+.ai-service-faq-icon::before,
+.ai-service-faq-icon::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.75rem;
+    height: 2px;
+    border-radius: 2px;
+    background: #67e8f9;
+    content: "";
+    transform: translate(-50%, -50%);
+}
+
+.ai-service-faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: transform 0.25s ease;
+}
+
+.ai-service-faq[open] .ai-service-faq-icon {
+    background: rgba(45, 212, 191, 0.12);
+}
+
+.ai-service-faq[open] .ai-service-faq-icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ai-service-faq-icon,
+    .ai-service-faq-icon::after {
+        transition: none !important;
+    }
+}
