@@ -1,6 +1,7 @@
 {
   "name": "ai-api-cost-mcp",
   "version": "0.1.0",
+  "mcpName": "io.github.m-mustufa/ai-api-cost-mcp",
   "description": "MCP server to estimate and compare OpenAI, Claude and Gemini API costs, gross margin and break-even price for SaaS features.",
   "type": "module",
   "bin": {
