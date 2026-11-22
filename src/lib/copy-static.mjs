@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { buildRedirectRules } from "./redirects.mjs";
 
@@ -35,6 +36,19 @@ export function copyStaticFiles() {
           fs.cpSync(from, path.join(outDir, entry), { recursive: true });
         }
         logger.info(`Copied ${STATIC_ENTRIES.length} static entries`);
+
+        // Public pricing data for the ai-api-cost-mcp server (mcp/ai-api-cost-mcp),
+        // generated from the same module the calculator page runs.
+        const calculator = createRequire(import.meta.url)(path.join(ROOT, "assets/js/ai-api-cost-calculator.js"));
+        const pricing = {
+          name: "AI API Cost Calculator rates",
+          page: "https://aisaaswithmustafa.com/tools/ai-api-cost-calculator.html",
+          verifiedAt: calculator.RATES_VERIFIED,
+          unit: "USD per 1 million tokens",
+          models: calculator.RATE_TABLE,
+        };
+        fs.writeFileSync(path.join(outDir, "tools", "ai-api-pricing.json"), `${JSON.stringify(pricing, null, 2)}\n`);
+        logger.info(`Wrote tools/ai-api-pricing.json (${pricing.models.length} models, verified ${pricing.verifiedAt})`);
 
         // One live address per page: 301 every alias (/pricing, /tools/) to its canonical.
         const redirectsFile = path.join(outDir, "_redirects");

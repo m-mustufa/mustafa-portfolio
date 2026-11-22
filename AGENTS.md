@@ -25,6 +25,13 @@ The pages are still hand-written HTML at their public paths (`index.html`, `pric
 - Caching: local CSS/JS get a content hash, so their long cache is safe. Images under `/assets/img/*` are cached for a year as immutable with fixed names, so **never replace an image in place**; save the new version under a new file name and update the references.
 - Complexity Coach ships its own compiled CSS, so the header uses `md:space-x-6` for it (variant `coach`) and the footer uses plain CSS rather than Tailwind utilities.
 
+## AI API Cost MCP server (`mcp/ai-api-cost-mcp`, added 2026-11-22)
+
+- A stdio MCP server (npm name `ai-api-cost-mcp`, not published yet when written) with three read-only tools: `list_models`, `estimate_cost`, `compare_models`. It runs the website's own calculator module: `npm run sync` (and `prepack`) copies `assets/js/ai-api-cost-calculator.js` into `src/calculator.cjs`, so the page and the MCP server never disagree.
+- The site build also publishes `/tools/ai-api-pricing.json` (rates, verified date) from the same module (`src/lib/copy-static.mjs`). The MCP server fetches it on start and falls back to its bundled rates; `AI_API_COST_MCP_OFFLINE=1` skips the fetch.
+- **When rates change:** edit `RATE_TABLE` and `RATES_VERIFIED` in `assets/js/ai-api-cost-calculator.js` (and the "Rates verified" text on the page), deploy the site, then `npm run sync` and bump the package version before the next npm release.
+- Test with `npm test` inside the package (real MCP client over stdio; compares every number with the calculator).
+
 ## Build step (Tailwind)
 
 Tailwind CSS is **precompiled**, not loaded from a CDN (it was originally, but that's a 124 KiB render-blocking script — see git log for the perf pass that removed it).

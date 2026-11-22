@@ -1,6 +1,9 @@
 (function aiApiCostCalculatorModule(root) {
   "use strict";
 
+  // Date the rates below were last checked against the official pricing pages.
+  // Shown on the page and published in /tools/ai-api-pricing.json for the MCP server.
+  const RATES_VERIFIED = "2026-11-12";
   const GOOGLE_PRICING = "https://aistudio.google.com/docs/pricing";
   // Promotional rates carry their end date and the standard rate that follows,
   // so a preset never shows an expired promotion (see withCurrentRates).
@@ -99,7 +102,7 @@
       .sort((a, b) => a.result.apiCost - b.result.apiCost);
   }
 
-  const api = { MODELS, PRESETS, RATE_TABLE, calculateEstimate, compareModels, formatMaskedNumber, withCurrentRates };
+  const api = { MODELS, PRESETS, RATE_TABLE, RATES_VERIFIED, calculateEstimate, compareModels, formatMaskedNumber, withCurrentRates };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AiApiCostCalculator = api;
   if (typeof document === "undefined") return;

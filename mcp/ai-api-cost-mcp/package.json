@@ -1,0 +1,50 @@
+{
+  "name": "ai-api-cost-mcp",
+  "version": "0.1.0",
+  "description": "MCP server to estimate and compare OpenAI, Claude and Gemini API costs, gross margin and break-even price for SaaS features.",
+  "type": "module",
+  "bin": {
+    "ai-api-cost-mcp": "src/index.js"
+  },
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node src/index.js",
+    "sync": "node scripts/sync-calculator.mjs",
+    "test": "node test/smoke.mjs",
+    "prepack": "node scripts/sync-calculator.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "llm",
+    "ai-api-cost",
+    "openai",
+    "claude",
+    "anthropic",
+    "gemini",
+    "token-pricing",
+    "cost-calculator",
+    "saas"
+  ],
+  "author": "Muhammad Mustafa (https://aisaaswithmustafa.com)",
+  "license": "MIT",
+  "homepage": "https://aisaaswithmustafa.com/tools/ai-api-cost-calculator.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-mustufa/mustafa-portfolio.git",
+    "directory": "mcp/ai-api-cost-mcp"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
+  }
+}
