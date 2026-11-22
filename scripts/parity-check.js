@@ -1,9 +1,14 @@
 #!/usr/bin/env node
-// Compares the currently published static site (a git ref, default "main")
-// with the Astro build in dist/, page by page. Anything that affects SEO must
-// match exactly; only the shared header, footer and asset ?v= hashes may differ.
+// Compares what is published now with the Astro build in dist/, page by page.
+// Anything that affects SEO must match exactly; only the shared header, footer
+// and asset ?v= hashes may differ.
 //
-// Usage: npm run build && node scripts/parity-check.js [git-ref]
+// Usage: npm run build && node scripts/parity-check.js [live | <site URL> | <git ref>]
+//   live (default): fetch every page from production and compare.
+//   <site URL>:     same against another deploy, e.g. a branch preview.
+//   <git ref>:      compare with the committed HTML of a pre-Astro ref (the
+//                   migration itself was checked against 0c34889). After the
+//                   migration, refs hold marker sources, so use live instead.
 
 const { execFileSync } = require("child_process");
 const fs = require("fs");
@@ -12,11 +17,15 @@ const { parse } = require("node-html-parser");
 
 const ROOT = path.join(__dirname, "..");
 const DIST = path.join(ROOT, "dist");
-const REF = process.argv[2] || "main";
 const SITE = "https://aisaaswithmustafa.com";
+const ARG = process.argv[2] || "live";
+const LIVE_BASE = ARG === "live" ? SITE : /^https?:\/\//.test(ARG) ? ARG.replace(/\/$/, "") : null;
+const REF = LIVE_BASE ? "HEAD" : ARG;
 
 const git = (args) => execFileSync("git", args, { cwd: ROOT, encoding: "utf8", maxBuffer: 100 * 1024 * 1024 });
+const liveCache = new Map();
 const show = (file) => {
+  if (LIVE_BASE) return liveCache.get(file) ?? null;
   try {
     return git(["show", `${REF}:${file}`]);
   } catch {
@@ -24,10 +33,34 @@ const show = (file) => {
   }
 };
 
+const listDist = (dir = DIST, out = []) => {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) listDist(full, out);
+    else out.push(path.relative(DIST, full).replace(/\\/g, "/"));
+  }
+  return out;
+};
+
 const refFiles = git(["ls-tree", "-r", "--name-only", REF]).split("\n").filter(Boolean);
 const isPage = (f) =>
   /^[^/]+\.html$/.test(f) || /^blog\/[^/]+\.html$/.test(f) || /^tools\/(?:[^/]+|complexity-coach\/index)\.html$/.test(f);
-const pages = refFiles.filter((f) => isPage(f) && f !== "blog/_template.html");
+const pages = LIVE_BASE
+  ? listDist().filter((f) => f.endsWith(".html") && !f.startsWith("_astro/"))
+  : refFiles.filter((f) => isPage(f) && f !== "blog/_template.html");
+const STATIC_FILES = ["robots.txt", "sitemap.xml", "_redirects", "_headers", "blog/feed.xml", "blog/posts.json", "0ddd3c5e36d62ab4cdac47fc97190e4f.txt", "social/linkedin.json", "social/devto.json"];
+
+async function prefetchLive() {
+  const files = [...pages, ...STATIC_FILES.filter((f) => !f.startsWith("_"))];
+  for (let i = 0; i < files.length; i += 8) {
+    await Promise.all(
+      files.slice(i, i + 8).map(async (file) => {
+        const response = await fetch(`${LIVE_BASE}/${file}`);
+        liveCache.set(file, response.ok ? await response.text() : null);
+      })
+    );
+  }
+}
 
 const problems = [];
 const report = (file, check, before, after) => problems.push({ file, check, before, after });
@@ -94,6 +127,9 @@ function firstDiff(a, b) {
   return [a.slice(Math.max(0, i - 40), i + 80), b.slice(Math.max(0, i - 40), i + 80)];
 }
 
+async function run() {
+if (LIVE_BASE) await prefetchLive();
+
 // 1. Every published page: SEO fields and body content must match.
 for (const file of pages) {
   const before = show(file);
@@ -102,8 +138,12 @@ for (const file of pages) {
     report(file, "missing in dist", "", "");
     continue;
   }
+  if (before === null) {
+    report(file, LIVE_BASE ? "not live yet (new page)" : "not in ref", "", "");
+    continue;
+  }
   if (file === "googlefe36830bf825adfa.html") {
-    if (before !== fs.readFileSync(outFile, "utf8")) report(file, "raw file differs", "", "");
+    if (lf(before) !== lf(fs.readFileSync(outFile, "utf8"))) report(file, "raw file differs", "", "");
     continue;
   }
   const a = snapshot(before);
@@ -116,12 +156,24 @@ for (const file of pages) {
   }
 }
 
-// 2. Static files must be byte-identical.
-for (const file of ["robots.txt", "sitemap.xml", "_redirects", "_headers", "blog/feed.xml", "blog/posts.json", "0ddd3c5e36d62ab4cdac47fc97190e4f.txt", "social/linkedin.json", "social/devto.json"]) {
+// 2. Static files must be byte-identical. Netlify does not serve _redirects and
+//    _headers, so in live mode they are compared with the committed source.
+for (const file of STATIC_FILES) {
   const out = path.join(DIST, file);
+  const committed = LIVE_BASE && file.startsWith("_");
   if (!fs.existsSync(out)) report(file, "missing in dist", "", "");
+  else if (committed) {
+    const source = lf(fs.readFileSync(path.join(ROOT, file), "utf8"));
+    if (!lf(fs.readFileSync(out, "utf8")).startsWith(source.replace(/\s*$/, ""))) report(file, "differs from source", "", "");
+  }
   // Git checkouts on Windows use CRLF; Netlify builds on Linux with LF.
-  else if (lf(show(file)) !== lf(fs.readFileSync(out, "utf8"))) report(file, "content differs", "", "");
+  // dist/_redirects may also end with build-generated alias rules (src/lib/redirects.mjs).
+  else {
+    const before = lf(show(file));
+    const after = lf(fs.readFileSync(out, "utf8"));
+    const same = file === "_redirects" ? after.startsWith(before.replace(/\s*$/, "")) : before === after;
+    if (!same) report(file, "content differs", "", "");
+  }
 }
 for (const file of refFiles.filter((f) => /^(assets|blog\/images|tools\/complexity-coach\/assets)\//.test(f))) {
   const out = path.join(DIST, file);
@@ -167,14 +219,14 @@ for (const full of builtPages) {
 }
 for (const key of broken.keys()) report(key.split(" -> ")[0], "broken local reference", key.split(" -> ")[1], "");
 
-// 5. Files the old site served that the new build no longer publishes (review).
-const dropped = refFiles.filter(
-  (f) => !fs.existsSync(path.join(DIST, f)) && !/^(platform|tool-apps|scripts|netlify|node_modules|src)\//.test(f)
-);
+// 5. Files the old site served that the new build no longer publishes (review, git mode only).
+const dropped = LIVE_BASE
+  ? []
+  : refFiles.filter((f) => !fs.existsSync(path.join(DIST, f)) && !/^(platform|tool-apps|scripts|netlify|node_modules|src)\//.test(f));
 
 const byCheck = {};
 for (const p of problems) (byCheck[p.check] = byCheck[p.check] || []).push(p);
-console.log(`Parity: ${pages.length} pages compared against ${REF}; ${builtPages.length} pages built.`);
+console.log(`Parity: ${pages.length} pages compared against ${LIVE_BASE || REF}; ${builtPages.length} pages built.`);
 for (const [check, list] of Object.entries(byCheck)) {
   console.log(`\n[${check}] ${list.length}`);
   for (const p of list.slice(0, 12)) {
@@ -193,3 +245,9 @@ if (problems.length) {
 } else {
   console.log("\nParity OK: every page, static file, sitemap URL and local reference matches.");
 }
+}
+
+run().catch((error) => {
+  console.error(error.message);
+  process.exitCode = 1;
+});

@@ -26,7 +26,8 @@
     "test:assistant": "node scripts/test-ask-mustafa-knowledge.js && node scripts/test-ask-mustafa-provider.js",
     "test:gsc": "node scripts/test-gsc.js",
     "test:feed": "node scripts/test-blog-feed.js",
-    "test:devto": "node scripts/test-devto.js"
+    "test:devto": "node scripts/test-devto.js",
+    "check:live": "node scripts/live-check.js"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",

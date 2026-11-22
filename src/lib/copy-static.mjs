@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildRedirectRules } from "./redirects.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
@@ -34,6 +35,15 @@ export function copyStaticFiles() {
           fs.cpSync(from, path.join(outDir, entry), { recursive: true });
         }
         logger.info(`Copied ${STATIC_ENTRIES.length} static entries`);
+
+        // One live address per page: 301 every alias (/pricing, /tools/) to its canonical.
+        const redirectsFile = path.join(outDir, "_redirects");
+        const existing = fs.readFileSync(redirectsFile, "utf8");
+        const rules = buildRedirectRules(outDir, existing);
+        const eol = existing.includes("\r\n") ? "\r\n" : "\n";
+        const block = ["", "# GENERATED_CANONICAL_ALIASES (src/lib/redirects.mjs, build time only)", ...rules, ""].join(eol);
+        fs.writeFileSync(redirectsFile, existing.replace(/\s*$/, eol) + block);
+        logger.info(`Added ${rules.length} canonical alias redirects`);
       },
     },
   };
