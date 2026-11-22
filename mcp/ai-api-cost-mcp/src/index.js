@@ -215,3 +215,7 @@ server.registerTool(
 const transport = new StdioServerTransport();
 await server.connect(transport);
 console.error(`ai-api-cost-mcp ${version} running on stdio`);
+// Load rates in the background so the first tool call does not wait for the network.
+getRateTable()
+  .then((table) => console.error(`ai-api-cost-mcp: rates verified ${table.verifiedAt} (${table.origin})`))
+  .catch(() => {});

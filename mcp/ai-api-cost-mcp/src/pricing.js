@@ -35,7 +35,8 @@ function bundledTable() {
 async function fetchLiveTable() {
   const response = await fetch(LIVE_RATES_URL, {
     headers: { Accept: "application/json", "User-Agent": "ai-api-cost-mcp" },
-    signal: AbortSignal.timeout(2500),
+    // A cold first request (DNS + TLS) can take ~2 s on a slow connection.
+    signal: AbortSignal.timeout(5000),
   });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
@@ -45,9 +46,16 @@ async function fetchLiveTable() {
 }
 
 // Returns the newest valid rate table: the live file when it is reachable and at
-// least as recent as the bundled copy, otherwise the bundled copy.
+// least as recent as the bundled copy, otherwise the bundled copy. Concurrent
+// callers share one request; the server calls this once at startup to warm up.
+let inflight = null;
 export async function getRateTable() {
   if (cache && Date.now() - cache.loadedAt < REFRESH_MS) return cache.table;
+  if (!inflight) inflight = loadRateTable().finally(() => (inflight = null));
+  return inflight;
+}
+
+async function loadRateTable() {
   let table = bundledTable();
   if (process.env.AI_API_COST_MCP_OFFLINE !== "1") {
     try {
