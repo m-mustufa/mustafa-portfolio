@@ -17,7 +17,7 @@
       "Automation"
     ],
     "cta": "Read the case study",
-    "publishAt": "2026-11-13T15:00:00+05:00"
+    "publishAt": "2026-11-28T15:00:00+05:00"
   },
   "/blog/openai-claude-gemini-api-pricing.html": {
     "hook": "Price per token is the wrong number for an AI feature. Cost per user is the one your subscription has to cover.",
@@ -36,7 +36,7 @@
       "AIEngineering",
       "SaaSPricing"
     ],
-    "publishAt": "2026-11-14T15:00:00+05:00"
+    "publishAt": "2026-11-27T15:00:00+05:00"
   },
   "/blog/big-o-calculator-javascript.html": {
     "hook": "Most Big O answers online are a bare O(n) with no reason. I wanted a calculator that shows its work.",
@@ -55,7 +55,7 @@
       "CodingInterview",
       "WebDevelopment"
     ],
-    "publishAt": "2026-11-18T23:00:00+05:00"
+    "publishAt": "2026-11-29T15:00:00+05:00"
   },
   "/blog/saas-mvp-cost.html": {
     "hook": "Every SaaS MVP quote is a range. I wrote down the feature list behind the number.",
@@ -74,7 +74,7 @@
       "SoftwareDevelopment",
       "WebDevelopment"
     ],
-    "publishAt": "2026-11-24T14:00:00+05:00"
+    "publishAt": "2026-11-25T15:00:00+05:00"
   },
   "/blog/build-mcp-server.html": {
     "hook": "Before writing about MCP servers, I built one, tested it with a real client and published it to npm and the MCP Registry.",
