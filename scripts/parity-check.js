@@ -115,7 +115,9 @@ function snapshot(html) {
     headings: body.querySelectorAll("h2, h3").map((h) => norm(h.text)).join(" | "),
     text: norm(body.text),
     links: body.querySelectorAll("a[href]").map((a) => `${a.getAttribute("href")} ${a.getAttribute("rel") || ""}`.trim()).join("\n"),
-    images: body.querySelectorAll("img").map((i) => `${i.getAttribute("src")} alt=${i.getAttribute("alt")} ${i.getAttribute("width")}x${i.getAttribute("height")}`).join("\n"),
+    // loading and fetchpriority too: a hero image that turns lazy in a new
+    // component looks identical but hurts LCP.
+    images: body.querySelectorAll("img").map((i) => `${i.getAttribute("src")} alt=${i.getAttribute("alt")} ${i.getAttribute("width")}x${i.getAttribute("height")} loading=${i.getAttribute("loading") || ""} fetchpriority=${i.getAttribute("fetchpriority") || ""}`).join("\n"),
     scripts: root.querySelectorAll("script[src]").map((s) => s.getAttribute("src")).join("\n"),
     styles: root.querySelectorAll('link[rel="stylesheet"]').map((s) => s.getAttribute("href")).join("\n"),
   };
