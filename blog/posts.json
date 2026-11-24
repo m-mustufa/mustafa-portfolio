@@ -1,5 +1,35 @@
 [
   {
+    "slug": "build-mcp-server",
+    "title": "How to Build an MCP Server: Node.js Build, Test and Publish",
+    "metaDescription": "How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.",
+    "heroImageFile": "build-mcp-server-nodejs-developer-terminal.jpg",
+    "heroImageAlt": "Developer building an MCP server in Node.js in a laptop terminal at a simple desk",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 24, 2026",
+    "publishDateIso": "2026-11-24T01:57:14.960Z",
+    "readingTime": 9,
+    "category": "AI Engineering",
+    "tags": [
+      "Build MCP Server",
+      "Model Context Protocol",
+      "MCP Registry",
+      "Node.js",
+      "AI API Cost"
+    ],
+    "relatedSlugs": [
+      "mcp-vs-rest-api-ai-agents",
+      "mcp-server-security-uae-ai-saas",
+      "openai-claude-gemini-api-pricing"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html",
+    "socialImageFile": "build-mcp-server-social.jpg",
+    "socialImageWidth": 1200,
+    "socialImageHeight": 627,
+    "socialImageAlt": "Guide card: How to build an MCP server in Node.js, test it with a real client and publish it to npm and the MCP Registry"
+  },
+  {
     "slug": "saas-mvp-cost",
     "title": "How Much Does a SaaS MVP Cost in 2026? A Real Breakdown",
     "metaDescription": "SaaS MVP cost in 2026: a developer breaks down build cost by feature, monthly running costs, and how freelancers, agencies and no-code tools compare.",

@@ -6,7 +6,154 @@
     <atom:link href="https://aisaaswithmustafa.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical guides on SaaS, AI integrations, Node.js, React and web engineering by Muhammad Mustafa, from real project experience.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 21 Nov 2026 20:25:03 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 01:57:14 GMT</lastBuildDate>
+    <item>
+      <title>How to Build an MCP Server: Node.js Build, Test and Publish</title>
+      <link>https://aisaaswithmustafa.com/blog/build-mcp-server.html</link>
+      <guid isPermaLink="true">https://aisaaswithmustafa.com/blog/build-mcp-server.html</guid>
+      <pubDate>Tue, 24 Nov 2026 01:57:14 GMT</pubDate>
+      <dc:creator>Muhammad Mustafa</dc:creator>
+      <description>How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.</description>
+      <category>AI Engineering</category>
+      <category>Build MCP Server</category>
+      <category>Model Context Protocol</category>
+      <category>MCP Registry</category>
+      <category>Node.js</category>
+      <category>AI API Cost</category>
+      <enclosure url="https://aisaaswithmustafa.com/blog/images/build-mcp-server-nodejs-developer-terminal.jpg" length="117078" type="image/jpeg"/>
+      <content:encoded><![CDATA[<p>I wanted first-hand experience before writing more about MCP, so I built and shipped a real server: <code>ai-api-cost-mcp</code>, a small tool that lets an AI assistant estimate and compare OpenAI, Claude and Gemini API costs. This guide shows how to build an MCP server in Node.js the way I did it, from the first tool to npm and the official MCP Registry.</p>
+<p>I cover the tool definitions, the one stdio rule you cannot break, live prices with a safe fallback, the timeout I had to fix, testing with a real MCP client, and what publishing really involved. It all happened between 22 and 24 November 2026, and the code is public on <a href="https://github.com/m-mustufa/ai-api-cost-mcp" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+
+<h2>How to build an MCP server in Node.js</h2>
+
+<h3>What an MCP server is, in plain words</h3>
+<p>The Model Context Protocol (MCP) is an open standard that lets AI apps such as Claude Desktop, Claude Code or Cursor use tools that someone else wrote. Your server describes its tools: a name, a description and the inputs each one accepts. The AI app, called the client, reads that list and calls a tool when a question needs it.</p>
+<p>My server uses the stdio transport. The client starts the server as a child process, and the two exchange JSON messages through standard input and output. There is no port, no hosting and no login, which makes stdio the simplest place to start. If you are still deciding whether you need MCP at all, I compared it with plain HTTP APIs in <a href="https://aisaaswithmustafa.com/blog/mcp-vs-rest-api-ai-agents.html">MCP vs REST API for AI agents</a>.</p>
+
+<h3>One calculator for the website and the server</h3>
+<p>The server has three read-only tools: <code>list_models</code> shows the models and rates it knows, <code>estimate_cost</code> prices one model for a workload, and <code>compare_models</code> ranks every model for the same workload. Those numbers already existed on my site in the free <a href="https://aisaaswithmustafa.com/tools/ai-api-cost-calculator.html">AI API Cost Calculator</a>.</p>
+<p>I did not want two copies of the pricing logic drifting apart, so the server runs the same calculator module as the web page. A small script, <code>scripts/sync-calculator.mjs</code>, copies the website file into the package, and npm runs it on <code>prepack</code> before every publish. The page and the server cannot disagree about a rate or a formula. If you are wrapping an existing product in MCP, start the same way: reuse code your product already trusts and keep the MCP layer thin.</p>
+
+<h3>Registering tools with zod</h3>
+<p>I used the official TypeScript SDK from plain JavaScript (<code>@modelcontextprotocol/sdk</code> 1.32.2 with zod 4.6.7). Each tool is one <code>registerTool</code> call with a name, a config object and a handler. This is the shortest one, simplified a little:</p>
+<pre><code>import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+const server = new McpServer({ name: "ai-api-cost-mcp", version });
+
+server.registerTool(
+  "list_models",
+  {
+    description: "List the models this server knows, with rates per 1M tokens.",
+    inputSchema: { provider: z.enum(["OpenAI", "Anthropic", "Google"]).optional() },
+    annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  },
+  async ({ provider }) =&gt; {
+    const models = currentModels(await getRateTable())
+      .filter((m) =&gt; !provider || m.provider === provider);
+    return {
+      content: [{ type: "text", text: formatTable(models) }],
+      structuredContent: { models },
+    };
+  }
+);
+
+await server.connect(new StdioServerTransport());</code></pre>
+<p>The zod schema does two jobs: the SDK turns it into the JSON Schema the client sees, and it checks arguments before my handler runs. Descriptions matter more than I expected: the model reads them to pick a tool and fill each field, so write them like help text for a new colleague.</p>
+<p>The annotations tell the client these tools only read and calculate. They are hints, not a security boundary.</p>
+
+<h3>Text for the model, structuredContent for code</h3>
+<p>Every tool returns a readable text answer, usually a Markdown table, plus the same numbers as <code>structuredContent</code>, a plain JSON object. The assistant shows and reasons about the text. My test reads the JSON, and so can any program, without parsing text.</p>
+<p>When someone asks for a model the server does not know, the handler does not throw. It returns a normal result with <code>isError: true</code> and a message listing the known model ids, so the model can correct itself and try again.</p>
+
+<h3>On stdio, logs go to stderr</h3>
+<p>This rule breaks most first servers. On stdio, standard output is the protocol channel, so a stray <code>console.log</code> puts text there that the client cannot parse. The official <a href="https://modelcontextprotocol.io/docs/tools/debugging" target="_blank" rel="noopener noreferrer">MCP debugging guide</a> says local servers should not log to stdout. My server logs with <code>console.error</code>, which goes to stderr, and the host app captures it.</p>
+
+<h2>Live rates without breaking offline use</h2>
+<p>AI API prices change, and I did not want a new npm release for every price update. So the site build also publishes a public file, <code>/tools/ai-api-pricing.json</code>, generated from the same calculator module. The server tries that file and falls back to the rates bundled in the package.</p>
+
+<h3>Validate everything you download</h3>
+<p>The server treats the live file as untrusted input:</p>
+<ul>
+<li>It checks every model entry: text fields must be present, and every rate, including promotional rates, must be a finite number of zero or more.</li>
+<li>It uses the live table only if its verified date is at least as new as the bundled one, so an old copy can never roll prices back.</li>
+<li>It caches the result for 12 hours.</li>
+<li>Setting <code>AI_API_COST_MCP_OFFLINE=1</code> skips the request completely.</li>
+</ul>
+<p>It is a plain GET of a static file. Nothing the user types is sent anywhere, and the README says so.</p>
+
+<h3>The timeout that was too tight</h3>
+<p>My first version gave that request 2.5 seconds. In my tests, a cold first request, which needs a DNS lookup and a TLS handshake, took roughly 0.9 to 1.8 seconds. That was too close. On a slower connection the request would be cut off, and a fresh install would quietly answer with bundled rates.</p>
+<p>The fix had three parts: a 5-second timeout, a warm-up call right after <code>server.connect</code>, and one shared in-flight promise so the warm-up and an early tool call never send two requests:</p>
+<pre><code>let inflight = null;
+
+export async function getRateTable() {
+  if (cache &amp;&amp; Date.now() - cache.loadedAt &lt; REFRESH_MS) return cache.table;
+  if (!inflight) inflight = loadRateTable().finally(() =&gt; (inflight = null));
+  return inflight;
+}
+
+// index.js, right after server.connect(transport)
+getRateTable().catch(() =&gt; {});</code></pre>
+<p>A silent fallback is good for users and bad for debugging, so every answer says which rate table it used and when those rates were verified.</p>
+
+<h2>Testing an MCP server with a real client</h2>
+<p>I wanted a check I could rerun with one command, so I wrote <code>test/smoke.mjs</code> with the SDK's own <code>Client</code> and <code>StdioClientTransport</code>. It starts the real server and talks to it exactly as an AI app would.</p>
+<p>The test checks that exactly three tools are listed and compares <code>estimate_cost</code> results with the calculator module directly, to six decimal places. It also tries custom rates, confirms that an unknown model returns <code>isError: true</code>, and checks that <code>compare_models</code> covers every model, sorted from cheapest. It runs offline by default; <code>LIVE=1</code> lets the server fetch the live file.</p>
+<figure><img src="https://aisaaswithmustafa.com/blog/images/mcp-server-tool-test-desktop-ai-chat.jpg" alt="Developer testing an MCP server tool inside a desktop AI chat app on a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>After the scripted test passed, I checked the tools inside a real AI app.</figcaption></figure>
+<p>Then I tested it the way a user would. After publishing, I ran <code>npx -y ai-api-cost-mcp</code> with a real client, and it read the live rates. I also added the server to Claude Desktop and asked it to compare models for a support bot priced at $49 per user. Claude called <code>compare_models</code> with the support preset and that price. A user only needs this config:</p>
+<pre><code>{
+  "mcpServers": {
+    "ai-api-cost": { "command": "npx", "args": ["-y", "ai-api-cost-mcp"] }
+  }
+}</code></pre>
+
+<h2>How to publish an MCP server: npm, the Registry and directories</h2>
+
+<h3>npm first</h3>
+<p>Three <code>package.json</code> fields do most of the work: <code>bin</code> so <code>npx</code> can run the server, <code>files</code> so only the source, README and license ship, and <code>engines</code> for the Node.js version. The entry file starts with <code>#!/usr/bin/env node</code>.</p>
+<p>My npm account uses a security key for two-factor authentication, so <code>npm publish --access public</code> waited until I approved it in the browser. Right after that, npm showed a <code>0.0.0-stage</code> placeholder for a few minutes before 0.1.0 became <code>latest</code>.</p>
+<figure><img src="https://aisaaswithmustafa.com/blog/images/npm-publish-security-key-2fa-approval.jpg" alt="Developer approving an npm package publish with a USB security key next to a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>With a security key, an npm publish waits for a human approval in the browser.</figcaption></figure>
+
+<h3>The official MCP Registry</h3>
+<p>The <a href="https://modelcontextprotocol.io/registry/quickstart" target="_blank" rel="noopener noreferrer">official MCP Registry</a> stores metadata, not code, which is why npm comes first. My steps:</p>
+<ol>
+<li>Add <code>"mcpName": "io.github.m-mustufa/ai-api-cost-mcp"</code> to <code>package.json</code> and publish that version to npm. With GitHub login, the name must start with <code>io.github.</code> and your username.</li>
+<li>Run <code>mcp-publisher init</code> to generate <code>server.json</code>.</li>
+<li>Read every line it generated and fix what it guessed.</li>
+<li>Run <code>mcp-publisher validate</code>.</li>
+<li>Run <code>mcp-publisher login github</code> and approve the device code on GitHub.</li>
+<li>Run <code>mcp-publisher publish</code>.</li>
+</ol>
+<p>Step 3 is my warning. The template added a required API-key variable that my server does not have, and it copied my Bitbucket git remote, while the public code lives on GitHub. I fixed both by hand and declared the one real, optional variable:</p>
+<pre><code>"environmentVariables": [{
+  "name": "AI_API_COST_MCP_OFFLINE",
+  "isRequired": false,
+  "isSecret": false
+}]</code></pre>
+
+<h3>Directories: what worked and what did not</h3>
+<p>Directories read a GitHub repository, but my source lives in my website's repo, so I mirror the package folder into a standalone public repo with <code>git subtree</code>.</p>
+<ul>
+<li><strong>Glama:</strong> submitted through its Add Server form and now in review. A small <code>glama.json</code> names me as the maintainer.</li>
+<li><strong>Smithery:</strong> closed self-listing on 31 October 2026, so there was nothing to submit.</li>
+<li><strong>mcp.so:</strong> the web form was paid only, $39 for a dofollow link. I opened a free GitHub issue instead, because I do not pay for links.</li>
+</ul>
+
+<h2>What I would tell you before you start</h2>
+<ol>
+<li>Reuse logic your product already trusts and keep the MCP layer thin.</li>
+<li>Write tool and field descriptions for the model, not for yourself.</li>
+<li>Return text and <code>structuredContent</code>, and use <code>isError</code> for bad input.</li>
+<li>Never write to stdout on a stdio server.</li>
+<li>Validate anything you download, fall back safely and give cold network calls room.</li>
+<li>Test with a real client, then test the published package with <code>npx</code>.</li>
+<li>Read every line <code>mcp-publisher init</code> writes before you publish.</li>
+</ol>
+<p>One honest note: I built this on the v1 SDK. There is now also a v2 line with separate packages such as <code>@modelcontextprotocol/server</code>. <code>registerTool</code> keeps its shape, but the upgrade guide wraps plain zod shapes like mine in <code>z.object()</code>, so check the <a href="https://ts.sdk.modelcontextprotocol.io/v2/" target="_blank" rel="noopener noreferrer">current SDK docs</a> before copying older examples, including mine.</p>
+<p>Try it with <code>npx -y ai-api-cost-mcp</code>, or use the <a href="https://aisaaswithmustafa.com/tools/ai-api-cost-calculator.html">AI API Cost Calculator</a> in the browser. My <a href="https://aisaaswithmustafa.com/blog/openai-claude-gemini-api-pricing.html">OpenAI vs Claude vs Gemini API pricing guide</a> explains the numbers. If your server will touch customer data, read my <a href="https://aisaaswithmustafa.com/blog/mcp-server-security-uae-ai-saas.html">MCP server security checklist</a> first. Need an MCP server or AI feature in your SaaS product? See my <a href="https://aisaaswithmustafa.com/ai-saas-development-services.html">AI SaaS development services</a> or <a href="https://aisaaswithmustafa.com/#contact">get in touch</a>.</p>]]></content:encoded>
+    </item>
     <item>
       <title>How Much Does a SaaS MVP Cost in 2026? A Real Breakdown</title>
       <link>https://aisaaswithmustafa.com/blog/saas-mvp-cost.html</link>
@@ -1527,133 +1674,6 @@ async function executeAction(action: AgentAction, actor: User) {
 <p>The UAE's agentic AI direction creates a real opportunity for businesses in Dubai, Abu Dhabi and across the country. The companies that benefit will not be the ones that add the most autonomous agents. They will be the ones that choose valuable workflows, control tool access, protect data and measure results carefully.</p>
 <p>Start in observe mode, add approval, then earn the right to automate a limited action. That approach is less dramatic than an “autonomous company” demo, but it produces software that employees and customers can trust.</p>
 <p>If you are planning an agent-powered SaaS feature or business workflow in the UAE, I can help turn the idea into a secure architecture and focused delivery plan. Review my <a href="https://aisaaswithmustafa.com/blog/openai-agents-api-saas-production-guide.html">OpenAI Agents API production guide</a>, explore my <a href="https://aisaaswithmustafa.com/full-stack-development-services-dubai.html">UAE full-stack SaaS development services</a> or <a href="https://aisaaswithmustafa.com/#contact">tell me what you want to automate</a>.</p>]]></content:encoded>
-    </item>
-    <item>
-      <title>How UAE Businesses Implement Open Finance Solutions (2026)</title>
-      <link>https://aisaaswithmustafa.com/blog/uae-open-finance-api-integration.html</link>
-      <guid isPermaLink="true">https://aisaaswithmustafa.com/blog/uae-open-finance-api-integration.html</guid>
-      <pubDate>Fri, 25 Sep 2026 16:27:21 GMT</pubDate>
-      <dc:creator>Muhammad Mustafa</dc:creator>
-      <description>A practical UAE Open Finance implementation guide covering CBUAE roles, AlTareq, consent, FAPI security, callbacks, testing and production launch.</description>
-      <category>FinTech &amp; Integrations</category>
-      <category>UAE Open Finance</category>
-      <category>Open Finance API</category>
-      <category>AlTareq</category>
-      <category>CBUAE</category>
-      <category>Fintech Integration</category>
-      <enclosure url="https://aisaaswithmustafa.com/blog/images/uae-open-finance-api-integration-altareq-fintech-saas.jpg" length="117163" type="image/jpeg"/>
-      <content:encoded><![CDATA[<p><strong>How do UAE businesses implement Open Finance solutions?</strong> They first define the regulated service and role, then connect consented financial data or supported transactions through the UAE framework. The Central Bank of the UAE defines the rules, while AlTareq provides common infrastructure for banks, insurers and approved third-party providers.</p>
-<p>For a UAE business implementing an Open Finance solution, the difficult part is not calling one REST endpoint. It is choosing the correct regulated role, completing onboarding, designing a clear customer journey and building consent, identity, security, callback and audit systems that remain safe when users cancel, tokens expire or upstream services retry.</p>
-<p>This guide explains how I would plan that integration in a production SaaS application. It covers the UAE Open Finance architecture, the AlTareq consent journey, FAPI security, backend boundaries, privacy, testing and operational checks. It is an engineering guide, not legal or licensing advice; regulated teams should confirm their exact obligations with the CBUAE and qualified advisers.</p>
-<h2>How UAE businesses implement Open Finance</h2>
-<p>The current <a href="https://rulebook.centralbank.ae/en/rulebook/introduction-and-scope-2" target="_blank" rel="noopener noreferrer">CBUAE Open Finance Regulation</a> covers licensing, supervision and operation of the framework. It makes participation mandatory for in-scope licensees, while a business that wants to provide Data Sharing or Service Initiation must follow the applicable licensing or approval path.</p>
-<p>A practical implementation plan has five stages:</p>
-<ol>
-<li><strong>Define the service:</strong> decide whether the product needs customer-permitted data sharing, service initiation or both.</li>
-<li><strong>Confirm the regulated role:</strong> establish whether the company must apply as an Open Finance Provider or operates through an approved partner.</li>
-<li><strong>Complete framework onboarding:</strong> register the application, certificates, redirect URIs and participants required for the Trust Framework and API Hub.</li>
-<li><strong>Build and test the journey:</strong> implement consent, authentication, callbacks, token handling, data minimisation and failure recovery in the sandbox.</li>
-<li><strong>Pass assurance before launch:</strong> complete required conformance, security and operational checks, then monitor consent and API failures in production.</li>
-</ol>
-<p>This order matters. Starting frontend development before the regulated role, permitted use case and onboarding route are clear usually creates rework.</p>
-<h2>Understand the UAE Open Finance architecture before writing code</h2>
-<p>The <a href="https://rulebook.centralbank.ae/en/rulebook/introduction-and-scope-2" target="_blank" rel="noopener noreferrer">CBUAE Open Finance Regulation</a> describes three connected parts: the Trust Framework, the API Hub and Common Infrastructural Services. Treating them as separate responsibilities makes the integration easier to reason about.</p>
-<h3>Trust Framework</h3>
-<p>The Trust Framework establishes who is allowed to participate. It includes a participant directory, identity and access services, application registration and digital certificates. Your application should not maintain a hand-written list of banks or trust an endpoint supplied by a browser. It should use approved participant and discovery data and validate the systems it communicates with.</p>
-<h3>API Hub</h3>
-<p>The API Hub provides a standard integration point across financial institutions. Its API Manager aggregates participant APIs and exposes harmonised interfaces. This reduces the need for a different connector for every bank, but your product still owns consent state, error handling and reconciliation.</p>
-<h3>Common services</h3>
-<p>Common services cover consent and authorisation, service assurance, reporting, analytics and administration. Your SaaS product still needs a clear record of what the user requested, what was approved, which account or product was involved, when access expires and why a workflow failed.</p>
-<p>I would model these systems behind a dedicated integration module. The rest of the application should ask that module for an authorised account list or payment status instead of spreading Open Finance request logic across UI components and unrelated API routes.</p>
-<h2>Map the AlTareq consent journey end to end</h2>
-<p>The official <a href="https://openfinanceuae.atlassian.net/wiki/spaces/OF/pages/455278830/AlTareq+Centralised+Authentication+and+Authorization+Integration+Guide" target="_blank" rel="noopener noreferrer">AlTareq integration guide</a> describes a centralised authentication and authorisation flow for Third-Party Providers and Licensed Financial Institutions. In plain English, the user chooses a provider, approves a specific request in AlTareq and returns to the fintech product after authorisation.</p>
-<p>A simplified application flow looks like this:</p>
-<ol>
-<li>The user starts an action such as connecting a bank account or initiating a payment.</li>
-<li>Your backend creates a local consent attempt with a unique state and expiry.</li>
-<li>The application retrieves approved participant and discovery information.</li>
-<li>The backend submits a Pushed Authorization Request, usually called PAR.</li>
-<li>The user is redirected or deep-linked to AlTareq with approved request identifiers.</li>
-<li>AlTareq authenticates the user and shows the requested data or transaction scope.</li>
-<li>The user approves or rejects the request.</li>
-<li>The user returns to a registered callback URL.</li>
-<li>Your backend validates the callback, exchanges the code and updates consent state.</li>
-<li>Only then does the application request authorised data or initiate the approved service.</li>
-</ol>
-<p>The browser should never decide that consent succeeded simply because it reached a success page. The backend must match the callback to the original state and validate the response. This is the same principle I use for reliable billing events: redirects explain progress, while verified server-side messages control durable state. My <a href="https://aisaaswithmustafa.com/blog/stripe-webhooks-nextjs-saas-idempotency.html">Stripe webhook guide</a> covers that reliability pattern in more detail.</p>
-<h2>Build the integration as a secure backend boundary</h2>
-<p>The AlTareq guide references the FAPI 2.0 Security Profile, Pushed Authorization Requests, OpenID discovery and registered redirect URIs. These controls exist because financial authorisation requires stronger guarantees than a normal social login.</p>
-<p>I would keep certificates, signing keys, client credentials and token operations in a server-only service. A Next.js page or mobile client can begin the connection, but it should never receive private keys or build signed financial requests directly. Production keys belong in a managed secret store with access logging and rotation procedures, not in the repository.</p>
-<p>A small internal state model prevents ambiguous outcomes:</p>
-<pre><code class="language-ts">type ConsentStatus =
-  | 'created'
-  | 'authorization_pending'
-  | 'authorized'
-  | 'rejected'
-  | 'revoked'
-  | 'expired'
-  | 'failed';
-
-async function completeCallback(input: CallbackInput) {
-  const attempt = await findConsentByState(hash(input.state));
-  if (!attempt || attempt.expiresAt &lt; new Date()) {
-    throw new Error('Invalid or expired consent state');
-  }
-
-  const tokens = await exchangeAuthorizationCode(input.code);
-  await markConsentAuthorized(attempt.id, tokens.consentId);
-  return { consentId: attempt.id };
-}</code></pre>
-<p>The example is intentionally generic. Exact request signing, certificate handling and token fields must follow the current specifications. The stable design choices are to bind every flow to the correct tenant and user, enforce expiry and make repeated callbacks safe.</p>
-<h3>Plan for retries and out-of-order events</h3>
-<p>Financial APIs and event notifications can retry. Network timeouts can leave the caller unsure whether an operation completed. Give every state-changing request an idempotency key, store the external reference and provide status reconciliation. If a callback arrives twice, the second delivery should return success without creating another consent or payment.</p>
-<p>Keep an append-only event history alongside the current status. Support teams need to answer what the user approved, what request was sent, what response arrived and which code changed the state. Do not place full account data, access tokens or personal information in general application logs.</p>
-<h2>Design consent and privacy as product features</h2>
-<p><a href="https://rulebook.centralbank.ae/en/rulebook/article-22-data-privacy-and-consent-use-personal-data-0" target="_blank" rel="noopener noreferrer">CBUAE Article 22</a> says personal data processing for Open Finance services requires explicit user consent, and that consent must be specific, informed, unambiguous and freely given. Multiple purposes should be distinguishable, and requests should remain relevant to their stated purpose.</p>
-<p>The product should clearly explain:</p>
-<ul>
-<li>which financial institution the user is connecting;</li>
-<li>which account, policy or product is involved;</li>
-<li>what data will be read or what action will be initiated;</li>
-<li>why the application needs it;</li>
-<li>how long access lasts;</li>
-<li>whether the action is one-time or recurring; and</li>
-<li>how the user can review or revoke consent.</li>
-</ul>
-<p>Store the consent purpose and version shown to the user. When scopes or purposes change, request fresh approval instead of quietly expanding access. Data retention should be tied to the service need and the user's relationship with the product.</p>
-<p>Open Finance requirements sit alongside broader privacy duties. My <a href="https://aisaaswithmustafa.com/blog/uae-pdpl-compliance-saas.html">UAE PDPL checklist for SaaS</a> explains data mapping, user rights and privacy-by-design. If onboarding uses national digital identity, review my <a href="https://aisaaswithmustafa.com/blog/uae-pass-nextjs-nodejs-integration.html">UAE PASS integration guide</a> rather than mixing identity and financial-consent logic into one route.</p>
-<h2>Use a production architecture that can be audited</h2>
-<p>For a multi-tenant SaaS product, I would separate the integration into six areas:</p>
-<ul>
-<li><strong>Participant directory:</strong> approved providers, discovery metadata and controlled caching.</li>
-<li><strong>Consent service:</strong> local state, purpose, scopes, expiry, revocation and history.</li>
-<li><strong>Security service:</strong> keys, certificates, request signing, encryption and token handling.</li>
-<li><strong>API client:</strong> typed requests, validation, timeouts, retries and idempotency.</li>
-<li><strong>Event processor:</strong> verified notifications, deduplication and reconciliation jobs.</li>
-<li><strong>Operations view:</strong> safe diagnostics, audit events, alerts and support actions.</li>
-</ul>
-<p>Every record must include the tenant boundary. A user in Company A must never retrieve a consent, token reference or account record belonging to Company B. Enforce that rule in backend queries and database policies, not only in frontend navigation. My <a href="https://aisaaswithmustafa.com/blog/supabase-rls-multi-role-apps.html">Supabase RLS guide</a> shows how I think about database-enforced isolation.</p>
-<h2>Test failure paths before certification and launch</h2>
-<p>The framework includes sandbox and conformance processes. Use them to test more than the happy path. Cover rejected consent, expired state, concurrent journeys, an unavailable authorisation app, invalid signatures, certificate rotation, token expiry, revoked access, repeated callbacks, provider-directory changes and reconciliation after a timeout.</p>
-<p>Production monitoring should track authorisation completion rate, callback errors, token failures, API latency, provider availability, retry volume and reconciliation gaps. Alert on changes from the normal baseline, but avoid putting account numbers or raw payloads into alert messages.</p>
-<h2>UAE Open Finance API integration checklist</h2>
-<ul>
-<li>Confirm the business model, regulated role and onboarding path before development.</li>
-<li>Use the approved participant directory and discovery metadata.</li>
-<li>Keep private keys, certificates and token exchange on the server.</li>
-<li>Implement PAR, callback validation and FAPI requirements from current specifications.</li>
-<li>Bind every consent flow to the correct user and tenant.</li>
-<li>Use explicit statuses for pending, authorised, rejected, revoked, expired and failed consent.</li>
-<li>Make callbacks, notifications and transaction requests idempotent.</li>
-<li>Store purpose, scope, expiry and consent-version evidence.</li>
-<li>Minimise retained financial and personal data.</li>
-<li>Test revocation, retries, key rotation and provider outages.</li>
-<li>Complete sandbox, conformance and security review before production.</li>
-</ul>
-<h2>Practical takeaway</h2>
-<p>A UAE Open Finance API integration is a regulated product workflow, not a simple bank-data connector. The reliable approach starts with the Trust Framework and API Hub, keeps credentials in a dedicated backend boundary, treats consent as an explicit state machine and records enough evidence to support users and audits safely.</p>
-<p>AlTareq reduces fragmentation with common infrastructure and standard journeys. Your product still owns tenant isolation, user experience, retry behaviour, privacy and monitoring. Build those parts deliberately and the integration becomes easier to test and operate.</p>
-<p>If you are planning a UAE fintech product, account-data workflow or secure API integration, I can help turn the requirements into a practical architecture and delivery plan. Review my <a href="https://aisaaswithmustafa.com/full-stack-development-services-dubai.html">full-stack SaaS development services in the UAE</a> or <a href="https://aisaaswithmustafa.com/#contact">tell me what you are building</a>.</p>]]></content:encoded>
     </item>
   </channel>
 </rss>

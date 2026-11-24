@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>How to Build an MCP Server: Node.js Build, Test and Publish</title>
+    <meta name="description" content="How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/build-mcp-server.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="How to Build an MCP Server: Node.js Build, Test and Publish">
+    <meta property="og:description" content="How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/build-mcp-server-social.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="627">
+    <meta property="og:image:alt" content="Guide card: How to build an MCP server in Node.js, test it with a real client and publish it to npm and the MCP Registry">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/build-mcp-server.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-24T01:57:14.960Z">
+    <meta property="article:modified_time" content="2026-11-24T01:57:14.960Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="AI Engineering">
+    <meta property="article:tag" content="Build MCP Server">
+    <meta property="article:tag" content="Model Context Protocol">
+    <meta property="article:tag" content="MCP Registry">
+    <meta property="article:tag" content="Node.js">
+    <meta property="article:tag" content="AI API Cost">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Build an MCP Server: Node.js Build, Test and Publish">
+    <meta name="twitter:description" content="How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/build-mcp-server-social.jpg">
+    <meta name="twitter:image:alt" content="Guide card: How to build an MCP server in Node.js, test it with a real client and publish it to npm and the MCP Registry">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261013-reading">
+    <script src="../assets/js/style.js?v=20261013-reading2" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "How to Build an MCP Server: Node.js Build, Test and Publish", "item": "https://aisaaswithmustafa.com/blog/build-mcp-server.html" }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/profile.html",
+          "image": "https://aisaaswithmustafa.com/assets/img/muhammad-mustafa-ai-saas-developer.webp",
+          "jobTitle": "Full-Stack SaaS and AI Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/muhammad-mustafa-16477a99/",
+            "https://www.upwork.com/freelancers/mustafafullstack",
+            "https://contra.com/muhammad_mustafa_hg8nbcx2",
+            "https://clutch.co/profile/ai-saas-mustafa",
+            "https://techbehemoths.com/company/ai-saas-with-mustafa"
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "How to Build an MCP Server: Node.js Build, Test and Publish",
+          "description": "How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.",
+          "image": "https://aisaaswithmustafa.com/blog/images/build-mcp-server-nodejs-developer-terminal.jpg",
+          "datePublished": "2026-11-24T01:57:14.960Z",
+          "dateModified": "2026-11-24T01:57:14.960Z",
+          "articleSection": "AI Engineering",
+          "keywords": ["Build MCP Server","Model Context Protocol","MCP Registry","Node.js","AI API Cost"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/build-mcp-server.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <!--@site-header-->
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>AI Engineering</p>
+                        <h1 id="article-title">How to Build an MCP Server: Node.js Build, Test and Publish</h1>
+                        <p class="article-summary">How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-11-24T01:57:14.960Z">November 24, 2026</time> <i aria-hidden="true"></i> 9 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>AI Engineering</span>
+                <span>Build MCP Server</span>
+                <span>Model Context Protocol</span>
+                <span>MCP Registry</span>
+                <span>Node.js</span>
+                <span>AI API Cost</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/build-mcp-server-nodejs-developer-terminal.jpg" alt="Developer building an MCP server in Node.js in a laptop terminal at a simple desk" width="1200" height="675" loading="eager" />
+                        <figcaption>AI Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#how-to-build-an-mcp-server-in-node-js">How to build an MCP server in Node.js</a></li>
+                    <li><a href="#live-rates-without-breaking-offline-use">Live rates without breaking offline use</a></li>
+                    <li><a href="#testing-an-mcp-server-with-a-real-client">Testing an MCP server with a real client</a></li>
+                    <li><a href="#how-to-publish-an-mcp-server-npm-the-registry-and-directories">How to publish an MCP server: npm, the Registry and directories</a></li>
+                    <li><a href="#what-i-would-tell-you-before-you-start">What I would tell you before you start</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>I wanted first-hand experience before writing more about MCP, so I built and shipped a real server: <code>ai-api-cost-mcp</code>, a small tool that lets an AI assistant estimate and compare OpenAI, Claude and Gemini API costs. This guide shows how to build an MCP server in Node.js the way I did it, from the first tool to npm and the official MCP Registry.</p>
+<p>I cover the tool definitions, the one stdio rule you cannot break, live prices with a safe fallback, the timeout I had to fix, testing with a real MCP client, and what publishing really involved. It all happened between 22 and 24 November 2026, and the code is public on <a href="https://github.com/m-mustufa/ai-api-cost-mcp" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+
+<h2 class="scroll-mt-28" id="how-to-build-an-mcp-server-in-node-js">How to build an MCP server in Node.js</h2>
+
+<h3>What an MCP server is, in plain words</h3>
+<p>The Model Context Protocol (MCP) is an open standard that lets AI apps such as Claude Desktop, Claude Code or Cursor use tools that someone else wrote. Your server describes its tools: a name, a description and the inputs each one accepts. The AI app, called the client, reads that list and calls a tool when a question needs it.</p>
+<p>My server uses the stdio transport. The client starts the server as a child process, and the two exchange JSON messages through standard input and output. There is no port, no hosting and no login, which makes stdio the simplest place to start. If you are still deciding whether you need MCP at all, I compared it with plain HTTP APIs in <a href="/blog/mcp-vs-rest-api-ai-agents.html">MCP vs REST API for AI agents</a>.</p>
+
+<h3>One calculator for the website and the server</h3>
+<p>The server has three read-only tools: <code>list_models</code> shows the models and rates it knows, <code>estimate_cost</code> prices one model for a workload, and <code>compare_models</code> ranks every model for the same workload. Those numbers already existed on my site in the free <a href="/tools/ai-api-cost-calculator.html">AI API Cost Calculator</a>.</p>
+<p>I did not want two copies of the pricing logic drifting apart, so the server runs the same calculator module as the web page. A small script, <code>scripts/sync-calculator.mjs</code>, copies the website file into the package, and npm runs it on <code>prepack</code> before every publish. The page and the server cannot disagree about a rate or a formula. If you are wrapping an existing product in MCP, start the same way: reuse code your product already trusts and keep the MCP layer thin.</p>
+
+<h3>Registering tools with zod</h3>
+<p>I used the official TypeScript SDK from plain JavaScript (<code>@modelcontextprotocol/sdk</code> 1.32.2 with zod 4.6.7). Each tool is one <code>registerTool</code> call with a name, a config object and a handler. This is the shortest one, simplified a little:</p>
+<pre><code>import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+const server = new McpServer({ name: "ai-api-cost-mcp", version });
+
+server.registerTool(
+  "list_models",
+  {
+    description: "List the models this server knows, with rates per 1M tokens.",
+    inputSchema: { provider: z.enum(["OpenAI", "Anthropic", "Google"]).optional() },
+    annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
+  },
+  async ({ provider }) =&gt; {
+    const models = currentModels(await getRateTable())
+      .filter((m) =&gt; !provider || m.provider === provider);
+    return {
+      content: [{ type: "text", text: formatTable(models) }],
+      structuredContent: { models },
+    };
+  }
+);
+
+await server.connect(new StdioServerTransport());</code></pre>
+<p>The zod schema does two jobs: the SDK turns it into the JSON Schema the client sees, and it checks arguments before my handler runs. Descriptions matter more than I expected: the model reads them to pick a tool and fill each field, so write them like help text for a new colleague.</p>
+<p>The annotations tell the client these tools only read and calculate. They are hints, not a security boundary.</p>
+
+<h3>Text for the model, structuredContent for code</h3>
+<p>Every tool returns a readable text answer, usually a Markdown table, plus the same numbers as <code>structuredContent</code>, a plain JSON object. The assistant shows and reasons about the text. My test reads the JSON, and so can any program, without parsing text.</p>
+<p>When someone asks for a model the server does not know, the handler does not throw. It returns a normal result with <code>isError: true</code> and a message listing the known model ids, so the model can correct itself and try again.</p>
+
+<h3>On stdio, logs go to stderr</h3>
+<p>This rule breaks most first servers. On stdio, standard output is the protocol channel, so a stray <code>console.log</code> puts text there that the client cannot parse. The official <a href="https://modelcontextprotocol.io/docs/tools/debugging" target="_blank" rel="noopener noreferrer">MCP debugging guide</a> says local servers should not log to stdout. My server logs with <code>console.error</code>, which goes to stderr, and the host app captures it.</p>
+
+<h2 class="scroll-mt-28" id="live-rates-without-breaking-offline-use">Live rates without breaking offline use</h2>
+<p>AI API prices change, and I did not want a new npm release for every price update. So the site build also publishes a public file, <code>/tools/ai-api-pricing.json</code>, generated from the same calculator module. The server tries that file and falls back to the rates bundled in the package.</p>
+
+<h3>Validate everything you download</h3>
+<p>The server treats the live file as untrusted input:</p>
+<ul>
+<li>It checks every model entry: text fields must be present, and every rate, including promotional rates, must be a finite number of zero or more.</li>
+<li>It uses the live table only if its verified date is at least as new as the bundled one, so an old copy can never roll prices back.</li>
+<li>It caches the result for 12 hours.</li>
+<li>Setting <code>AI_API_COST_MCP_OFFLINE=1</code> skips the request completely.</li>
+</ul>
+<p>It is a plain GET of a static file. Nothing the user types is sent anywhere, and the README says so.</p>
+
+<h3>The timeout that was too tight</h3>
+<p>My first version gave that request 2.5 seconds. In my tests, a cold first request, which needs a DNS lookup and a TLS handshake, took roughly 0.9 to 1.8 seconds. That was too close. On a slower connection the request would be cut off, and a fresh install would quietly answer with bundled rates.</p>
+<p>The fix had three parts: a 5-second timeout, a warm-up call right after <code>server.connect</code>, and one shared in-flight promise so the warm-up and an early tool call never send two requests:</p>
+<pre><code>let inflight = null;
+
+export async function getRateTable() {
+  if (cache &amp;&amp; Date.now() - cache.loadedAt &lt; REFRESH_MS) return cache.table;
+  if (!inflight) inflight = loadRateTable().finally(() =&gt; (inflight = null));
+  return inflight;
+}
+
+// index.js, right after server.connect(transport)
+getRateTable().catch(() =&gt; {});</code></pre>
+<p>A silent fallback is good for users and bad for debugging, so every answer says which rate table it used and when those rates were verified.</p>
+
+<h2 class="scroll-mt-28" id="testing-an-mcp-server-with-a-real-client">Testing an MCP server with a real client</h2>
+<p>I wanted a check I could rerun with one command, so I wrote <code>test/smoke.mjs</code> with the SDK's own <code>Client</code> and <code>StdioClientTransport</code>. It starts the real server and talks to it exactly as an AI app would.</p>
+<p>The test checks that exactly three tools are listed and compares <code>estimate_cost</code> results with the calculator module directly, to six decimal places. It also tries custom rates, confirms that an unknown model returns <code>isError: true</code>, and checks that <code>compare_models</code> covers every model, sorted from cheapest. It runs offline by default; <code>LIVE=1</code> lets the server fetch the live file.</p>
+<figure><img src="images/mcp-server-tool-test-desktop-ai-chat.jpg" alt="Developer testing an MCP server tool inside a desktop AI chat app on a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>After the scripted test passed, I checked the tools inside a real AI app.</figcaption></figure>
+<p>Then I tested it the way a user would. After publishing, I ran <code>npx -y ai-api-cost-mcp</code> with a real client, and it read the live rates. I also added the server to Claude Desktop and asked it to compare models for a support bot priced at $49 per user. Claude called <code>compare_models</code> with the support preset and that price. A user only needs this config:</p>
+<pre><code>{
+  "mcpServers": {
+    "ai-api-cost": { "command": "npx", "args": ["-y", "ai-api-cost-mcp"] }
+  }
+}</code></pre>
+
+<h2 class="scroll-mt-28" id="how-to-publish-an-mcp-server-npm-the-registry-and-directories">How to publish an MCP server: npm, the Registry and directories</h2>
+
+<h3>npm first</h3>
+<p>Three <code>package.json</code> fields do most of the work: <code>bin</code> so <code>npx</code> can run the server, <code>files</code> so only the source, README and license ship, and <code>engines</code> for the Node.js version. The entry file starts with <code>#!/usr/bin/env node</code>.</p>
+<p>My npm account uses a security key for two-factor authentication, so <code>npm publish --access public</code> waited until I approved it in the browser. Right after that, npm showed a <code>0.0.0-stage</code> placeholder for a few minutes before 0.1.0 became <code>latest</code>.</p>
+<figure><img src="images/npm-publish-security-key-2fa-approval.jpg" alt="Developer approving an npm package publish with a USB security key next to a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>With a security key, an npm publish waits for a human approval in the browser.</figcaption></figure>
+
+<h3>The official MCP Registry</h3>
+<p>The <a href="https://modelcontextprotocol.io/registry/quickstart" target="_blank" rel="noopener noreferrer">official MCP Registry</a> stores metadata, not code, which is why npm comes first. My steps:</p>
+<ol>
+<li>Add <code>"mcpName": "io.github.m-mustufa/ai-api-cost-mcp"</code> to <code>package.json</code> and publish that version to npm. With GitHub login, the name must start with <code>io.github.</code> and your username.</li>
+<li>Run <code>mcp-publisher init</code> to generate <code>server.json</code>.</li>
+<li>Read every line it generated and fix what it guessed.</li>
+<li>Run <code>mcp-publisher validate</code>.</li>
+<li>Run <code>mcp-publisher login github</code> and approve the device code on GitHub.</li>
+<li>Run <code>mcp-publisher publish</code>.</li>
+</ol>
+<p>Step 3 is my warning. The template added a required API-key variable that my server does not have, and it copied my Bitbucket git remote, while the public code lives on GitHub. I fixed both by hand and declared the one real, optional variable:</p>
+<pre><code>"environmentVariables": [{
+  "name": "AI_API_COST_MCP_OFFLINE",
+  "isRequired": false,
+  "isSecret": false
+}]</code></pre>
+
+<h3>Directories: what worked and what did not</h3>
+<p>Directories read a GitHub repository, but my source lives in my website's repo, so I mirror the package folder into a standalone public repo with <code>git subtree</code>.</p>
+<ul>
+<li><strong>Glama:</strong> submitted through its Add Server form and now in review. A small <code>glama.json</code> names me as the maintainer.</li>
+<li><strong>Smithery:</strong> closed self-listing on 31 October 2026, so there was nothing to submit.</li>
+<li><strong>mcp.so:</strong> the web form was paid only, $39 for a dofollow link. I opened a free GitHub issue instead, because I do not pay for links.</li>
+</ul>
+
+<h2 class="scroll-mt-28" id="what-i-would-tell-you-before-you-start">What I would tell you before you start</h2>
+<ol>
+<li>Reuse logic your product already trusts and keep the MCP layer thin.</li>
+<li>Write tool and field descriptions for the model, not for yourself.</li>
+<li>Return text and <code>structuredContent</code>, and use <code>isError</code> for bad input.</li>
+<li>Never write to stdout on a stdio server.</li>
+<li>Validate anything you download, fall back safely and give cold network calls room.</li>
+<li>Test with a real client, then test the published package with <code>npx</code>.</li>
+<li>Read every line <code>mcp-publisher init</code> writes before you publish.</li>
+</ol>
+<p>One honest note: I built this on the v1 SDK. There is now also a v2 line with separate packages such as <code>@modelcontextprotocol/server</code>. <code>registerTool</code> keeps its shape, but the upgrade guide wraps plain zod shapes like mine in <code>z.object()</code>, so check the <a href="https://ts.sdk.modelcontextprotocol.io/v2/" target="_blank" rel="noopener noreferrer">current SDK docs</a> before copying older examples, including mine.</p>
+<p>Try it with <code>npx -y ai-api-cost-mcp</code>, or use the <a href="/tools/ai-api-cost-calculator.html">AI API Cost Calculator</a> in the browser. My <a href="/blog/openai-claude-gemini-api-pricing.html">OpenAI vs Claude vs Gemini API pricing guide</a> explains the numbers. If your server will touch customer data, read my <a href="/blog/mcp-server-security-uae-ai-saas.html">MCP server security checklist</a> first. Need an MCP server or AI feature in your SaaS product? See my <a href="/ai-saas-development-services.html">AI SaaS development services</a> or <a href="/#contact">get in touch</a>.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="ai-saas-development-help">
+                <div>
+                    <p>Available for global remote projects</p>
+                    <h2 id="ai-saas-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/ai-saas-development-services.html">Explore AI SaaS services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa, full-stack SaaS and AI engineer" width="600" height="750" loading="lazy" decoding="async" class="article-author-photo" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience across Angular, React, Next.js, Node.js, Supabase, PostgreSQL, Stripe and production AI integrations. I write from the architecture, security and delivery trade-offs I handle in real product work.</span>
+                            <div class="article-author-credentials" aria-label="Author experience">
+                                <span>10+ years</span>
+                                <span>Production SaaS</span>
+                                <span>AI integrations</span>
+                                <span>UAE projects</span>
+                            </div>
+                            <div class="article-author-links">
+                                <a href="/profile.html">About the author</a>
+                                <a href="/portfolio.html">View portfolio</a>
+                                <a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/mcp-vs-rest-api-ai-agents.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>MCP vs REST API for AI Agents: When to Use Each</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/mcp-server-security-uae-ai-saas.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>MCP Server Security Checklist for AI SaaS (2026)</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/openai-claude-gemini-api-pricing.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>OpenAI vs Claude vs Gemini API Pricing: Cost Calculator Guide</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!--@site-footer-->
+</body>
+
+</html>

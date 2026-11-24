@@ -75,5 +75,24 @@
       "WebDevelopment"
     ],
     "publishAt": "2026-11-24T14:00:00+05:00"
+  },
+  "/blog/build-mcp-server.html": {
+    "hook": "Before writing about MCP servers, I built one, tested it with a real client and published it to npm and the MCP Registry.",
+    "intro": "A first-hand guide to building an MCP server in Node.js: read-only tools with zod, the stdio logging rule, live data with a safe fallback, real-client tests and publishing. For developers shipping their first server.",
+    "points": [
+      "A timeout that was too tight for a cold request, and the fix",
+      "What mcp-publisher init guessed wrong in server.json",
+      "Where I listed it for free, and the paid link I skipped"
+    ],
+    "hashtags": [
+      "MCP",
+      "ModelContextProtocol",
+      "NodeJS",
+      "AIAgents",
+      "OpenSource",
+      "JavaScript",
+      "DeveloperTools"
+    ],
+    "publishAt": "2026-11-26T15:00:00+05:00"
   }
 }
