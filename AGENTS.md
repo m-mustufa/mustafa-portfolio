@@ -4,14 +4,40 @@ Read this before making changes. Written so any AI coding agent (Claude, Codex, 
 
 ## What this project is
 
-Static HTML portfolio site for Muhammad Mustafa (Full-Stack SaaS Engineer). No framework, no server, no database.
+Portfolio, blog and free-tools site for Muhammad Mustafa (Remote Full-Stack SaaS & AI Engineer), live at **https://aisaaswithmustafa.com**. The old host `mustcode.netlify.app` redirects there with a 301.
 
-- `index.html`, `portfolio.html`, `thanks.html` — the 3 live pages
-- `assets/` — images, CSS, JS
-- Hosted on **Netlify**, deployed automatically on push to `main`
-- Git remote is **Bitbucket** (`origin`), not GitHub
+- About 52 public pages: home, portfolio, pricing, profile, 2 service pages, 2 HTML case studies (CultureAI, BWL League), 37 blog posts (listed in `blog/posts.json`) and 5 free tools under `tools/`: AI API cost calculator, Complexity Coach (Big O), SaaS metrics calculator, IndexNow submitter and Upwork proposal roast.
+- Pages are hand-written HTML rendered through Astro (see the Astro section). There is no CMS and no database. Netlify Functions handle the server work: the Ask Mustafa assistant, the IndexNow relay, and the LinkedIn and DEV schedulers.
+- Hosted on **Netlify**, which builds and deploys automatically on every push to `main`.
+- `origin` fetches from Bitbucket. It pushes to both Bitbucket and GitHub (`m-mustufa/mustafa-portfolio`, a **public** repo), so never write private data in tracked files. Details are in "Git / deploy notes".
 
-## Astro build: shared header and footer (branch `astro-migration`, started 2026-11-21)
+## Where to work (read first)
+
+- **The live code is the worktree `.worktrees/seo-global-20261119` on branch `astro-migration`.**
+  - Production `main` is pushed from there with `git push origin astro-migration:main`, only after the user says yes.
+  - Before that push, run `git fetch origin` and confirm that `astro-migration` is not behind `origin/main`.
+  - After the push, confirm that `git ls-remote origin refs/heads/main` and `git ls-remote github refs/heads/main` show the same SHA.
+- Do not build, commit or push from the main checkout `D:\kodlers-website\mustafa-web`. It is on an old branch (`feature/nextjs-service-platform`, last commit 2026-10-18) with uncommitted changes that are not part of the live site, and its local `main` branch is stale.
+- The other folders under `.worktrees/` are finished or abandoned task branches. Leave them alone.
+- Never commit these:
+  - `reports/`: research, the backlink tracker, gallery images and handoff notes.
+  - Source PNGs in `assets/img/`.
+  - A `blog/saas-mvp-cost.html` diff that only changes line endings.
+- Several agent sessions may share these folders. Commit only the files you changed yourself. Never stash, reset or switch branches.
+
+## Working with the user (standing rules)
+
+- Answer in short, simple Roman Urdu: a few bullets, with no long walkthroughs.
+- Never push, publish, post, send an email or DM, or submit a form without the user's explicit "yes" for that specific action. The user posts replies on Indie Hackers, DEV and other sites themselves; agents only draft them. Outreach goes out as Gmail drafts only.
+- Never print, commit or ask for API keys or tokens in chat. Keys live in Netlify environment variables or Windows user environment variables.
+- Never fabricate stats, quotes, results or experience. Do not use the em dash in blog, LinkedIn, pitch or page copy.
+- Before building anything commercial or public, research it, explain the keyword or strategy reasoning, and get the user's approval of packages, prices and copy. A pricing section once had to be fully reverted (d6c3e45) because this step was skipped.
+- Never buy links or pay for "dofollow" directory listings, and never mass-submit.
+- Facts to keep straight:
+  - **CultureAI** is a Vite React SPA with an Express API, MongoDB, Clerk, Stripe and OpenAI; it is not Next.js. It has real per-tenant AI token metering (plan-based monthly budgets, atomic reservation, a warning at 80%, and the features keep working without AI when the budget runs out). Its AI providers are Groq, Gemini and OpenAI. Never call it an "LLM gateway", and never claim model fallback.
+  - **BWL League** is Next.js on Vercel. The site says Supabase, which the user has not confirmed yet.
+
+## Astro build: shared header and footer (live on `main` since 2026-11-21)
 
 The pages are still hand-written HTML at their public paths (`index.html`, `pricing.html`, `blog/*.html`, `tools/*.html`), but they are no longer published as-is. Astro (`astro.config.mjs`, `build.format: "preserve"`) renders each one into `dist/` at the exact same URL:
 
@@ -24,6 +50,14 @@ The pages are still hand-written HTML at their public paths (`index.html`, `pric
 - `npm run check:live` (`scripts/live-check.js [--base <url>] [--preview]`) checks the deployed site from outside: every sitemap URL as a browser and as Googlebot, a burst of 8 parallel requests, no `noindex` header or meta, self-canonicals, 301s for aliases, real 404s for made-up URLs, and the homepage CSS/JS. Run it after every production deploy and on a branch preview with `--preview` (which expects noindex).
 - Caching: local CSS/JS get a content hash, so their long cache is safe. Images under `/assets/img/*` are cached for a year as immutable with fixed names, so **never replace an image in place**; save the new version under a new file name and update the references.
 - Complexity Coach ships its own compiled CSS, so the header uses `md:space-x-6` for it (variant `coach`) and the footer uses plain CSS rather than Tailwind utilities.
+- Astro is pinned at 7.3.8. Version 7.4 and later need Node 22.22+, but this machine and `netlify.toml` use 22.15.
+- Netlify branch deploys are enabled only for `blog-draft-*` and `astro-migration`. The preview is https://astro-migration--mustcode.netlify.app and is noindexed.
+- **Release checklist** for any page or post change:
+  1. If posts changed, run `npm run build:feed`.
+  2. Run the validators that apply: `validate:blog-seo`, `validate:site-seo`, `validate:linkedin`, `validate:devto`.
+  3. Run `npm run build`, then `npm run parity`. Only the intended differences should show.
+  4. Get the user's yes, then push.
+  5. Wait about a minute for the deploy, then run `npm run check:live`.
 
 ## AI API Cost MCP server (`mcp/ai-api-cost-mcp`, added 2026-11-22)
 
@@ -33,6 +67,14 @@ The pages are still hand-written HTML at their public paths (`index.html`, `pric
 - Test with `npm test` inside the package (real MCP client over stdio; compares every number with the calculator).
 - **Releasing a new version:** bump `version` in `package.json` and in both version fields of `server.json`. Then the user runs `npm publish --access public` from the package folder; npm 2FA is a security key that only the user can approve. Wait until `npm view ai-api-cost-mcp version` shows the new version (npm stages new versions for a few minutes). Then run `mcp-publisher publish` from the same folder; it needs `mcp-publisher login github` as m-mustufa first, a device-code flow the user approves. `mcp-publisher` comes from the official releases of github.com/modelcontextprotocol/registry, so check the checksum against the GitHub release digest. The `mcpName` in `package.json` must stay `io.github.m-mustufa/ai-api-cost-mcp`, or the Registry rejects the package.
 - **Standalone repo (since 2026-11-24):** public `https://github.com/m-mustufa/ai-api-cost-mcp`, which MCP directories (Glama, Smithery, mcp.so) read. This folder stays the source of truth. After committing changes here, mirror them with `git subtree split --prefix=mcp/ai-api-cost-mcp -b mcp-standalone`, then `git push https://github.com/m-mustufa/ai-api-cost-mcp.git mcp-standalone:main`, then `git branch -D mcp-standalone`. Never edit the standalone repo directly. `glama.json` lists m-mustufa as the Glama maintainer.
+- **Where the server is listed (2026-11-24):**
+  - **npm:** `ai-api-cost-mcp@0.1.0`.
+  - **Official MCP Registry:** listed.
+  - **Glama:** approved, claimed and verified. Its admin Dockerfile form takes fields, not a pasted Dockerfile: Node 24, build steps `["npm ci --omit=dev"]` and CMD `["node","src/index.js"]`. Glama adds `mcp-proxy --` in front of the CMD itself, so putting `--stateless` in the CMD breaks the server with "spawn --stateless ENOENT". The env schema has an optional `AI_API_COST_MCP_OFFLINE`.
+  - **mcp.so:** free submission through GitHub issue chatmcp/mcpso#7937, still queued. The paid $39 listing was rejected as link buying.
+  - **Smithery:** closed to new listings.
+- npm and the Registry still point at the monorepo folder. They will show the standalone repo link from the next release (0.1.1), which needs the user for npm 2FA.
+- The blog post about building this server is `/blog/build-mcp-server.html`.
 
 ## Build step (Tailwind)
 
@@ -130,21 +172,36 @@ This went through the full intended pipeline for real, not just a dry run: `new-
 - **Gotcha already hit once — Formshield spam filter silently ate a real notification**, and this was diagnosed and fixed, not just noticed. The first plain test message delivered fine; a second message containing a URL + imperative phrasing ("Reply to X with...") got auto-classified as spam with zero error on the sending side (`notify.js` logs success once the HTTP request succeeds — Formspree accepts, then filters, so a "sent" log does not guarantee delivery). **Fix applied and confirmed by the user: Formshield toggled OFF in Formspree → blog-automation → Settings → Spam Protection.** Message wording in `publish-draft.js` was also softened as a second layer of defense. If notifications ever seem to silently stop arriving again, check the Formspree Spam tab before assuming the script broke.
 - `scripts/notify.js` — POSTs subject+message to the Formspree endpoint above (hardcoded, not a secret).
 - `scripts/publish-draft.js` — orchestrator: creates a `blog-draft-{slug}` branch, commits the draft files, pushes, computes the Netlify preview URL, calls `notify.js`, switches back to `main`. **Run successfully for real** (see above), not just built.
-- **Netlify branch deploys**: confirmed configured by the user — NOT set to "All" (that was flagged as a real risk: it would auto-deploy every branch in the repo, including old unrelated feature branches like `dev`/`cv-pdf-update`, to a public-but-unlisted URL). Set instead to **"Let me add individual branches"** with the pattern **`blog-draft-*`** — Netlify's dashboard does support wildcard patterns in that field, confirmed working. Only branches matching that pattern get a preview URL; everything else stays undeployed. Don't change this to "All" without discussing it again.
+- **Netlify branch deploys** (now `blog-draft-*` plus `astro-migration`): confirmed configured by the user — NOT set to "All" (that was flagged as a real risk: it would auto-deploy every branch in the repo, including old unrelated feature branches like `dev`/`cv-pdf-update`, to a public-but-unlisted URL). Set instead to **"Let me add individual branches"** with the pattern **`blog-draft-*`** — Netlify's dashboard does support wildcard patterns in that field, confirmed working. Only branches matching that pattern get a preview URL; everything else stays undeployed. Don't change this to "All" without discussing it again.
 - **Keep draft branch names short.** A later Angular post used its very long SEO slug as the `blog-draft-*` branch name. The resulting Netlify branch-deploy hostname exceeded DNS label limits and could not resolve, even though the branch push itself succeeded. Use a concise branch slug for previews (and preferably concise public post slugs too); do not assume an arbitrary SEO slug is safe to embed in a Netlify subdomain.
 
 ### Additional published posts (2026-07-17)
 - `blog/supabase-rls-multi-role-apps.html` — “Supabase RLS for Multi-Role Apps: What I Learned,” grounded in BWL League and current official Supabase documentation. Published through the preview/approval flow with a user-supplied RLS diagram compressed to a 1200×675 JPEG.
 - `blog/extjs-angularjs-to-modern-angular-migration-version-upgrade-v8-to-v19-enterprise-dashboard-modernization.html` — “Angular Migration: ExtJS and AngularJS to Angular 19,” grounded in the user's Angular v8–v19 and SaaS modernization experience and current official Angular documentation. The preview hostname failed because the branch name was too long (see warning above), but the user explicitly approved publication; it was merged into `main`, pushed, and the production URL was verified with HTTP 200.
 
+### Later posts (status 2026-11-24)
+- `blog/posts.json` has 37 posts. The newest are `build-mcp-server` (2026-11-24) and `saas-mvp-cost` (2026-11-22). Posts are now published by fast-forwarding `astro-migration` into `main` after the user approves the preview. Each new post gets a `social/linkedin.json` entry with a `publishAt` the user chose, and an optional `social/devto.json` entry.
+
 ### Still to build
+- **DEV automation plan (proposed 2026-11-24, not approved, nothing built):**
+  - Every suitable technical post goes to DEV about 2 days after the blog, so Google sees the original first.
+  - Related posts are grouped in a DEV series.
+  - Every week, agents draft replies to new DEV comments, and the user posts them.
+  - Write the plan out and get the user's approval before building any of it.
 - The actual scheduled agent/cron trigger that calls `new-post.js` + `publish-draft.js` automatically (mechanism: the `/schedule` skill) — not set up yet. The manual pipeline is proven; this is "just" wiring a cron to invoke it.
 - **Posting cadence, finalized 2026-07-17**: publish **2–3 strong posts per week**, not 1–2 posts daily. Suggested rhythm: one detailed technical guide early in the week, one project lesson/case study midweek, and an optional focused troubleshooting post on the weekend. Every post must target a distinct long-tail keyword, use real project experience, and link naturally to related posts/projects. Do not trade quality for volume or revert to daily publishing without asking.
+- **Global-first strategy, decided 2026-11-19 (replaces the 75/25 mix below):**
+  - Positioning: "Remote Full-Stack SaaS & AI Engineer". The UAE is a market the site serves, not the headline.
+  - Effort split: about 70% global (MCP and AI agents, AI API pricing, Angular, Supabase vs Firebase, SaaS cost guides, case studies) and 30% UAE compliance (e-invoicing, PDPL, UAE PASS).
+  - No new city pages, and no fake UAE address for a Google Business Profile.
+  - Judge results on non-Pakistan, non-brand search data. The research and plan are in `reports/` in the main checkout and are not tracked.
 - **Content geography mix, confirmed 2026-10-18**: target approximately **75% globally searchable technical content and 25% UAE-specific content** over each rolling group of 8–12 new posts. Global posts should target problems relevant across markets; UAE posts should address genuine regional search intent, regulations, integrations, or buyer needs. Do not force UAE wording into global topics merely to satisfy the ratio.
 - **Topic-picking logic for automatic runs**: right now topic selection happened manually (I picked "Stripe per-seat billing" myself, grounded in the user's project list). For a real cron loop, need either a maintained backlog of remaining real topics (recommended — see project list in "Topic sourcing" above) or some logic to pick the next one and avoid repeats. Not built yet.
 - Ahrefs API integration for topic validation, if the user confirms their plan has API access — not pursued further after the initial conversation, no action taken.
 
-## Possible future: JS framework migration + admin panel (discussion only — nothing started)
+## Possible future: JS framework migration + admin panel
+
+**Update 2026-11-21:** the framework question is settled. Astro was chosen over Next.js and has been live since 2026-11-21; see the Astro section. The admin panel has still not been started, so the notes below matter only for that.
 
 User asked about converting the static site to a JS framework with an admin panel for adding projects/content without editing code, with two hard constraints: **no SEO/speed regression, no paid services**.
 
@@ -165,8 +222,14 @@ Recommended direction (not yet agreed/started):
 - Images: convert to JPEG for photos/screenshots (not PNG — this project had multiple 1.5MB+ PNGs that dropped to ~150KB as JPEG with no visible quality loss), keep PNG only for real transparency.
 - Don't fabricate or pad real testimonial/review content — trim for length if needed, never invent quotes.
 
-## Google Search Console / indexing state (confirmed 2026-07-17)
+## Google Search Console / indexing state
 
+- **Current state (2026-11-24):**
+  - The property is the domain property `sc-domain:aisaaswithmustafa.com`.
+  - `https://aisaaswithmustafa.com/sitemap.xml` is submitted. Google last read it on 2026-11-22: 51 URLs, 0 errors.
+  - Check it with `node scripts/gsc.js sitemaps`.
+  - Requesting indexing stays a manual job for the user, limited by a daily quota.
+  - The bullets below about `mustcode.netlify.app` are history from July.
 - Search Console property is the exact URL-prefix property `https://mustcode.netlify.app/`.
 - `/sitemap.xml` is submitted successfully. After resubmitting the same `sitemap.xml` path from the top-level **Add a new sitemap** form, Google reread it on July 17 and the discovered-page count increased from 2 to 5. The sitemap detail page only offered **Remove sitemap**; resubmission was done from the main Sitemaps screen. Do not remove the successful sitemap.
 - The URL Inspection **Request indexing** action has a daily quota. The user hit “Quota Exceeded”; this is a Google limit, not a site error. Do not keep retrying. Wait for the quota reset and request indexing only for the newest/highest-priority URL if needed.
@@ -205,6 +268,15 @@ Recommended direction (not yet agreed/started):
 - If the previous manifest cannot be read, the plugin does nothing rather than treating every post as new. Errors are shown in the deploy summary and never fail the deploy. Tests: `npm run test:linkedin` (mocked API, nothing is sent).
 - **Scheduling (since 2026-11-11):** LinkedIn's API has no scheduled posts, so add `"publishAt": "2026-11-12T15:00:00+05:00"` (ISO time with a timezone; the user is in Pakistan, UTC+5) to the entry. The deploy plugin never shares an entry with `publishAt`; it lists it as scheduled. The Netlify scheduled function `netlify/functions/linkedin-scheduled.mjs` runs every 15 minutes on the published production deploy, reads the live `social/linkedin.json` and page, and shares at most one due entry per run, only within 24 hours of its time. It uses the same `LINKEDIN_*` variables (they must include the Functions scope; Netlify applies variable changes to functions only after a new deploy).
 - The Netlify Blobs store `linkedin-scheduled` records each scheduled path as `posting`, `posted`, `failed` (retried up to 3 runs, only when no post can exist) or `unknown` (a network error during the post request; never retried, check LinkedIn by hand). In dry run nothing is recorded, so the post still goes out once dry run is switched off within the 24 hours. Results are in Netlify, Logs, Functions, `linkedin-scheduled`; **Run now** there runs it immediately.
+- **Netlify Blobs keys must not start with "/".**
+  - `set`/`setJSON` throw "Blob key must not start with forward slash (/)". Reads do not throw, so the bug stays hidden.
+  - Until commit 5082690 (2026-11-24), the scheduler used the site path as the key. Every scheduled LinkedIn post from Nov 13 to Nov 24 failed silently because of it.
+  - The key is now the path without its leading slash (`scheduleKey()` in `netlify/plugins/linkedin/linkedin.js`, `storeKey()` in `netlify/lib/devto.js`).
+  - The fake stores in the tests throw the same error, so a regression fails `npm run test:linkedin` and `npm run test:devto`.
+- **Always set `publishAt`.** An entry without it is shared on LinkedIn immediately at deploy. Ask the user for the day and time first.
+- **Keep Mondays free.** The user posts by hand on Mondays.
+- Schedule one post per day, so that no two entries are due within the same 24 hours.
+- The current schedule is whatever `social/linkedin.json` holds.
 
 ## RSS feed and DEV Community cross-posting
 
@@ -213,6 +285,20 @@ Recommended direction (not yet agreed/started):
 - Duplicate protection: before creating an article the function lists the account's articles and skips any whose `canonical_url` is already the post. The Netlify Blobs store `devto-syndicated` caps retries at 3.
 - Netlify variables (Functions scope): `DEVTO_API_KEY` (secret, from DEV Settings, Extensions, DEV Community API Keys), `DEVTO_AUTO_POST=true` (master switch), `DEVTO_DRY_RUN=true` (log the article only). Never print, commit or ask for the key in chat.
 - When publishing a technical post that suits developers, add its `social/devto.json` entry in the same commit with a time the user approves. Check with `npm run validate:devto` and preview the Markdown with `node scripts/validate-devto.js --preview /blog/<slug>.html`. Tests: `npm run test:devto` (mocked API).
+- Live since 2026-11-20 (dry run off). The account is https://dev.to/aisaaswithmustafa.
+- DEV sometimes replaces the tags we send with its own.
+- The public list `dev.to/api/articles?username=aisaaswithmustafa` is cached and can miss a new article for a long time. To check one post, fetch `https://dev.to/api/articles/aisaaswithmustafa/<slug>` or the article URL directly.
+- Comments can be read without a key: `dev.to/api/comments?a_id=<article id>`.
+
+## Backlink engine (semi-automatic, since 2026-11-22)
+
+- Fully automatic link building would be spam. Instead, agents research opportunities and write **Gmail drafts**, and the user reviews and sends them.
+- The files live in the main checkout under `reports/backlinks/` and are not tracked:
+  - `README.md`: rules and pitch format.
+  - `tracker.md`: every opportunity and its status (`draft`, `sent`, `you`, `verify` and so on), plus the link-count history.
+  - `bing-links.js`: inbound links from the Bing API.
+- The scheduled task `backlink-engine-weekly` runs on Mondays at about 10:10 PKT, only while the desktop app is open. It finds up to 10 opportunities, writes at most 5 drafts and updates the tracker.
+- Pitches are 70 to 120 words, sent only to published editorial addresses, with no em dash.
 
 ## Bing and other IndexNow search engines
 
