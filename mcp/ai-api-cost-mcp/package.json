@@ -38,8 +38,10 @@
   "homepage": "https://aisaaswithmustafa.com/tools/ai-api-cost-calculator.html",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/m-mustufa/mustafa-portfolio.git",
-    "directory": "mcp/ai-api-cost-mcp"
+    "url": "git+https://github.com/m-mustufa/ai-api-cost-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/m-mustufa/ai-api-cost-mcp/issues"
   },
   "engines": {
     "node": ">=18.17"

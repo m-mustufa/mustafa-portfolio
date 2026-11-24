@@ -61,8 +61,10 @@ claude mcp add ai-api-cost -- npx -y ai-api-cost-mcp
 ```bash
 npm install
 npm test        # starts the server over stdio with a real MCP client and checks every tool
-npm run sync    # re-copy the calculator module from the website repo
+npm run sync    # inside the website repo only: re-copy the calculator module
 ```
+
+`src/calculator.cjs` is a copy of the calculator that runs on the website, so the rates and formulas stay identical. This repository is published from the `mcp/ai-api-cost-mcp` folder of the website's repository; in a standalone clone, `npm run sync` keeps the bundled copy.
 
 ## Author
 

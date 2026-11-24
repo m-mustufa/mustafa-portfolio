@@ -5,9 +5,8 @@
   "description": "Estimate and compare OpenAI, Claude and Gemini API costs, gross margin and break-even price.",
   "websiteUrl": "https://aisaaswithmustafa.com/tools/ai-api-cost-calculator.html",
   "repository": {
-    "url": "https://github.com/m-mustufa/mustafa-portfolio",
-    "source": "github",
-    "subfolder": "mcp/ai-api-cost-mcp"
+    "url": "https://github.com/m-mustufa/ai-api-cost-mcp",
+    "source": "github"
   },
   "version": "0.1.0",
   "packages": [
