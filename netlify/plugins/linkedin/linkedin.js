@@ -33,6 +33,11 @@ const SCHEDULE_WINDOW_MS = 24 * 60 * 60 * 1000;
 const MAX_SCHEDULE_ATTEMPTS = 3;
 // Netlify Blobs store that remembers which scheduled posts were shared.
 const SCHEDULE_STORE = "linkedin-scheduled";
+// Netlify Blobs refuses to save a key that starts with "/" (reads still work),
+// so a site path is stored without its leading slash.
+function scheduleKey(sitePathKey) {
+  return String(sitePathKey).replace(/^\/+/, "");
+}
 
 function git(args, cwd = ROOT) {
   return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
@@ -425,7 +430,7 @@ async function runScheduledLinkedIn({ env = process.env, fetchImpl = fetch, stor
   let candidate = null;
   const handled = [];
   for (const { key } of due) {
-    const existing = await store.getWithMetadata(key, { type: "json" });
+    const existing = await store.getWithMetadata(scheduleKey(key), { type: "json" });
     const state = existing && existing.data;
     const finished =
       state &&
@@ -457,8 +462,9 @@ async function runScheduledLinkedIn({ env = process.env, fetchImpl = fetch, stor
 
   // Claim the item first, so an overlapping run can never share it twice.
   const attempts = ((candidate.state && candidate.state.attempts) || 0) + 1;
+  const storeKey = scheduleKey(candidate.key);
   const claim = await store.setJSON(
-    candidate.key,
+    storeKey,
     { status: "posting", attempts, at: now.toISOString() },
     candidate.etag ? { onlyIfMatch: candidate.etag } : { onlyIfNew: true },
   );
@@ -472,7 +478,7 @@ async function runScheduledLinkedIn({ env = process.env, fetchImpl = fetch, stor
     const image = await uploadImage({ token, version, owner: author, imagePath: prepared.imagePath, fetchImpl, readBinary: () => bytes });
     creatingPost = true;
     const postId = await createImagePost({ token, version, author, item: prepared, image, fetchImpl });
-    await store.setJSON(candidate.key, { status: "posted", attempts, postId, at: now.toISOString() });
+    await store.setJSON(storeKey, { status: "posted", attempts, postId, at: now.toISOString() });
     return { posted: [{ url: item.url, postId }], ...info };
   } catch (error) {
     const message = String(error.message || error).split(token).join("***").split(/\r?\n/)[0];
@@ -481,7 +487,7 @@ async function runScheduledLinkedIn({ env = process.env, fetchImpl = fetch, stor
     // leaves it unknown, so it is never retried automatically.
     const definite = !creatingPost || Boolean(error.httpStatus);
     const status = definite ? "failed" : "unknown";
-    await store.setJSON(candidate.key, { status, attempts, error: message, at: now.toISOString() });
+    await store.setJSON(storeKey, { status, attempts, error: message, at: now.toISOString() });
     return { failed: message, url: item.url, retry: definite && attempts < MAX_SCHEDULE_ATTEMPTS, ...info };
   }
 }

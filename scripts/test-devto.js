@@ -53,6 +53,8 @@ function memoryStore() {
       return data.has(key) ? { data: data.get(key) } : null;
     },
     async setJSON(key, value) {
+      // Same rule as the real store: a key starting with "/" cannot be saved.
+      if (key.startsWith("/")) throw new Error("Blob key must not start with forward slash (/).");
       data.set(key, value);
       return { modified: true };
     },

@@ -23,6 +23,11 @@ const SITE_ORIGIN = "https://aisaaswithmustafa.com";
 const API_BASE = "https://dev.to/api";
 const DEVTO_FILE = "social/devto.json";
 const DEVTO_STORE = "devto-syndicated";
+// Netlify Blobs refuses to save a key that starts with "/" (reads still work),
+// so a site path is stored without its leading slash.
+function storeKey(sitePathKey) {
+  return String(sitePathKey).replace(/^\/+/, "");
+}
 const SCHEDULE_WINDOW_MS = 3 * 24 * 60 * 60 * 1000;
 const MAX_ATTEMPTS = 3;
 
@@ -171,10 +176,10 @@ async function runDevto({ env = process.env, fetchImpl = fetch, store, now = new
     const url = `${SITE_ORIGIN}${path}`;
     if (published.has(url)) {
       info.handled.push(`${url}: already on DEV${published.get(url) ? ` (${published.get(url)})` : ""}`);
-      if (store) await store.setJSON(path, { status: "posted", url: published.get(url) || "" });
+      if (store) await store.setJSON(storeKey(path), { status: "posted", url: published.get(url) || "" });
       continue;
     }
-    const existing = store ? await store.getWithMetadata(path, { type: "json" }) : null;
+    const existing = store ? await store.getWithMetadata(storeKey(path), { type: "json" }) : null;
     const state = existing && existing.data;
     if (state && state.status === "failed" && state.attempts >= MAX_ATTEMPTS) {
       info.handled.push(`${url}: gave up after ${state.attempts} attempts (${state.error})`);
@@ -193,13 +198,13 @@ async function runDevto({ env = process.env, fetchImpl = fetch, store, now = new
       });
       if (response.status !== 201) throw await failure(response, "Creating the DEV article", key);
       const created = await response.json().catch(() => ({}));
-      if (store) await store.setJSON(path, { status: "posted", attempts, url: created.url || "", at: now.toISOString() });
+      if (store) await store.setJSON(storeKey(path), { status: "posted", attempts, url: created.url || "", at: now.toISOString() });
       return { posted: { url, devUrl: created.url || "" }, ...info };
     } catch (error) {
       const message = String(error.message || error).split(key).join("***").split(/\r?\n/)[0];
       // A network error may still have created the article; the canonical
       // check on the next run finds it, so retrying is safe either way.
-      if (store) await store.setJSON(path, { status: "failed", attempts, error: message, at: now.toISOString() });
+      if (store) await store.setJSON(storeKey(path), { status: "failed", attempts, error: message, at: now.toISOString() });
       return { failed: message, url, retry: attempts < MAX_ATTEMPTS, ...info };
     }
   }

@@ -315,6 +315,8 @@ function mockLinkedIn(calls, overrides = {}) {
         return data.has(key) ? { data: data.get(key).value, etag: data.get(key).etag } : null;
       },
       async setJSON(key, value, options = {}) {
+        // Same rule as the real store: a key starting with "/" cannot be saved.
+        if (key.startsWith("/")) throw new Error("Blob key must not start with forward slash (/).");
         if (options.onlyIfNew && data.has(key)) return { modified: false };
         if (options.onlyIfMatch && (!data.has(key) || data.get(key).etag !== options.onlyIfMatch)) return { modified: false };
         version += 1;
@@ -369,7 +371,7 @@ function mockLinkedIn(calls, overrides = {}) {
   const scheduledCalls = [];
   const sharedNow = await runScheduledLinkedIn({ env: scheduledEnv, fetchImpl: liveSite(scheduledCalls), store, now: dueTime });
   assert.deepStrictEqual(sharedNow.posted, [{ url: postUrl, postId: "urn:li:share:999" }]);
-  assert.strictEqual(store.data.get("/blog/new-post.html").value.status, "posted");
+  assert.strictEqual(store.data.get("blog/new-post.html").value.status, "posted");
   const scheduledBody = JSON.parse(scheduledCalls.find((c) => c.url === "https://api.linkedin.com/rest/posts").options.body);
   assert.ok(scheduledBody.commentary.includes(`Read the guide:\n${postUrl}`));
   assert.ok(describeScheduled(sharedNow).summary.startsWith("Shared"));
@@ -404,7 +406,7 @@ function mockLinkedIn(calls, overrides = {}) {
   const unknownRun = await runScheduledLinkedIn({ env: scheduledEnv, fetchImpl: liveSite([], postDrops), store: unknownStore, now: dueTime });
   assert.strictEqual(unknownRun.retry, false);
   assert.ok(!unknownRun.failed.includes(TOKEN), "the token is never echoed");
-  assert.strictEqual(unknownStore.data.get("/blog/new-post.html").value.status, "unknown");
+  assert.strictEqual(unknownStore.data.get("blog/new-post.html").value.status, "unknown");
   assert.ok(describeScheduled(unknownRun).lines[0].includes("check LinkedIn"));
   // A LinkedIn error response to the post request means no post: safe to retry.
   const rejectedStore = memoryStore();
