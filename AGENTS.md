@@ -27,10 +27,11 @@ The pages are still hand-written HTML at their public paths (`index.html`, `pric
 
 ## AI API Cost MCP server (`mcp/ai-api-cost-mcp`, added 2026-11-22)
 
-- A stdio MCP server (npm name `ai-api-cost-mcp`, not published yet when written) with three read-only tools: `list_models`, `estimate_cost`, `compare_models`. It runs the website's own calculator module: `npm run sync` (and `prepack`) copies `assets/js/ai-api-cost-calculator.js` into `src/calculator.cjs`, so the page and the MCP server never disagree.
+- A stdio MCP server (npm `ai-api-cost-mcp`, published 2026-11-22; official MCP Registry `io.github.m-mustufa/ai-api-cost-mcp`, published 2026-11-24) with three read-only tools: `list_models`, `estimate_cost`, `compare_models`. It runs the website's own calculator module: `npm run sync` (and `prepack`) copies `assets/js/ai-api-cost-calculator.js` into `src/calculator.cjs`, so the page and the MCP server never disagree.
 - The site build also publishes `/tools/ai-api-pricing.json` (rates, verified date) from the same module (`src/lib/copy-static.mjs`). The MCP server fetches it on start and falls back to its bundled rates; `AI_API_COST_MCP_OFFLINE=1` skips the fetch.
 - **When rates change:** edit `RATE_TABLE` and `RATES_VERIFIED` in `assets/js/ai-api-cost-calculator.js` (and the "Rates verified" text on the page), deploy the site, then `npm run sync` and bump the package version before the next npm release.
 - Test with `npm test` inside the package (real MCP client over stdio; compares every number with the calculator).
+- **Releasing a new version:** bump `version` in `package.json` and in both version fields of `server.json`. Then the user runs `npm publish --access public` from the package folder; npm 2FA is a security key that only the user can approve. Wait until `npm view ai-api-cost-mcp version` shows the new version (npm stages new versions for a few minutes). Then run `mcp-publisher publish` from the same folder; it needs `mcp-publisher login github` as m-mustufa first, a device-code flow the user approves. `mcp-publisher` comes from the official releases of github.com/modelcontextprotocol/registry, so check the checksum against the GitHub release digest. The `mcpName` in `package.json` must stay `io.github.m-mustufa/ai-api-cost-mcp`, or the Registry rejects the package.
 
 ## Build step (Tailwind)
 

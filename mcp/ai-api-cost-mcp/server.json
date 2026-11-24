@@ -1,0 +1,32 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.m-mustufa/ai-api-cost-mcp",
+  "title": "AI API Cost Calculator",
+  "description": "Estimate and compare OpenAI, Claude and Gemini API costs, gross margin and break-even price.",
+  "websiteUrl": "https://aisaaswithmustafa.com/tools/ai-api-cost-calculator.html",
+  "repository": {
+    "url": "https://github.com/m-mustufa/mustafa-portfolio",
+    "source": "github",
+    "subfolder": "mcp/ai-api-cost-mcp"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "ai-api-cost-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "AI_API_COST_MCP_OFFLINE",
+          "description": "Set to 1 to skip the live rates download and use only the rates bundled with the package.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
