@@ -183,11 +183,7 @@ This went through the full intended pipeline for real, not just a dry run: `new-
 - `blog/posts.json` has 37 posts. The newest are `build-mcp-server` (2026-11-24) and `saas-mvp-cost` (2026-11-22). Posts are now published by fast-forwarding `astro-migration` into `main` after the user approves the preview. Each new post gets a `social/linkedin.json` entry with a `publishAt` the user chose, and an optional `social/devto.json` entry.
 
 ### Still to build
-- **DEV automation plan (proposed 2026-11-24, not approved, nothing built):**
-  - Every suitable technical post goes to DEV about 2 days after the blog, so Google sees the original first.
-  - Related posts are grouped in a DEV series.
-  - Every week, agents draft replies to new DEV comments, and the user posts them.
-  - Write the plan out and get the user's approval before building any of it.
+- **DEV automation:** approved and built on 2026-11-25. See "RSS feed and DEV Community cross-posting".
 - The actual scheduled agent/cron trigger that calls `new-post.js` + `publish-draft.js` automatically (mechanism: the `/schedule` skill) — not set up yet. The manual pipeline is proven; this is "just" wiring a cron to invoke it.
 - **Posting cadence, finalized 2026-07-17**: publish **2–3 strong posts per week**, not 1–2 posts daily. Suggested rhythm: one detailed technical guide early in the week, one project lesson/case study midweek, and an optional focused troubleshooting post on the weekend. Every post must target a distinct long-tail keyword, use real project experience, and link naturally to related posts/projects. Do not trade quality for volume or revert to daily publishing without asking.
 - **Global-first strategy, decided 2026-11-19 (replaces the 75/25 mix below):**
@@ -286,6 +282,16 @@ Recommended direction (not yet agreed/started):
 - Netlify variables (Functions scope): `DEVTO_API_KEY` (secret, from DEV Settings, Extensions, DEV Community API Keys), `DEVTO_AUTO_POST=true` (master switch), `DEVTO_DRY_RUN=true` (log the article only). Never print, commit or ask for the key in chat.
 - When publishing a technical post that suits developers, add its `social/devto.json` entry in the same commit with a time the user approves. Check with `npm run validate:devto` and preview the Markdown with `node scripts/validate-devto.js --preview /blog/<slug>.html`. Tests: `npm run test:devto` (mocked API).
 - Live since 2026-11-20 (dry run off). The account is https://dev.to/aisaaswithmustafa.
+- **Full automation (approved and built 2026-11-25):**
+  - **New posts:** `new-post.js` calls `scripts/devto-plan.js`, which adds the post's `social/devto.json` entry in the same draft commit. The entry goes out at 15:00 PKT two days after the blog date, so Google sees the original first; if that day is taken, it moves to the next free day. Tags and series are picked from the title, slug and tags.
+  - **Steering a draft:** the draft JSON can set `"devto": false` (never cross-post) or `"devto": { "tags": [...], "series": "..." }` (override the picks).
+  - **UAE-only posts:** posts whose title or slug names the UAE, Dubai or Abu Dhabi are skipped, because DEV readers are global developers. A `devto` field in the draft overrides the skip.
+  - **Series:** an entry can have an optional `series`, which DEV uses to group articles. Keep the names identical: "MCP and AI Agents" and "SaaS Billing with Stripe". Articles already on DEV were not edited.
+  - **One article a day:**
+    - `validate:devto` fails when two upcoming entries share a Pakistan-time day.
+    - The function also waits while the account's newest DEV article is under 20 hours old. The post stays due for 3 days.
+  - **Backfill:** 12 older technical posts go out one per Tuesday at 15:00 PKT, from 2026-12-08 to 2027-02-23. They are listed in `social/devto.json`.
+  - **Weekly comment replies:** `npm run devto:comments` lists comments that have no reply from the account (public API, no key). The scheduled task `devto-comment-replies-weekly` runs on Tuesdays at about 11:00 PKT, only while the desktop app is open. It writes reply drafts to `reports/devto-comments/<date>.md`, and the user posts them by hand. To leave a spam comment out, add its id to `reports/devto-comments/ignore.json`.
 - DEV sometimes replaces the tags we send with its own.
 - The public list `dev.to/api/articles?username=aisaaswithmustafa` is cached and can miss a new article for a long time. To check one post, fetch `https://dev.to/api/articles/aisaaswithmustafa/<slug>` or the article URL directly.
 - Comments can be read without a key: `dev.to/api/comments?a_id=<article id>`.

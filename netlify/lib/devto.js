@@ -29,13 +29,18 @@ function storeKey(sitePathKey) {
   return String(sitePathKey).replace(/^\/+/, "");
 }
 const SCHEDULE_WINDOW_MS = 3 * 24 * 60 * 60 * 1000;
+// At most one DEV article a day: a due post waits while the account's newest
+// article is younger than this (it stays due for SCHEDULE_WINDOW_MS).
+const MIN_GAP_MS = 20 * 60 * 60 * 1000;
 const MAX_ATTEMPTS = 3;
+const SITE_TIMEZONE_OFFSET = "+05:00"; // Pakistan time, used to compare schedule days
 
 // --- Entries --------------------------------------------------------------------
 // social/devto.json:
 // { "/blog/<slug>.html": {
 //     "tags": ["javascript", "webdev"],            // 1 to 4, lowercase letters and digits
-//     "publishAt": "2026-11-18T23:00:00+05:00"     // ISO time with a timezone
+//     "publishAt": "2026-11-18T23:00:00+05:00",    // ISO time with a timezone
+//     "series": "MCP and AI Agents"                // optional DEV series name
 // } }
 function parsePublishAt(value) {
   if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(Z|[+-]\d{2}:\d{2})$/.test(value)) return null;
@@ -51,7 +56,29 @@ function validateEntry(key, entry) {
     problems.push("tags must be 1 to 4 lowercase words with letters and digits only, such as javascript or webdev");
   }
   if (!parsePublishAt(entry.publishAt)) problems.push("publishAt must be a date and time with a timezone, such as 2026-11-18T23:00:00+05:00");
+  if (entry.series !== undefined && (typeof entry.series !== "string" || !entry.series.trim() || entry.series.length > 60 || entry.series.includes("—"))) {
+    problems.push("series must be a short name (up to 60 characters, no em dash) or left out");
+  }
   return problems;
+}
+
+// The calendar day of a time in Pakistan time, as YYYY-MM-DD.
+function siteDay(date) {
+  const hours = Number(SITE_TIMEZONE_OFFSET.slice(0, 3));
+  return new Date(date.getTime() + hours * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+// Upcoming entries that share a day with another upcoming entry. Only one DEV
+// article goes out per day, so these would push each other back.
+function scheduleClashes(entries, now = new Date()) {
+  const byDay = new Map();
+  for (const [key, entry] of Object.entries(entries)) {
+    const at = parsePublishAt(entry && entry.publishAt);
+    if (!at || at <= now) continue;
+    const day = siteDay(at);
+    byDay.set(day, [...(byDay.get(day) || []), key]);
+  }
+  return [...byDay].filter(([, keys]) => keys.length > 1).map(([day, keys]) => ({ day, keys }));
 }
 
 function dueEntries(entries, now = new Date()) {
@@ -107,6 +134,7 @@ function buildArticle(pageHtml, pageUrl, entry, markdown) {
     description: metaContent(html, "name", "description").slice(0, 300),
     tags: entry.tags.join(","),
     main_image: heroImage(html, pageUrl),
+    ...(entry.series ? { series: entry.series.trim() } : {}),
   };
 }
 
@@ -123,11 +151,17 @@ async function failure(response, what, key) {
   return error;
 }
 
-async function existingCanonicals(key, fetchImpl) {
+// The account's articles: canonical URL to DEV URL, and when the newest
+// published one went out.
+async function myArticles(key, fetchImpl) {
   const response = await fetchImpl(`${API_BASE}/articles/me/all?per_page=1000`, { headers: headers(key) });
   if (!response.ok) throw await failure(response, "Listing your DEV articles", key);
   const articles = await response.json();
-  return new Map(articles.filter((a) => a.canonical_url).map((a) => [a.canonical_url, a.url || ""]));
+  const times = articles.map((a) => new Date(a.published_at || "").getTime()).filter((t) => !Number.isNaN(t));
+  return {
+    canonicals: new Map(articles.filter((a) => a.canonical_url).map((a) => [a.canonical_url, a.url || ""])),
+    lastPublished: times.length ? new Date(Math.max(...times)) : null,
+  };
 }
 
 async function checkKey(key, fetchImpl) {
@@ -170,7 +204,8 @@ async function runDevto({ env = process.env, fetchImpl = fetch, store, now = new
   const dryRun = env.DEVTO_DRY_RUN === "true";
   if (!key && !dryRun) return { skipped: "DEVTO_API_KEY is not available to functions (check its scopes in Netlify)", ...info };
 
-  const published = key ? await existingCanonicals(key, fetchImpl) : new Map();
+  const mine = key ? await myArticles(key, fetchImpl) : { canonicals: new Map(), lastPublished: null };
+  const published = mine.canonicals;
   info.handled = [];
   for (const { key: path, entry } of due) {
     const url = `${SITE_ORIGIN}${path}`;
@@ -184,6 +219,10 @@ async function runDevto({ env = process.env, fetchImpl = fetch, store, now = new
     if (state && state.status === "failed" && state.attempts >= MAX_ATTEMPTS) {
       info.handled.push(`${url}: gave up after ${state.attempts} attempts (${state.error})`);
       continue;
+    }
+
+    if (mine.lastPublished && now - mine.lastPublished < MIN_GAP_MS) {
+      return { skipped: `one DEV article a day: the last one went out at ${mine.lastPublished.toISOString()}, so ${url} waits`, ...info };
     }
 
     const article = buildArticle(await (await fetchLive(fetchImpl, url, "the page")).text(), url, entry, markdown);
@@ -235,10 +274,14 @@ module.exports = {
   DEVTO_FILE,
   DEVTO_STORE,
   MAX_ATTEMPTS,
+  MIN_GAP_MS,
+  SITE_TIMEZONE_OFFSET,
   buildArticle,
   describe,
   dueEntries,
   runDevto,
+  scheduleClashes,
+  siteDay,
   toMarkdown,
   validateEntry,
 };

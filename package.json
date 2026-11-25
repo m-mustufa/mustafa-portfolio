@@ -27,6 +27,7 @@
     "test:gsc": "node scripts/test-gsc.js",
     "test:feed": "node scripts/test-blog-feed.js",
     "test:devto": "node scripts/test-devto.js",
+    "devto:comments": "node scripts/devto-comments.js",
     "check:live": "node scripts/live-check.js"
   },
   "devDependencies": {

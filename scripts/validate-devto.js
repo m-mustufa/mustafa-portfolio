@@ -7,7 +7,7 @@
 // <path> is the site path used as the key, e.g. /blog/my-post.html.
 const fs = require("fs");
 const path = require("path");
-const { DEVTO_FILE, buildArticle, validateEntry } = require("../netlify/lib/devto");
+const { DEVTO_FILE, buildArticle, scheduleClashes, validateEntry } = require("../netlify/lib/devto");
 
 const ROOT = path.join(__dirname, "..");
 const entries = JSON.parse(fs.readFileSync(path.join(ROOT, DEVTO_FILE), "utf8"));
@@ -29,9 +29,18 @@ for (const key of keys) {
     failed += 1;
     console.error(`FAIL ${key}: no hero image found for the DEV cover`);
   } else if (previewIndex > -1) {
-    console.log(`Title: ${article.title}\nTags: ${article.tags}\nCover: ${article.main_image}\nCanonical: ${article.canonical_url}\nScheduled: ${entries[key].publishAt}\n\n${article.body_markdown}`);
+    console.log(`Title: ${article.title}\nTags: ${article.tags}\nSeries: ${article.series || "(none)"}\nCover: ${article.main_image}\nCanonical: ${article.canonical_url}\nScheduled: ${entries[key].publishAt}\n\n${article.body_markdown}`);
   } else {
-    console.log(`OK   ${key}  scheduled ${entries[key].publishAt}  tags ${article.tags}`);
+    console.log(`OK   ${key}  scheduled ${entries[key].publishAt}  tags ${article.tags}${article.series ? `  series "${article.series}"` : ""}`);
+  }
+}
+
+// Only one DEV article goes out per day, so two upcoming entries on the same
+// day would silently push each other back.
+if (previewIndex === -1) {
+  for (const { day, keys: clash } of scheduleClashes(entries)) {
+    failed += 1;
+    console.error(`FAIL ${day}: ${clash.join(" and ")} are scheduled on the same day; DEV gets one article a day`);
   }
 }
 

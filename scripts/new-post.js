@@ -24,6 +24,7 @@
  *   "tags": ["UAE PDPL", "SaaS Compliance"],
  *   "relatedSlugs": ["optional-curated-related-post-slug"],
  *   "serviceLandingPage": "/full-stack-development-services-dubai.html",
+ *   "devto": false | { "tags": [...], "series": "..." },  // optional, see scripts/devto-plan.js
  *   "contentHtml": "<p>...</p><h2>...</h2>..."   // already-written post body as HTML
  * }
  */
@@ -33,6 +34,7 @@ const path = require("path");
 const { execFileSync } = require("child_process");
 const { renderPostPage } = require("./blog-seo");
 const { writeFeed } = require("./blog-feed");
+const { addDevtoEntry } = require("./devto-plan");
 
 const ROOT = path.join(__dirname, "..");
 const POSTS_JSON = path.join(ROOT, "blog", "posts.json");
@@ -295,5 +297,8 @@ regenerateCanonicalRedirects(posts);
 // Related links depend on the complete manifest, so refresh every generated post.
 execFileSync("node", [path.join(ROOT, "scripts", "refresh-blog-seo.js")], { stdio: "inherit" });
 console.log(`Updated blog/feed.xml with ${writeFeed()} posts.`);
+
+// 5. Schedule the DEV cross-post (about two days after the blog, one a day).
+console.log(addDevtoEntry(newPost, post.devto));
 
 console.log(`\nDone. Draft ready at blog/${slug}.html — remember to run "npm run build:css" if you added any new Tailwind classes, then review before pushing.`);
