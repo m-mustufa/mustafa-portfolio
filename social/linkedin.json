@@ -94,5 +94,24 @@
       "DeveloperTools"
     ],
     "publishAt": "2026-11-26T13:00:00+05:00"
+  },
+  "/blog/mcp-server-authentication.html": {
+    "hook": "My own MCP server has no login at all, and that is correct. The moment an MCP server sits on a public URL in front of a SaaS, that changes.",
+    "intro": "I wrote a plain-English guide to MCP server authentication under the current 2026-07-28 spec, with Node.js code for the TypeScript SDK v2.",
+    "points": [
+      "stdio servers read credentials from the environment; HTTP servers need OAuth",
+      "Accept only tokens issued for your server, and never pass them on",
+      "Take the tenant from your database, never from the model's tool arguments"
+    ],
+    "hashtags": [
+      "MCP",
+      "ModelContextProtocol",
+      "OAuth",
+      "NodeJS",
+      "SaaS",
+      "AIEngineering",
+      "AIAgents"
+    ],
+    "publishAt": "2026-11-27T21:00:00+05:00"
   }
 }
