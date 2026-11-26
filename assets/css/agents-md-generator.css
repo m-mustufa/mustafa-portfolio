@@ -1,0 +1,35 @@
+/* AGENTS.md Generator and Checker. Builds on ai-api-cost-calculator.css (shared tool layout). */
+.agm-page .ai-cost-hero h1 { max-width: 900px; }
+.agm-textarea, .agm-code { width: 100%; border: 1px solid rgba(154,190,201,.22); border-radius: .72rem; color: #f4fbfc; background: var(--ai-deep); font: inherit; font-size: .86rem; line-height: 1.55; outline: none; padding: .7rem .85rem; resize: vertical; }
+.agm-code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: .8rem; tab-size: 2; white-space: pre; overflow-wrap: normal; overflow-x: auto; }
+.agm-textarea:focus, .agm-code:focus { border-color: rgba(32,213,189,.7); box-shadow: 0 0 0 3px rgba(32,213,189,.08); }
+.agm-textarea::placeholder, .agm-code::placeholder { color: #5f7a89; }
+.agm-claude-notes { margin-top: .9rem; }
+.agm-output .ai-cost-actions { flex-wrap: wrap; }
+.agm-second-heading { margin-top: 1.6rem; padding-top: 1.3rem; border-top: 1px solid rgba(154,190,201,.15); }
+.agm-output code, .agm-table code, .ai-cost-faq code { border-radius: .3rem; color: #d2f8f2; background: rgba(15,66,72,.45); font-size: .85em; padding: .05rem .3rem; }
+[data-claude-wrap][hidden] { display: none; }
+.agm-check-section { border-top: 0; }
+.agm-summary { margin-top: .35rem; color: var(--ai-muted); font-size: .84rem; font-weight: 750; }
+.agm-summary.is-pass { color: var(--ai-teal); }
+.agm-summary.is-warn { color: var(--ai-orange); }
+.agm-summary.is-fail { color: #fb7185; }
+.agm-results { display: grid; gap: .55rem; }
+.agm-result { display: flex; gap: .75rem; align-items: flex-start; border: 1px solid rgba(154,190,201,.14); border-radius: .8rem; background: rgba(4,15,24,.45); padding: .8rem .9rem; }
+.agm-result strong { display: block; color: #eef8fa; font-size: .86rem; }
+.agm-result p { margin-top: .25rem; color: var(--ai-muted); font-size: .8rem; line-height: 1.55; }
+.agm-badge { flex: 0 0 4.4rem; border-radius: 999px; font-size: .62rem; font-weight: 850; letter-spacing: .06em; text-align: center; text-transform: uppercase; padding: .28rem .4rem; }
+.agm-result.is-pass .agm-badge { color: #052126; background: var(--ai-teal); }
+.agm-result.is-warn .agm-badge { color: #2b1605; background: var(--ai-orange); }
+.agm-result.is-fail .agm-badge { color: #3b0712; background: #fb7185; }
+.agm-result.is-info .agm-badge { color: #1e1240; background: var(--ai-purple); }
+.ai-cost-explain-copy a, .agm-related a { color: var(--ai-teal); font-weight: 750; }
+.agm-table-wrap { overflow-x: auto; border: 1px solid var(--ai-line); border-radius: 1rem; background: rgba(13,33,48,.8); }
+.agm-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: .84rem; }
+.agm-table caption { color: #eef8fa; font-weight: 800; text-align: left; padding: 1rem 1rem .4rem; }
+.agm-table th, .agm-table td { border-top: 1px solid rgba(154,190,201,.12); color: var(--ai-muted); line-height: 1.55; text-align: left; vertical-align: top; padding: .8rem 1rem; }
+.agm-table thead th { color: #718a98; font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; }
+.agm-table tbody th { color: #eef8fa; font-weight: 800; }
+.agm-faq { margin-top: 1.4rem; grid-template-columns: repeat(2,minmax(0,1fr)); }
+.agm-related { margin-top: 1.4rem; color: var(--ai-muted); line-height: 1.7; }
+@media (max-width: 720px) { .agm-faq { grid-template-columns: 1fr; } }

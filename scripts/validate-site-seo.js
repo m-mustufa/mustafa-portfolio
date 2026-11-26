@@ -65,6 +65,11 @@ const pages = [
     canonical: `${SITE_URL}/tools/indexnow-submitter.html`,
     primaryPhrase: "indexnow submitter",
   },
+  {
+    file: "tools/agents-md-generator.html",
+    canonical: `${SITE_URL}/tools/agents-md-generator.html`,
+    primaryPhrase: "agents.md generator",
+  },
 ];
 
 function countMatches(value, pattern) {
@@ -252,6 +257,7 @@ const legacyHostnameFiles = [
   "tools/complexity-coach/index.html",
   "tools/saas-metrics-calculator.html",
   "tools/indexnow-submitter.html",
+  "tools/agents-md-generator.html",
   "blog/index.html",
   "blog/_template.html",
   "robots.txt",
