@@ -299,7 +299,7 @@ app.listen(3000);</code></pre>
 
 <h3>Keep your usage limits in the loop</h3>
 
-<p>One thing I learned from CultureAI: an MCP client is just another way to spend your money. CultureAI gives every workspace a monthly AI token budget from its plan and reserves tokens before each AI call, so parallel calls cannot overshoot it. Any MCP tool that triggers an AI call should go through that same budget check. Otherwise an agent that loops on a tool becomes the most expensive user you have.</p>
+<p>One thing I learned from CultureAI: an MCP client is just another way to spend your money. CultureAI gives every workspace a monthly AI token budget from its plan and reserves tokens before each AI call, so parallel calls cannot overshoot it. Any MCP tool that triggers an AI call should go through that same budget check. Otherwise an agent that loops on a tool becomes the most expensive user you have. My <a href="/blog/openai-claude-gemini-api-pricing.html">OpenAI, Claude and Gemini API pricing guide</a> shows how to turn token rates into cost per user.</p>
 
 <h2 class="scroll-mt-28" id="testing-mcp-server-authentication-before-launch">Testing MCP server authentication before launch</h2>
 
