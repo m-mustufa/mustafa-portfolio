@@ -113,5 +113,24 @@
       "AIAgents"
     ],
     "publishAt": "2026-11-27T21:00:00+05:00"
+  },
+  "/tools/agents-md-generator.html": {
+    "hook": "Codex, Claude Code and Copilot all read a project rules file, but not the same one, and not with the same limits. So I built a small free tool for it.",
+    "intro": "The AGENTS.md Generator and Checker writes an AGENTS.md and a matching CLAUDE.md for your repo, then checks any rules file you paste. It runs in your browser, nothing is uploaded.",
+    "points": [
+      "Presets for Next.js, Vite React with Express, Astro and Node APIs",
+      "Flags leaked keys, commands outside code blocks and vague rules",
+      "Warns past Claude Code 200 lines or the Codex 32 KiB default"
+    ],
+    "hashtags": [
+      "AGENTSmd",
+      "ClaudeCode",
+      "Codex",
+      "AIAgents",
+      "DeveloperTools",
+      "AICoding",
+      "OpenSource"
+    ],
+    "publishAt": "2026-11-30T21:00:00+05:00"
   }
 }
