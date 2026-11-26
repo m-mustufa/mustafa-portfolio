@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3368338641233567" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/logo-2-48.png" sizes="48x48" />
+
+    <!-- SEO Meta -->
+    <title>MCP Server Authentication: OAuth 2.1 for SaaS in Node.js</title>
+    <meta name="description" content="MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/blog/mcp-server-authentication.html">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="MCP Server Authentication: OAuth 2.1 for SaaS in Node.js">
+    <meta property="og:description" content="MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.">
+    <meta property="og:image" content="https://aisaaswithmustafa.com/blog/images/mcp-server-authentication-developer-laptop-sign-in.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Developer checking a sign-in approval on a phone next to a laptop while securing an MCP server">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/blog/mcp-server-authentication.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-26T13:28:34.319Z">
+    <meta property="article:modified_time" content="2026-11-26T13:28:34.319Z">
+    <meta property="article:author" content="Muhammad Mustafa">
+    <meta property="article:section" content="AI Engineering">
+    <meta property="article:tag" content="MCP Server Authentication">
+    <meta property="article:tag" content="Model Context Protocol">
+    <meta property="article:tag" content="OAuth 2.1">
+    <meta property="article:tag" content="Node.js">
+    <meta property="article:tag" content="Multi-Tenant SaaS">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MCP Server Authentication: OAuth 2.1 for SaaS in Node.js">
+    <meta name="twitter:description" content="MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.">
+    <meta name="twitter:image" content="https://aisaaswithmustafa.com/blog/images/mcp-server-authentication-developer-laptop-sign-in.jpg">
+    <meta name="twitter:image:alt" content="Developer checking a sign-in approval on a phone next to a laptop while securing an MCP server">
+
+    <meta name="theme-color" content="#00C19D" />
+    <link rel="apple-touch-icon" href="../assets/img/logo-2-180.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261013-reading">
+    <script src="../assets/js/style.js?v=20261013-reading2" defer></script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://aisaaswithmustafa.com/blog/index.html" },
+            { "@type": "ListItem", "position": 3, "name": "MCP Server Authentication: OAuth 2.1 for SaaS in Node.js", "item": "https://aisaaswithmustafa.com/blog/mcp-server-authentication.html" }
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/profile.html",
+          "image": "https://aisaaswithmustafa.com/assets/img/muhammad-mustafa-ai-saas-developer.webp",
+          "jobTitle": "Full-Stack SaaS and AI Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/muhammad-mustafa-16477a99/",
+            "https://www.upwork.com/freelancers/mustafafullstack",
+            "https://contra.com/muhammad_mustafa_hg8nbcx2",
+            "https://clutch.co/profile/ai-saas-mustafa",
+            "https://techbehemoths.com/company/ai-saas-with-mustafa"
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "MCP Server Authentication: OAuth 2.1 for SaaS in Node.js",
+          "description": "MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.",
+          "image": "https://aisaaswithmustafa.com/blog/images/mcp-server-authentication-developer-laptop-sign-in.jpg",
+          "datePublished": "2026-11-26T13:28:34.319Z",
+          "dateModified": "2026-11-26T13:28:34.319Z",
+          "articleSection": "AI Engineering",
+          "keywords": ["MCP Server Authentication","Model Context Protocol","OAuth 2.1","Node.js","Multi-Tenant SaaS"],
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/blog/mcp-server-authentication.html"
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="blog-post-page bg-gray-900 min-h-screen text-gray-100 font-sans">
+    <!--@site-header-->
+
+    <main class="article-main">
+        <article>
+            <header class="article-hero" aria-labelledby="article-title">
+                <div class="article-shell article-hero-grid">
+                    <div class="article-hero-copy">
+                        <p class="article-kicker"><span aria-hidden="true"></span>AI Engineering</p>
+                        <h1 id="article-title">MCP Server Authentication: OAuth 2.1 for SaaS in Node.js</h1>
+                        <p class="article-summary">MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.</p>
+                        <div class="article-byline">
+                            <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa" width="600" height="750" class="article-author-photo" />
+                            <div>
+                                <strong>Muhammad Mustafa</strong>
+                                <span>Published <time datetime="2026-11-26T13:28:34.319Z">November 26, 2026</time> <i aria-hidden="true"></i> 9 min read</span>
+                            </div>
+                        </div>
+                        <div class="article-topics" aria-label="Article topics">
+                <span>AI Engineering</span>
+                <span>MCP Server Authentication</span>
+                <span>Model Context Protocol</span>
+                <span>OAuth 2.1</span>
+                <span>Node.js</span>
+                <span>Multi-Tenant SaaS</span>
+            </div>
+                    </div>
+
+                    <figure class="article-hero-visual">
+                        <img src="images/mcp-server-authentication-developer-laptop-sign-in.jpg" alt="Developer checking a sign-in approval on a phone next to a laptop while securing an MCP server" width="1200" height="675" loading="eager" />
+                        <figcaption>AI Engineering <span aria-hidden="true">/</span> Practical engineering guide</figcaption>
+                    </figure>
+                </div>
+            </header>
+
+            <div class="article-shell article-content-grid">
+                <aside class="article-sidebar">
+                    <nav class="article-toc" aria-labelledby="table-of-contents">
+                <p>In this guide</p>
+                <h2 id="table-of-contents">Table of contents</h2>
+                <ol>
+                    <li><a href="#when-an-mcp-server-needs-authentication">When an MCP server needs authentication</a></li>
+                    <li><a href="#how-mcp-server-authentication-works-step-by-step">How MCP server authentication works, step by step</a></li>
+                    <li><a href="#adding-authentication-to-a-node-js-mcp-server">Adding authentication to a Node.js MCP server</a></li>
+                    <li><a href="#mapping-tokens-to-tenants-and-roles">Mapping tokens to tenants and roles</a></li>
+                    <li><a href="#testing-mcp-server-authentication-before-launch">Testing MCP server authentication before launch</a></li>
+                    <li><a href="#what-i-would-do-first">What I would do first</a></li>
+                </ol>
+            </nav>
+                    <div class="article-sidebar-cta">
+                        <p>Have a project in mind?</p>
+                        <strong>Get a senior engineer involved early.</strong>
+                        <a href="/#contact">Start a conversation <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </aside>
+
+                <div class="article-reading-column">
+                    <div class="article-prose prose prose-invert max-w-none">
+                        <!-- ARTICLE_CONTENT_START -->
+                        <p>MCP server authentication is the part most tutorials skip. My own MCP server, <a href="/blog/build-mcp-server.html">the AI API cost server I built and published to npm</a>, has no login at all. It runs on your machine over stdio, it only does maths on public prices, and that is fine. But the moment you put an MCP server on a public URL in front of a SaaS product, every request is a stranger asking to read or change a customer's data.</p>
+
+<p>In this guide I explain, in plain words, when an MCP server needs authentication, how the OAuth flow in the MCP spec works, how to add it to a Node.js server with the official TypeScript SDK, and the part that matters most for SaaS: mapping a token to the right tenant and role. Everything here follows the current MCP spec revision, <a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization" target="_blank" rel="noopener noreferrer">2026-07-28</a>.</p>
+
+<h2 class="scroll-mt-28" id="when-an-mcp-server-needs-authentication">When an MCP server needs authentication</h2>
+
+<p>MCP has two common ways for a client (Claude Desktop, an IDE, an agent) to talk to a server. Which one you use decides whether you need OAuth at all.</p>
+
+<table>
+<thead><tr><th>Transport</th><th>Where it runs</th><th>How it authenticates</th></tr></thead>
+<tbody>
+<tr><td>stdio</td><td>On the user's own machine, started by the client</td><td>No OAuth. The spec says stdio servers should read credentials from the environment, like an API key in an env variable.</td></tr>
+<tr><td>Streamable HTTP</td><td>On your server, reachable by URL</td><td>The spec's OAuth-based authorization. Every request carries a bearer token.</td></tr>
+</tbody>
+</table>
+
+<p>My cost server is the first case. It needs no secrets, so there is nothing to protect. A SaaS MCP server is the second case. If CultureAI, the multi-tenant AI SaaS I built, offered an MCP endpoint so that a customer's AI assistant could pull workspace insights, that endpoint would need the full flow below. Nothing less is safe, because the data behind it belongs to many different companies.</p>
+
+<h2 class="scroll-mt-28" id="how-mcp-server-authentication-works-step-by-step">How MCP server authentication works, step by step</h2>
+
+<p>The MCP spec does not invent a new login system. It uses OAuth 2.1 and a few related standards. Your MCP server plays the role of a <strong>resource server</strong>: it checks tokens but never issues them. A separate <strong>authorization server</strong> (Auth0, Clerk, Keycloak, your own) handles sign-in and hands out tokens.</p>
+
+<figure><img src="images/mcp-oauth-sign-in-approval-laptop.jpg" alt="Person approving a sign-in request in a browser to connect an AI assistant to a SaaS account" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The user signs in once in the browser; after that the AI client sends a token with every MCP request.</figcaption></figure>
+
+<p>Here is the flow, in the order it happens:</p>
+
+<ol>
+<li><strong>The client calls your MCP endpoint without a token.</strong> Your server answers <code>401</code> with a <code>WWW-Authenticate</code> header that points to a metadata URL, for example <code>Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource"</code>.</li>
+<li><strong>The client reads your Protected Resource Metadata.</strong> This small JSON document (defined in RFC 9728) says which authorization server issues tokens for you. MCP servers must publish it.</li>
+<li><strong>The client discovers the authorization server.</strong> It reads that server's own metadata, through OAuth Authorization Server Metadata or OpenID Connect Discovery.</li>
+<li><strong>The client gets a client ID.</strong> The spec prefers Client ID Metadata Documents, where the client ID is a URL the client controls. Pre-registration is also allowed. Dynamic Client Registration is now marked as deprecated and kept only for older setups.</li>
+<li><strong>The user signs in.</strong> The client opens the browser for a normal authorization code flow with PKCE (a one-time secret that stops a stolen code from being used). The request includes a <code>resource</code> parameter that names your MCP server exactly.</li>
+<li><strong>The client calls you again with the token</strong> in an <code>Authorization: Bearer</code> header on every request. Tokens must never go in the URL query string.</li>
+</ol>
+
+<h3>The two rules people miss</h3>
+
+<p><strong>Check the audience.</strong> Your server must accept only tokens that were issued for it. That is what the <code>resource</code> parameter (RFC 8707) is for. If you skip this check, a token a user gave to some other app on the same identity provider could be replayed against your MCP server.</p>
+
+<p><strong>No token passthrough.</strong> Your MCP server must not take the client's token and forward it to another API. If your tools call a downstream service, they use the server's own credentials for it. Forwarding tokens breaks audit trails and lets one leaked token travel further than it should.</p>
+
+<p>My opinion after building auth into several SaaS apps: do not write your own authorization server for this. Use the identity provider you already have, and check its docs for what MCP clients need, mainly PKCE, resource indicators and a supported way to register clients. Your job is the resource server side, and that is small.</p>
+
+<h2 class="scroll-mt-28" id="adding-authentication-to-a-node-js-mcp-server">Adding authentication to a Node.js MCP server</h2>
+
+<p>The official TypeScript SDK v2 (stable since July 2026) has the pieces you need in <code>@modelcontextprotocol/express</code> and <code>@modelcontextprotocol/server</code>. The SDK does the HTTP part: the <code>401</code> challenge, the metadata endpoint and the <code>403</code> for missing scopes. You write one function, <code>verifyAccessToken</code>, that decides if a token is real.</p>
+
+<pre><code>import {
+  createMcpExpressApp,
+  requireBearerAuth,
+  getOAuthProtectedResourceMetadataUrl,
+  mcpAuthMetadataRouter,
+} from "@modelcontextprotocol/express";
+import { createMcpHandler, OAuthError, OAuthErrorCode } from "@modelcontextprotocol/server";
+import { toNodeHandler } from "@modelcontextprotocol/node";
+import { createRemoteJWKSet, jwtVerify } from "jose";
+import { buildServer } from "./server.js"; // registers your tools
+
+const ISSUER = "https://auth.example.com/";
+const mcpServerUrl = new URL("https://mcp.example.com/mcp");
+const jwks = createRemoteJWKSet(new URL(`${ISSUER}.well-known/jwks.json`));
+
+async function verifyAccessToken(token) {
+  try {
+    const { payload } = await jwtVerify(token, jwks, {
+      issuer: ISSUER,
+      audience: mcpServerUrl.href, // only tokens issued for this server
+    });
+    return {
+      token,
+      clientId: payload.client_id ?? payload.azp,
+      scopes: String(payload.scope ?? "").split(" ").filter(Boolean),
+      expiresAt: payload.exp, // required, or every request gets a 401
+      resource: mcpServerUrl,
+      extra: { userId: payload.sub },
+    };
+  } catch {
+    throw new OAuthError(OAuthErrorCode.InvalidToken, "Invalid or expired token");
+  }
+}
+
+const oauthMetadata = await fetch(`${ISSUER}.well-known/oauth-authorization-server`)
+  .then((res) =&gt; res.json());
+
+const app = createMcpExpressApp({ host: "0.0.0.0", allowedHosts: ["mcp.example.com"] });
+app.use(mcpAuthMetadataRouter({ oauthMetadata, resourceServerUrl: mcpServerUrl }));
+
+const auth = requireBearerAuth({
+  verifier: { verifyAccessToken },
+  requiredScopes: ["mcp"],
+  resourceMetadataUrl: getOAuthProtectedResourceMetadataUrl(mcpServerUrl),
+  expectedResource: mcpServerUrl,
+});
+
+const node = toNodeHandler(createMcpHandler(buildServer));
+app.all("/mcp", auth, (req, res) =&gt; void node(req, res, req.body));
+app.listen(3000);</code></pre>
+
+<p>A few details from the SDK docs that are easy to get wrong:</p>
+
+<ul>
+<li><strong>Always return <code>expiresAt</code>.</strong> If it is missing, the SDK treats the token as invalid.</li>
+<li><strong>Throw <code>OAuthError</code> with <code>InvalidToken</code></strong> for bad tokens. Any other error becomes a <code>500</code>, and the client will not know it should sign in again.</li>
+<li><strong>Upgrade the two packages together.</strong> The docs note that <code>@modelcontextprotocol/express</code> 2.0.1 does not pass <code>expectedResource</code> through, so match its version with <code>@modelcontextprotocol/server</code>.</li>
+<li><strong>Still on v1?</strong> My own server uses <code>@modelcontextprotocol/sdk</code> 1.x. There, <code>requireBearerAuth</code> lives at <code>@modelcontextprotocol/sdk/server/auth/middleware/bearerAuth.js</code>, but v1 only covers the spec up to the 2025-11-25 revision.</li>
+</ul>
+
+<p>The scope and claim names in the example (<code>scope</code>, <code>client_id</code>, <code>azp</code>) depend on your identity provider. Some use <code>scp</code> instead. Read one real token from your provider before you trust the mapping.</p>
+
+<h2 class="scroll-mt-28" id="mapping-tokens-to-tenants-and-roles">Mapping tokens to tenants and roles</h2>
+
+<p>This is where SaaS products get it wrong. A valid token proves who the user is. It does not prove which workspace they are allowed to touch in this call. That decision is still yours, inside each tool.</p>
+
+<figure><img src="images/saas-team-reviewing-workspace-access-roles.jpg" alt="Two colleagues reviewing which team members can access a SaaS workspace on a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The token says who is calling; the workspace and role still come from your own database.</figcaption></figure>
+
+<h3>Never trust a workspace ID from the model</h3>
+
+<p>Tool arguments are written by an AI model, and a model can be steered by text in a document it read. So I never let a tool argument pick the tenant. The tool reads the user from the token, looks up their membership, and only then runs the query.</p>
+
+<pre><code>server.registerTool(
+  "get_workspace_insights",
+  { description: "Read this month's insights for the caller's workspace", inputSchema: {} },
+  async (args, ctx) =&gt; {
+    const caller = ctx.http?.authInfo; // undefined over stdio
+    if (!caller) throw new Error("Authentication required");
+
+    const membership = await memberships.findOne({ userId: caller.extra.userId });
+    if (!membership) throw new Error("No workspace for this user");
+
+    const insights = await getInsights(membership.workspaceId); // tenant from the database
+    return { content: [{ type: "text", text: JSON.stringify(insights) }] };
+  }
+);</code></pre>
+
+<h3>Use scopes for actions, roles for data</h3>
+
+<p>I keep two layers. <strong>Scopes</strong> say what the AI client may do at all, for example <code>insights:read</code> or <code>reports:write</code>. <strong>Roles</strong> in your own database say what this user may do inside their workspace, for example owner or member. A write tool should need both: the scope on the token, and a role that allows the action.</p>
+
+<p>For per-tool scopes, the SDK has <code>requireScopes</code>. When a token lacks a scope, the server answers <code>403</code> with <code>error="insufficient_scope"</code> and the scopes it needs. A good client then asks the user to approve the extra scope and retries. Ask for the smallest set of scopes at first and add more only when a tool needs them.</p>
+
+<h3>Keep your usage limits in the loop</h3>
+
+<p>One thing I learned from CultureAI: an MCP client is just another way to spend your money. CultureAI gives every workspace a monthly AI token budget from its plan and reserves tokens before each AI call, so parallel calls cannot overshoot it. Any MCP tool that triggers an AI call should go through that same budget check. Otherwise an agent that loops on a tool becomes the most expensive user you have.</p>
+
+<h2 class="scroll-mt-28" id="testing-mcp-server-authentication-before-launch">Testing MCP server authentication before launch</h2>
+
+<p>Before any real client connects, I would check these by hand with <code>curl</code>:</p>
+
+<ol>
+<li>Call <code>/mcp</code> with no token. Expect <code>401</code> and a <code>WWW-Authenticate</code> header with <code>resource_metadata</code>.</li>
+<li>Open the metadata URL. It should list your authorization server.</li>
+<li>Send a token issued for a different API on the same provider. Expect <code>401</code>. If it passes, your audience check is broken.</li>
+<li>Send a valid token without a needed scope. Expect <code>403</code> with <code>insufficient_scope</code>.</li>
+<li>Sign in as a user from workspace A and try to read workspace B. You should get nothing, whatever arguments you send.</li>
+<li>Check your logs. Tokens should never appear in them.</li>
+</ol>
+
+<p>Then connect a real MCP client and go through the browser sign-in once, the same way I tested my stdio server inside a real AI app before publishing it.</p>
+
+<h2 class="scroll-mt-28" id="what-i-would-do-first">What I would do first</h2>
+
+<p>If you are adding MCP to a SaaS product, start small. Ship a read-only MCP server first, with one or two scopes, audience checks and tenant lookup from the database. Add write tools later, behind narrower scopes and the human approval steps from my <a href="/blog/mcp-server-security-uae-ai-saas.html">MCP server security checklist</a>. If you are still deciding whether you need MCP at all, my comparison of <a href="/blog/mcp-vs-rest-api-ai-agents.html">MCP and REST APIs for AI agents</a> covers that choice.</p>
+
+<p>Authentication is the boring part of MCP, and it is the part that decides whether you can let customers connect their AI tools to your product at all. If you want help designing it for your SaaS, <a href="/#contact">get in touch</a>, or see how I build <a href="/ai-saas-development-services.html">AI SaaS products</a>.</p>
+                        <!-- ARTICLE_CONTENT_END -->
+                    </div>
+
+<aside class="article-service-cta" aria-labelledby="ai-saas-development-help">
+                <div>
+                    <p>Available for global remote projects</p>
+                    <h2 id="ai-saas-development-help">Building a SaaS or AI product?</h2>
+                    <span>See how I approach full-stack SaaS and AI development, from architecture and integrations to launch support.</span>
+                </div>
+                <a href="/ai-saas-development-services.html">Explore AI SaaS services <span aria-hidden="true">&rarr;</span></a>
+            </aside>
+
+
+                    <section class="article-author" aria-labelledby="about-author">
+                        <img src="../assets/img/muhammad-mustafa-ai-saas-developer.webp" alt="Muhammad Mustafa, full-stack SaaS and AI engineer" width="600" height="750" loading="lazy" decoding="async" class="article-author-photo" />
+                        <div>
+                            <p>Written from production experience</p>
+                            <h2 id="about-author">Muhammad Mustafa</h2>
+                            <span>Full-Stack SaaS &amp; AI Engineer with 10+ years of experience across Angular, React, Next.js, Node.js, Supabase, PostgreSQL, Stripe and production AI integrations. I write from the architecture, security and delivery trade-offs I handle in real product work.</span>
+                            <div class="article-author-credentials" aria-label="Author experience">
+                                <span>10+ years</span>
+                                <span>Production SaaS</span>
+                                <span>AI integrations</span>
+                                <span>UAE projects</span>
+                            </div>
+                            <div class="article-author-links">
+                                <a href="/profile.html">About the author</a>
+                                <a href="/portfolio.html">View portfolio</a>
+                                <a href="https://www.linkedin.com/in/muhammad-mustafa-16477a99/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="/#contact">Discuss a project <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="article-shell article-related" aria-labelledby="related-articles">
+                <div class="article-related-heading">
+                    <div>
+                        <p>Keep reading</p>
+                        <h2 id="related-articles">Related engineering guides</h2>
+                    </div>
+                    <a href="/blog/index.html">Explore all articles <span aria-hidden="true">&rarr;</span></a>
+                </div>
+                <div class="article-related-grid">
+                                        <a href="/blog/build-mcp-server.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>How to Build an MCP Server: Node.js Build, Test and Publish</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/mcp-server-security-uae-ai-saas.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>MCP Server Security Checklist for AI SaaS (2026)</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                    <a href="/blog/mcp-vs-rest-api-ai-agents.html" class="article-related-card">
+                        <p>AI Engineering</p>
+                        <h3>MCP vs REST API for AI Agents: When to Use Each</h3>
+                        <span>Read guide <i aria-hidden="true">&rarr;</i></span>
+                    </a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!--@site-footer-->
+</body>
+
+</html>

@@ -166,5 +166,15 @@
       "webdev"
     ],
     "publishAt": "2027-02-23T15:00:00+05:00"
+  },
+  "/blog/mcp-server-authentication.html": {
+    "tags": [
+      "mcp",
+      "node",
+      "saas",
+      "webdev"
+    ],
+    "publishAt": "2026-11-28T15:00:00+05:00",
+    "series": "MCP and AI Agents"
   }
 }

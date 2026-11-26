@@ -1,5 +1,31 @@
 [
   {
+    "slug": "mcp-server-authentication",
+    "title": "MCP Server Authentication: OAuth 2.1 for SaaS in Node.js",
+    "metaDescription": "MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.",
+    "heroImageFile": "mcp-server-authentication-developer-laptop-sign-in.jpg",
+    "heroImageAlt": "Developer checking a sign-in approval on a phone next to a laptop while securing an MCP server",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 26, 2026",
+    "publishDateIso": "2026-11-26T13:28:34.319Z",
+    "readingTime": 9,
+    "category": "AI Engineering",
+    "tags": [
+      "MCP Server Authentication",
+      "Model Context Protocol",
+      "OAuth 2.1",
+      "Node.js",
+      "Multi-Tenant SaaS"
+    ],
+    "relatedSlugs": [
+      "build-mcp-server",
+      "mcp-server-security-uae-ai-saas",
+      "mcp-vs-rest-api-ai-agents"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
+  },
+  {
     "slug": "build-mcp-server",
     "title": "How to Build an MCP Server: Node.js Build, Test and Publish",
     "metaDescription": "How to build an MCP server in Node.js from a real project: zod tools, stdio, a real client test, npm publish and the MCP Registry, plus the bug I hit.",

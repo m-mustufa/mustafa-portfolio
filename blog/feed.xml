@@ -6,7 +6,186 @@
     <atom:link href="https://aisaaswithmustafa.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical guides on SaaS, AI integrations, Node.js, React and web engineering by Muhammad Mustafa, from real project experience.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 24 Nov 2026 01:57:14 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 13:28:34 GMT</lastBuildDate>
+    <item>
+      <title>MCP Server Authentication: OAuth 2.1 for SaaS in Node.js</title>
+      <link>https://aisaaswithmustafa.com/blog/mcp-server-authentication.html</link>
+      <guid isPermaLink="true">https://aisaaswithmustafa.com/blog/mcp-server-authentication.html</guid>
+      <pubDate>Thu, 26 Nov 2026 13:28:34 GMT</pubDate>
+      <dc:creator>Muhammad Mustafa</dc:creator>
+      <description>MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.</description>
+      <category>AI Engineering</category>
+      <category>MCP Server Authentication</category>
+      <category>Model Context Protocol</category>
+      <category>OAuth 2.1</category>
+      <category>Node.js</category>
+      <category>Multi-Tenant SaaS</category>
+      <enclosure url="https://aisaaswithmustafa.com/blog/images/mcp-server-authentication-developer-laptop-sign-in.jpg" length="156330" type="image/jpeg"/>
+      <content:encoded><![CDATA[<p>MCP server authentication is the part most tutorials skip. My own MCP server, <a href="https://aisaaswithmustafa.com/blog/build-mcp-server.html">the AI API cost server I built and published to npm</a>, has no login at all. It runs on your machine over stdio, it only does maths on public prices, and that is fine. But the moment you put an MCP server on a public URL in front of a SaaS product, every request is a stranger asking to read or change a customer's data.</p>
+
+<p>In this guide I explain, in plain words, when an MCP server needs authentication, how the OAuth flow in the MCP spec works, how to add it to a Node.js server with the official TypeScript SDK, and the part that matters most for SaaS: mapping a token to the right tenant and role. Everything here follows the current MCP spec revision, <a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization" target="_blank" rel="noopener noreferrer">2026-07-28</a>.</p>
+
+<h2>When an MCP server needs authentication</h2>
+
+<p>MCP has two common ways for a client (Claude Desktop, an IDE, an agent) to talk to a server. Which one you use decides whether you need OAuth at all.</p>
+
+<table>
+<thead><tr><th>Transport</th><th>Where it runs</th><th>How it authenticates</th></tr></thead>
+<tbody>
+<tr><td>stdio</td><td>On the user's own machine, started by the client</td><td>No OAuth. The spec says stdio servers should read credentials from the environment, like an API key in an env variable.</td></tr>
+<tr><td>Streamable HTTP</td><td>On your server, reachable by URL</td><td>The spec's OAuth-based authorization. Every request carries a bearer token.</td></tr>
+</tbody>
+</table>
+
+<p>My cost server is the first case. It needs no secrets, so there is nothing to protect. A SaaS MCP server is the second case. If CultureAI, the multi-tenant AI SaaS I built, offered an MCP endpoint so that a customer's AI assistant could pull workspace insights, that endpoint would need the full flow below. Nothing less is safe, because the data behind it belongs to many different companies.</p>
+
+<h2>How MCP server authentication works, step by step</h2>
+
+<p>The MCP spec does not invent a new login system. It uses OAuth 2.1 and a few related standards. Your MCP server plays the role of a <strong>resource server</strong>: it checks tokens but never issues them. A separate <strong>authorization server</strong> (Auth0, Clerk, Keycloak, your own) handles sign-in and hands out tokens.</p>
+
+<figure><img src="https://aisaaswithmustafa.com/blog/images/mcp-oauth-sign-in-approval-laptop.jpg" alt="Person approving a sign-in request in a browser to connect an AI assistant to a SaaS account" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The user signs in once in the browser; after that the AI client sends a token with every MCP request.</figcaption></figure>
+
+<p>Here is the flow, in the order it happens:</p>
+
+<ol>
+<li><strong>The client calls your MCP endpoint without a token.</strong> Your server answers <code>401</code> with a <code>WWW-Authenticate</code> header that points to a metadata URL, for example <code>Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource"</code>.</li>
+<li><strong>The client reads your Protected Resource Metadata.</strong> This small JSON document (defined in RFC 9728) says which authorization server issues tokens for you. MCP servers must publish it.</li>
+<li><strong>The client discovers the authorization server.</strong> It reads that server's own metadata, through OAuth Authorization Server Metadata or OpenID Connect Discovery.</li>
+<li><strong>The client gets a client ID.</strong> The spec prefers Client ID Metadata Documents, where the client ID is a URL the client controls. Pre-registration is also allowed. Dynamic Client Registration is now marked as deprecated and kept only for older setups.</li>
+<li><strong>The user signs in.</strong> The client opens the browser for a normal authorization code flow with PKCE (a one-time secret that stops a stolen code from being used). The request includes a <code>resource</code> parameter that names your MCP server exactly.</li>
+<li><strong>The client calls you again with the token</strong> in an <code>Authorization: Bearer</code> header on every request. Tokens must never go in the URL query string.</li>
+</ol>
+
+<h3>The two rules people miss</h3>
+
+<p><strong>Check the audience.</strong> Your server must accept only tokens that were issued for it. That is what the <code>resource</code> parameter (RFC 8707) is for. If you skip this check, a token a user gave to some other app on the same identity provider could be replayed against your MCP server.</p>
+
+<p><strong>No token passthrough.</strong> Your MCP server must not take the client's token and forward it to another API. If your tools call a downstream service, they use the server's own credentials for it. Forwarding tokens breaks audit trails and lets one leaked token travel further than it should.</p>
+
+<p>My opinion after building auth into several SaaS apps: do not write your own authorization server for this. Use the identity provider you already have, and check its docs for what MCP clients need, mainly PKCE, resource indicators and a supported way to register clients. Your job is the resource server side, and that is small.</p>
+
+<h2>Adding authentication to a Node.js MCP server</h2>
+
+<p>The official TypeScript SDK v2 (stable since July 2026) has the pieces you need in <code>@modelcontextprotocol/express</code> and <code>@modelcontextprotocol/server</code>. The SDK does the HTTP part: the <code>401</code> challenge, the metadata endpoint and the <code>403</code> for missing scopes. You write one function, <code>verifyAccessToken</code>, that decides if a token is real.</p>
+
+<pre><code>import {
+  createMcpExpressApp,
+  requireBearerAuth,
+  getOAuthProtectedResourceMetadataUrl,
+  mcpAuthMetadataRouter,
+} from "@modelcontextprotocol/express";
+import { createMcpHandler, OAuthError, OAuthErrorCode } from "@modelcontextprotocol/server";
+import { toNodeHandler } from "@modelcontextprotocol/node";
+import { createRemoteJWKSet, jwtVerify } from "jose";
+import { buildServer } from "./server.js"; // registers your tools
+
+const ISSUER = "https://auth.example.com/";
+const mcpServerUrl = new URL("https://mcp.example.com/mcp");
+const jwks = createRemoteJWKSet(new URL(`${ISSUER}.well-known/jwks.json`));
+
+async function verifyAccessToken(token) {
+  try {
+    const { payload } = await jwtVerify(token, jwks, {
+      issuer: ISSUER,
+      audience: mcpServerUrl.href, // only tokens issued for this server
+    });
+    return {
+      token,
+      clientId: payload.client_id ?? payload.azp,
+      scopes: String(payload.scope ?? "").split(" ").filter(Boolean),
+      expiresAt: payload.exp, // required, or every request gets a 401
+      resource: mcpServerUrl,
+      extra: { userId: payload.sub },
+    };
+  } catch {
+    throw new OAuthError(OAuthErrorCode.InvalidToken, "Invalid or expired token");
+  }
+}
+
+const oauthMetadata = await fetch(`${ISSUER}.well-known/oauth-authorization-server`)
+  .then((res) =&gt; res.json());
+
+const app = createMcpExpressApp({ host: "0.0.0.0", allowedHosts: ["mcp.example.com"] });
+app.use(mcpAuthMetadataRouter({ oauthMetadata, resourceServerUrl: mcpServerUrl }));
+
+const auth = requireBearerAuth({
+  verifier: { verifyAccessToken },
+  requiredScopes: ["mcp"],
+  resourceMetadataUrl: getOAuthProtectedResourceMetadataUrl(mcpServerUrl),
+  expectedResource: mcpServerUrl,
+});
+
+const node = toNodeHandler(createMcpHandler(buildServer));
+app.all("/mcp", auth, (req, res) =&gt; void node(req, res, req.body));
+app.listen(3000);</code></pre>
+
+<p>A few details from the SDK docs that are easy to get wrong:</p>
+
+<ul>
+<li><strong>Always return <code>expiresAt</code>.</strong> If it is missing, the SDK treats the token as invalid.</li>
+<li><strong>Throw <code>OAuthError</code> with <code>InvalidToken</code></strong> for bad tokens. Any other error becomes a <code>500</code>, and the client will not know it should sign in again.</li>
+<li><strong>Upgrade the two packages together.</strong> The docs note that <code>@modelcontextprotocol/express</code> 2.0.1 does not pass <code>expectedResource</code> through, so match its version with <code>@modelcontextprotocol/server</code>.</li>
+<li><strong>Still on v1?</strong> My own server uses <code>@modelcontextprotocol/sdk</code> 1.x. There, <code>requireBearerAuth</code> lives at <code>@modelcontextprotocol/sdk/server/auth/middleware/bearerAuth.js</code>, but v1 only covers the spec up to the 2025-11-25 revision.</li>
+</ul>
+
+<p>The scope and claim names in the example (<code>scope</code>, <code>client_id</code>, <code>azp</code>) depend on your identity provider. Some use <code>scp</code> instead. Read one real token from your provider before you trust the mapping.</p>
+
+<h2>Mapping tokens to tenants and roles</h2>
+
+<p>This is where SaaS products get it wrong. A valid token proves who the user is. It does not prove which workspace they are allowed to touch in this call. That decision is still yours, inside each tool.</p>
+
+<figure><img src="https://aisaaswithmustafa.com/blog/images/saas-team-reviewing-workspace-access-roles.jpg" alt="Two colleagues reviewing which team members can access a SaaS workspace on a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The token says who is calling; the workspace and role still come from your own database.</figcaption></figure>
+
+<h3>Never trust a workspace ID from the model</h3>
+
+<p>Tool arguments are written by an AI model, and a model can be steered by text in a document it read. So I never let a tool argument pick the tenant. The tool reads the user from the token, looks up their membership, and only then runs the query.</p>
+
+<pre><code>server.registerTool(
+  "get_workspace_insights",
+  { description: "Read this month's insights for the caller's workspace", inputSchema: {} },
+  async (args, ctx) =&gt; {
+    const caller = ctx.http?.authInfo; // undefined over stdio
+    if (!caller) throw new Error("Authentication required");
+
+    const membership = await memberships.findOne({ userId: caller.extra.userId });
+    if (!membership) throw new Error("No workspace for this user");
+
+    const insights = await getInsights(membership.workspaceId); // tenant from the database
+    return { content: [{ type: "text", text: JSON.stringify(insights) }] };
+  }
+);</code></pre>
+
+<h3>Use scopes for actions, roles for data</h3>
+
+<p>I keep two layers. <strong>Scopes</strong> say what the AI client may do at all, for example <code>insights:read</code> or <code>reports:write</code>. <strong>Roles</strong> in your own database say what this user may do inside their workspace, for example owner or member. A write tool should need both: the scope on the token, and a role that allows the action.</p>
+
+<p>For per-tool scopes, the SDK has <code>requireScopes</code>. When a token lacks a scope, the server answers <code>403</code> with <code>error="insufficient_scope"</code> and the scopes it needs. A good client then asks the user to approve the extra scope and retries. Ask for the smallest set of scopes at first and add more only when a tool needs them.</p>
+
+<h3>Keep your usage limits in the loop</h3>
+
+<p>One thing I learned from CultureAI: an MCP client is just another way to spend your money. CultureAI gives every workspace a monthly AI token budget from its plan and reserves tokens before each AI call, so parallel calls cannot overshoot it. Any MCP tool that triggers an AI call should go through that same budget check. Otherwise an agent that loops on a tool becomes the most expensive user you have.</p>
+
+<h2>Testing MCP server authentication before launch</h2>
+
+<p>Before any real client connects, I would check these by hand with <code>curl</code>:</p>
+
+<ol>
+<li>Call <code>/mcp</code> with no token. Expect <code>401</code> and a <code>WWW-Authenticate</code> header with <code>resource_metadata</code>.</li>
+<li>Open the metadata URL. It should list your authorization server.</li>
+<li>Send a token issued for a different API on the same provider. Expect <code>401</code>. If it passes, your audience check is broken.</li>
+<li>Send a valid token without a needed scope. Expect <code>403</code> with <code>insufficient_scope</code>.</li>
+<li>Sign in as a user from workspace A and try to read workspace B. You should get nothing, whatever arguments you send.</li>
+<li>Check your logs. Tokens should never appear in them.</li>
+</ol>
+
+<p>Then connect a real MCP client and go through the browser sign-in once, the same way I tested my stdio server inside a real AI app before publishing it.</p>
+
+<h2>What I would do first</h2>
+
+<p>If you are adding MCP to a SaaS product, start small. Ship a read-only MCP server first, with one or two scopes, audience checks and tenant lookup from the database. Add write tools later, behind narrower scopes and the human approval steps from my <a href="https://aisaaswithmustafa.com/blog/mcp-server-security-uae-ai-saas.html">MCP server security checklist</a>. If you are still deciding whether you need MCP at all, my comparison of <a href="https://aisaaswithmustafa.com/blog/mcp-vs-rest-api-ai-agents.html">MCP and REST APIs for AI agents</a> covers that choice.</p>
+
+<p>Authentication is the boring part of MCP, and it is the part that decides whether you can let customers connect their AI tools to your product at all. If you want help designing it for your SaaS, <a href="https://aisaaswithmustafa.com/#contact">get in touch</a>, or see how I build <a href="https://aisaaswithmustafa.com/ai-saas-development-services.html">AI SaaS products</a>.</p>]]></content:encoded>
+    </item>
     <item>
       <title>How to Build an MCP Server: Node.js Build, Test and Publish</title>
       <link>https://aisaaswithmustafa.com/blog/build-mcp-server.html</link>
@@ -1575,105 +1754,6 @@ app.all('/mcp', auth, handler);</code></pre>
 <p>An accessible UAE website is not created by adding a badge or passing one score. It comes from semantic components, visible focus, usable forms, keyboard support, bilingual testing and repeated checks on the actual journeys customers need to complete.</p>
 <p>Start with the highest-value workflow and fix the shared components underneath it. That creates a better product for people of determination, older users, mobile users, keyboard users and customers working in difficult conditions. It also produces cleaner front-end code and fewer surprises during procurement or audit.</p>
 <p>If you need a practical accessibility review or want to build a WCAG-aware SaaS platform for the UAE, <a href='/#contact'>send me the project details</a>.</p>]]></content:encoded>
-    </item>
-    <item>
-      <title>Agentic AI Implementation for UAE Businesses: 90-Day Plan</title>
-      <link>https://aisaaswithmustafa.com/blog/agentic-ai-uae-businesses-production-guide.html</link>
-      <guid isPermaLink="true">https://aisaaswithmustafa.com/blog/agentic-ai-uae-businesses-production-guide.html</guid>
-      <pubDate>Tue, 29 Sep 2026 16:50:29 GMT</pubDate>
-      <dc:creator>Muhammad Mustafa</dc:creator>
-      <description>Use this agentic AI UAE implementation guide to choose one workflow, set approval gates, control data, test safely and launch a practical 90-day pilot.</description>
-      <category>AI &amp; Automation</category>
-      <category>Agentic AI UAE</category>
-      <category>Dubai AI</category>
-      <category>AI Agents</category>
-      <category>Business Automation</category>
-      <category>Responsible AI</category>
-      <enclosure url="https://aisaaswithmustafa.com/blog/images/muhammad-mustafa-agentic-ai-uae-developer-office.jpg" length="104335" type="image/jpeg"/>
-      <content:encoded><![CDATA[<p><strong>Agentic AI for UAE businesses</strong> means software that can understand a goal, choose approved tools and complete controlled steps instead of only generating a reply. The best starting point is one measurable workflow with clear permissions, human approval and a safe rollback path.</p>
-<p>That does not mean every company should immediately give an AI model unrestricted access to email, finance, customer records and production systems. An agent becomes useful when it can understand a goal, choose approved tools, complete several controlled steps and ask a person for approval when the risk is too high. The difficult work is still permissions, data boundaries, testing, observability and operational ownership.</p>
-<p>This guide explains how I would plan an agent-powered feature for a UAE business. It covers use-case selection, production architecture, human approval, UAE data considerations, testing and a practical 90-day rollout. It is an engineering guide, not legal advice; regulated organisations should confirm their obligations with the relevant UAE authorities and qualified advisers.</p>
-<h2>Why agentic AI for UAE businesses matters now</h2>
-<p>The <a href="https://www.mediaoffice.ae/en/news/2026/april/23-04/mohammed-bin-rashid-chairs-uae-cabinet-meeting" target="_blank" rel="noopener noreferrer">UAE government framework</a> describes a shift from normal digital services toward systems that can monitor changes, analyse information, recommend actions and execute approved workflows. The plan includes phased implementation and continuous performance assessment rather than a single uncontrolled launch.</p>
-<p>Dubai extended this direction to the commercial market. The <a href="https://mediaoffice.ae/en/news/2026/may/04-05/hamdan-bin-mohammed-launches-dubai-private-sector-shift-to-agentic-ai-within-two-years" target="_blank" rel="noopener noreferrer">private-sector agentic AI initiative</a> includes specialised training through Dubai Chamber business councils, incubators for agentic AI companies and dedicated funding. It is a strong market signal, but it should not be misread as a requirement for every business to automate everything.</p>
-<p>Real deployments are also appearing. <a href="https://www.dewa.gov.ae/en/about-us/media-publications/latest-news/2026/7/dewa-deploys-agentic-ai-across-its-digital-platforms" target="_blank" rel="noopener noreferrer">DEWA reported deploying agentic AI</a> across its website, smart app, employee tools, dashboards and testing operations. The Federal Authority for Identity, Citizenship, Customs and Port Security has described priority-based implementation tracks, working teams and formal project approvals. These examples point to a sensible pattern: identify a controlled workflow, assign ownership and expand only after evidence shows it is reliable.</p>
-<h2>Start with one workflow, not an autonomous company</h2>
-<p>The best first project is repetitive, measurable and reversible. It should have clear inputs, known systems, a visible result and a person who already owns the process. Good examples include classifying inbound service requests, preparing a draft response, checking submitted documents, creating a sales follow-up task or collecting evidence for an internal review.</p>
-<p>A weak first project is vague: “run customer support,” “manage finance” or “handle operations.” Those goals hide dozens of policies and edge cases. They also make it difficult to define success. I prefer to write the first workflow as a sentence with a boundary: “Read a new enquiry, identify its category, draft a response from approved knowledge and require approval before sending.”</p>
-<p>Before development, define the baseline. Measure how long the current process takes, common failure reasons, escalation volume and the cost of a wrong action. Then decide what the agent is allowed to do. Reading data, drafting an answer and sending a message are three different permission levels. Treat them separately.</p>
-<h2>Use a production architecture with explicit boundaries</h2>
-<p>An agent-powered SaaS feature needs more than a model call. I would separate it into six responsibilities:</p>
-<ul>
-<li><strong>Workflow service:</strong> owns the steps, state transitions, retries and final outcome.</li>
-<li><strong>Model layer:</strong> interprets the request and proposes the next action using structured output.</li>
-<li><strong>Tool gateway:</strong> exposes a small allowlist of business actions with strict input validation.</li>
-<li><strong>Policy engine:</strong> decides whether an action can run automatically, needs approval or must be rejected.</li>
-<li><strong>Audit store:</strong> records prompts, tool requests, approvals, results, cost and errors using safe retention rules.</li>
-<li><strong>Operations view:</strong> gives authorised staff a queue for approvals, failures and trace inspection.</li>
-</ul>
-<p>The model should never receive a database password or unrestricted API client. It should request a named tool such as <code>createDraftReply</code> or <code>lookupOrderStatus</code>. The application validates the request, checks the tenant and user, applies policy and then calls the real service.</p>
-<p>If the agent connects to business tools through Model Context Protocol, my <a href="https://aisaaswithmustafa.com/blog/mcp-server-security-uae-ai-saas.html">MCP server security checklist for UAE AI SaaS</a> explains the OAuth, least-privilege, tenant-isolation and approval controls I would apply before production access.</p>
-<pre><code class="language-ts">type AgentAction = {
-  tenantId: string;
-  tool: 'lookup_customer' | 'draft_reply' | 'send_reply';
-  input: unknown;
-};
-
-async function executeAction(action: AgentAction, actor: User) {
-  assertTenantAccess(actor, action.tenantId);
-  const cleanInput = validateToolInput(action.tool, action.input);
-
-  if (action.tool === 'send_reply') {
-    return createApprovalRequest(actor, action, cleanInput);
-  }
-
-  return approvedTools[action.tool](cleanInput);
-}</code></pre>
-<p>The exact code will vary, but the boundary should remain: the agent proposes, the application authorises, and a controlled tool executes.</p>
-<h2>Make approval proportional to business risk</h2>
-<p>Human approval is not a temporary weakness. It is a product control. A low-risk agent can summarise a meeting or tag a support request automatically. A higher-risk workflow should pause before sending external messages, changing customer records, approving money, granting access or making a decision that affects a person.</p>
-<p>I normally define three levels:</p>
-<ul>
-<li><strong>Observe:</strong> the agent reads approved data and produces analysis without changing anything.</li>
-<li><strong>Prepare:</strong> the agent creates a draft, recommendation or queued action for review.</li>
-<li><strong>Execute:</strong> the agent performs a reversible action within limits, with full tracing and an escalation path.</li>
-</ul>
-<p>Approval screens need enough context to make a real decision: the proposed action, source records, reason, affected customer, confidence limits and expected result. A button that only says “Approve AI” is not meaningful oversight.</p>
-<p>Those approval and operations screens must also work for keyboard and assistive-technology users. My <a href="https://aisaaswithmustafa.com/blog/uae-wcag-2-2-website-accessibility-checklist.html">UAE WCAG 2.2 website accessibility checklist</a> covers focus, forms, screen readers, mobile targets and release testing.</p>
-<h2>Apply UAE data and AI governance from the first design</h2>
-<p>Dubai's <a href="https://www.digitaldubai.ae/docs/default-source/publications/dubai-state-of-ai-report.pdf" target="_blank" rel="noopener noreferrer">State of AI report</a> describes eleven principles for public-sector AI, including lawful use, privacy, human-centred design, security, accountability, transparency, explainability, robustness and sustainability. Even when a private company is not directly subject to that policy, these principles are a useful production checklist.</p>
-<p>Start with a data map. Record what the agent can read, what is sent to a model provider, where traces are stored, who can review them and how long they are retained. Remove secrets and unnecessary personal data before model calls. Do not put raw customer records into general logs merely because tracing is enabled.</p>
-<p>For multi-tenant products, every tool request must carry a verified tenant boundary from the authenticated application session. The model must not choose the tenant from prompt text. Database policies and backend queries should enforce isolation even if the model or interface makes a mistake. My <a href="https://aisaaswithmustafa.com/blog/uae-pdpl-compliance-saas.html">UAE PDPL checklist</a> covers consent, user rights, vendors, retention and privacy-by-design in more detail.</p>
-<p>Use model-provider controls that fit the data classification and deployment requirements. Review retention, regional processing, subcontractors and incident procedures with the organisation's security and legal teams. “The model is secure” is not a sufficient answer; the complete data path must be understood.</p>
-<h2>Test actions and outcomes, not just prompts</h2>
-<p>Prompt testing is only one layer. Production tests should cover tool permissions, invalid structured output, prompt injection inside retrieved documents, repeated events, timeouts, partial completion, stale approvals and a user losing access during a workflow.</p>
-<p>I would build an evaluation set from real but sanitised examples, including difficult and adversarial cases. For every release, measure task completion, unsupported claims, incorrect tool selection, approval rate, escalation rate, cost and latency. The <a href="https://airc.nist.gov/airmf-resources/airmf/" target="_blank" rel="noopener noreferrer">NIST AI Risk Management Framework</a> organises this work around govern, map, measure and manage. That is more useful than treating safety as a one-time checklist.</p>
-<p>Tracing should connect the user request, model decision, tool call, approval and final business result under one workflow ID. Alerts should identify repeated failures, cost spikes, unusual tool use and queues that are waiting too long for human review.</p>
-<h2>A practical 90-day rollout</h2>
-<h3>Days 1–15: choose and map</h3>
-<p>Select one workflow and document its owner, systems, inputs, actions, risks and current performance. Decide which data is allowed and which outcomes always require approval. Build a small evaluation set before selecting models or frameworks.</p>
-<h3>Days 16–45: build in observe mode</h3>
-<p>Connect read-only tools, structured outputs, tenant checks and tracing. Run the agent beside the existing process without letting it change external systems. Compare its suggestions with real decisions and fix failure categories.</p>
-<h3>Days 46–70: add preparation and approval</h3>
-<p>Let the agent create drafts or queued actions. Build the approval interface, expiry rules, rejection reasons and audit history. Measure whether it saves time after review; a draft that needs complete rewriting has not created useful automation.</p>
-<h3>Days 71–90: controlled execution</h3>
-<p>Allow a narrow set of reversible actions within volume, cost and permission limits. Add incident procedures and rollback. Review results with the workflow owner before expanding to another department or tool.</p>
-<h2>Agentic AI production checklist</h2>
-<ul>
-<li>One named workflow owner and one measurable business outcome.</li>
-<li>An explicit tool allowlist with validated inputs and least-privilege credentials.</li>
-<li>Tenant isolation enforced outside the model.</li>
-<li>Human approval for external, financial, access-related and high-impact actions.</li>
-<li>Safe trace retention with personal data and secrets minimised.</li>
-<li>Idempotency, retry limits, timeouts and recovery for partial workflows.</li>
-<li>A sanitised evaluation set covering normal, difficult and hostile inputs.</li>
-<li>Cost, latency, quality, approval and failure monitoring.</li>
-<li>A documented shutdown path when behaviour becomes unsafe or unreliable.</li>
-</ul>
-<h2>Practical takeaway</h2>
-<p>The UAE's agentic AI direction creates a real opportunity for businesses in Dubai, Abu Dhabi and across the country. The companies that benefit will not be the ones that add the most autonomous agents. They will be the ones that choose valuable workflows, control tool access, protect data and measure results carefully.</p>
-<p>Start in observe mode, add approval, then earn the right to automate a limited action. That approach is less dramatic than an “autonomous company” demo, but it produces software that employees and customers can trust.</p>
-<p>If you are planning an agent-powered SaaS feature or business workflow in the UAE, I can help turn the idea into a secure architecture and focused delivery plan. Review my <a href="https://aisaaswithmustafa.com/blog/openai-agents-api-saas-production-guide.html">OpenAI Agents API production guide</a>, explore my <a href="https://aisaaswithmustafa.com/full-stack-development-services-dubai.html">UAE full-stack SaaS development services</a> or <a href="https://aisaaswithmustafa.com/#contact">tell me what you want to automate</a>.</p>]]></content:encoded>
     </item>
   </channel>
 </rss>

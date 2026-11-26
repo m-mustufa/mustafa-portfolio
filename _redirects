@@ -17,6 +17,7 @@ https://mustcode.netlify.app/* https://aisaaswithmustafa.com/:splat 301!
 /blog /blog/index.html 301!
 /blog/ /blog/index.html 301!
 /blog/index /blog/index.html 301!
+/blog/mcp-server-authentication /blog/mcp-server-authentication.html 301!
 /blog/build-mcp-server /blog/build-mcp-server.html 301!
 /blog/saas-mvp-cost /blog/saas-mvp-cost.html 301!
 /blog/big-o-calculator-javascript /blog/big-o-calculator-javascript.html 301!
