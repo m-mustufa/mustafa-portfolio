@@ -34,8 +34,10 @@
             <ul class="ai-cost-trust" aria-label="Tool benefits"><li>No signup</li><li>Runs in your browser</li><li>Codex, Claude Code and Copilot</li><li>Checked against official docs</li></ul>
         </div></section>
 
-        <section class="ai-cost-calculator" id="generator" aria-labelledby="generator-title"><div class="ai-cost-shell">
-            <header class="ai-cost-heading"><div><p>Step 1: generate</p><h2 id="generator-title">Build your AGENTS.md.</h2></div><p>Start from a preset, then replace the examples with your project's real commands and rules. The output updates as you type.</p></header>
+        <div class="agm-tabbar"><div class="ai-cost-shell"><div class="agm-tabs" role="tablist" aria-label="Choose a tool"><a href="#generator" class="agm-tab" role="tab" id="agm-tab-generator" aria-controls="generator" aria-selected="true" data-tab="generator"><span>1</span>Generate a new file</a><a href="#checker" class="agm-tab" role="tab" id="agm-tab-checker" aria-controls="checker" aria-selected="false" data-tab="checker"><span>2</span>Check an existing file</a></div></div></div>
+
+        <section class="ai-cost-calculator agm-panel" id="generator" role="tabpanel" aria-labelledby="generator-title"><div class="ai-cost-shell">
+            <header class="ai-cost-heading"><div><p>Generate</p><h2 id="generator-title">Build your AGENTS.md.</h2></div><p>Start from a preset, then replace the examples with your project's real commands and rules. The output updates as you type.</p></header>
             <div class="ai-cost-workspace">
                 <form class="ai-cost-panel" data-agents-form>
                     <div class="ai-cost-panel-heading"><div><h3>Project details</h3><p>Empty fields are left out of the file.</p></div></div>
@@ -79,8 +81,8 @@
             </div>
         </div></section>
 
-        <section class="ai-cost-calculator agm-check-section" id="checker" aria-labelledby="checker-title"><div class="ai-cost-shell">
-            <header class="ai-cost-heading"><div><p>Step 2: check</p><h2 id="checker-title">Check an AGENTS.md or CLAUDE.md.</h2></div><p>Paste a file you already use. The checker runs in your browser and nothing is uploaded.</p></header>
+        <section class="ai-cost-calculator agm-panel" id="checker" role="tabpanel" aria-labelledby="checker-title"><div class="ai-cost-shell">
+            <header class="ai-cost-heading"><div><p>Check</p><h2 id="checker-title">Check an AGENTS.md or CLAUDE.md.</h2></div><p>Paste a file you already use. The checker runs in your browser and nothing is uploaded.</p></header>
             <div class="ai-cost-workspace">
                 <form class="ai-cost-panel" data-check-form>
                     <div class="ai-cost-fields">

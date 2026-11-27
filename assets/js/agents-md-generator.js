@@ -391,7 +391,7 @@
         checkForm.elements.kind.value = "agents";
         checkForm.elements.file.value = agentsOut.value;
         runCheck();
-        checkForm.scrollIntoView({ behavior: "smooth", block: "start" });
+        showTab("checker", true);
       });
     }
   }
@@ -420,5 +420,46 @@
 
   if (checkForm) {
     checkForm.addEventListener("submit", (event) => { event.preventDefault(); runCheck(); });
+  }
+
+  // Generate / Check tabs. Without JS both panels stay visible and the tabs work as anchor links.
+  const tabs = Array.from(document.querySelectorAll("[data-tab]"));
+  function showTab(id, scroll) {
+    if (!tabs.length) return;
+    tabs.forEach((tab) => {
+      const active = tab.dataset.tab === id;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+      const panel = document.getElementById(tab.dataset.tab);
+      if (panel) panel.hidden = !active;
+    });
+    if (window.history && window.history.replaceState) window.history.replaceState(null, "", `#${id}`);
+    if (scroll) document.querySelector(".agm-tabbar").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  if (tabs.length) {
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", (event) => { event.preventDefault(); showTab(tab.dataset.tab, false); });
+      tab.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+        event.preventDefault();
+        const next = tabs[(index + (event.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+        next.focus();
+        showTab(next.dataset.tab, false);
+      });
+    });
+    window.addEventListener("hashchange", () => {
+      const target = tabs.find((tab) => `#${tab.dataset.tab}` === window.location.hash);
+      if (target) showTab(target.dataset.tab, true);
+    });
+    const fromHash = tabs.find((tab) => `#${tab.dataset.tab}` === window.location.hash);
+    if (fromHash) showTab(fromHash.dataset.tab, true);
+    else {
+      tabs.forEach((tab) => {
+        const active = tab.dataset.tab === "generator";
+        tab.tabIndex = active ? 0 : -1;
+        const panel = document.getElementById(tab.dataset.tab);
+        if (panel) panel.hidden = !active;
+      });
+    }
   }
 })(typeof window !== "undefined" ? window : globalThis);
