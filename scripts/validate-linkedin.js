@@ -56,5 +56,29 @@ for (const key of keys) {
   }
 }
 
+// Schedule rules: at most one LinkedIn post per day, and only in daytime
+// (09:00 to 20:00 Pakistan time). Two posts on 27 Nov 2026 is why this exists.
+if (previewIndex === -1) {
+  const byDay = {};
+  for (const key of keys) {
+    const at = social[key].publishAt;
+    if (!at || new Date(at) < new Date()) continue; // already shared, nothing to fix
+    const pkt = new Date(new Date(at).getTime() + 5 * 3600 * 1000);
+    const day = pkt.toISOString().slice(0, 10);
+    const minutes = pkt.getUTCHours() * 60 + pkt.getUTCMinutes();
+    if (minutes < 9 * 60 || minutes > 20 * 60) {
+      failed += 1;
+      console.error(`FAIL ${key}: publishAt ${at} is outside 09:00 to 20:00 PKT`);
+    }
+    (byDay[day] = byDay[day] || []).push(key);
+  }
+  for (const [day, list] of Object.entries(byDay)) {
+    if (list.length > 1) {
+      failed += 1;
+      console.error(`FAIL two or more LinkedIn posts on ${day} (PKT): ${list.join(", ")}. One per day only.`);
+    }
+  }
+}
+
 if (failed) process.exit(1);
 if (previewIndex === -1) console.log(`Validated ${keys.length} LinkedIn post text(s) in ${SOCIAL_FILE}.`);
