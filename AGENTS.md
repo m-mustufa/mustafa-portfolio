@@ -15,6 +15,7 @@ Portfolio, blog and free-tools site for Muhammad Mustafa (Remote Full-Stack SaaS
 
 - **The live code is the worktree `.worktrees/seo-global-20261119` on branch `astro-migration`.**
   - Production `main` is pushed from there with `git push origin astro-migration:main`, only after the user says yes.
+  - **Push `main` on its own first, then `astro-migration` in a separate command after the production deploy has started.** Netlify builds a commit SHA only once: when both refs arrive with the same SHA in one push, sometimes only the branch deploy (preview) runs and production never deploys (happened with 53eaecf and c050eee, 2026-11-27). If that happens, use Netlify, Deploys, Trigger deploy, Deploy site.
   - Before that push, run `git fetch origin` and confirm that `astro-migration` is not behind `origin/main`.
   - After the push, confirm that `git ls-remote origin refs/heads/main` and `git ls-remote github refs/heads/main` show the same SHA.
 - Do not build, commit or push from the main checkout `D:\kodlers-website\mustafa-web`. It is on an old branch (`feature/nextjs-service-platform`, last commit 2026-10-18) with uncommitted changes that are not part of the live site, and its local `main` branch is stale.
