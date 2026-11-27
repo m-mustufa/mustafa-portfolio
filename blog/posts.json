@@ -1,5 +1,31 @@
 [
   {
+    "slug": "agents-md-vs-claude-md",
+    "title": "AGENTS.md vs CLAUDE.md: Which One Your Repo Needs",
+    "metaDescription": "AGENTS.md vs CLAUDE.md explained: which file Codex, Claude Code and Copilot read, how to share one set of rules with @AGENTS.md, and the size limits that bite.",
+    "heroImageFile": "agents-md-vs-claude-md-developer-reviewing-repo-rules.jpg",
+    "heroImageAlt": "Developer reviewing project rules for AI coding agents on a laptop at a home desk",
+    "heroVideoFile": "",
+    "heroVideoAlt": "",
+    "publishDate": "November 27, 2026",
+    "publishDateIso": "2026-11-27T13:26:39.209Z",
+    "readingTime": 8,
+    "category": "AI Engineering",
+    "tags": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "Claude Code",
+      "Codex",
+      "AI Coding Agents"
+    ],
+    "relatedSlugs": [
+      "claude-code-vs-codex-ai-coding-agents-2026",
+      "build-mcp-server",
+      "mcp-server-authentication"
+    ],
+    "serviceLandingPage": "/ai-saas-development-services.html"
+  },
+  {
     "slug": "mcp-server-authentication",
     "title": "MCP Server Authentication: OAuth 2.1 for SaaS in Node.js",
     "metaDescription": "MCP server authentication explained: when you need OAuth, how the 2026 MCP auth flow works, Node.js code with the TypeScript SDK and tenant-safe scopes.",

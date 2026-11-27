@@ -176,5 +176,14 @@
     ],
     "publishAt": "2026-11-28T15:00:00+05:00",
     "series": "MCP and AI Agents"
+  },
+  "/blog/agents-md-vs-claude-md.html": {
+    "tags": [
+      "agents",
+      "ai",
+      "webdev"
+    ],
+    "publishAt": "2026-11-29T15:00:00+05:00",
+    "series": "MCP and AI Agents"
   }
 }

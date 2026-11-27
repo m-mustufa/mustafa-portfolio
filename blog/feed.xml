@@ -6,7 +6,133 @@
     <atom:link href="https://aisaaswithmustafa.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical guides on SaaS, AI integrations, Node.js, React and web engineering by Muhammad Mustafa, from real project experience.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Nov 2026 13:28:34 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 13:26:39 GMT</lastBuildDate>
+    <item>
+      <title>AGENTS.md vs CLAUDE.md: Which One Your Repo Needs</title>
+      <link>https://aisaaswithmustafa.com/blog/agents-md-vs-claude-md.html</link>
+      <guid isPermaLink="true">https://aisaaswithmustafa.com/blog/agents-md-vs-claude-md.html</guid>
+      <pubDate>Fri, 27 Nov 2026 13:26:39 GMT</pubDate>
+      <dc:creator>Muhammad Mustafa</dc:creator>
+      <description>AGENTS.md vs CLAUDE.md explained: which file Codex, Claude Code and Copilot read, how to share one set of rules with @AGENTS.md, and the size limits that bite.</description>
+      <category>AI Engineering</category>
+      <category>AGENTS.md</category>
+      <category>CLAUDE.md</category>
+      <category>Claude Code</category>
+      <category>Codex</category>
+      <category>AI Coding Agents</category>
+      <enclosure url="https://aisaaswithmustafa.com/blog/images/agents-md-vs-claude-md-developer-reviewing-repo-rules.jpg" length="59390" type="image/jpeg"/>
+      <content:encoded><![CDATA[<p>AGENTS.md vs CLAUDE.md is a question every team hits once it uses more than one AI coding agent. Codex wants an AGENTS.md. Claude Code wants a CLAUDE.md. GitHub Copilot reads AGENTS.md too, but in its own way. Write both by hand and they drift apart within a week.</p>
+
+<p>The repository behind this website runs on a single AGENTS.md, and both Claude Code and Codex work from it every day. In this guide I explain what each file is, how each agent finds it, the setup I recommend for sharing one set of rules, and what I learned when my own AGENTS.md grew far past the size limits. Everything here was checked against the official <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener noreferrer">Claude Code memory docs</a> and the <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md" target="_blank" rel="noopener noreferrer">Codex AGENTS.md docs</a> in November 2026.</p>
+
+<h2>AGENTS.md vs CLAUDE.md: the short answer</h2>
+
+<p>Both files do the same job. They are plain Markdown files in your repository that tell an AI coding agent how your project works: which commands to run, which rules to follow and what it must never do. Think of them as a README written for an agent instead of a person.</p>
+
+<p>The difference is who reads them. <a href="https://agents.md/" target="_blank" rel="noopener noreferrer">AGENTS.md</a> is an open format that many tools agreed on. CLAUDE.md is Claude Code's own file, and Claude Code gives it priority.</p>
+
+<table>
+<thead><tr><th></th><th>AGENTS.md</th><th>CLAUDE.md</th></tr></thead>
+<tbody>
+<tr><td>What it is</td><td>Open format shared by many agents</td><td>Claude Code's own instruction file</td></tr>
+<tr><td>Read by</td><td>Codex, GitHub Copilot's coding agent, Cursor, Gemini CLI and others</td><td>Claude Code</td></tr>
+<tr><td>Where it lives</td><td>Repo root, plus optional files in subfolders</td><td>Repo root or <code>.claude/</code>, plus your home folder and subfolders</td></tr>
+<tr><td>Imports other files</td><td>No</td><td>Yes, with <code>@path</code>, up to four hops deep</td></tr>
+<tr><td>Size guidance</td><td>Codex reads up to 32 KiB by default</td><td>Target under 200 lines per file</td></tr>
+</tbody>
+</table>
+
+<p>So the honest answer to "which one should I write?" is: write AGENTS.md for your rules, and add a tiny CLAUDE.md only if you need one. I explain when you need it below.</p>
+
+<h2>How each coding agent finds its instructions</h2>
+
+<p>The rules for finding these files are different for every agent, and that is where most of the confusion comes from. Here is how the three agents I use actually load them.</p>
+
+<h3>Codex</h3>
+
+<p>Codex builds its instructions from several files. It first checks your Codex home folder (<code>~/.codex</code>) for a global <code>AGENTS.override.md</code> or <code>AGENTS.md</code>. Then it walks from the project root down to the folder you are working in, and picks up at most one file per folder: <code>AGENTS.override.md</code> if it exists, otherwise <code>AGENTS.md</code>.</p>
+
+<p>It joins these files from top to bottom, so a file closer to your code comes later and wins when two rules disagree. It stops adding files once the total reaches 32 KiB, which is the default value of the <code>project_doc_max_bytes</code> setting. If your rules are longer, you can raise it in <code>~/.codex/config.toml</code>:</p>
+
+<pre><code># ~/.codex/config.toml
+project_doc_max_bytes = 65536</code></pre>
+
+<p>Codex can also read other file names through the <code>project_doc_fallback_filenames</code> setting, but I would not rely on that for team rules. A setting on your laptop does nothing for the next person who clones the repo.</p>
+
+<h3>Claude Code</h3>
+
+<p>Claude Code loads CLAUDE.md from several places: your home folder (<code>~/.claude/CLAUDE.md</code>), the project (<code>./CLAUDE.md</code> or <code>./.claude/CLAUDE.md</code>), a personal <code>CLAUDE.local.md</code>, and rule files in <code>.claude/rules/</code>. CLAUDE.md files in subfolders load when Claude starts working in that folder.</p>
+
+<p>Since version 2.1.277, Claude Code also reads AGENTS.md, but with a catch. By default it reads AGENTS.md only when there is no CLAUDE.md, <code>.claude/CLAUDE.md</code> or CLAUDE.local.md in your working folder or any folder above it. You can change this with the Project instructions setting in <code>/config</code>. The value <code>claude-md-and-agents-md</code> loads both files, but it is a personal setting, so it does not travel with the repository either.</p>
+
+<figure><img src="https://aisaaswithmustafa.com/blog/images/agents-md-claude-md-developer-comparing-two-files.jpg" alt="Developer comparing two instruction files side by side on a laptop to keep AI coding agent rules in sync" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Two agents, two file names: the goal is one set of rules that both of them load.</figcaption></figure>
+
+<h3>GitHub Copilot and the rest</h3>
+
+<p>GitHub Copilot's coding agent reads AGENTS.md files anywhere in the repository, and the nearest one in the folder tree takes precedence. Cursor, Gemini CLI, Aider and many other tools are listed on agents.md as supporting the format. In practice, AGENTS.md is the file that the most tools agree on, which is exactly why it should hold your rules.</p>
+
+<h2>The setup I recommend: one AGENTS.md and a thin CLAUDE.md</h2>
+
+<p>Keep every shared rule in AGENTS.md. Then, if you need a CLAUDE.md, make its first line an import of AGENTS.md. This is also what the Claude Code docs recommend:</p>
+
+<pre><code>@AGENTS.md
+
+## Claude Code only
+- Use plan mode for changes that touch more than three files.
+- Run the test suite before you say a task is done.</code></pre>
+
+<p>Claude Code replaces <code>@AGENTS.md</code> with the full file when the session starts, then reads the Claude-only notes below it. Codex and Copilot ignore CLAUDE.md and read AGENTS.md directly. One file to edit, every agent in sync.</p>
+
+<h3>When you can skip CLAUDE.md completely</h3>
+
+<p>If nobody on the project has a CLAUDE.md, you do not need one. Claude Code falls back to AGENTS.md on its own. That is how my own repository works today: there is no CLAUDE.md, and Claude Code loads AGENTS.md through that fallback.</p>
+
+<p>The trap is that the fallback switches off silently. The moment someone adds a CLAUDE.md, even an almost empty one, Claude Code stops reading AGENTS.md and nothing warns you. Running <code>/init</code> is the most common way this happens, because it generates a starting CLAUDE.md, and by default it does not read your AGENTS.md first. If you run <code>/init</code>, add <code>@AGENTS.md</code> to the top of the file it creates.</p>
+
+<h3>Why I use an import instead of a symlink</h3>
+
+<p>Many guides suggest making CLAUDE.md a symlink to AGENTS.md. It works on macOS and Linux, but I would avoid it. I work on Windows, where symlinks need Administrator rights or Developer Mode, and Git checks them out as plain text files unless <code>core.symlinks</code> is turned on. The Claude Code docs also note that its Edit and Write tools refuse to write through a symlink. A one-line import has none of these problems.</p>
+
+<p>If you want to start from a clean file, my free <a href="https://aisaaswithmustafa.com/tools/agents-md-generator.html">AGENTS.md Generator and Checker</a> builds an AGENTS.md for common stacks and a matching CLAUDE.md that imports it. It runs in your browser and uploads nothing.</p>
+
+<h2>What I learned from a 321-line AGENTS.md</h2>
+
+<p>The AGENTS.md in this website's repository started in July 2026 with a few notes about the build step and the blog pipeline. Today it is 321 lines and about 54 KB. That is well over Claude Code's 200-line guidance and well over the 32 KiB that Codex reads by default. I let it grow because every agent session added "one more note", and almost none of them removed anything.</p>
+
+<figure><img src="https://aisaaswithmustafa.com/blog/images/developer-editing-agents-md-rules-notebook.jpg" alt="Software developer trimming a long list of project rules in a notebook next to a laptop" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Most of a long instruction file is history. The rules that matter fit on one page.</figcaption></figure>
+
+<p>Here is what that taught me.</p>
+
+<h3>Specific rules work, general advice does not</h3>
+
+<p>The rules that saved me most often are boring and exact:</p>
+
+<ul>
+<li><strong>"Rebuild the CSS after any class change."</strong> Tailwind is precompiled on this site, and an agent that forgets to rebuild ships a page where the new classes have no styling.</li>
+<li><strong>"Never push without an explicit yes."</strong> Pushing to <code>main</code> deploys to production, so this one line keeps every agent from going live on its own.</li>
+<li><strong>"Keep draft branch names short."</strong> A long SEO slug once became a preview branch name, and the preview hostname broke because it was too long for DNS. Nobody would guess that rule, so it has to be written down.</li>
+</ul>
+
+<p>Compare those with a line like "write clean, maintainable code". Every agent already tries to do that, so the line costs context and changes nothing.</p>
+
+<h3>History belongs somewhere else</h3>
+
+<p>A big part of my file is a record of what happened: which post went live on which day, which bug was fixed in which commit. Agents need some of that context, but not on every task. My plan is to keep AGENTS.md for rules and commands, and move the history into a separate handoff file that an agent reads only when it needs it. If you use Claude Code, the <code>.claude/rules/</code> folder is another way to split rules that only apply to some files.</p>
+
+<h3>Treat it as a public file</h3>
+
+<p>AGENTS.md is committed to your repository. My site's repository is mirrored to a public GitHub repo, so anything in that file is public. Never put API keys, tokens, client names or private notes in it. Write where a secret lives ("keys are in Netlify environment variables"), never the secret itself. The checker in my tool flags lines that look like leaked keys for exactly this reason.</p>
+
+<h3>Check what your agent actually loaded</h3>
+
+<p>Do not assume an agent read your file. In Claude Code, run <code>/context all</code> and look at the list under Memory files. In Codex, ask it to summarize the current instructions, and it should list the files it loaded in order. If a rule is missing, it is usually a file name, a folder or a size limit problem, not the agent ignoring you.</p>
+
+<h2>My recommendation</h2>
+
+<p>Write one AGENTS.md at the root of your repository with your real commands and your most important rules, and keep it short. Add a CLAUDE.md only when you need Claude-only notes, and make <code>@AGENTS.md</code> its first line. Review the file every few weeks and remove anything that is history rather than a rule. If you are choosing between agents in the first place, my comparison of <a href="https://aisaaswithmustafa.com/blog/claude-code-vs-codex-ai-coding-agents-2026.html">Claude Code and Codex</a> covers how they differ in daily work.</p>
+
+<p>I build SaaS products with AI coding agents every day, and setting them up so they follow a team's real rules is part of that work. If you want help with your project, <a href="https://aisaaswithmustafa.com/#contact">get in touch</a>, or see how I build <a href="https://aisaaswithmustafa.com/ai-saas-development-services.html">AI SaaS products</a>.</p>]]></content:encoded>
+    </item>
     <item>
       <title>MCP Server Authentication: OAuth 2.1 for SaaS in Node.js</title>
       <link>https://aisaaswithmustafa.com/blog/mcp-server-authentication.html</link>
@@ -1690,70 +1816,6 @@ app.all('/mcp', auth, handler);</code></pre>
 <h2>Practical takeaway</h2>
 <p>A secure MCP server is still a carefully designed backend service. The protocol can simplify AI integration, but OAuth, tenant isolation, approvals, observability and failure handling remain your responsibility. For UAE AI SaaS, I would launch with a small read-only tool set, measure real usage, then add tightly scoped actions one at a time.</p>
 <p>If you need help designing a secure AI agent or MCP integration for a UAE product, see my <a href='/ai-saas-development-services.html'>AI SaaS development services</a> or <a href='/#contact'>send me your project details</a>.</p>]]></content:encoded>
-    </item>
-    <item>
-      <title>UAE WCAG 2.2 Website Accessibility Checklist (2026)</title>
-      <link>https://aisaaswithmustafa.com/blog/uae-wcag-2-2-website-accessibility-checklist.html</link>
-      <guid isPermaLink="true">https://aisaaswithmustafa.com/blog/uae-wcag-2-2-website-accessibility-checklist.html</guid>
-      <pubDate>Tue, 06 Oct 2026 00:44:28 GMT</pubDate>
-      <dc:creator>Muhammad Mustafa</dc:creator>
-      <description>Audit a UAE website against WCAG 2.2 with practical checks for keyboard access, focus, forms, mobile targets, screen readers and release testing.</description>
-      <category>Web Engineering</category>
-      <category>UAE WCAG 2.2</category>
-      <category>Website Accessibility</category>
-      <category>Dubai Web Development</category>
-      <category>Accessible SaaS</category>
-      <category>Frontend Testing</category>
-      <enclosure url="https://aisaaswithmustafa.com/blog/images/uae-wcag-2-2-website-accessibility-checklist.jpg" length="115428" type="image/jpeg"/>
-      <content:encoded><![CDATA[<p>If you are building a public website, customer portal or SaaS product in the UAE, accessibility needs to be part of engineering rather than a plugin installed before launch. This UAE WCAG 2.2 website accessibility checklist explains the practical checks I would use before releasing a production interface: semantic HTML, keyboard access, focus behaviour, forms, authentication, mobile targets, bilingual layouts and real assistive-technology testing.</p>
-<p>The UAE National Digital Accessibility Policy is aimed at making digital products easier to use for people of determination and older people. The current <a href='https://designsystem.gov.ae/guidelines/frontend-development' target='_blank' rel='noopener noreferrer'>UAE Design System front-end guidance</a> tells government teams to follow WCAG 2.2 Level AA, use semantic markup, support keyboard navigation and test with screen readers. The official UAE portal also states that it follows WCAG 2.1 and 2.2 Level AA as a minimum.</p>
-<p>For a private company, the exact legal or contractual obligation depends on its sector, customers and procurement requirements. I treat WCAG 2.2 AA as a strong engineering target, not as a certificate I can declare after running one automated scan. This article is technical guidance, not legal advice.</p>
-<h2>What UAE WCAG 2.2 accessibility means in practice</h2>
-<p>WCAG is organised around four ideas: content must be perceivable, operable, understandable and robust. Those words become useful only when they are connected to real user journeys. A customer must be able to find a service, understand the page, complete a form, recover from an error and confirm the result without depending on a mouse, perfect vision or one specific device.</p>
-<p>The <a href='https://www.w3.org/TR/WCAG22/' target='_blank' rel='noopener noreferrer'>W3C WCAG 2.2 specification</a> builds on WCAG 2.1 and adds criteria that are especially relevant to modern SaaS interfaces. At Level AA these include keeping keyboard focus from being hidden, providing alternatives to dragging, maintaining minimum target sizes and avoiding authentication steps that depend only on memory or puzzle solving.</p>
-<p>The UAE guidance also makes an important point: adding an accessibility widget does not make the underlying front end accessible. A toolbar cannot repair an unlabeled form, a modal that traps the keyboard incorrectly, a chart with no text alternative or a checkout button that disappears at 200% zoom. The component itself has to work.</p>
-<h2>UAE WCAG 2.2 website accessibility checklist</h2>
-<h3>1. Start with semantic HTML and a predictable page structure</h3>
-<p>Use real headings, navigation landmarks, lists, buttons and form controls before adding ARIA. Each page needs one clear H1 followed by a logical H2 and H3 hierarchy. A screen-reader user should be able to jump between the header, navigation, main content and footer without listening to the whole page.</p>
-<p>A common front-end mistake is turning a styled <code>div</code> into a button. It may respond to a mouse click but provide no keyboard behaviour, role or accessible name. A native <code>button</code> already supplies those behaviours and is easier to maintain across React, Next.js, Angular and plain HTML.</p>
-<h3>2. Complete every important journey with a keyboard</h3>
-<p>Disconnect the mouse and test the navigation, menus, filters, modal dialogs, pricing tabs, forms and checkout flow using Tab, Shift+Tab, Enter, Space and Escape. Focus order should follow the visual and reading order. There should be no keyboard traps, and focus should return to a sensible place when a dialog closes.</p>
-<p>Sticky headers, cookie notices and chat widgets can cover the active element. WCAG 2.2 adds a Level AA requirement for focus not to be entirely hidden by author-created content. I check this on desktop and mobile-sized viewports, not only in a wide browser.</p>
-<h3>3. Make focus visible and touch targets usable</h3>
-<p>Do not remove the browser outline unless you replace it with an equally clear focus style. The indicator needs enough contrast against light and dark states. Test focus on cards, icon buttons and controls inside menus, because those are where custom CSS often hides it.</p>
-<p>WCAG 2.2 Level AA introduces a minimum target-size criterion of 24 by 24 CSS pixels, with defined exceptions. In production design I usually aim for larger controls where the layout allows it, especially for mobile navigation, pagination, close buttons and compact dashboard actions.</p>
-<h3>4. Give forms real labels, instructions and recoverable errors</h3>
-<p>Placeholder text is not a label. Associate every input with a visible label and connect supporting help or error text through <code>aria-describedby</code> when needed. Required status should be communicated in text and programmatically, not by colour alone.</p>
-<p>When submission fails, move focus to an error summary or announce the result with a polite live region. Preserve the values the user already entered. For payment, legal or destructive actions, provide a review or confirmation step so the user can correct a mistake.</p>
-<pre><code>&lt;label for=&quot;email&quot;&gt;Work email&lt;/label&gt;
-&lt;input id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot;
-  autocomplete=&quot;email&quot; aria-describedby=&quot;email-error&quot;&gt;
-&lt;p id=&quot;email-error&quot; role=&quot;alert&quot;&gt;
-  Enter an email address such as name@company.ae.
-&lt;/p&gt;</code></pre>
-<p>In a React or Angular component, render the message only when an error exists, but keep the association and focus-management logic predictable. Do not announce validation on every keystroke unless the feedback genuinely helps.</p>
-<h3>5. Design accessible authentication</h3>
-<p>Login flows deserve their own review. Allow password managers and paste. Provide a reveal-password control with an accessible name. Avoid puzzles or memory tests unless an accessible alternative exists. If the product uses one-time codes, label the fields clearly, support autofill where possible and give users enough time to complete the process.</p>
-<p>This matters for UAE PASS integrations as well as local authentication. External identity verifies a person, but your application still owns the usability of the redirect, callback errors, account linking and recovery screens.</p>
-<h3>6. Test Arabic, English and right-to-left layouts</h3>
-<p>Accessibility and internationalisation overlap. Set the correct page language and mark isolated phrases when the language changes. For Arabic, use proper right-to-left layout rather than visually reversing individual components. Check reading order, icon direction, form alignment, validation messages and mixed Arabic-English values such as email addresses or reference numbers.</p>
-<p>Text expansion can expose layout failures even before translation is complete. Buttons should not clip longer labels, headings should reflow and cards should grow without hiding content. Do not lock essential text inside images.</p>
-<h3>7. Respect zoom, reflow, contrast and reduced motion</h3>
-<p>Test at 200% zoom and at a narrow viewport. Users should not need horizontal scrolling to read ordinary content, and fixed-height containers should not cut off enlarged text. Maintain sufficient contrast for body text, controls, icons and focus indicators, including hover, disabled and error states.</p>
-<p>Animations should respect <code>prefers-reduced-motion</code>. A decorative hero effect can be removed without affecting the message. A carousel, progress animation or auto-updating dashboard needs pause controls and an alternative that does not make the task depend on motion.</p>
-<h3>8. Provide meaningful alternatives for images, charts and media</h3>
-<p>Informative images need alt text that explains their purpose in context. Decorative images should use an empty alt attribute. Charts need a concise summary and access to the underlying important values; screenshots should not be the only way technical instructions are communicated. Video needs captions, and audio-only information needs a transcript.</p>
-<h2>How I would test a UAE website or SaaS release</h2>
-<p>I use automation as the first pass, not the final verdict. Lighthouse, axe or another rules engine can detect missing names, contrast failures and structural problems, but it cannot decide whether a workflow makes sense or whether an alt description communicates the right information.</p>
-<p>My release process starts with representative journeys: sign in, search, filter, submit a lead form, complete a payment, update account settings and recover from an error. I run automated checks on the shared templates, then perform keyboard-only testing, zoom and reflow checks, reduced-motion testing and screen-reader checks with tools such as NVDA or Narrator. Mobile testing includes touch targets, orientation and visible focus where an external keyboard is used.</p>
-<p>For component-based applications, accessibility tests should sit close to the design system. A button, dialog or input fixed once should improve every screen that uses it. I also keep accessibility regressions in the normal issue tracker with an owner and severity instead of placing them in a separate document that nobody revisits.</p>
-<h2>Production readiness checklist</h2>
-<ul><li>Every page has a unique title, one H1 and clear landmarks.</li><li>All controls have accessible names and correct native semantics.</li><li>Important journeys work with keyboard only.</li><li>Focus remains visible and is not covered by sticky content.</li><li>Forms provide labels, instructions and useful error recovery.</li><li>Authentication supports password managers and accessible alternatives.</li><li>Text, controls and focus indicators meet contrast requirements.</li><li>Pages reflow at zoom without clipping essential content.</li><li>Arabic and English layouts have correct language and reading direction.</li><li>Motion can be reduced and auto-updating content can be controlled.</li><li>Images, charts and media provide appropriate alternatives.</li><li>Automated checks are backed by manual and assistive-technology testing.</li></ul>
-<p>If you are already reviewing security and privacy, accessibility belongs in the same production gate. My <a href='/blog/nextjs-security-checklist-2026.html'>Next.js security checklist</a> covers another part of that release process, while the <a href='/full-stack-development-services-dubai.html'>UAE full-stack development page</a> explains how I approach complete product delivery.</p>
-<h2>Practical takeaway</h2>
-<p>An accessible UAE website is not created by adding a badge or passing one score. It comes from semantic components, visible focus, usable forms, keyboard support, bilingual testing and repeated checks on the actual journeys customers need to complete.</p>
-<p>Start with the highest-value workflow and fix the shared components underneath it. That creates a better product for people of determination, older users, mobile users, keyboard users and customers working in difficult conditions. It also produces cleaner front-end code and fewer surprises during procurement or audit.</p>
-<p>If you need a practical accessibility review or want to build a WCAG-aware SaaS platform for the UAE, <a href='/#contact'>send me the project details</a>.</p>]]></content:encoded>
     </item>
   </channel>
 </rss>
