@@ -43,6 +43,7 @@ for (const post of posts) {
 
   const html = fs.readFileSync(postPath, "utf8");
   validateSearchSnippet(relativePath, html);
+  if (html.includes("[TODO")) errors.push(`${relativePath}: unfinished [TODO] placeholder left in the page`);
   const social = socialImage(post);
   const expectedImage = `${SITE_URL}/blog/images/${social.file}`;
   if (!fs.existsSync(path.join(BLOG_DIR, "images", social.file))) {
