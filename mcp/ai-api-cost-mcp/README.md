@@ -1,6 +1,6 @@
 # AI API Cost MCP Server
 
-[![m-mustufa/ai-api-cost-mcp MCP server](https://glama.ai/mcp/servers/m-mustufa/ai-api-cost-mcp/badges/score.svg)](https://glama.ai/mcp/servers/m-mustufa/ai-api-cost-mcp)
+[![m-mustufa/ai-api-cost-mcp MCP server](https://glama.ai/mcp/servers/m-mustufa/ai-api-cost-mcp/badges/score.svg)](https://glama.ai/mcp/servers/m-mustufa/ai-api-cost-mcp) [![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/m-mustufa/ai-api-cost-mcp)
 
 An MCP server that estimates and compares **OpenAI, Anthropic Claude and Google Gemini API costs** for a SaaS feature: monthly token cost, cost per request, gross margin, break-even price per user and break-even users.
 
