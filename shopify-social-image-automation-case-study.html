@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/img/logo-2-48.png" sizes="48x48" />
+
+    <title>Shopify Social Image Automation Case Study: Auto OG Images</title>
+    <meta name="description"
+        content="How I built a Shopify app that auto-generates branded 1200x628 Open Graph images from product webhooks, stores them in Shopify Files and refreshes WhatsApp previews.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Muhammad Mustafa">
+    <link rel="canonical" href="https://aisaaswithmustafa.com/shopify-social-image-automation-case-study.html">
+
+    <meta property="og:title" content="Shopify Social Image Automation Case Study: Auto OG Images">
+    <meta property="og:description"
+        content="A Shopify app that turns every product save into a branded deal image for WhatsApp and Facebook link previews, with no manual design work.">
+    <meta property="og:image"
+        content="https://aisaaswithmustafa.com/assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="900">
+    <meta property="og:image:alt" content="Shopify social image automation app generating branded deal images for WhatsApp and Open Graph previews">
+    <meta property="og:url" content="https://aisaaswithmustafa.com/shopify-social-image-automation-case-study.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Muhammad Mustafa">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-11-28T00:00:00+05:00">
+    <meta property="article:author" content="Muhammad Mustafa">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shopify Social Image Automation Case Study: Auto OG Images">
+    <meta name="twitter:description"
+        content="Product webhooks, Sharp image generation, Shopify Files and a cache-busting share version that makes WhatsApp show the new preview.">
+    <meta name="twitter:image"
+        content="https://aisaaswithmustafa.com/assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app.jpg">
+    <meta name="twitter:image:alt" content="Shopify social image automation app generating branded deal images for WhatsApp and Open Graph previews">
+
+    <meta name="theme-color" content="#00C19D">
+    <link rel="apple-touch-icon" href="assets/img/logo-2-180.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ai-saas-services.css">
+    <script src="assets/js/style.js?v=20261013-service-cta" defer></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://aisaaswithmustafa.com/shopify-social-image-automation-case-study.html#article",
+          "headline": "Shopify Social Image Automation Case Study: Branded OG Images From Product Webhooks",
+          "description": "How I built a Shopify app that auto-generates branded 1200x628 Open Graph images from product webhooks, stores them in Shopify Files and refreshes WhatsApp previews.",
+          "image": "https://aisaaswithmustafa.com/assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app.jpg",
+          "datePublished": "2026-11-28T00:00:00+05:00",
+          "dateModified": "2026-11-28T00:00:00+05:00",
+          "author": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "publisher": { "@id": "https://aisaaswithmustafa.com/#person" },
+          "mainEntityOfPage": "https://aisaaswithmustafa.com/shopify-social-image-automation-case-study.html",
+          "about": {
+            "@type": "SoftwareApplication",
+            "name": "Shopify Social Image Automation",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web"
+          },
+          "keywords": ["Shopify app case study", "Shopify Open Graph images", "WhatsApp link preview", "Shopify webhooks", "Sharp image generation"]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://aisaaswithmustafa.com/#person",
+          "name": "Muhammad Mustafa",
+          "url": "https://aisaaswithmustafa.com/",
+          "jobTitle": "Senior Full-Stack SaaS & AI Developer"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aisaaswithmustafa.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://aisaaswithmustafa.com/portfolio.html" },
+            { "@type": "ListItem", "position": 3, "name": "Shopify Social Image Automation Case Study", "item": "https://aisaaswithmustafa.com/shopify-social-image-automation-case-study.html" }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body class="ai-saas-services-page bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen text-white"
+    data-service-page="case-study-shopify-social-image">
+    <!--@site-header-->
+
+    <main class="pt-36">
+        <section class="ai-service-hero px-6 pt-10 pb-12 md:pt-16">
+            <div class="max-w-6xl mx-auto">
+                <nav aria-label="Breadcrumb" class="text-sm text-gray-400 mb-8">
+                    <ol class="flex flex-wrap gap-2">
+                        <li><a href="/" class="hover:text-primary transition">Home</a></li>
+                        <li aria-hidden="true">/</li>
+                        <li><a href="/portfolio.html" class="hover:text-primary transition">Projects</a></li>
+                        <li aria-hidden="true">/</li>
+                        <li aria-current="page" class="text-gray-300">Shopify Social Image Automation case study</li>
+                    </ol>
+                </nav>
+
+                <div class="grid gap-12 lg:grid-cols-[3fr_2fr] items-start">
+                    <div class="ai-service-hero-copy">
+                        <p class="text-primary font-semibold mb-4">Case study &middot; Shopify app</p>
+                        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+                            Shopify Social Image Automation Case Study: Branded OG Images From Every Product Save
+                        </h1>
+                        <p class="text-xl text-gray-300 leading-relaxed mb-5">
+                            This Shopify social image automation case study explains how I built an app that creates a branded 1200 &times; 628 Open Graph image every time a merchant creates or updates a product. When someone shares a product link on WhatsApp or Facebook, the preview shows the deal: the price, the old price, a discount badge and the store's logo, instead of a plain product photo.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed mb-8">
+                            I first built it for a Shopify deals store whose products are shared as WhatsApp links. The hard part wasn't drawing the image. It was making WhatsApp and Facebook show the new image after a price change, without calling any scraper API.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="/#contact" data-service-cta="contact" data-cta-location="hero"
+                                class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-[#0d5968] transition">Discuss your Shopify app</a>
+                            <a href="https://shopify-image-app-seven.vercel.app" target="_blank" rel="noopener noreferrer"
+                                class="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-[#0d5968] hover:text-white transition">View the app <span aria-hidden="true">&nearr;</span></a>
+                        </div>
+                    </div>
+
+                    <aside class="ai-service-hero-card rounded-2xl border border-gray-700 bg-white/5 p-7" aria-label="Shopify Social Image Automation project facts">
+                        <h2 class="text-lg font-bold mb-5">Project facts</h2>
+                        <dl class="space-y-4">
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Built for</dt>
+                                <dd class="font-bold text-right">A Shopify deals store, now multi-store</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">My role</dt>
+                                <dd class="font-bold text-right">Full-stack engineer</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Type</dt>
+                                <dd class="font-bold text-right">Embedded Shopify app</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Output</dt>
+                                <dd class="font-bold text-right">1200 &times; 628 deal and roundup images</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Trigger</dt>
+                                <dd class="font-bold text-right">products/create and products/update webhooks</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Image storage</dt>
+                                <dd class="font-bold text-right">Merchant's own Shopify Files (CDN)</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4 border-b border-gray-700 pb-3">
+                                <dt class="text-gray-400">Stack</dt>
+                                <dd class="font-bold text-right">Node.js, Express, GraphQL Admin API, Sharp, PostgreSQL</dd>
+                            </div>
+                            <div class="flex items-center justify-between gap-4">
+                                <dt class="text-gray-400">Hosting</dt>
+                                <dd class="font-bold text-right">Vercel</dd>
+                            </div>
+                        </dl>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <figure class="px-6 pb-16">
+            <div class="max-w-6xl mx-auto">
+                <img src="assets/img/portfolio/shopify-social-image-automation-whatsapp-open-graph-nodejs-app.jpg"
+                    width="1200" height="900" decoding="async"
+                    alt="Shopify social image automation app dashboard next to generated deal images with sale prices and discount badges"
+                    class="w-full h-auto rounded-2xl border border-gray-700">
+                <figcaption class="text-sm text-gray-400 mt-3">The app's onboarding screen and the deal images it generates.</figcaption>
+            </div>
+        </figure>
+
+        <section id="challenge" class="ai-service-reveal scroll-mt-28 px-6 py-16 bg-gray-900/60">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>The challenge: link previews that sell the deal</h2>
+                <p>A deals store lives on shared links. When a product link lands in a WhatsApp group, the preview card is the first thing people see. By default, Shopify shows the product photo and title. That hides the one thing a deal shopper cares about: the price and how much they save.</p>
+                <p>Making a custom image for every product by hand takes time, and it goes out of date the moment a price changes. Even worse, WhatsApp and Facebook cache link previews. Upload a new image, share the link again, and people often still see the old one.</p>
+
+                <h2>Constraints that shaped the build</h2>
+                <ul>
+                    <li><strong>Zero manual steps per product.</strong> Saving a product in Shopify had to be the only action. No design tool, no upload, no copy and paste.</li>
+                    <li><strong>Merchant-owned files.</strong> Images had to live in the merchant's own Shopify Files, not in a bucket I control.</li>
+                    <li><strong>No scraper APIs.</strong> I didn't want to depend on Facebook's sharing debugger API to refresh old previews.</li>
+                    <li><strong>No theme code edits.</strong> Merchants shouldn't need a developer to paste code into their theme.</li>
+                    <li><strong>Many stores, one app.</strong> Each store installs it on its own, with its own token, logo and settings.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="what-i-built" class="ai-service-reveal scroll-mt-28 px-6 py-20">
+            <div class="max-w-6xl mx-auto">
+                <div class="max-w-3xl mb-12">
+                    <p class="text-primary font-semibold mb-3">What I built</p>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-5">Save a product, get a shareable deal image</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        Shopify tells the app when a product changes. The app draws the image, stores it in the merchant's store and tells the storefront which version to share.
+                    </p>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Automatic deal images</h3>
+                        <p class="text-gray-300">Sharp builds a 1200 &times; 628 image with the product photo, sale price, regular price, discount badge and store logo.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Roundup images</h3>
+                        <p class="text-gray-300">For deal pages, a four-card roundup image shows several selected products in one preview.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Per-product overrides</h3>
+                        <p class="text-gray-300">Product metafields let the merchant change the badge text, sale price, regular price or headline, or turn the image off for one product.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Merchant-owned storage</h3>
+                        <p class="text-gray-300">Each image is uploaded to the store's own Shopify Files and served from the Shopify CDN, then written back to the product.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Preview cache busting</h3>
+                        <p class="text-gray-300">A theme app embed adds a short sharing version to the product URL, so WhatsApp and Facebook treat a changed deal as a new link.</p>
+                    </article>
+                    <article class="ai-service-card rounded-2xl border border-gray-700 bg-white/5 p-6">
+                        <h3 class="text-xl font-bold mb-3 text-primary">Secure multi-store install</h3>
+                        <p class="text-gray-300">App Bridge ID-token auth, encrypted offline tokens per shop, HMAC-verified webhooks and Shopify's mandatory privacy webhooks.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="ai-service-reveal scroll-mt-28 px-6 py-20 bg-gray-900/60">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>How the automation works</h2>
+
+                <h3>From product save to image</h3>
+                <p>When a merchant saves a product, Shopify sends a signed <code>products/update</code> webhook. The app checks the signature first. It computes an HMAC of the raw request body with the app secret and compares it with Shopify's header using a constant-time comparison. Anything that doesn't match is rejected before it touches a store.</p>
+                <p>Then the app finds the store's encrypted token, reads the product and its deal overrides, and builds the image with Sharp. It uploads the file to Shopify Files and writes the image URL, the image version and the sharing version back to the product in one GraphQL mutation.</p>
+
+                <h3>Skip work that changes nothing</h3>
+                <p>Shopify sends a product webhook for many small edits, like stock changes, and it can send the same event more than once. So the app hashes everything that affects the image: title, prices, overrides, photo and logo. If the hash matches the last one stored on the product, it skips the job. If the hash matches but the stored image is missing, it rebuilds it instead of trusting the hash.</p>
+            </div>
+
+            <figure class="max-w-4xl mx-auto mt-12">
+                <img src="assets/img/portfolio/shopify-generated-open-graph-deal-image-1200x628.jpg"
+                    width="1200" height="628" loading="lazy" decoding="async"
+                    alt="Generated 1200x628 Open Graph deal image with a 46% off badge, sale price, crossed-out regular price and store logo"
+                    class="w-full h-auto rounded-2xl border border-gray-700">
+                <figcaption class="text-sm text-gray-400 mt-3">An image generated by the app from a test product: discount badge, sale price, regular price and logo.</figcaption>
+            </figure>
+
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert mt-12">
+                <h3>Making WhatsApp show the new image</h3>
+                <p>Social apps cache previews by URL. If the URL never changes, the old preview can stay for a long time. My fix was to make the URL change only when the deal changes. The app stores a short sharing version on the product. A theme app embed prints it in the page head, and a tiny script adds it to the address bar as <code>?pv=</code>. When a shopper copies the link, they copy the current version.</p>
+                <p>This is the real script from the theme app embed:</p>
+<pre><code>(() =&gt; {
+  const version = document.querySelector('meta[name="social-image-version"]')?.content;
+  if (!version) return;
+  const url = new URL(window.location.href);
+  if (url.searchParams.get('pv') === version) return;
+  url.searchParams.set('pv', version);
+  window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+})();</code></pre>
+                <p>It uses <code>replaceState</code>, so the page doesn't reload and the back button still works. Because it ships as a theme app embed, the merchant turns it on in the theme editor. Nobody edits theme code.</p>
+
+                <h3>Merchants control the deal text</h3>
+                <p>During install, the app creates the product metafield definitions it needs. The merchant fills them in on the normal product page: a custom badge, a different sale or regular price, a headline, or <code>hide</code> to remove a badge or the prices. Leave them empty and the app uses the product's own price and compare-at price.</p>
+            </div>
+
+            <figure class="max-w-3xl mx-auto mt-12">
+                <img src="assets/img/portfolio/shopify-product-metafields-deal-override-fields.jpg"
+                    width="739" height="381" loading="lazy" decoding="async"
+                    alt="Shopify product page showing the deal_enabled, deal_title, deal_reg_price, deal_sale_price and deal_badge_text metafields created by the app"
+                    class="w-full h-auto rounded-2xl border border-gray-700">
+                <figcaption class="text-sm text-gray-400 mt-3">The deal override fields the app adds to every product in Shopify admin.</figcaption>
+            </figure>
+        </section>
+
+        <section id="lessons" class="ai-service-reveal scroll-mt-28 px-6 py-20">
+            <div class="max-w-3xl mx-auto article-prose prose prose-invert">
+                <h2>Trade-offs and lessons</h2>
+                <ul>
+                    <li><strong>Webhooks repeat, so design for it.</strong> Content hashes make repeated deliveries harmless. A table of processed webhook IDs would be stricter, and it's the next step I'd add for a larger store.</li>
+                    <li><strong>Some themes already print OG tags.</strong> Duplicate tags behave differently per theme, so every target theme has to be tested before release.</li>
+                    <li><strong>Theme app embeds start switched off.</strong> The merchant has to turn the embed on and save the theme once, so onboarding links straight to that screen.</li>
+                    <li><strong>Serverless needs a real database.</strong> Vercel's file system doesn't keep files, so installation records go to PostgreSQL. Local development can use an encrypted JSON file instead.</li>
+                    <li><strong>Public distribution is a separate step.</strong> Installing on unrelated stores needs Shopify App Review. Custom distribution only covers one store or one organization.</li>
+                </ul>
+
+                <h2>Outcome</h2>
+                <p>The merchant saves a product and the shareable deal image is ready, with no design work and no manual upload. A price change produces a new image and a new sharing version, so the next shared link shows the new deal.</p>
+                <ul>
+                    <li>Every product gets a branded 1200 &times; 628 preview with the deal on it.</li>
+                    <li>Images live in the merchant's own Shopify Files, not on a third-party server.</li>
+                    <li>Old previews refresh through the URL version, with no scraper API calls.</li>
+                    <li>Any store can install it with its own logo, token and settings.</li>
+                    <li>An automated test suite covers cache busting, deal overrides, roundups, webhook security and the install flow.</li>
+                </ul>
+            </div>
+
+            <div class="max-w-3xl mx-auto mt-10">
+                <h2 class="text-2xl font-bold mb-4">Tech stack</h2>
+                <ul class="flex flex-wrap gap-2" aria-label="Shopify Social Image Automation tech stack">
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Node.js</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Express</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Shopify GraphQL Admin API</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Shopify App Bridge</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Theme App Extensions</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Webhooks</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Metafields</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Sharp</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">PostgreSQL</li>
+                    <li class="rounded-full border border-gray-700 px-4 py-2 text-sm text-gray-300">Vercel</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="related" class="ai-service-reveal scroll-mt-28 px-6 py-20 bg-gray-900/60">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8">Related reading</h2>
+                <div class="grid gap-6 md:grid-cols-3">
+                    <a href="/blog/shopify-ai-store-builder-custom-app.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Guide</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">Shopify AI store builder vs a custom app</h3>
+                        <p class="text-gray-300">When Shopify's built-in AI is enough and when a store needs custom code.</p>
+                    </a>
+                    <a href="/blog/stripe-webhooks-nextjs-saas-idempotency.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Guide</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">Idempotent webhooks in production</h3>
+                        <p class="text-gray-300">Signature checks, retries and duplicate events, the same problems this app solves.</p>
+                    </a>
+                    <a href="/bwl-league-case-study.html" class="ai-service-boundary group rounded-2xl border border-gray-700 bg-white/5 p-6 hover:border-primary transition">
+                        <p class="text-primary text-sm font-semibold mb-2">Case study</p>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition">BWL League: a multi-role sports platform</h3>
+                        <p class="text-gray-300">Next.js and Supabase Row Level Security for admins, coaches and teams.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="ai-service-reveal px-6 py-24">
+            <div class="ai-service-cta max-w-4xl mx-auto rounded-3xl border border-primary/40 bg-primary/10 p-8 md:p-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-5">Need a custom Shopify app or automation?</h2>
+                <p class="text-gray-300 text-lg mb-8">Tell me what your team still does by hand in Shopify. I'll tell you whether an app, a webhook or a simple script is the right fix. See my <a href="/ai-saas-development-services.html" class="text-primary font-semibold">AI SaaS development services</a> for how I work.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="/#contact" data-service-cta="contact" data-cta-location="final"
+                        class="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-[#0d5968] transition">Send project details</a>
+                    <a href="https://calendly.com/mustdev/30min-consultation" target="_blank" rel="noopener noreferrer"
+                        data-service-cta="book_call" data-cta-location="final"
+                        class="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-[#0d5968] hover:text-white transition">Book a call</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!--@site-footer-->
+</body>
+
+</html>

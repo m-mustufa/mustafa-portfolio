@@ -41,6 +41,11 @@ const pages = [
     primaryPhrase: "bwl league case study",
   },
   {
+    file: "shopify-social-image-automation-case-study.html",
+    canonical: `${SITE_URL}/shopify-social-image-automation-case-study.html`,
+    primaryPhrase: "shopify social image automation case study",
+  },
+  {
     file: "tools/index.html",
     canonical: `${SITE_URL}/tools/index.html`,
     primaryPhrase: "free browser tools",
@@ -215,7 +220,7 @@ if (!homeHtml.includes('href="/pricing.html"')) errors.push("index.html: pricing
   if (!/"@type":\s*"FAQPage"/.test(pricingHtml)) errors.push("pricing.html: FAQPage structured data is missing");
   if (countMatches(pricingHtml, /data-cta-location="pricing-/g) !== 6) errors.push("pricing.html: expected six tracked package CTAs");
 }
-for (const caseStudy of ["cultureai-case-study.html", "bwl-league-case-study.html"]) {
+for (const caseStudy of ["cultureai-case-study.html", "bwl-league-case-study.html", "shopify-social-image-automation-case-study.html"]) {
   if (!sitemap.includes(`${SITE_URL}/${caseStudy}`)) errors.push(`sitemap.xml: ${caseStudy} is missing`);
   if (!homeHtml.includes(`href="/${caseStudy}"`)) errors.push(`index.html: ${caseStudy} is not internally linked`);
 }
@@ -251,6 +256,7 @@ const legacyHostnameFiles = [
   "full-stack-development-services-dubai.html",
   "cultureai-case-study.html",
   "bwl-league-case-study.html",
+  "shopify-social-image-automation-case-study.html",
   "pricing.html",
   "tools/index.html",
   "tools/upwork-proposal-roast.html",
